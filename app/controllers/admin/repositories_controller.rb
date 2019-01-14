@@ -63,26 +63,26 @@ class Admin::RepositoriesController < Admin::BaseController
     # @qrcode_html = qrcode.as_html
 
     # List files in bare repository
-    require 'net/ssh'
-    Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
-      # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
-      @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
-      @output.split("\n").each do |line|
-        words = line.split(' ')
-        if !words[0].include?("fatal")
-          document = Document.new
-          document.checksum_type = words[1]
-          document.checksum = words[2]
-          document.name = words[3]
-          if document.checksum_type == 'tree'
-            document.is_folder = true
-          end
-          if document.checksum_type == 'blob'
-            document.is_folder = false
-          end
-          @repository.documents.push(document)
-        end
-      end
+    # require 'net/ssh'
+    # Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    #   # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
+    #   @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
+    #   @output.split("\n").each do |line|
+    #     words = line.split(' ')
+    #     if !words[0].include?("fatal")
+    #       document = Document.new
+    #       document.checksum_type = words[1]
+    #       document.checksum = words[2]
+    #       document.name = words[3]
+    #       if document.checksum_type == 'tree'
+    #         document.is_folder = true
+    #       end
+    #       if document.checksum_type == 'blob'
+    #         document.is_folder = false
+    #       end
+    #       @repository.documents.push(document)
+    #     end
+    #   end
 
       @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
 

@@ -133,62 +133,62 @@ class RepositoriesController < ProtectedController
     # @qrcode_html = qrcode.as_html
 
     # List files in bare repository
-    require 'net/ssh'
-    Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
-      # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
-      @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
-      @output.split("\n").each do |line|
-        words = line.split(' ')
-        if !words[0].include?("fatal")
-          document = Document.new
-          document.checksum_type = words[1]
-          document.checksum = words[2]
-          document.name = words[3]
-          if document.checksum_type == 'tree'
-            document.is_folder = true
-          end
-          if document.checksum_type == 'blob'
-            document.is_folder = false
-          end
-          @repository.documents.push(document)
-        end
-      end
-
-      @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
-
-      if @documents.map(&:name).include?('README.md')
-        # Read README,md file
-        @readme = Document.new
-        @readme.name = 'README.md'
-        @readme.path = 'README.md'
-        @readme.extension = 'md'
-        @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
-        @content2 = ssh.exec!(@request2)
-        @readme.raw_content = @content2
-        # @readme.content = @content2
-        @readme.size = @content2.length
-
-        # Check file type
-        if @readme.size > 2000000
-          @readme.type = 'error'
-          @readme.content = 'File is too big.'
-        else
-          @readme.content = @readme.raw_content
-          @readme.type = 'markdown'
-          require 'redcarpet'
-          markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
-          @readme.content = markdown.render(@readme.raw_content)
-        end
-      else
-        @readme = false
-      end
-
-
-      impressionist(@repository, @repository.uuid)
-
-
-
-    end
+    # require 'net/ssh'
+    # Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    #   # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
+    #   @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
+    #   @output.split("\n").each do |line|
+    #     words = line.split(' ')
+    #     if !words[0].include?("fatal")
+    #       document = Document.new
+    #       document.checksum_type = words[1]
+    #       document.checksum = words[2]
+    #       document.name = words[3]
+    #       if document.checksum_type == 'tree'
+    #         document.is_folder = true
+    #       end
+    #       if document.checksum_type == 'blob'
+    #         document.is_folder = false
+    #       end
+    #       @repository.documents.push(document)
+    #     end
+    #   end
+    #
+    #   @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
+    #
+    #   if @documents.map(&:name).include?('README.md')
+    #     # Read README,md file
+    #     @readme = Document.new
+    #     @readme.name = 'README.md'
+    #     @readme.path = 'README.md'
+    #     @readme.extension = 'md'
+    #     @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
+    #     @content2 = ssh.exec!(@request2)
+    #     @readme.raw_content = @content2
+    #     # @readme.content = @content2
+    #     @readme.size = @content2.length
+    #
+    #     # Check file type
+    #     if @readme.size > 2000000
+    #       @readme.type = 'error'
+    #       @readme.content = 'File is too big.'
+    #     else
+    #       @readme.content = @readme.raw_content
+    #       @readme.type = 'markdown'
+    #       require 'redcarpet'
+    #       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+    #       @readme.content = markdown.render(@readme.raw_content)
+    #     end
+    #   else
+    #     @readme = false
+    #   end
+    #
+    #
+    #   impressionist(@repository, @repository.uuid)
+    #
+    #
+    #
+    # end
 
     #
     # if @repository.documents.map(&:name).include?('README.md')
