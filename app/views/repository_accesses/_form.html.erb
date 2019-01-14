@@ -20,9 +20,9 @@
   <strong><%= form.label :role %></strong>
 
   <%= form.form_group :role, help: "The permissions of the user for this repository." do %>
-    <%= form.radio_button :role, 'read_only', label: raw("Read-only <span class='text-muted'>- Read only permissions</span>") %>
+    <%#= form.radio_button :role, 'read_only', label: raw("Read-only <span class='text-muted'>- Read only permissions</span>") %>
     <%= form.radio_button :role, 'contributor', label: raw("Contributor <span class='text-muted'>- Read + Write permissions</span>"), checked: true %>
-    <%= form.radio_button :role, 'admin', label: raw("Administrator <span class='text-muted'>- All permissions</span>") %>
+    <%= form.radio_button :role, 'admin', label: raw("Admin <span class='text-muted'>- All permissions</span>") %>
   <% end %>
 
   <strong><%= form.label :enable_email_notifications %></strong>
