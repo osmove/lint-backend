@@ -50,3 +50,4 @@ build-iPhoneSimulator/
 .rvmrc
 log/development.log
 log/development.log
+*.log
