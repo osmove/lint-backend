@@ -260,10 +260,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
 
-  # Gatrix Dev
+  # Omnilint Dev
   # config.omniauth :github, 'c6970dc8ce50f48bbd7e', '49947ed386d02c5ce282eb3baaf978d92325598b', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
 
-  # Gatrix Prod
+  # Omnilint Prod
   #config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://omnilint.com/users/auth/github'
 
   # (no scope)	Grants read-only access to public information (includes public user profile info, public repository info, and gists)

@@ -26,7 +26,7 @@ class ChargesController < ProtectedController
     # Stripe.api_key = "STRIPE_TEST_KEY_REDACTED"
     #
     # plan = Stripe::Plan.create(
-    #   nickname: 'Gatrix Monthly Subscription',
+    #   nickname: 'Omnilint Monthly Subscription',
     #   product: 'prod_DOsWq3UXM1BWXh',
     #   amount: 1000,
     #   currency: 'usd',

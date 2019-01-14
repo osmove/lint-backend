@@ -155,7 +155,7 @@ class PagesController < ApplicationController
     #     push_message = {
     #       to: device.push_token,
     #       sound: "default",
-    #       body: "Welcome to Gatrix, #{current_user.username}."
+    #       body: "Welcome to Omnilint, #{current_user.username}."
     #     }
     #     push_messages << push_message
     #   end
@@ -188,14 +188,14 @@ class PagesController < ApplicationController
     if current_user.country.present? && current_user.country != country_code
       current_user.send_push_notification(
         "Connection from #{country}",
-        "Hi, #{current_user.username}. New connection detected to your Gatrix Dashboard with IP #{@smart_ip}."
+        "Hi, #{current_user.username}. New connection detected to your Omnilint Dashboard with IP #{@smart_ip}."
       )
     end
 
 
     current_user.send_push_notification(
       "Connection from #{country}",
-      "Hi, #{current_user.username}. New connection detected to your Gatrix Dashboard with IP #{@smart_ip}."
+      "Hi, #{current_user.username}. New connection detected to your Omnilint Dashboard with IP #{@smart_ip}."
     )
 
 
@@ -207,7 +207,7 @@ class PagesController < ApplicationController
     #     push_message = {
     #       to: device.push_token,
     #       sound: "default",
-    #       body: "Hi, #{current_user.username}. A new connection to your Gatrix dashboard was detected from #{country} - IP #{@smart_ip}."
+    #       body: "Hi, #{current_user.username}. A new connection to your Omnilint dashboard was detected from #{country} - IP #{@smart_ip}."
     #     }
     #     push_messages << push_message
     #   end
