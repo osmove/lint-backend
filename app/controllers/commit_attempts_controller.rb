@@ -44,9 +44,9 @@ class CommitAttemptsController < ProtectedController
       if params[:status].present?
         @status = params[:status]
         if @status == "passed"
-          @commit_attempts = @commit_attempts.joins(:policy_checks).where('passed = ?', true).order(created_at: :desc).page(params[:page]).per(10)
+          @commit_attempts = @commit_attempts.joins(:policy_checks).where(passed: true).order(created_at: :desc).page(params[:page]).per(10)
         elsif @status == "failed"
-          @commit_attempts = @commit_attempts.joins(:policy_checks).where('passed = ?', false).order(created_at: :desc).page(params[:page]).per(10)
+          @commit_attempts = @commit_attempts.joins(:policy_checks).where(passed: false).order(created_at: :desc).page(params[:page]).per(10)
         end
       end
     else
