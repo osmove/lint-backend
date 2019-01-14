@@ -1,11 +1,17 @@
 
-<nav class="navbar navbar-expand-md navbar-light bg-light navbar-marketing">
+<nav class="navbar navbar-expand-md navbar-light bg-light navbar-marketing" style="background-color: #222 !important;">
 
-  <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
-    <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
-  </a>
+  <% if current_page?(root_path) || current_page?(dashboard_path) %>
+    <a class="navbar-brand mr-0 mr-md-3" href="<%= prelaunch_path %>">
+      <img src="/images/logo/omnilint-logo-dark.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
+    </a>
+  <% else %>
+    <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
+      <img src="/images/logo/omnilint-logo-dark.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
+    </a>
+  <% end %>
 
-  <%= render "layouts/search-light" %>
+  <%= render "search/search" %>
 
   <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -20,16 +26,20 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto pt-3 pt-md-0">
 
 
-      <% if current_page?(root_path) || current_page?(home_path) %>
+
+
+      <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only">(current)</span></a>
+          <!-- <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only">(current)</span></a> -->
+          <a class="nav-link" href="<%= prelaunch_path %>">Home <span class="sr-only">(current)</span></a>
         </li>
       <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="<%= root_path %>">Home</a>
+          <!-- <a class="nav-link" href="<%= root_path %>">Home</a> -->
+          <a class="nav-link" href="<%= prelaunch_path %>">Home</a>
         </li>
       <% end %>
 
@@ -86,11 +96,11 @@
         </li>
       <% else %>
         <li class="nav-item">
-          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-dark btn-block-sm-only btn-block-xs-only ml-md-2') %>
+          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-light btn-block-sm-only btn-block-xs-only ml-md-2') %>
         </li>
         <% if defined? user_registration_path %>
         <li class="nav-item">
-          <%= link_to("Sign up", new_user_registration_path, class:'btn btn-dark btn-block-sm-only btn-block-xs-only ml-md-2') %>
+          <%= link_to("Sign up", new_user_registration_path, class:'btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2') %>
         </li>
         <% end %>
       <% end %>

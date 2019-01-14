@@ -94,7 +94,7 @@ class PagesController < ApplicationController
 
   def dashboard
     @user = current_user
-    
+
     @private_repositories = Repository.all.where(user: @user).private.includes(:commits).order('commits.created_at DESC NULLS LAST')
     @public_repositories = Repository.all.where(user: @user).public.includes(:commits).order('commits.created_at DESC NULLS LAST')
     @private_repositories_count = @private_repositories.length

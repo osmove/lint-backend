@@ -21,6 +21,7 @@
     </div>
 
 
+
     <% if @commits.length > 0 %>
       <div class="card mb-4">
         <div class="card-header">
@@ -38,6 +39,7 @@
               </thead> -->
               <tbody>
                 <% @commits.each do |commit| %>
+                
                   <tr style="cursor: pointer;" onclick="javascript: location.href='<%= user_repository_commit_path(commit.repository.user, commit.repository, commit) %>'">
 
                     <% if commit[:hash].present? %>

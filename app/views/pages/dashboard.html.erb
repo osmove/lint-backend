@@ -5,7 +5,7 @@
   <div class="container py-4 py-lg-5">
     <!-- <h2>Dashboard</h2> -->
     <!-- <h2 class="mb-0">Welcome, <%= current_user.username %>.</h2> -->
-    <h2 class="mb-0"><%= current_user.greet %>.</h2>
+    <h2 class="mb-3"><%= current_user.greet %>.</h2>
 
 
   <!--
@@ -16,57 +16,32 @@
 
     <div class="row">
       <div class="col-12 col-md-7 col-lg-8">
-
-
-
-        <% if @public_repositories_count == 0 && @private_repositories_count == 0 %>
-          <div class="text-center my-3 bg-light">
-            <a href="<%= new_user_repository_path(current_user) %>" class="text-dark">
-              <div class="card pt-4 pt-md-5 pb-4 pb-md-5 box-shadow">
-                <div class="card-body">
-                  <!-- <h4>Welcome, <%= current_user.username %>.</h4> -->
-
-                  <img src="/images/assistant/svg/omnilint-assistant-icon.svg" alt="Omnilint Assistant" class="mb-3" width="128" height="128">
-                  <h4 class="mb-3" style="color: #205aa7">You don't have any repository yet.</h4>
-                  <!-- <h4 class="mb-3" style="color: #205aa7">It seems that you don't have any repository yet.</h4> -->
-                  <p class="mb-3">Get started by creating your first repository.</p>
-                  <p class="mb-0"><button class="btn btn-lg btn-primary">+ Add repository</button></p>
-                </div>
+        <% if @last_commit_attempts.length > 0 %>
+          <div class="card mb-3">
+            <div class="card-header">
+              Commit Attempts <span class="badge badge-secondary"><%= @last_commit_attempts.count %>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    <% @last_commit_attempts.each_with_index do |commit_attempt, index| %>
+                      <% if commit_attempt.policy_checks.length > 0 %>
+                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: commit_attempt.policy_checks.first %>
+                      <% else %>
+                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: nil %>
+                      <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
               </div>
-            </a>
+            </div>
           </div>
         <% end %>
-
-        <% @organizations_of_current_user.each do |org|%>
-          <% if org.repositories.length > 0 %>
-            <% if org.repositories.length == 1 %>
-              <p class="my-2 text-muted"><small>1 <%= org.name.upcase %>'S REPOSITORY</small></p>
-            <% else %>
-              <p class="my-2 text-muted"><small><%= org.repositories.length %> <%= org.username.upcase %>'S REPOSITORIES</small></p>
-            <% end %>
-            <%= render "users/user_organizations_repositories", repositories: org.repositories %>
-          <% end %>
-        <% end %>
-
-        <% if @private_repositories.length > 0 %>
-          <% if @private_repositories.length == 1 %>
-            <p class="my-2 text-muted"><small>1 PRIVATE REPOSITORY</small></p>
-          <% else %>
-            <p class="my-2 text-muted"><small><%= @private_repositories.length %> PRIVATE REPOSITORIES</small></p>
-          <% end %>
-          <%= render "users/user_repositories", repositories: @private_repositories %>
-        <% end %>
-
-        <% if @public_repositories.length > 0 %>
-          <% if @public_repositories.length == 1 %>
-            <p class="mb-2 text-muted"><small>1 PUBLIC REPOSITORY</small></p>
-          <% else %>
-            <p class="mb-2 text-muted"><small><%= @public_repositories.length %> PUBLIC REPOSITORIES</small></p>
-          <% end %>
-          <%= render "users/user_repositories", repositories: @public_repositories %>
-        <% end %>
+      </div>
 
 
+      <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
 
         <% if current_user.repositories_with_access.length > 0 %>
           <% if current_user.repositories_with_access.length == 1 %>
@@ -77,10 +52,6 @@
           <%= render "users/user_repositories", repositories: current_user.repositories_with_access %>
         <% end %>
 
-      </div>
-
-
-      <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
 
 
         <div class="card my-3 box-shadow">
@@ -112,7 +83,7 @@
           </div>
         </div>
 
-        <div class="card my-3 box-shadow">
+        <!-- <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">
               <div class="col">
@@ -139,14 +110,14 @@
               No organization.
             <% end %>
           </div>
-        </div>
+        </div> -->
 
 
 
 
 
 
-        <div class="card my-3 box-shadow">
+        <!-- <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <i class="fa fa-qrcode mr-1"></i>
             LINK
@@ -160,9 +131,9 @@
               <p>Scan this QR code with your mobile phone to load this project immediately.</p>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="card my-3 box-shadow">
+        <!-- <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <i class="fa fa-qrcode mr-1"></i>
             Last commits
@@ -176,9 +147,9 @@
             </ul>
 
           </div>
-        </div>
+        </div> -->
 
-        <div class="card my-3 box-shadow">
+        <!-- <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <i class="fa fa-qrcode mr-1"></i>
             Last commits attempts
@@ -191,7 +162,7 @@
             </ul>
 
           </div>
-        </div>
+        </div> -->
 
 
 

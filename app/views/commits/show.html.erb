@@ -8,6 +8,7 @@
 
     <h3>
       <%= @commit.message %>
+
     </h3>
 
     <p>
@@ -18,7 +19,7 @@
     <p class="text-muted">
       <%= @commit.sha %>
     </p>
-    
+
     <h3>Commit Attempts</h3>
     <% if @commit.commit_attempts.length > 0 %>
       <div class="card">
@@ -31,9 +32,9 @@
               <tbody>
                 <% @commit.commit_attempts.each_with_index do |commit_attempt, index| %>
                   <% if commit_attempt.policy_checks.length > 0 %>
-                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: commit_attempt.policy_checks.first %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: commit_attempt.policy_checks.first %>
                   <% else %>
-                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: nil %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: nil %>
                   <% end %>
                 <% end %>
               </tbody>

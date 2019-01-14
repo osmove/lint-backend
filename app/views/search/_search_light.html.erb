@@ -22,7 +22,7 @@
   var usersSearch = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/users.json',
+    // prefetch: '/users.json',
     remote: {
       url: '/users.json?q=%QUERY',
       wildcard: '%QUERY'
@@ -31,10 +31,10 @@
   usersSearch.initialize(); // initialize the bloodhound suggestion engine
 
 
-  var repositories = new Bloodhound({
+  var repositoriesSearch = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('uuid'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/repositories.json',
+    // prefetch: '/repositories.json',
     remote: {
       url: '/repositories.json?q=%QUERY',
       wildcard: '%QUERY'
@@ -43,24 +43,24 @@
   repositoriesSearch.initialize(); // initialize the bloodhound suggestion engine
 
   <% if user_signed_in? %>
-  var myRepositories = new Bloodhound({
+  var myRepositoriesSearch = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('uuid'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: '/<%= current_user.slug %>/repositories.json',
+    // prefetch: '/<%= current_user.slug %>/repositories.json',
     remote: {
       url: '/<%= current_user.slug %>/repositories.json?q=%QUERY',
       wildcard: '%QUERY'
     }
   });
-  myRepositories.Searchinitialize(); // initialize the bloodhound suggestion engine
+  myRepositoriesSearch.initialize(); // initialize the bloodhound suggestion engine
   <% end %>
 
 
   // instantiate the typeahead UI
   $('.navbar .typeahead').typeahead({
     highlight: true,
-    minLength: 0,
-    <% if user_signed_in? %>
+    minLength: 1,
+    <% if user_signed_in? && current_user.slug == 'jimdou' %>
   }, {
     display: 'uuid',
     // source: myRepositories,

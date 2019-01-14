@@ -143,9 +143,9 @@
                 <tbody>
                   <% @commit_attempts.each_with_index do |commit_attempt, index| %>
                     <% if commit_attempt.policy_checks.length > 0 %>
-                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: commit_attempt.policy_checks.first %>
+                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: commit_attempt.policy_checks.first %>
                     <% else %>
-                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: nil %>
+                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: nil %>
                     <% end %>
                   <% end %>
                 </tbody>

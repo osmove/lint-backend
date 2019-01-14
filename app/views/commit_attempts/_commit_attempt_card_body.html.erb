@@ -12,7 +12,10 @@
     <p class="mb-0">
       <strong>
         <a href="<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
-          <%= commit_attempt.name %>
+          <% if display_repository.present? &&  display_repository == true %>
+            <%= commit_attempt.repository.uuid %> -
+          <% end %>
+            <%= commit_attempt.name %>
         </a>
       </strong>
       <% if commit_attempt.has_encryption %>
