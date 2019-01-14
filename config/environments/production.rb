@@ -88,7 +88,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  Rails.application.routes.default_url_options[:host] = 'https://gatrix.io'
+  Rails.application.routes.default_url_options[:host] = 'https://omnilint.com'
 
   # Omniauth github api
   # config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
@@ -100,5 +100,5 @@ end
 
 
 Devise.setup do |config|
-  config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://gatrix.io/users/auth/github'
+  config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://omnilint.com/users/auth/github'
 end

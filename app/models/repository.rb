@@ -119,7 +119,7 @@ class Repository < ApplicationRecord
 
   def git_address
     if self.git_host != "github"
-      @git_address = "git@git.gatrix.io:#{self.user.slug}/#{self.slug}.git"
+      @git_address = "git@git.omnilint.com:#{self.user.slug}/#{self.slug}.git"
     else
       @git_address = self.git_url
     end
@@ -145,7 +145,7 @@ class Repository < ApplicationRecord
   #   @output5 = ""
   #   @output6 = ""
   #   @output7 = ""
-  #   Net::SSH.start('git.gatrix.io', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+  #   Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
   #     @output1 << ssh.exec!("ls /var/git")
   #     @output2 << ssh.exec!("mkdir /var/git/#{self.user.slug}")
   #     @output3 << ssh.exec!("ls /var/git")
@@ -162,7 +162,7 @@ class Repository < ApplicationRecord
     if self.git_host == "gatrix"
       # Create git repository
       puts 'Connecting to SSH...'
-      Net::SSH.start('git.gatrix.io', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+      Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
         puts 'Connected to SSH.'
         # Creat user directory if needed
         # puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}")

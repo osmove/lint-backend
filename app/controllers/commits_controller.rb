@@ -37,7 +37,7 @@ class CommitsController < ApplicationController
     require 'colorize'
     # if @repository.git_host == "gatrix"
     #
-    #   Net::SSH.start('git.gatrix.io', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    #   Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #     output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git log --date=iso --max-count=30")
     #     logs = output.split("commit ")
     #     logs.shift
@@ -136,7 +136,7 @@ class CommitsController < ApplicationController
 
     # Read file content
     # require 'net/ssh'
-    # Net::SSH.start('git.gatrix.io', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    # Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #   @content = ssh.exec!("git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:#{@commit.name}")
     #   @commit.content = @content
     #   @commit.size = @content.length

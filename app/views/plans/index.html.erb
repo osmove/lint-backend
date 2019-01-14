@@ -79,7 +79,7 @@
                         <div class="monthly">
                           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-image="https://gatrix.io/images/gatrix-logo-circled@2x.png"
+                            data-image="https://omnilint.com/images/gatrix-logo-circled@2x.png"
                             data-name="Gatrix"
                             data-description="<%= plan.name %>"
                             data-amount="<%= (plan.price_per_month.to_i * 100).to_s %>"
@@ -91,7 +91,7 @@
                         <div class="yearly" style="display:none;">
                           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-image="https://gatrix.io/images/gatrix-logo-circled@2x.png"
+                            data-image="https://omnilint.com/images/gatrix-logo-circled@2x.png"
                             data-name="Gatrix"
                             data-description="<%= plan.name %>"
                             data-amount="<%= (plan.price_per_year.to_i * 100).to_s %>"

@@ -235,7 +235,7 @@
       "file": "app/views/repositories/tabs/_overview.html.erb",
       "line": 245,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "RQRCode::QRCode.new(\"https://gatrix.io/#{(Repository.where(:uuid => (\"#{params[:user_id]}/#{(params[:repository_id] or params[:id])}\")).first rescue nil).uuid}\").as_svg(:offset => 0, :color => \"333\", :shape_rendering => \"crispEdges\", :module_size => 3)",
+      "code": "RQRCode::QRCode.new(\"https://omnilint.com/#{(Repository.where(:uuid => (\"#{params[:user_id]}/#{(params[:repository_id] or params[:id])}\")).first rescue nil).uuid}\").as_svg(:offset => 0, :color => \"333\", :shape_rendering => \"crispEdges\", :module_size => 3)",
       "render_path": [
         {
           "type": "controller",
@@ -474,7 +474,7 @@
       "file": "app/views/admin/repositories/tabs/_overview.html.erb",
       "line": 244,
       "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "RQRCode::QRCode.new(\"https://gatrix.io/#{(Repository.friendly.find((params[:repository_id] or params[:id])) or Repository.public.friendly.find((params[:repository_id] or params[:id]))).uuid}\").as_svg(:offset => 0, :color => \"333\", :shape_rendering => \"crispEdges\", :module_size => 3)",
+      "code": "RQRCode::QRCode.new(\"https://omnilint.com/#{(Repository.friendly.find((params[:repository_id] or params[:id])) or Repository.public.friendly.find((params[:repository_id] or params[:id]))).uuid}\").as_svg(:offset => 0, :color => \"333\", :shape_rendering => \"crispEdges\", :module_size => 3)",
       "render_path": [
         {
           "type": "controller",

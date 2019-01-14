@@ -4,14 +4,14 @@ class RepositoryMailer < ApplicationMailer
 
   def repository_created_email(repository)
     @repository = repository
-    @site_url  = 'https://gatrix.io'
-    @login_url  = 'https://gatrix.io/login'
+    @site_url  = 'https://omnilint.com'
+    @login_url  = 'https://omnilint.com/login'
 
     # Send email to client
-    mail(from: "Gatrix <support@gatrix.io>", to: "#{@repository.user.username} <#{@repository.user.email}>", subject: "Your repository '#{@repository.name}' was created successfully")
+    mail(from: "Gatrix <support@omnilint.com>", to: "#{@repository.user.username} <#{@repository.user.email}>", subject: "Your repository '#{@repository.name}' was created successfully")
 
     # Send copy
-    # mail(from: "Gatrix <support@gatrix.io>", to: "Jimmy Douieb <jimmydouieb@gmail.com>", subject: "Repository '#{@repository.user.username}/#{@repository.name}' was created successfully.")
+    # mail(from: "Gatrix <support@omnilint.com>", to: "Jimmy Douieb <jimmydouieb@gmail.com>", subject: "Repository '#{@repository.user.username}/#{@repository.name}' was created successfully.")
 
   end
 
