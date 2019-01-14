@@ -213,38 +213,38 @@
 
     <script type="text/javascript">
       function selectDeployTo(deployTo) {
-        if (deployTo == 'gatrix_cloud') {
-          document.getElementById('gatrix_cloud').style.display = "block";
+        if (deployTo == 'omnilint_cloud') {
+          document.getElementById('omnilint_cloud').style.display = "block";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'aws') {
-          document.getElementById('gatrix_cloud').style.display = "none";
+          document.getElementById('omnilint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "block";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'gcp') {
-          document.getElementById('gatrix_cloud').style.display = "none";
+          document.getElementById('omnilint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "block";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'azure') {
-          document.getElementById('gatrix_cloud').style.display = "none";
+          document.getElementById('omnilint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "block";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'own_server') {
-          document.getElementById('gatrix_cloud').style.display = "none";
+          document.getElementById('omnilint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "block";
         } else {
-          document.getElementById('gatrix_cloud').style.display = "none";
+          document.getElementById('omnilint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
@@ -259,11 +259,11 @@
 
       // $("form#new_repository").click((event) => {
       //   console.log(event)
-      //   if ($("#repository_deploy_to_gatrix").prop("checked")) {
+      //   if ($("#repository_deploy_to_omnilint").prop("checked")) {
       //     // do something
-      //     alert('repository_deploy_to_gatrix checked')
+      //     alert('repository_deploy_to_omnilint checked')
       //   } else {
-      //     alert('repository_deploy_to_gatrix not checked')
+      //     alert('repository_deploy_to_omnilint not checked')
       //   }
       //     event.stopPropagation();
       //     event.preventDefault();
@@ -282,7 +282,7 @@
         </div>
         <div class="card mb-2">
           <div class="card-body py-2">
-            <%= form.radio_button :deploy_to, "gatrix_cloud", label: "Gatrix Cloud", onclick: "selectDeployTo('gatrix_cloud');" %>
+            <%= form.radio_button :deploy_to, "omnilint_cloud", label: "Gatrix Cloud", onclick: "selectDeployTo('omnilint_cloud');" %>
           </div>
         </div>
         <div class="card mb-2">
@@ -309,7 +309,7 @@
     </div>
   </div>
 
-  <section id="gatrix_cloud" style="display:none;">
+  <section id="omnilint_cloud" style="display:none;">
 
 
     <div class="mb-3">
@@ -387,9 +387,9 @@
     //
     // })
     //
-    const hostingSent = $("#repository_deploy_to_gatrix_cloud").prop('checked')
+    const hostingSent = $("#repository_deploy_to_omnilint_cloud").prop('checked')
     if (hostingSent) {
-      selectDeployTo('gatrix_cloud');
+      selectDeployTo('omnilint_cloud');
     }
 
     </script>
@@ -407,7 +407,7 @@
 
     <div class="mb-3">
       <div class="pb-2">
-        <%= form.text_field :domain_slug, id: :domain_slug, label: { text: "Domain slug" }, help: "The domain slug of your repository.", append: ".gatrixapp.com", input_group_class: "input-group-md mb-0", value: "", placeholder: "Enter a domain slug", onkeyup: "updateSelfDomainSlug(this.value);" %>
+        <%= form.text_field :domain_slug, id: :domain_slug, label: { text: "Domain slug" }, help: "The domain slug of your repository.", append: ".omnilintapp.com", input_group_class: "input-group-md mb-0", value: "", placeholder: "Enter a domain slug", onkeyup: "updateSelfDomainSlug(this.value);" %>
       </div>
     </div>
 

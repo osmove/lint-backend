@@ -10,8 +10,8 @@ one:
   os: MyString
   os_version: MyString
   has_notifications: false
-  has_gatrix_desktop: false
-  has_gatrix_connect: false
+  has_omnilint_desktop: false
+  has_omnilint_connect: false
   last_seen: 2018-08-15 16:56:58
   browser: MyString
   user_agent: MyString
@@ -26,8 +26,8 @@ two:
   os: MyString
   os_version: MyString
   has_notifications: false
-  has_gatrix_desktop: false
-  has_gatrix_connect: false
+  has_omnilint_desktop: false
+  has_omnilint_connect: false
   last_seen: 2018-08-15 16:56:58
   browser: MyString
   user_agent: MyString

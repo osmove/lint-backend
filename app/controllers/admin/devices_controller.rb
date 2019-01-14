@@ -63,6 +63,6 @@ class Admin::DevicesController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, :has_notifications, :has_gatrix_desktop, :has_gatrix_connect, :last_seen, :browser, :user_agent, :push_token)
+      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, :has_notifications, :has_omnilint_desktop, :has_omnilint_connect, :last_seen, :browser, :user_agent, :push_token)
     end
 end

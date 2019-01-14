@@ -38,11 +38,11 @@ class Repository < ApplicationRecord
   extend FriendlyId
   friendly_id :name, :use => :scoped, :scope => :user
 
-  # validates :domain_slug, presence: true, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'gatrix_cloud' && domain_slug.blank? }
+  # validates :domain_slug, presence: true, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.blank? }
 
-  validates :domain_slug, presence: true, if: -> { deploy_to == 'gatrix_cloud' }
-  # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'gatrix_cloud' && domain_slug.present? }
-  validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'gatrix_cloud' && domain_slug.present? }
+  validates :domain_slug, presence: true, if: -> { deploy_to == 'omnilint_cloud' }
+  # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.present? }
+  validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.present? }
 
   # TODO: validates_uniqueness_of :repository_id, :scope => :user_id
 
@@ -159,7 +159,7 @@ class Repository < ApplicationRecord
 
   # before_create :deploy
   def deploy
-    if self.git_host == "gatrix"
+    if self.git_host == "omnilint"
       # Create git repository
       puts 'Connecting to SSH...'
       Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|

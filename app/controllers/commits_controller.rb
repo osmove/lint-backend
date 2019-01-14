@@ -35,7 +35,7 @@ class CommitsController < ApplicationController
     require 'net/ssh'
     # require 'pp'
     require 'colorize'
-    # if @repository.git_host == "gatrix"
+    # if @repository.git_host == "omnilint"
     #
     #   Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #     output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git log --date=iso --max-count=30")

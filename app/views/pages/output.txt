@@ -1,5 +1,5 @@
 <pre class="text-left"><samp>
-Jimmys-iMac:dev jimmy$ gatrix
+Jimmys-iMac:dev jimmy$ omnilint
 
 Repositories             Language          Branch      Status     Diff
 ----------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Total: 10 repositories.
 
 
 <pre class="text-left text-muted">
-Jimmys-iMac:dev jimmy$ gatrix
+Jimmys-iMac:dev jimmy$ omnilint
 
   •••••••••             •••••               •••
  •••·····•••           ··•••               ···
@@ -98,7 +98,7 @@ Repositories                         Language      Branch              Status   
 --------------------------------------------------------------------------------------------------------------------------
 📁  ShabbatWatch                      js            master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  WeatherBar                        xcode         gatrix              ✓           M WeatherBar/AppDelegate.swift
+📁  WeatherBar                        xcode         omnilint              ✓           M WeatherBar/AppDelegate.swift
                                                                                   M WeatherBar/PreferencesWindow.swift
                                                                                   M WeatherBar/StatusMenuController.swift
                                                                                   + 5 other(s) file(s)
@@ -147,21 +147,21 @@ Repositories                         Language      Branch              Status   
 📁  crowdraising                      ruby/rails    master              ✓           M public/js/server.js
                                                                                   ? yarn.lock
 --------------------------------------------------------------------------------------------------------------------------
-📁  gatrix                            ruby/rails    master              ✓           M app/views/pages/home.html.erb
+📁  omnilint                            ruby/rails    master              ✓           M app/views/pages/home.html.erb
                                                                                   ? app/views/pages/home2.html.erb
 --------------------------------------------------------------------------------------------------------------------------
-📁  gatrix-cli                        xcode         master              ✓           ✓
+📁  omnilint-cli                        xcode         master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  gatrix-cli-export                 -             master              ✓           ✓
+📁  omnilint-cli-export                 -             master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  gatrix-mac                        xcode         master              ✓           M Gatrix.xcodeproj/project.pbxproj
+📁  omnilint-mac                        xcode         master              ✓           M Gatrix.xcodeproj/project.pbxproj
                                                                                   ? Gatrix.xcodeproj/project.xcworkspace/xcshareddata/
 --------------------------------------------------------------------------------------------------------------------------
 📁  gdax-streamer                     js            master              ✓           M src/App.js
 --------------------------------------------------------------------------------------------------------------------------
 📁  gdax-tt                           js            master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  homebrew-gatrix                   ruby          master              ✓           ✓
+📁  homebrew-omnilint                   ruby          master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
 📁  macos-launch-at-login-app         xcode         master              ✓           MMainApplication.xcodeproj/project.pbxproj
                                                                                   MMainApplication/Base.lproj/Main.storyboard

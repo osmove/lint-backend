@@ -234,7 +234,7 @@ class Admin::CommitsController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commit_params
-     params.require(:gatrix_commit).permit(:message,
+     params.require(:omnilint_commit).permit(:message,
      :date, :date_raw, :contributor_raw, :contributor_name, :contributor_email,
      :push_id, :contributor,
       data_set_users_attributes: [:user_id],

@@ -81,7 +81,7 @@
               Get started with your repository
             </div> -->
             <div class="card-body pt-5 pb-5">
-              <img src="/images/assistant/svg/gatrix-assistant-icon.svg" alt="Gatrix Assistant" class="mb-3" width="128" height="128">
+              <img src="/images/assistant/svg/omnilint-assistant-icon.svg" alt="Gatrix Assistant" class="mb-3" width="128" height="128">
 
 
               <h1 class="mb-5" style="color: #205aa7">Waiting for commits...</h1>
@@ -92,11 +92,11 @@
               </div>
               <p style="color: #205aa7">Starting with an <strong>existing</strong> repository:</p>
               <div>
-                <!-- <small style="line-height: 3em"><kbd class="p-2">git remote add gatrix <%= repository.git_address %></kbd></small><br />
-                <small><kbd class="p-2">git push gatrix master</kbd></small> -->
+                <!-- <small style="line-height: 3em"><kbd class="p-2">git remote add omnilint <%= repository.git_address %></kbd></small><br />
+                <small><kbd class="p-2">git push omnilint master</kbd></small> -->
 
-                <pre><code>git remote add gatrix <%= repository.git_address %></code></pre>
-                <pre><code>git push gatrix master</code></pre>
+                <pre><code>git remote add omnilint <%= repository.git_address %></code></pre>
+                <pre><code>git push omnilint master</code></pre>
 
               </div>
             </div>
@@ -178,7 +178,7 @@
 
               <% if repository.deploy_to.present? %>
                 <li>Deployment: <strong><%= repository.deploy_to.titleize %></strong></li>
-                <%# if repository.deploy_to == "gatrix_cloud" %>
+                <%# if repository.deploy_to == "omnilint_cloud" %>
                 <% if repository.hosting_plan.present? %>
                   <li>Memory: <strong><%= repository.hosting_plan.memory / 1000%> MB</strong></li>
                   <li>vCPUs: <strong><%= repository.hosting_plan.vcpus %> vCPUs</strong></li>
