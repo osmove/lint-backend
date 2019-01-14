@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
+
+<p>
+  <strong>Avatar url:</strong>
+  <%= @team.avatar_url %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%if @team.team_id.present? %><%= Team.find(@team.team_id).name %><% end %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @team.description %>
+</p>
+
+<p>
+  <strong>Organization:</strong>
+  <%= @team.user %>
+</p>
+
+
+<p>
+  <strong>Organization Members:</strong>
+  <% @team.memberships.each do |member| %>
+    <%= link_to member.user.username, admin_user_path(member.user) %>
+  <% end %>
+</p>

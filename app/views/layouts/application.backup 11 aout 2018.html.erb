@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="google-site-verification" content="5N5dOuuBYRjKp77qJYBWKdxtRzCNy_7pZhb7RZbu_KE" />
+
+    <title>Gatrix</title>
+    <meta name="Description" content="Gatrix is a tool improving the workflow of developers dealing with multiple git repositories, execute batch git commands, scan computers for repositories and track shared components.">
+
+    <%= csrf_meta_tags %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8071166-22"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-8071166-22');
+    </script>
+
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> -->
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style media="screen">
+      <% if devise_controller? %>
+      body {
+        padding-top: 0 !important;
+      }
+      <% end %>
+      .navbar {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        border-top: 4px solid #333;
+        /* background-color: #fff !important; */
+      }
+    </style>
+  </head>
+
+
+  <body class="bg-gatrix">
+    <% if !devise_controller? %>
+      <% if current_user.present? %>
+        <%= render "layouts/navbar-dashboard" %>
+      <% else %>
+        <%= render "layouts/navbar" %>
+      <% end %>
+    <% end %>
+
+    <% if notice.present? %>
+      <div class="alert alert-success my-0 text-center bg-bottom" style="border-radius: 0; border-left: none; border-right: none;">
+        <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div class="alert alert-info my-0 text-center bg-bottom" style="border-radius: 0; border-left: none; border-right: none;">
+        <%= alert %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+
+    <%= yield %>
+
+    <% if !devise_controller? %>
+    <footer class="py-5 py-md-5 bg-dark text-white" style="background-color: #222 !important;">
+      <div class="container text-left">
+        <div class="row">
+          <div class="col-12 col-md-3 mb-4">
+            <!-- <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24"> -->
+            <img class="mb-2" src="/images/gatrix-logo-white.png" alt="" width="80" height="80" style="opacity: 0.3;">
+            <!-- <small class="d-block mb-3 text-muted">© 2017-2018</small> -->
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Cool stuff</a></li>
+              <li><a class="text-muted" href="#">Random feature</a></li>
+              <li><a class="text-muted" href="#">Team feature</a></li>
+              <li><a class="text-muted" href="#">Stuff for developers</a></li>
+              <li><a class="text-muted" href="#">Another one</a></li>
+              <li><a class="text-muted" href="#">Last time</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Resource</a></li>
+              <li><a class="text-muted" href="#">Resource name</a></li>
+              <li><a class="text-muted" href="#">Another resource</a></li>
+              <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
+          </div>
+          <div class="col-12 col-md-3 mb-3">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+              <li><a class="text-muted" href="#">Team</a></li>
+              <li><a class="text-muted" href="#">Locations</a></li>
+              <li><a class="text-muted" href="#">Privacy</a></li>
+              <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <% else %>
+    <% end %>
+
+
+
+  </body>
+</html>

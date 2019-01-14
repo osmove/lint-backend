@@ -1,0 +1,71 @@
+<%= render 'repositories/header', repository: @repository %>
+<!-- <p><%= @ssh_request %></p> -->
+<!-- <p><%= @output2 %></p>
+<p><%= @output3 %></p> -->
+
+
+<% # render 'repositories/soft_tabs', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+
+
+<%# render "repositories/secondary_menu", repository: @repository %>
+
+
+ <!-- if image -->
+<!-- <p><img src="data:image/png;base64,<%# @base_64_content %>"/></p> -->
+
+
+<section class="bg-white">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+      <%= render 'repositories/tabs/overview', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
+      <%= render 'repositories/tabs/files', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-commits" role="tabpanel" aria-labelledby="nav-commits-tab">
+      <%= render 'repositories/tabs/commits', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-issues" role="tabpanel" aria-labelledby="nav-issues-tab">
+      <%= render 'repositories/tabs/issues', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-pull-request" role="tabpanel" aria-labelledby="nav-pull-request-tab">
+      <%= render 'repositories/tabs/pull_requests', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-analytics" role="tabpanel" aria-labelledby="nav-analytics-tab">
+      <%= render 'repositories/tabs/analytics', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-ratings" role="tabpanel" aria-labelledby="nav-ratings-tab">
+      <%= render 'repositories/tabs/ratings', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-access" role="tabpanel" aria-labelledby="nav-access-tab">
+      <%= render 'repositories/tabs/access', repository: @repository %>
+    </div>
+    <div class="tab-pane fade" id="nav-settings" role="tabpanel" aria-labelledby="nav-settings-tab">
+      <%= render 'repositories/tabs/settings', repository: @repository %>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="document_modal" tabindex="-1" role="dialog" aria-labelledby="document_modal_title" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="document_modal_title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="document_modal_content">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

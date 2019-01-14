@@ -1,0 +1,23 @@
+{
+  "name": "gatrix-backend",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "omnilint": "^0.5.19"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/gatrix.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,57 @@
+
+<%= bootstrap_form_for(@commit, url: @form_url, as: :gatrix_commit) do |form| %>
+
+  <% if @commit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@commit.errors.count, "error") %> prohibited this document from being saved:</h2>
+      <ul>
+      <% @commit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_select :date, default: DateTime.now.in_time_zone(current_user.time_zone).to_datetime, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_raw %>
+    <%= form.text_field :date_raw, value: DateTime.now.in_time_zone(current_user.time_zone).strftime('%D'), hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_raw %>
+    <%= form.text_field :contributor_raw, value: current_user, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_name %>
+    <%= form.text_field :contributor_name, value: current_user.username, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_email %>
+    <%= form.text_field :contributor_email, value: current_user.email, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, value: params[:repository_id], hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, value: params[:user_id], hide_label: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

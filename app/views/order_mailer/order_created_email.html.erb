@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Bonjour <%= @user.name %>,</p>
+    <p>Nous vous confirmons votre achat :</p>
+
+
+    <table border="1" cellpadding="5">
+      <tr>
+        <td>Pierre</td>
+        <td>Couleur</td>
+        <td>Carat(s)</td>
+        <td>Prix</td>
+      </tr>
+      <% @stones.each do |stone| %>
+        <tr>
+          <td><%= stone.certificate_widget %></td>
+          <td><%= stone.color_widget %></td>
+          <td><%= stone.carat %></td>
+          <td><%= stone.price %> <%= stone.currency %></td>
+        </tr>
+      <% end %>
+    </table>
+
+
+    <p>Voici les détails de la transaction :</p>
+
+    <table border="1" cellpadding="5">
+      <tr>
+        <td>Montant</td>
+        <td><%= @order.amount %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>Mode</td>
+        <td><%= I18n.t(@order.mode) %></td>
+      </tr>
+      <tr>
+        <td>Frais de transaction</td>
+        <td><%= @order.transaction_fees %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>Frais de garde</td>
+        <td><%= @order.custody_fees %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>Frais de livraison</td>
+        <td><%= @order.shipping_fees %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>Sous-total</td>
+        <td><%= @order.subtotal %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>TVA</td>
+        <td><%= @order.vat_amount %> <%= @order.currency %></td>
+      </tr>
+      <tr>
+        <td>Total</td>
+        <td><%= @order.total %> <%= @order.currency %></td>
+      </tr>
+    </table>
+    <p>
+      Pour vous connecter à votre espace, veuillez cliquer sur le lien suivant: <%= @site_url %>.
+    </p>
+    <p>Nous vous remercions de votre confiance.</p>
+  </body>
+</html>

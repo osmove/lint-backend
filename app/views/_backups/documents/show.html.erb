@@ -1,0 +1,44 @@
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @document.name %>
+</p>
+
+<p>
+  <strong>Path:</strong>
+  <%= @document.path %>
+</p>
+
+<p>
+  <strong>Is folder:</strong>
+  <%= @document.is_folder %>
+</p>
+
+<p>
+  <strong>Size:</strong>
+  <%= @document.size %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <%= @document.extension %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @document.content %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= link_to @document.repository.name, user_repository_path(@document.repository.user, @document.repository) %>
+</p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @document.document %>
+</p>
+
+<%= link_to 'Edit', edit_user_repository_document_path(@user, @repository, @document) %> |
+<%= link_to 'Back',  user_repository_document_path(@user, @repository, @document) %>

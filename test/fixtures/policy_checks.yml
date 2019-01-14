@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  passed: false
+  commit_attempt: one
+  policy: one
+  repository: one
+  user: one
+  contributor: one
+  push: one
+  device: one
+
+two:
+  name: MyString
+  passed: false
+  commit_attempt: two
+  policy: two
+  repository: two
+  user: two
+  contributor: two
+  push: two
+  device: two

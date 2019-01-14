@@ -1,0 +1,62 @@
+<%= form_with(model: policy_check, local: true) do |form| %>
+  <% if policy_check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(policy_check.errors.count, "error") %> prohibited this policy_check from being saved:</h2>
+
+      <ul>
+      <% policy_check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :policy_check_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :passed %>
+    <%= form.check_box :passed, id: :policy_check_passed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commit_attempt_id %>
+    <%= form.text_field :commit_attempt_id, id: :policy_check_commit_attempt_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :policy_id %>
+    <%= form.text_field :policy_id, id: :policy_check_policy_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :policy_check_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :policy_check_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.text_field :contributor_id, id: :policy_check_contributor_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.text_field :push_id, id: :policy_check_push_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.text_field :device_id, id: :policy_check_device_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Buildpacks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Web address</th>
+      <th>Git address</th>
+      <th>Command</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @buildpacks.each do |buildpack| %>
+      <tr>
+        <td><%= buildpack.name %></td>
+        <td><%= buildpack.web_address %></td>
+        <td><%= buildpack.git_address %></td>
+        <td><%= buildpack.command %></td>
+        <td><%= buildpack.repository %></td>
+        <td><%= buildpack.user %></td>
+        <td><%= link_to 'Show', buildpack %></td>
+        <td><%= link_to 'Edit', edit_buildpack_path(buildpack) %></td>
+        <td><%= link_to 'Destroy', buildpack, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Buildpack', new_buildpack_path %>

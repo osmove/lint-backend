@@ -1,0 +1,97 @@
+<%= form_with(model: device, local: true) do |form| %>
+  <% if device.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+      <ul>
+      <% device.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :device_user_id %>
+  </div> -->
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, User.all, :id, :username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type, id: :device_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :brand %>
+    <%= form.text_field :brand, id: :device_brand %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model, id: :device_model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sub_model %>
+    <%= form.text_field :sub_model, id: :device_sub_model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :uuid %>
+    <%= form.text_field :uuid, id: :device_uuid %>
+  </div>
+
+  <div class="field">
+    <%= form.label :os %>
+    <%= form.text_field :os, id: :device_os %>
+  </div>
+
+  <div class="field">
+    <%= form.label :os_version %>
+    <%= form.text_field :os_version, id: :device_os_version %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_notifications %>
+    <%= form.check_box :has_notifications, id: :device_has_notifications %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_gatrix_desktop %>
+    <%= form.check_box :has_gatrix_desktop, id: :device_has_gatrix_desktop %>
+  </div>
+
+  <div class="field">
+    <%= form.label :has_gatrix_connect %>
+    <%= form.check_box :has_gatrix_connect, id: :device_has_gatrix_connect %>
+  </div>
+
+  <div class="field">
+    <%= form.label :last_seen %>
+    <%= form.datetime_select :last_seen, id: :device_last_seen %>
+  </div>
+
+  <div class="field">
+    <%= form.label :browser %>
+    <%= form.text_field :browser, id: :device_browser %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_agent %>
+    <%= form.text_field :user_agent, id: :device_user_agent %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_token %>
+    <%= form.text_field :push_token, id: :device_push_token %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

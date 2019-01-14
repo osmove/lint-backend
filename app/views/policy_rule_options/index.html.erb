@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Policy Rule Options</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Policy rule</th>
+      <th>Rule option</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @policy_rule_options.each do |policy_rule_option| %>
+      <tr>
+        <td><%= policy_rule_option.policy_rule %></td>
+        <td><%= policy_rule_option.rule_option %></td>
+        <td><%= policy_rule_option.value %></td>
+        <td><%= link_to 'Show', policy_rule_option %></td>
+        <td><%= link_to 'Edit', edit_policy_rule_option_path(policy_rule_option) %></td>
+        <td><%= link_to 'Destroy', policy_rule_option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Policy Rule Option', new_policy_rule_option_path %>

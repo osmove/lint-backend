@@ -1,0 +1,36 @@
+
+<h1>Contributors</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Repository</th>
+      <th>Commits</th>
+      <th>User</th>
+      <th>Total Commits</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @contributors.each do |contributor| %>
+      <tr>
+        <td><%= contributor.name %></td>
+        <td><%= contributor.email %></td>
+        <td><%= link_to contributor.repository.uuid, admin_repository_path(contributor.repository) %></td>
+        <td><%= contributor.commits.length %></td>
+        <td><%= contributor.user %></td>
+        <td><%= Commit.where(user: contributor.user).count %></td>
+        <td><%= link_to 'Show', admin_contributor_path(contributor) %></td>
+        <td><%= link_to 'Edit', edit_admin_contributor_path(contributor) %></td>
+        <td><%= link_to 'Destroy', admin_contributor_path(contributor), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Contributor', new_contributor_path %>

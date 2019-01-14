@@ -1,0 +1,276 @@
+<%= render 'repositories/header', repository: @commit_attempt.repository %>
+
+<!-- <section class="bg-white"> -->
+<section class="" style="background-color: #eeeff0;">
+
+  <div class="container py-4">
+
+    <p><%= link_to "Back to commit attempts", user_repository_commit_attempts_path(@commit_attempt.repository.user, @commit_attempt.repository) %></p>
+
+
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <h2>
+          Commit attempt #<%= @commit_attempt.id %>
+        </h2>
+
+        <% if @commit_attempt.message.present? %>
+          <p>
+              <strong>
+                <%= @commit_attempt.message %>
+              </strong>
+              <% if @commit_attempt.user.present? %>
+              by
+                <a href="<%= user_path(@commit_attempt.user) %>">
+                <% if @commit_attempt.user.avatar_url.present? %>
+                  <img src="<%= @commit_attempt.user.avatar_url %>" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+                <% elsif @commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+                  <img src="/images/organization-blank.jpg" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+                <% else %>
+                  <img src="/images/user-blank.png" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+                <% end %>
+                <span><%= @commit_attempt.user %></span></a>
+              <% end %>
+          </p>
+        <% end %>
+
+      </div>
+      <div class="col text-md-right">
+
+        <% if @policy_check.present? && @policy_check.report.present? %>
+          <p>
+            <span class="text-danger"><%= pluralize(@policy_check.error_count || 0, 'error') %></span>
+            |
+
+            <span class="text-orange"><%= pluralize(@policy_check.warning_count || 0, 'warning') %></span>
+            |
+            <% if @policy_check.passed == true %>
+              <span class="badge badge badge-success">Passed</span>
+            <% else %>
+              <span class="badge badge badge-danger">Failed</span>
+            <% end %>
+          </p>
+        <% end %>
+
+
+        <% if @policy_check.present? && @policy_check.fixable_offense_count.present? %>
+          <p><%= "#{@policy_check.fixable_offense_count} Fixable rules, #{@policy_check.fixable_error_count} errors, #{@policy_check.fixable_warning_count} warnings" %></p>
+        <% end %>
+
+        <p>
+          <%= @commit_attempt.created_at.strftime("%d %B %Y at %H:%M") %>
+        </p>
+      </div>
+    </div>
+
+
+
+    <p>
+      <% if @commit_attempt.repository.policy.present? %>
+        <%# Policy:  link_to @commit_attempt.repository.policy.name, policy_user_repository_path(@commit_attempt.repository.user, @commit_attempt.repository) %>
+        Policy: <%= link_to @commit_attempt.repository.policy.name, @commit_attempt.repository.policy %>
+      <% else %>
+        No Policy.
+      <% end %>
+    </p>
+
+
+
+
+
+
+
+    <% if @policy_check.report.present? && @policy_check.report["staged_files"].present? %>
+
+      <div class="row text-center">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card">
+            <div class="card-header">
+              <h1>
+                <%= @policy_check.report["staged_files"].count %>
+              </h1>
+              <span class="text-muted">
+                Staged<br class="d-block d-lg-none"/> Files
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card">
+            <div class="card-header">
+              <h1>
+                <%= @policy_check.report["inspected_files"].count %>
+              </h1>
+              <span class="text-muted">
+                Inspected<br class="d-block d-lg-none"/> Files
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card">
+            <div class="card-header">
+              <h1>
+                <%= @policy_check.report["formatted_files"].count %>
+              </h1>
+              <span class="text-muted">
+                Formatted<br class="d-block d-lg-none"/> Files
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card">
+            <div class="card-header">
+              <h1>
+                <%= @policy_check.report["not_inspected_files"].count %>
+              </h1>
+              <span class="text-muted">
+                Ignored<br class="d-block d-lg-none"/> Files
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+      <%= "#{@policy_check.report["staged_files"].count} staged_files" %>
+      <br/>
+      <%= "staged_files: #{@policy_check.report["staged_files"]}" %><br/><br/>
+
+      <%= " #{@policy_check.report["inspected_files"].count} inspected files: #{@policy_check.report["javascript_files"].count} javascripts files, #{@policy_check.report["ruby_files"].count} ruby files" %>
+      <br/>
+      <%= "javascript_files: #{@policy_check.report["javascript_files"]}" %><br/>
+      <%= "ruby_files: #{@policy_check.report["ruby_files"]}" %><br/>
+      <br/>
+
+      <%= "#{@policy_check.report["formatted_files"].count} files made prettier" %>
+      <br/>
+      <%= "formatted_files: #{@policy_check.report["formatted_files"]}" %><br/>
+      <br/>
+      <%= "#{@policy_check.report["not_inspected_files"].count} files not inspected" %>
+      <br/>
+      <br/>
+      -->
+    <% end %>
+
+    <style media="screen">
+      .card-file:hover {
+        border: 1px solid #aaa !important;
+        border-radius: 3px !important;
+      }
+      .card-file .card-header {
+        border-radius: 3px !important;
+      }
+      .card-file-disabled .card-header {
+        border-radius: 3px !important;
+      }
+    </style>
+
+    <% if @commit_attempt.policy_checks.length > 0 %>
+      <% if @policy_check.report.present? && @policy_check.report["rule_checks_attributes"].present? %>
+
+        <div id="accordion">
+          <% @policy_check.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.each do |file, rule_checks| %>
+            <div class="card card-file mb-2">
+              <div class="card-header bg-white d-flex justify-content-between align-items-center" id="headingOne" data-toggle="collapse" data-target="#collapse<%= (rule_checks[0]["line"]) %>" aria-expanded="true" aria-controls="collapseOne" style="cursor:pointer;">
+                <% if @policy_check.report["javascript_files"].include? file[0] %>
+                  <!-- <strong><img src="<%= @javascript_logo_url %>" class="img-fluid mb-1 mx-2 d-none d-md-block"  style="width: 15px" alt=""><%=file[0]%></strong> -->
+                <% elsif @policy_check.report["ruby_files"].include? file[0] %>
+                  <!-- <strong><img src="<%= @ruby_logo_url %>" class="img-fluid mb-1 mx-2 d-none d-md-block"  style="width: 15px" alt=""><%=file[0]%></strong> -->
+                <% else %>
+                  <!-- <strong><img src="<%= @generic_logo_url %>" class="img-fluid mb-1 mx-2 d-none d-md-block"  style="width: 15px" alt=""><%=file[0]%></strong> -->
+                <% end %>
+                <strong><%=file[0]%></strong>
+                <div>
+                  <% if (rule_checks.select { |check| check['severity_level'] == 2 }.count) > 0 %>
+                    <span class="text-danger"><%= pluralize(rule_checks.select { |check| check["severity_level"] == 2 }.count || 0, 'error') %></span>
+                  <% end %>
+                  <% if (rule_checks.select { |check| check['severity_level'] == 1 }.count) > 0 %>
+                    <% if (rule_checks.select { |check| check['severity_level'] == 2 }.count) > 0 %>
+                    |
+                    <% end %>
+                    <span class="text-orange"><%= pluralize(rule_checks.select { |check| check["severity_level"] == 1 }.count || 0, 'warning') %></span>
+                  <% end %>
+                </div>
+
+
+              </div>
+              <div id="collapse<%= (rule_checks[0]["line"]) %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body" style="margin:0; padding:0">
+                  <table class="table border" style="margin:0; padding:0">
+                    <% rule_checks.sort_by { |h, v| [h["severity_level"]]}.reverse!.group_by{ |h| [h['rule_id']] }.each do |rule_id, rule_checks| %>
+                      <tr class="text-center my-2">
+                        <td class="text-white <% if rule_checks[0]["severity_level"] == 1 %>bg-orange <% elsif rule_checks[0]["severity_level"] == 2 %>bg-danger<% end %>" style="border-bottom: 15px solid #ffffff;">
+                          <div class="pb-2">
+                            <%= Rule.find(rule_id[0]).name %> <span class="badge badge-secondary"><%= "#{rule_checks.count}" %></span>
+                          </div>
+                          <div class="<% if rule_checks[0]["severity_level"] == 1 %>bg-orange-light <% elsif rule_checks[0]["severity_level"] == 2 %>bg-danger-light<% end %> m-0 p-0">
+                            <% rule_checks.each do |rule_check| %>
+                              <!-- <span> <%= "#{rule_check["line"]}:#{rule_check["column"]}"%> <%= rule_check["message"] %></span> -->
+                              <span class="pb-2"><%= rule_check["message"] %></span>
+
+                              <% if rule_check["source"].present? &&  rule_check["source"].length> 0 %>
+                                <div class="bg-white text-left">
+                                  <code class="text-dark">
+                                    <% rule_check["source"].each do |code| %>
+                                    <div class="
+                                      <% if code['line'] == rule_check['line'] %>
+                                        <% if rule_checks[0]['severity_level'] == 1 %>
+                                          bg-orange-lighter
+                                        <% elsif rule_checks[0]['severity_level'] == 2 %>
+                                          bg-danger-lighter
+                                        <% end %>
+                                      <% end %>
+                                      " style="overflow:auto; width:auto;">
+                                      <table>
+                                        <tr>
+                                          <td style="border-right: 1px solid #ddd; border-top: 0; min-width: 60px; line-height: 1em;">
+                                            <code class="text-dark" style="margin: 0; opacity: 0.5;"><%="#{code["line"]}"%><br/></code>
+                                          </td>
+                                          <td class="text-left" style="border-top: 0; line-height: 1em;">
+                                            <code class="text-dark"style="margin: 0; "><span><%= "#{code["code"]}" %></span><br/></code>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                    <% end %>
+                                  </code>
+                                </div>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </table>
+                </div>
+              </div>
+
+
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <!-- <h3>Not inspected files</h3> -->
+    <% if @policy_check.report.present? && @policy_check.report["not_inspected_files"].present? && @policy_check.report["not_inspected_files"].count > 0 %>
+      <% @policy_check.report["not_inspected_files"].each do |file| %>
+        <div class="card card-file-disabled mb-2 text-muted ">
+          <div class="card-header d-flex justify-content-between align-items-center" >
+            <strong><%= file %></strong>
+            <div>
+              Not inspected
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+
+    <%= link_to 'Edit', edit_commit_attempt_path(@commit_attempt) %> |
+    <%= link_to 'Back', commit_attempts_path %>
+
+  </div>
+
+</section>

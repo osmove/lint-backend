@@ -1,0 +1,2 @@
+module Admin::PushesHelper
+end

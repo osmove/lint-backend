@@ -1,0 +1,79 @@
+
+<p>
+  <strong>User:</strong>
+  <%= @device.user %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @device.type %>
+</p>
+
+<p>
+  <strong>Brand:</strong>
+  <%= @device.brand %>
+</p>
+
+<p>
+  <strong>Model:</strong>
+  <%= @device.model %>
+</p>
+
+<p>
+  <strong>Sub model:</strong>
+  <%= @device.sub_model %>
+</p>
+
+<p>
+  <strong>Uuid:</strong>
+  <%= @device.uuid %>
+</p>
+
+<p>
+  <strong>Os:</strong>
+  <%= @device.os %>
+</p>
+
+<p>
+  <strong>Os version:</strong>
+  <%= @device.os_version %>
+</p>
+
+<p>
+  <strong>Has notifications:</strong>
+  <%= @device.has_notifications %>
+</p>
+
+<p>
+  <strong>Has gatrix desktop:</strong>
+  <%= @device.has_gatrix_desktop %>
+</p>
+
+<p>
+  <strong>Has gatrix connect:</strong>
+  <%= @device.has_gatrix_connect %>
+</p>
+
+<p>
+  <strong>Last seen:</strong>
+  <%= @device.last_seen %>
+</p>
+
+<p>
+  <strong>Browser:</strong>
+  <%= @device.browser %>
+</p>
+
+<p>
+  <strong>User agent:</strong>
+  <%= @device.user_agent %>
+</p>
+
+<p>
+  <strong>Push token:</strong>
+  <%= @device.push_token %>
+</p>
+
+
+<%= link_to 'Edit', edit_device_path(@device) %> |
+<%= link_to 'Back', devices_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @decryption.status %>
+</p>
+
+<p>
+  <strong>Cypher name:</strong>
+  <%= @decryption.cypher_name %>
+</p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @decryption.document %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @decryption.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @decryption.user %>
+</p>
+
+<%= link_to 'Edit', edit_decryption_path(@decryption) %> |
+<%= link_to 'Back', decryptions_path %>

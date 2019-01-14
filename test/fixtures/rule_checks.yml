@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  passed: false
+  language: one
+  rule: one
+  policy_check: one
+  repository: one
+  user: one
+  contributor: one
+  push: one
+  device: one
+
+two:
+  name: MyString
+  passed: false
+  language: two
+  rule: two
+  policy_check: two
+  repository: two
+  user: two
+  contributor: two
+  push: two
+  device: two

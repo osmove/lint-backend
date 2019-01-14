@@ -1,0 +1,21 @@
+<% @users.each do |user| %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= user.username %>
+    </div>
+    <div class="col">
+      <%= user.repositories.count %> Repos <% if user.repositories.count > 0 %>:<% end %>
+    </div>
+  </div>
+
+  <% user.repositories.each do |repo| %>
+    <div class="row">
+      <div class="col offset-6">
+        <%= repo.name %>
+      </div>
+      <div class="col">
+        <%= repo.created_at %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

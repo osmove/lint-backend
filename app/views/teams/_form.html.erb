@@ -1,0 +1,47 @@
+<%#= form_with(model: team, local: true) do |form| %>
+<%= bootstrap_form_for(@team, url: @form_url) do |form| %>
+
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if current_user.organizations.length > 0 %>
+    <div class="field">
+      <%= form.label :user_id, value: "Organization" %>
+      <%= collection_select(:team, :user_id, User.where(is_organization: true), :id, :username, :prompt => true) %>
+    </div>
+  <% end %>
+
+  <% if current_user.teams.length > 0 %>
+    <div class="field">
+      <%= form.label "Parent Team (optional)" %>
+      <%= collection_select(:team, :team_id, Team.all, :id, :name, :prompt => true, :include_blank => true) %>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.text_field :name, id: :team_name, class: 'form-control-lg', placeholder: "Give this team a name" %>
+  </div>
+
+  <!-- <div class="field">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url, id: :team_avatar_url %>
+  </div> -->
+
+  <div class="field">
+    <%= form.text_field :description, id: :team_description, placeholder: "Give this team a description (optional)" %>
+  </div>
+
+
+  <div class="actions mb-4">
+    <%= form.submit %>
+  </div>
+<% end %>

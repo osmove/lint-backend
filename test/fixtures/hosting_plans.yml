@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  slug: MyString
+  memory: 1
+  vcpus: 1
+  storage: 
+  price_per_month: MyString
+  price_per_hour: MyString
+
+two:
+  name: MyString
+  slug: MyString
+  memory: 1
+  vcpus: 1
+  storage: 
+  price_per_month: MyString
+  price_per_hour: MyString

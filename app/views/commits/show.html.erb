@@ -1,0 +1,51 @@
+<%= render 'repositories/header', repository: @commit.repository %>
+
+<section class="" style="background-color: #eeeff0;">
+
+  <div class="container py-5">
+
+    <p><%= link_to "Back to commits", user_repository_commits_path(@commit.repository.user, @commit.repository) %></p>
+
+    <h3>
+      <%= @commit.message %>
+    </h3>
+
+    <p>
+      <% if @commit.created_at.present? %>
+        Committed <%= time_ago_in_words(@commit.created_at) %> ago
+      <% end %>
+    </p>
+    <p class="text-muted">
+      <%= @commit.sha %>
+    </p>
+    
+    <h3>Commit Attempts</h3>
+    <% if @commit.commit_attempts.length > 0 %>
+      <div class="card">
+        <div class="card-header">
+          Commit Attempts <span class="badge badge-secondary"><%= @commit.commit_attempts.length %>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <tbody>
+                <% @commit.commit_attempts.each_with_index do |commit_attempt, index| %>
+                  <% if commit_attempt.policy_checks.length > 0 %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: commit_attempt.policy_checks.first %>
+                  <% else %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: nil %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'repositories/tabs/empty', repository: @repository %>
+    <% end %>
+
+  </div>
+
+
+</section>

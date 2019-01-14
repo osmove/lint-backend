@@ -1,0 +1,14 @@
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col col-md-8 offset-md-2">
+        <h1>Editing Issue</h1>
+        <%= render 'form', issue: @issue %>
+        <%= link_to 'Show', user_repository_issue_path(@repository.user, @repository, @issue) %> |
+        <%= link_to 'Back', user_repository_issues_path(@repository.user, @repository) %>
+      </div>
+    </div>
+  </div>
+</section>

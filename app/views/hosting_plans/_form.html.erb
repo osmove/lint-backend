@@ -1,0 +1,49 @@
+<%= bootstrap_form_with(model: hosting_plan, local: true) do |form| %>
+  <% if hosting_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hosting_plan.errors.count, "error") %> prohibited this hosting_plan from being saved:</h2>
+      <ul>
+      <% hosting_plan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- <div class="field">
+    <%= form.text_field :name, id: :hosting_plan_name %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :slug, id: :hosting_plan_slug %>
+  </div> -->
+
+  <div class="field">
+    <%= form.text_field :memory, id: :hosting_plan_memory %>
+  </div>
+
+  <div class="field">
+    <%= form.number_field :vcpus, id: :hosting_plan_vcpus %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :storage, id: :hosting_plan_storage %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :transfer, id: :hosting_plan_transfer %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :price_per_month, id: :hosting_plan_price_per_month %>
+  </div>
+
+  <!-- <div class="field">
+    <%= form.label :price_per_hour %>
+    <%= form.text_field :price_per_hour, id: :hosting_plan_price_per_hour %>
+  </div> -->
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

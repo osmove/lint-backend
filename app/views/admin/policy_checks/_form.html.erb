@@ -1,0 +1,63 @@
+<%= bootstrap_form_for(@policy_check, url: @form_url) do |form| %>
+
+  <% if policy_check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(policy_check.errors.count, "error") %> prohibited this policy_check from being saved:</h2>
+
+      <ul>
+      <% policy_check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :policy_check_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :passed %>
+    <%= form.check_box :passed, id: :policy_check_passed, inline: true, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commit_attempt_id %>
+    <%= form.select(:commit_attempt_id, CommitAttempt.all.collect {|p| [ p.message, p.id ] }, {selected: @policy_check.commit_attempt_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :policy_id %>
+    <%= form.select(:policy_id, Policy.all.collect {|p| [ p.name, p.id ] }, {selected: @policy_check.policy_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.select(:repository_id, Repository.all.collect {|p| [ p.name, p.id ] }, {selected: @policy_check.repository_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.select(:user_id, User.all.collect {|p| [ p.username, p.id ] }, {selected: @policy_check.user_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.select(:contributor_id, Contributor.all.collect {|p| [ p.name, p.id ] }, {selected: @policy_check.contributor_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.select(:push_id, Push.all.collect {|p| [ p.name, p.id ] }, {selected: @policy_check.push_id, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.select(:device_id, Device.all.collect {|p| [ p.name, p.id ] }, {selected: @policy_check.device_id, hide_label: true}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

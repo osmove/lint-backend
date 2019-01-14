@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  origin: MyString
+  origin_url: MyString
+  avatar_url: MyString
+  role: MyString
+  user: one
+  team: one
+
+two:
+  username: MyString
+  origin: MyString
+  origin_url: MyString
+  avatar_url: MyString
+  role: MyString
+  user: two
+  team: two

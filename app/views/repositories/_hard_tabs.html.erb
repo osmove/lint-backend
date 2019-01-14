@@ -1,0 +1,111 @@
+
+
+<!-- <section class="" style="background-color: #e6e6e6;"> -->
+<section class="">
+  <div class="container repository">
+
+    <nav>
+      <div class="nav nav-tabs flex-column flex-md-row" id="nav-tab" role="tablist">
+
+        <% if current_page?(user_repository_path(repository.user, repository)) && controller.action_name != "settings" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-overview-tab" href="<%= user_repository_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-dashboard"></i> Overview
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-overview-tab" href="<%= user_repository_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-dashboard"></i> Overview
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "documents" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-files-tab" href="<%= user_repository_documents_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-folder"></i> Files
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-files-tab" href="<%= user_repository_documents_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-folder"></i> Files
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "commits" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-commits-tab" href="<%= user_repository_commits_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-code-fork"></i> Commits
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-commits-tab" href="<%= user_repository_commits_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-code-fork"></i> Commits
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "issues" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-issues-tab" href="<%= user_repository_issues_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-exclamation-triangle"></i> Issues <span class="badge badge-secondary"><%= @repository.issues.where(status: 'open').length %></span>
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-issues-tab" href="<%= user_repository_issues_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-exclamation-triangle"></i> Issues <span class="badge badge-secondary"><%= @repository.issues.where(status: 'open').length %></span>
+          </a>
+        <% end %>
+
+        <!-- <% if controller.controller_name == "pull_requests" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-pull-request-tab" href="<%= user_repository_pull_requests_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-arrow-down"></i> PRs <span class="badge badge-secondary">3</span>
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-pull-request-tab" href="<%= user_repository_pull_requests_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-arrow-down"></i> PRs <span class="badge badge-secondary">3</span>
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "analytics" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-issues-tab" href="<%= user_repository_analytics_path(repository.user, repository) %>"  aria-selected="true">
+            <i class="fa fa-bar-chart"></i> Analytics
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-issues-tab" href="<%= user_repository_analytics_path(repository.user, repository) %>"  aria-selected="false">
+            <i class="fa fa-bar-chart"></i> Analytics
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "ratings" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-ratings-tab" href="<%= user_repository_ratings_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-star"></i> Ratings
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-ratings-tab" href="<%= user_repository_ratings_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-star"></i> Ratings
+          </a>
+        <% end %> -->
+
+        <% if controller.controller_name == "repository_accesses" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-access-tab" href="<%= user_repository_repository_accesses_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-users"></i> Access
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-access-tab" href="<%= user_repository_repository_accesses_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-users"></i> Access
+          </a>
+        <% end %>
+
+        <% if controller.controller_name == "repositories" && controller.action_name == "settings" %>
+          <a class="flex-md-fill text-md-center nav-item nav-link active" id="nav-settings-tab" href="<%= user_repository_settings_path(repository.user, repository) %>" aria-selected="true">
+            <i class="fa fa-cog"></i> Settings
+          </a>
+        <% else %>
+          <a class="flex-md-fill text-md-center nav-item nav-link" id="nav-settings-tab" href="<%= user_repository_settings_path(repository.user, repository) %>" aria-selected="false">
+            <i class="fa fa-cog"></i> Settings
+          </a>
+        <% end %>
+
+
+
+
+
+
+
+
+
+      </div>
+    </nav>
+  </div>
+</section>

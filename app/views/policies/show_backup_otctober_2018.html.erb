@@ -1,0 +1,91 @@
+<div class="container my-3">
+  <h1>Policy: <%= @policy.name %></h1>
+
+
+
+  <p>
+    <strong>Description:</strong>
+    <%= @policy.description %>
+  </p>
+
+  <p>
+    <strong>Author:</strong>
+    <td><% if @policy.user.present? %> <%= link_to @policy.user, admin_user_path(@policy.user) %>  <% end %></td>
+  </p>
+
+
+  <h4>Policy - Rules</h4>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <!-- <th>Status</th> -->
+        <th>Language</th>
+        <th>Framework</th>
+        <th>Platform</th>
+        <th>Position</th>
+        <th>Status</th>
+        <th>Parent</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @policy.policy_rules.order(position: :asc).each do |policy_rule| %>
+        <tr>
+          <td><%= policy_rule.rule.name %></td>
+          <td><%= policy_rule.rule.type %></td>
+          <td><%= policy_rule.rule.description %></td>
+          <!-- <td><%= policy_rule.rule.status %></td> -->
+          <td><%= policy_rule.rule.language %></td>
+          <td><%= policy_rule.rule.framework %></td>
+          <td><%= policy_rule.rule.platform %></td>
+          <td><%= policy_rule.position %></td>
+          <td><%= policy_rule.status.capitalize if policy_rule.status.present? %></td>
+          <td><% if policy_rule.rule.parent.present? %><%= link_to policy_rule.rule.parent.name, admin_rule_path(policy_rule.rule.parent) %><% end %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <h4>Policy - Repositories</h4>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Git Address</th>
+        <th>Status</th>
+        <th>Language</th>
+        <th>Framework</th>
+        <th>Platform</th>
+        <th>Size</th>
+        <th>Has_encryption</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @policy.repositories.each do |repo| %>
+        <tr>
+          <td><% if repo.name.present? %>  <%= link_to repo.name, admin_repository_path(repo) %>  <% end %></td>
+          <td><%= repo.git_url %></td>
+          <td><%= repo.status %></td>
+          <td><% if repo.language_id.present? %><%= repo.language %><% end %></td>
+          <td><% if repo.framework_id.present? %><%= repo.framework %><% end %></td>
+          <td><% if repo.platform_id.present? %><%= repo.platform %><% end %></td>
+          <td><%= repo.size %></td>
+          <td><%= repo.has_encryption %></td>
+
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <%= link_to 'Edit', edit_user_policy_path(@policy.user, @policy) %> |
+  <%= link_to 'Back', user_policies_path %>
+
+</div>

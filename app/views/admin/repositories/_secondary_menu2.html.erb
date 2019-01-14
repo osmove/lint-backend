@@ -1,0 +1,204 @@
+<style>
+  .scrollmenu {
+    /* background-color: #e6e6e6; */
+    overflow: auto;
+    white-space: nowrap;
+    text-align: center;
+    border-top: 1px solid #cfd4d9;
+    padding-top: 12px;
+    padding-bottom: 6px;
+  }
+  .scrollmenu img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+  }
+
+  .scrollmenu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollmenu a {
+    display: inline-block;
+    color: #666;
+    text-align: center;
+    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    font-family: Arial;
+  }
+
+  .scrollmenu a:hover i, .scrollmenu a.active i {
+    border-color: #777;
+    color: #444 !important;
+  }
+
+  .scrollmenu-title {
+    width: 58px;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+
+  .scrollmenu i {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    color: #777;
+    font-size: 30px;
+    padding: 2px;
+    padding-top: 9px;
+    margin-bottom: 2px;
+  }
+  .scrollmenu a:hover, .scrollmenu a.active {
+    color: #111 !important;
+  }
+
+
+</style>
+
+
+<div class="scrollmenu bg-light">
+    <div class="container-fluid">
+
+
+      <% if current_page?(user_repository_path(repository.user, repository)) && controller.action_name != "settings" %>
+        <a href="<%= user_repository_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-dashboard scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Overview</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-dashboard scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Overview</div>
+          </div>
+        </a>
+      <% end %>
+
+      <% if controller.controller_name == "documents" %>
+        <a href="<%= user_repository_documents_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-folder scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Files</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_documents_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-folder scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Files</div>
+          </div>
+        </a>
+      <% end %>
+
+
+      <% if controller.controller_name == "commits" %>
+        <a href="<%= user_repository_commits_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-code-fork scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Commits</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_commits_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-code-fork scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Commits</div>
+          </div>
+        </a>
+      <% end %>
+
+      <% if controller.controller_name == "issues" %>
+        <a href="<%= user_repository_issues_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-exclamation-triangle scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Issues</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_issues_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-exclamation-triangle scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Issues</div>
+          </div>
+        </a>
+      <% end %>
+
+      <% if controller.controller_name == "repository_accesses" %>
+        <a href="<%= user_repository_repository_accesses_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-users scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Access</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_repository_accesses_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-users scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Access</div>
+          </div>
+        </a>
+      <% end %>
+
+
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-database scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Hosting</div>
+          </div>
+        </a>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-wrench scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Buildpacks</div>
+          </div>
+        </a>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-hand-o-up scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Buttons</div>
+          </div>
+        </a>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-bar-chart scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Stats</div>
+          </div>
+        </a>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-star scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Ratings</div>
+          </div>
+        </a>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-arrow-down scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">PRs</div>
+          </div>
+        </a>
+
+      <% if controller.controller_name == "repositories" && controller.action_name == "settings" %>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto active" aria-selected="true">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-cog scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Settings</div>
+          </div>
+        </a>
+      <% else %>
+        <a href="<%= user_repository_settings_path(repository.user, repository) %>" class="mx-auto" aria-selected="false">
+          <div class="text-center" style="display:inline-block;">
+            <i class="fa fa-cog scrollmenu-icon"></i>
+            <div class="text-center scrollmenu-title">Settings</div>
+          </div>
+        </a>
+      <% end %>
+
+    </div>
+  </div>

@@ -1,0 +1,26 @@
+<div class="container py-4">
+
+  <p>
+    <strong>Name:</strong>
+    <%= @contributor.name %>
+  </p>
+
+  <p>
+    <strong>Email:</strong>
+    <%= @contributor.email %>
+  </p>
+
+  <p>
+    <strong>Repository:</strong>
+    <%= @contributor.repository %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @contributor.user %>
+  </p>
+
+  <%= link_to 'Edit', edit_contributor_path(@contributor) %> |
+  <%= link_to 'Back', contributors_path %>
+
+</div>

@@ -1,0 +1,42 @@
+<%= form_with(model: decryption, local: true) do |form| %>
+  <% if decryption.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(decryption.errors.count, "error") %> prohibited this decryption from being saved:</h2>
+
+      <ul>
+      <% decryption.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :decryption_status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cypher_name %>
+    <%= form.text_field :cypher_name, id: :decryption_cypher_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_id %>
+    <%= form.text_field :document_id, id: :decryption_document_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :decryption_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :decryption_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

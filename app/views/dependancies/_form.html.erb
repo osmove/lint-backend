@@ -1,0 +1,37 @@
+<%= form_with(model: dependancy, local: true) do |form| %>
+  <% if dependancy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(dependancy.errors.count, "error") %> prohibited this dependancy from being saved:</h2>
+
+      <ul>
+      <% dependancy.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :dependancy_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug, id: :dependancy_slug %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :dependancy_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :dependancy_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

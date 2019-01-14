@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Pushes</h1>
+
+<%= link_to '+ New Push', new_admin_push_path, class: "btn btn-secondary my-3" %>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Repository</th>
+      <th>User</th>
+      <th>Number of commits</th>
+      <th>Push Date</th>
+
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pushes.each do |push| %>
+      <tr>
+        <td><%= push.repository %></td>
+        <td><%= push.user %></td>
+        <td><%= push.commits.count %></td>
+        <td><%= push.created_at.strftime("%d %B %Y - %H:%M") %></td>
+        <td><%= link_to 'Show', admin_push_url(push), class: "btn btn-sm btn-primary" %></td>
+        <td><%= link_to 'Edit', edit_admin_push_path(push), class: "btn btn-sm btn-info" %></td>
+        <td><%= link_to 'Destroy', admin_push_url(push), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

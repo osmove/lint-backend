@@ -1,0 +1,23 @@
+<% cache commit_attempt do %>
+  <li class="mb-2">
+    <%= link_to "#{commit_attempt.repository.uuid}", user_repository_commit_attempts_path(commit_attempt.repository.user, commit_attempt.repository) %><br />
+    <div class=""><strong>
+      <%= link_to "#{commit_attempt.name}", user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt)%><br />
+    </strong></div>
+    <% if commit_attempt.policy_checks.first.present? %>
+      <span class="text-danger"><%= "#{pluralize(commit_attempt.policy_checks.first.error_count || 0, 'error')}" %></span> | <span class="text-orange"><%= "#{pluralize(commit_attempt.policy_checks.first.warning_count || 0, 'warning')}" %></span>
+      |
+      <% if commit_attempt.policy_checks.first.passed == true %>
+        <span class="badge badge-success">Passed</span>
+      <% else %>
+        <span class="badge badge-danger">Failed</span>
+      <% end %>
+
+    <% else %>
+      <span class="text-muted">No policy</span>
+    <% end %>
+    <br />
+    <span class="text-muted"><%= time_ago_in_words(commit_attempt.created_at) %> ago</span>
+
+  </li>
+<% end %>

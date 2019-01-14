@@ -1,0 +1,12 @@
+<% if params['repository_id'].present? %>
+
+  <%= render 'repositories/header', user: @user, repository: @repository%>
+<% end %>
+
+<div class="my-4">
+  <div class="mx-auto px-3" style="max-width: 400px;">
+    <h1>New Document</h1>
+    <%= render 'form', document: @document %>
+    <%= link_to 'Back',  user_repository_documents_path(@user, @repository) %>
+  </div>
+</div>

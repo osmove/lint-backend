@@ -1,0 +1,33 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <%= bootstrap_form_for(@language, url: @form_url) do |form| %>
+      <% if language.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(language.errors.count, "error") %> prohibited this language from being saved:</h2>
+
+          <ul>
+          <% language.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.text_field :name, id: :language_name %>
+      </div>
+
+      <div class="field">
+        <%= form.text_field :slug, id: :language_slug %>
+      </div>
+
+      <div class="field">
+        <%= form.text_area :image, id: :language_image %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>

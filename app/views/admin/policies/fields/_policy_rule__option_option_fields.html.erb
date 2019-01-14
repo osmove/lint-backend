@@ -1,0 +1,26 @@
+<div class='nested-fields'>
+  <%= f.hidden_field :rule_option, value: rule_option %>
+
+  <% if rule_option.value_type == "boolean" %>
+
+
+  <% elsif rule_option.value_type == "integer" %>
+
+  <%= f.number_field :value %>
+
+  <% elsif rule_option.value_type == "string" %>
+
+  <%= f.text_field :value %>
+
+  <% elsif rule_option.value_type == "array-single" %>
+
+  <%= f.select :value, rule_option.value.split(",") %>
+
+  <% elsif rule_option.value_type == "array-multiple" %>
+    <%#= f.select :value, rule_option.value.split(","),{}, { :multiple => true} %>
+    <%= f.collection_check_boxes :value, rule_option.value.split(",").map {|p| [ p, p.capitalize ] }, :first, :last, { :multiple => true } %>
+
+  <% end %>
+
+  <%= link_to_remove_association "Remove Option", f, class: 'btn btn-danger btn-sm mb-4' %>
+ </div>

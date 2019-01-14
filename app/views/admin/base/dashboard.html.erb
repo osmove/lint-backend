@@ -1,0 +1,25 @@
+<div class="container-fluid py-2">
+
+  <!-- <h1>Admin Dashboard</h1> -->
+  <!-- <h2 class="mb-4"><%= current_user.greet %>.</h2> -->
+  <h1><%= current_user.greet %>.</h1>
+
+
+  <div class="mb-3">
+    <h3>Users</h3>
+    <%= area_chart User.group_by_day(:created_at, last: 30).count, height: "250px" %>
+  </div>
+  <div class="mb-3">
+    <h3>Repositories</h3>
+    <%= column_chart Repository.group_by_day(:created_at, last: 30).count, height: "250px" %>
+  </div>
+  <div class="mb-3">
+    <h3>Commits</h3>
+    <%= column_chart Commit.group_by_day(:date_raw, last: 60).count, height: "250px" %>
+  </div>
+  <div class="mb-3">
+    <h3>Policies</h3>
+    <%= column_chart Policy.group_by_day(:created_at, last: 30).count, height: "250px" %>
+  </div>
+
+</div>

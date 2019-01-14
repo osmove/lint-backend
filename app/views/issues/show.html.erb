@@ -1,0 +1,40 @@
+
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+  <div class="container py-3">
+
+    <p><%= link_to "Back to Issues",  user_repository_issues_path(@user, @repository) %></p>
+
+    <h1><%= @issue.title %></h1>
+
+    <div class="card mb-3">
+      <div class="card-header text-muted">
+        <%= @issue.status.titleize %> issue
+        &bull; Created <%= time_ago_in_words(@issue.created_at) %> ago
+        <% if @issue.created_at != @issue.updated_at %>
+          &bull; Updated <%= time_ago_in_words(@issue.updated_at) %> ago
+        <% end %>
+      </div>
+      <div class="card-body">
+        <%= @issue.body %>
+      </div>
+    </div>
+<!--
+    <p>
+      <strong>Slug:</strong>
+      <%= @issue.slug %>
+    </p>
+
+      <strong>Language:</strong>
+      <%= @issue.language %>
+    </p>
+
+    <p>
+      <strong>Framework:</strong>
+      <%= @issue.framework %>
+    </p> -->
+
+    <%= link_to 'Edit', edit_user_repository_issue_path(@user, @repository, @issue) %>
+  </div>
+</section>

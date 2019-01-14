@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyString
+  description: MyString
+  commit: one
+  user: one
+  contributor: one
+  push: one
+  device: one
+  repository: one
+
+two:
+  message: MyString
+  description: MyString
+  commit: two
+  user: two
+  contributor: two
+  push: two
+  device: two
+  repository: two

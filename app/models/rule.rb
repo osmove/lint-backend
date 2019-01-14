@@ -1,0 +1,48 @@
+class Rule < ApplicationRecord
+  belongs_to :language, optional: true
+  belongs_to :framework, optional: true
+  belongs_to :platform, optional: true
+
+  belongs_to :linter, optional: true
+
+
+  has_many :policy_rules, inverse_of: :rule
+  has_many :policies, through: :policy_rules
+
+  has_many :rule_options, :dependent => :destroy
+  has_many :rule_checks, :dependent => :destroy
+
+  accepts_nested_attributes_for :rule_options, allow_destroy: true, :reject_if => :all_blank
+
+  has_many :rule_option_options, :through => :rule_options
+  accepts_nested_attributes_for :rule_option_options, reject_if: :all_blank, allow_destroy: true
+
+  accepts_nested_attributes_for :rule_option_options
+
+
+  has_many :children, class_name: "Rule", foreign_key: "parent_id"
+  belongs_to :parent, class_name: "Rule", optional: true
+
+
+  self.inheritance_column = :_type_disabled
+
+
+  validate :check_rule_is_unique, :on => :create
+
+  def check_rule_is_unique
+    if Rule.where(name: self.name).any?
+      errors.add(:base, :duplicate)
+      return false
+    end
+  end
+
+  def to_s
+    self.name
+  end
+
+  def short_description
+    max = 80
+    self.description.length > max ? "#{self.description[0...max]}..." : self.description
+  end
+
+end

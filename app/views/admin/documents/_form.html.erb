@@ -1,0 +1,53 @@
+<%= bootstrap_form_for(@document, url: @form_action) do |form| %>
+  <!-- <% if document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved:</h2>
+      <ul>
+      <% document.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %> -->
+
+  <div class="field">
+    <!-- <%= form.label :name %> -->
+    <%= form.text_field :name, id: :document_name, autofocus: true, prepend: "#{form.object.path}" %>
+  </div>
+
+  <div class="field">
+    <!-- <%= form.label :path %> -->
+    <%= form.text_field :path, id: :document_path %>
+  </div>
+
+  <div class="field">
+    <!-- <%= form.label :is_folder %> -->
+    <%= form.check_box :is_folder, id: :document_is_folder %>
+  </div>
+
+  <div class="field">
+    <!-- <%= form.label :size %> -->
+    <%= form.number_field :size, id: :document_size %>
+  </div>
+
+  <div class="field">
+    <!-- <%= form.label :extension %> -->
+    <%= form.text_field :extension, id: :document_extension %>
+  </div>
+
+  <div class="field">
+    <!-- <%= form.label :content %> -->
+    <%= form.text_area :content, id: :document_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.select :repository_id, current_user.repositories.map { |repo| repo.slug }, { hide_label: true, selected: @repository.slug } %>
+  </div>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

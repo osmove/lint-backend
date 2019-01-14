@@ -1,0 +1,87 @@
+<div class="card mb-2">
+  <div class="card-header d-flex justify-content-between align-items-center",  id="heading_<%= commit_attempt.id %>">
+    <div class="">
+      <% if commit_attempt.sha.present? %>
+        <%= "#{commit_attempt.sha.slice(0,7)} - " %>
+      <% end %>
+      <a href="<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
+
+        <%= commit_attempt.message %>
+
+      </a>
+
+    </div>
+
+    <div>
+      <% if commit_attempt.policy_checks.first.present? %>
+        <span class="text-danger"><%= "#{commit_attempt.policy_checks.first.error_count || 0} error(s)" %></span>
+        |
+        <span class="text-warning"><%= "#{commit_attempt.policy_checks.first.warning_count || 0} warning(s)" %></span>
+        |
+        <% if commit_attempt.policy_checks.first.passed == true %>
+          <span class="badge badge badge-success">Passed</span>
+        <% else %>
+          <span class="badge badge badge-danger">Failed</span>
+        <% end %>
+
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="">
+        <% if commit_attempt.user.present? %>
+          <a href="<%= user_path(commit_attempt.user) %>">
+            <% if commit_attempt.user.avatar_url.present? %>
+              <img src="<%= commit_attempt.user.avatar_url %>" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+            <% elsif commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+              <img src="/images/organization-blank.jpg" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+            <% else %>
+              <img src="/images/user-blank.png" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+            <% end %>
+            <span><%= commit_attempt.user %></span>
+          </a>
+        <% end %>
+        <% if commit_attempt.policy_checks.first.present? %>
+          <p class="text-muted">
+            <%= "#{commit_attempt.policy_checks.first.fixable_offense_count || 0} Fixable rule(s), #{commit_attempt.policy_checks.first.fixable_error_count || 0} error(s), #{commit_attempt.policy_checks.first.fixable_warning_count || 0} warning(s)" %>
+          </p>
+        <% end %>
+    </div>
+    <div class="">
+      <!-- <span class="text-muted"><%#= "#{time_ago_in_words(commit_attempt.created_at)} ago" %></span> -->
+      <span class="text-muted"><%= "#{commit_attempt.created_at.strftime("%d %B %Y at %H:%M")}" %></span>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+
+    <div class="">
+      <% if commit_attempt.policy_checks.first.present? %>
+        <p class="text-muted">
+          <% if commit_attempt.policy_checks.first.rule_checks.count == 1 %>
+            <%= "#{commit_attempt.policy_checks.first.rule_checks.count} Offense in total, " %>
+          <% elsif commit_attempt.policy_checks.first.rule_checks.count > 0 %>
+            <%= "#{commit_attempt.policy_checks.first.rule_checks.count} Offenses in total, " %>
+          <% end %>
+
+          <% @languages.each do |language| %>
+            <% if commit_attempt.policy_checks.first.rule_checks.where(language: language).count > 0 %>
+              <%= "#{commit_attempt.policy_checks.first.rule_checks.where(language: language).count} #{language.name} Files" %>
+            <% end %>
+          <% end %>
+        </p>
+      <% end %>
+    </div>
+
+    <div class="">
+      <% if commit_attempt.branch_name.present? %>
+        <p class="text-muted">
+          <%= "On branch #{commit_attempt.branch_name}" %>
+        </p>
+      <% end %>
+    </div>
+
+  </div>
+</div>

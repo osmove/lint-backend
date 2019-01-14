@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <h1 class="pl-3">Organizations</h1>
+  </div>
+  <div class="row">
+    <% @organizations_of_user.each do |org| %>
+
+      <div class="col-12">
+        <div class="card box-shadow mb-2 mb-md-4">
+          <div class="card-body p-2 p-md-3">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-1 text-center">
+                  <a href="<%= admin_user_path(org) %>" style="display: block; cursor: pointer;">
+                    <% if org.avatar_url.present? %>
+                      <img class="mt-4" src="<%= org.avatar_url %>" alt="" style="width: 50px; height: 50px; border-radius: 8px;" />
+                    <% else %>
+                      <img src="/images/organization-blank.jpg" alt="<%= @user %>" class="img-thumbnail mt-4" style="width: 50px; height: 50px; border-radius: 80px;">
+                    <% end %>
+                  </a>
+                </div>
+                <div class="col">
+                  <a href="<%= admin_user_path(org) %>" style="display: block; cursor: pointer;">
+                    <h3 class="" style="margin-top: 6px; margin-bottom: 3px; ">
+                      <%= org.username %>
+                    </h3>
+                    <ul class="list-unstyled text-dark mb-0" style="font-size: 12px;">
+                      <li class="text-muted">
+                        <strong><%= "#{org.repositories.count} #{Repository.model_name.human(count: org.repositories.count)}" %> </strong>
+                      </li>
+                      <li class="text-muted">
+                        <%= "#{Membership.where(organization_id: org).count} Members" %>
+                      </li>
+                    </ul>
+                  </a>
+
+                  <div class="text-right">
+                    <%= link_to 'Show', admin_user_path(org), class: "btn btn-success btn-sm" %>
+                    <%= link_to 'Edit', edit_admin_user_path(org), class: "btn btn-info btn-sm" %>
+                    <%= link_to 'Destroy', admin_user_path(org), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

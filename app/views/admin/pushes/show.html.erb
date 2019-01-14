@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @push.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @push.user %>
+</p>
+
+
+<p>
+  <strong>Commits:</strong>
+  <% @push.commits.each do |commit| %>
+    <%= commit.message %> <br />
+  <% end %>
+</p>
+
+
+<%= link_to 'Edit', edit_admin_push_path(@push) %> |
+<%= link_to 'Back', admin_pushes_path %>

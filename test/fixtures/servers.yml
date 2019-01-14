@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  ip_address: MyString
+  os: MyString
+  ssh_host: MyString
+  ssh_user: MyString
+  ssh_password: MyString
+  ssh_path: MyString
+  user: one
+
+two:
+  name: MyString
+  ip_address: MyString
+  os: MyString
+  ssh_host: MyString
+  ssh_user: MyString
+  ssh_password: MyString
+  ssh_path: MyString
+  user: two

@@ -1,0 +1,56 @@
+<div class="row">
+	<div class="col-7">
+		<%= f.check_box :rule_id, {label: "<strong>#{rule.name}</strong>".html_safe, inline: true, class: "mr-4", checked: true, style: "display: none;" }, rule.id, nil %>
+		<% if rule.description.present? %>
+			<p class="text-muted">	<%= rule.description %></p>
+		<% end %>
+	</div>
+	<div class="col-4">
+		<%= f.collection_radio_buttons :status, PolicyRule::STATUS_OPTIONS, :last, :first, {hide_label: true, inline: true} %>
+	</div>
+	<div class="col-1">
+		<% if rule.fixable? %>
+		<%= "Fixable" %>
+		<% end %>
+	</div>
+</div>
+<% rule.rule_options.each do |rule_option| %>
+	<%= rule_option.name %>
+	<div id='form_<%= rule_option.id %>'>
+		<div id='policy_rule_options'>
+			<%= f.fields_for :policy_rule_options do |policy_rule_option| %>
+				<% if policy_rule_option.object.rule_option == rule_option %>
+					<%= render 'admin/policies/fields/policy_rule_option_fields', :f => policy_rule_option, rule_option: rule_option %>
+				<% end %>
+
+			<% end %>
+		</div>
+		<div class='links_<%= rule_option.id %>'>
+			<%= link_to_add_association "Add Option for #{rule_option.name}", f, :policy_rule_options, render_options:  {locals: { rule_option: rule_option }}, partial:  'admin/policies/fields/policy_rule_option_fields' %>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			function check_to_hide_or_show_add_link() {
+				if (($('#form_<%= rule_option.id %> .nested-fields:visible').length == 1)) {
+					$('#form_<%= rule_option.id %> .links_<%= rule_option.id %>').hide();
+				} else {
+					$('#form_<%= rule_option.id %> .links_<%= rule_option.id %>').show();
+				}
+			}
+
+			$('#form_<%= rule_option.id %>').on('cocoon:after-insert', function() {
+				check_to_hide_or_show_add_link();
+			});
+
+			$('#form_<%= rule_option.id %>').on('cocoon:after-remove', function() {
+				check_to_hide_or_show_add_link();
+			});
+
+			check_to_hide_or_show_add_link();
+		});
+	</script>
+<% end %>
+
+<hr />

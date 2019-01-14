@@ -1,0 +1,45 @@
+<div class="container py-5">
+  <p>
+    <strong>Message:</strong>
+    <%= @commit_attempt.message %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @commit_attempt.description %>
+  </p>
+
+  <p>
+    <strong>Commit:</strong>
+    <%= @commit_attempt.commit %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= @commit_attempt.user %>
+  </p>
+
+  <p>
+    <strong>Contributor:</strong>
+    <%= @commit_attempt.contributor %>
+  </p>
+
+  <p>
+    <strong>Push:</strong>
+    <%= @commit_attempt.push %>
+  </p>
+
+  <p>
+    <strong>Device:</strong>
+    <%= @commit_attempt.device %>
+  </p>
+
+  <p>
+    <strong>Repository:</strong>
+    <%= @commit_attempt.repository %>
+  </p>
+
+  <%= link_to 'Edit', edit_commit_attempt_path(@commit_attempt) %> |
+  <%= link_to 'Back', commit_attempts_path %>
+
+</div>

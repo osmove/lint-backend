@@ -1,0 +1,57 @@
+<%= form_with(model: server, local: true) do |form| %>
+  <% if server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(server.errors.count, "error") %> prohibited this server from being saved:</h2>
+
+      <ul>
+      <% server.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :server_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ip_address %>
+    <%= form.text_field :ip_address, id: :server_ip_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :os %>
+    <%= form.text_field :os, id: :server_os %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ssh_host %>
+    <%= form.text_field :ssh_host, id: :server_ssh_host %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ssh_user %>
+    <%= form.text_field :ssh_user, id: :server_ssh_user %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ssh_password %>
+    <%= form.text_field :ssh_password, id: :server_ssh_password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ssh_path %>
+    <%= form.text_field :ssh_path, id: :server_ssh_path %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :server_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

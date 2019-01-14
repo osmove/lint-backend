@@ -1,0 +1,52 @@
+<% # bootstrap_form_with(model: issue, local: true) do |form| %>
+<% # bootstrap_form_for(@issue, url: user_repository_issues_path(@user, @repository)) do |form| %>
+<%= bootstrap_form_for(@issue, url: @form_action) do |form| %>
+
+  <% if issue.errors.any? %>
+    <div id="error_explanation">
+      <h5><%= pluralize(issue.errors.count, "error") %> prohibited this issue from being saved:</h5>
+      <ul class="text-danger">
+      <% issue.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_field :title, input_group_class: "input-group-lg", autofocus: true %>
+  </div>
+
+
+  <div class="field">
+    <%= form.text_area :body, rows: 6 %>
+  </div>
+
+  <!-- <div class="field">
+    <%= form.text_field :slug %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :origin %>
+  </div> -->
+<!--
+  <div class="field">
+    <%= form.text_field :repository_id, id: :issue_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :user_id, id: :issue_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :language_id, id: :issue_language_id %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :framework_id, id: :issue_framework_id %>
+  </div> -->
+
+  <div class="actions text-right mb-3">
+    <%= form.primary %>
+  </div>
+<% end %>

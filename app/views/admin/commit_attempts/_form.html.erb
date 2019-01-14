@@ -1,0 +1,59 @@
+<%= bootstrap_form_for(@commit_attempt, url: @form_url) do |form| %>
+  <% if commit_attempt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(commit_attempt.errors.count, "error") %> prohibited this commit_attempt from being saved:</h2>
+
+      <ul>
+      <% commit_attempt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message, id: :commit_attempt_message, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :commit_attempt_description, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commit_id %>
+    <%= form.select :commit_id, Commit.all.collect {|c| [ c.message, c.id ] }, {selected: @commit_attempt.commit_id, hide_label: true, include_blank: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.select :user_id, User.all.collect {|c| [ c.username, c.id ] }, {selected: @commit_attempt.user_id, hide_label: true, include_blank: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.select :contributor_id, Contributor.all.collect {|c| [ c.name, c.id ] }, {selected: @commit_attempt.contributor_id, hide_label: true, include_blank: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.select :push_id, Push.all.collect {|c| [ c.id ] }, {selected: @commit_attempt.push_id, hide_label: true, include_blank: true} %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.select :device_id, Device.all.collect {|c| [ c.model, c.id ] }, {selected: @commit_attempt.device_id, hide_label: true, include_blank: true} %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.select :repository_id, Repository.all.collect {|c| [ c.name, c.id ] }, {selected: @commit_attempt.repository_id, hide_label: true, include_blank: true} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

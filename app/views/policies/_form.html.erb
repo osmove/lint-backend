@@ -1,0 +1,350 @@
+<div class="py-5">
+  <%= bootstrap_form_for(@policy, layout: :horizontal, :url => @form_url) do |form| %>
+
+    <% if policy.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(policy.errors.count, "error") %> prohibited this policy from being saved:</h2>
+
+        <ul>
+          <% policy.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="row">
+      <div class="col">
+        <div class="field">
+          <%= form.label :name %>
+          <%= form.text_field :name, id: :policy_name, hide_label: true %>
+        </div>
+      </div>
+      <div class="col">
+        <div class="field">
+          <%= form.label :description %>
+          <%= form.text_field :description, id: :policy_description, hide_label: true %>
+        </div>
+
+        <% if current_user.role == "admin" %>
+          <% if @policy.user.blank? || @policy.user == current_user %>
+            <%= form.hidden_field :user_id, value: current_user.id %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <h2>Autofix</h2>
+    <%= form.check_box :autofix, {label: "Enable Autofix", class: "mr-4" } %>
+
+    <h2><%= form.label "Rules" %></h2>
+    <% if controller.action_name == "new" %>
+      <% for rule in Rule.all %>
+        <%= form.fields_for :policy_rules, :class => "form-inline" do |g|%>
+          <div class="row">
+            <div class="col-4">
+              <%= g.check_box :rule_id, {label: "<strong>#{rule.name}</strong>".html_safe, inline: true, class: "mr-4", checked: true, style: "display: none;" }, rule.id, nil %>
+            </div>
+            <div class="col-4 text-muted">
+              <% if rule.description.present? %>
+                <%= rule.description %>
+              <% end %>
+            </div>
+            <div class="col-3">
+              <%= g.collection_radio_buttons :status, PolicyRule::STATUS_OPTIONS, :last, :first, {hide_label: true, inline: true} %>
+            </div>
+            <div class="col-1">
+              <% if rule.fixable? %>
+              <%= "Fixable" %>
+              <% end %>
+            </div>
+          </div>
+
+          <% if rule.rule_options.count > 0 %>
+            <% rule.rule_options.each do |rule_option| %>
+              <% if g.object.policy_rule_options.count> 0 %>
+                <div class="row">
+                  <%= g.fields_for :policy_rule_options, g.object.policy_rule_options do |f| %>
+                    <% if rule_option.value_type == "array-multiple" %>
+                      <div class="col-4">
+                        <%= f.label rule_option.name %>
+                        <p class="text-muted"><%= rule_option.description %></p>
+                      </div>
+                      <div class="col-4">
+                        <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {hide_label: true, selected: f.object.rule_option_option_ids} %>
+                      </div>
+                    <% else %>
+                      <%= f.fields_for :policy_rule_option_options do |h| %>
+                        <div class="col-4">
+                          <%= h.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+
+                        <div class="col-4">
+                          <% if rule_option.value_type == "boolean" %>
+                          <% elsif rule_option.value_type == "integer" %>
+                          <% elsif rule_option.value_type == "string" %>
+                          <% elsif rule_option.value_type == "array-single" %>
+                            <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {hide_label: true, selected: h.object.rule_option_option_id} %>
+                            <%#= h.collection_select(:rule_option_option, :rule_option_option_id, rule_option.rule_option_options, :id, {label: "Values", :selected => h.object.rule_option_option}) %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="row">
+
+                  <%= g.fields_for :policy_rule_options, g.object.policy_rule_options.build do |f| %>
+                    <% if rule_option.value_type == "array-multiple" %>
+                      <div class="col-4">
+                        <%= f.label rule_option.name %>
+                        <p class="text-muted"><%= rule_option.description %></p>
+                      </div>
+                      <div class="col-4">
+                        <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {label: "Values"} %>
+                      </div>
+                    <% else %>
+
+                      <%= f.fields_for :policy_rule_option_options, f.object.policy_rule_option_options.build do |h| %>
+                        <% h.hidden_field :policy_rule_option, value: f.object %>
+                        <div class="col-4">
+                          <%= h.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+
+                        <div class="col-4">
+                          <% if rule_option.value_type == "boolean" %>
+
+
+                          <% elsif rule_option.value_type == "integer" %>
+
+
+                          <% elsif rule_option.value_type == "string" %>
+
+
+                          <% elsif rule_option.value_type == "array-single" %>
+
+                            <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {label: "Values", selected: h.object.rule_option_option} %>
+                            <%#= h.collection_select(:rule_option_option, :rule_option_option_id, rule_option.rule_option_options, :id, {label: "Values", :selected => h.object.rule_option_option}) %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <hr />
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= form.fields_for :policy_rules, @policy.policy_rules do |g|%>
+        <% if g.object.rule.present? && g.object.rule.id.present? %>
+          <div class="row">
+            <div class="col-4">
+              <%= g.check_box :rule_id, {label: "<h6><strong>#{g.object.rule.name}</strong></h6>".html_safe, inline: true, checked: true, style: "display: none;"}, g.object.rule.id, nil%>
+            </div>
+            <div class="col-4 text-muted">
+              <% if g.object.rule.description.present? %>
+                <%= g.object.rule.description %>
+              <% end %>
+            </div>
+            <div class="col-3">
+              <%= g.collection_radio_buttons :status, PolicyRule::STATUS_OPTIONS, :last, :first, {hide_label: true, inline: true} %>
+            </div>
+            <div class="col-1">
+              <% if g.object.rule.fixable? %>
+                <%= "Fixable" %>
+              <% end %>
+            </div>
+          </div>
+
+          <% if g.object.rule.rule_options.count > 0 %>
+            <% g.object.rule.rule_options.each do |rule_option| %>
+
+              <% if g.object.policy_rule_options.count> 0 %>
+                <div class="row">
+                  <%= g.fields_for :policy_rule_options, g.object.policy_rule_options do |f| %>
+                    <% if rule_option.value_type == "array-multiple" %>
+                      <div class="col-4">
+                        <%= f.label rule_option.name %>
+                        <p class="text-muted"><%= rule_option.description %></p>
+                      </div>
+                      <div class="col-4">
+                        <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {hide_label: true, selected: f.object.rule_option_option_ids} %>
+                      </div>
+                    <% else %>
+                      <%= f.fields_for :policy_rule_option_options do |h| %>
+                        <div class="col-4">
+                          <%= h.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+
+                        <div class="col-4">
+                          <% if rule_option.value_type == "boolean" %>
+                          <% elsif rule_option.value_type == "integer" %>
+                          <% elsif rule_option.value_type == "string" %>
+                          <% elsif rule_option.value_type == "array-single" %>
+                            <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {hide_label: true, selected: h.object.rule_option_option_id} %>
+                            <%#= h.collection_select(:rule_option_option, :rule_option_option_id, rule_option.rule_option_options, :id, {label: "Values", :selected => h.object.rule_option_option}) %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="row">
+
+                  <%= g.fields_for :policy_rule_options, g.object.policy_rule_options.build do |f| %>
+                    <% if rule_option.value_type == "array-multiple" %>
+                    <div class="col-4">
+                      <%= f.label rule_option.name %>
+                      <p class="text-muted"><%= rule_option.description %></p>
+                    </div>
+                    <div class="col-4">
+                      <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {label: "Values"} %>
+                    </div>
+                    <% else %>
+
+                      <%= f.fields_for :policy_rule_option_options, f.object.policy_rule_option_options.build do |h| %>
+                        <% h.hidden_field :policy_rule_option, value: f.object %>
+                        <div class="col-4">
+                          <%= h.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+
+                        <div class="col-4">
+                          <% if rule_option.value_type == "boolean" %>
+
+
+                          <% elsif rule_option.value_type == "integer" %>
+
+
+                          <% elsif rule_option.value_type == "string" %>
+
+
+                          <% elsif rule_option.value_type == "array-single" %>
+
+                            <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {label: "Values", selected: h.object.rule_option_option} %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% for rule in @form_rules %>
+            <div class="row">
+              <div class="col-4">
+                <%= g.check_box :rule_id, {label: "<strong>#{rule.name}</strong>".html_safe, inline: true, class: "mr-4", checked: true, style: "display: none;" }, rule.id, nil %>
+              </div>
+              <div class="col-4 text-muted">
+                <% if rule.description.present? %>
+                  <%= rule.description %>
+                <% end %>
+              </div>
+              <div class="col-3">
+                <%= g.collection_radio_buttons :status, PolicyRule::STATUS_OPTIONS, :last, :first, {hide_label: true, inline: true} %>
+              </div>
+              <div class="col-1">
+                <% if rule.fixable? %>
+                <%= "Fixable" %>
+                <% end %>
+              </div>
+            </div>
+
+            <% if rule.rule_options.count > 0 %>
+              <% rule.rule_options.each do |rule_option| %>
+                <% if g.object.policy_rule_options.count> 0 %>
+                  <div class="row">
+                    <%= g.fields_for :policy_rule_options, g.object.policy_rule_options do |f| %>
+                      <% if rule_option.value_type == "array-multiple" %>
+                        <div class="col-4">
+                          <%= f.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+                        <div class="col-4">
+                          <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {hide_label: true, selected: f.object.rule_option_option_ids} %>
+                        </div>
+                      <% else %>
+                        <%= f.fields_for :policy_rule_option_options do |h| %>
+                          <div class="col-4">
+                            <%= h.label rule_option.name %>
+                            <p class="text-muted"><%= rule_option.description %></p>
+                          </div>
+
+                          <div class="col-4">
+                            <% if rule_option.value_type == "boolean" %>
+                            <% elsif rule_option.value_type == "integer" %>
+                            <% elsif rule_option.value_type == "string" %>
+                            <% elsif rule_option.value_type == "array-single" %>
+                              <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {hide_label: true, selected: h.object.rule_option_option_id} %>
+                              <%#= h.collection_select(:rule_option_option, :rule_option_option_id, rule_option.rule_option_options, :id, {label: "Values", :selected => h.object.rule_option_option}) %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="row">
+
+                    <%= g.fields_for :policy_rule_options, g.object.policy_rule_options.build do |f| %>
+                      <% if rule_option.value_type == "array-multiple" %>
+                        <div class="col-4">
+                          <%= f.label rule_option.name %>
+                          <p class="text-muted"><%= rule_option.description %></p>
+                        </div>
+                        <div class="col-4">
+                          <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {label: "Values"} %>
+                        </div>
+                      <% else %>
+
+                        <%= f.fields_for :policy_rule_option_options, f.object.policy_rule_option_options.build do |h| %>
+                          <% h.hidden_field :policy_rule_option, value: f.object %>
+                          <div class="col-4">
+                            <%= h.label rule_option.name %>
+                            <p class="text-muted"><%= rule_option.description %></p>
+                          </div>
+
+                          <div class="col-4">
+                            <% if rule_option.value_type == "boolean" %>
+
+
+                            <% elsif rule_option.value_type == "integer" %>
+
+
+                            <% elsif rule_option.value_type == "string" %>
+
+
+                            <% elsif rule_option.value_type == "array-single" %>
+
+                              <%= h.collection_select :rule_option_option_id, rule_option.rule_option_options, :id, :value, {label: "Values", selected: h.object.rule_option_option} %>
+                              <%#= h.collection_select(:rule_option_option, :rule_option_option_id, rule_option.rule_option_options, :id, {label: "Values", :selected => h.object.rule_option_option}) %>
+                            <% end %>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <hr/>
+      <% end %>
+    <% end %>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+</div>

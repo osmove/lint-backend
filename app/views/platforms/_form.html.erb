@@ -1,0 +1,51 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <%= bootstrap_form_with(model: platform, local: true) do |form| %>
+      <% if platform.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(platform.errors.count, "error") %> prohibited this platform from being saved:</h2>
+          <ul>
+            <% platform.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.text_field :name, id: :platform_name %>
+      </div>
+
+      <div class="field">
+        <%= form.text_field :slug, id: :platform_slug %>
+      </div>
+
+      <div class="field">
+        <%= form.text_field :image_url, id: :platform_image_url %>
+      </div>
+
+      <div class="field">
+        <%= form.text_area :image, id: :platform_image %>
+      </div>
+
+
+
+      <%= form.select :visible, [['Yes', true], ['No', false]], id: :platform_image_url %>
+      <%= form.select :is_popular, [['No', false], ['Yes', true]], id: :platform_image_url %>
+
+      <%= form.collection_select :language_id, Language.all, :id, :name, :include_blank => true %>
+
+      <%= form.collection_select :framework_id, Framework.all, :id, :name, :include_blank => true %>
+
+      <!-- <div class="field">
+        <%= form.select :framework, [["Public"], ["Private"]], { hide_label: false }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+      </div> -->
+
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rule_option: one
+  value: MyString
+
+two:
+  rule_option: two
+  value: MyString

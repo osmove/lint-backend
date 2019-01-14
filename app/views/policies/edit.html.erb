@@ -1,0 +1,11 @@
+
+<section class="" style="background-color: #eeeff0;">
+  <div class="container py-5">
+    <h1>Editing Policy:</h1>
+
+    <%= render 'admin/policies/cocoon_form', policy: @policy %>
+
+    <%= link_to 'Show', user_policy_path(@policy.user, @policy) %> |
+    <%= link_to 'Back', user_policies_path(@policy.user) %>
+  </div>
+</section>

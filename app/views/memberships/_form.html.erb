@@ -1,0 +1,53 @@
+<%= bootstrap_form_for(@member, url: @form_url) do |form| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :membership_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin %>
+    <%= form.text_field :origin, id: :membership_origin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin_url %>
+    <%= form.text_field :origin_url, id: :membership_origin_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url, id: :membership_avatar_url %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.text_field :role, id: :membership_role %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id, "Organization" %>
+    <%= form.text_field :user_id, id: :membership_user_id, value: params[:user_id] %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_id %>
+    <%= form.text_field :team_id, id: :membership_team_id, value: params[:team_id] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

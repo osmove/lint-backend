@@ -1,0 +1,69 @@
+
+<div class="container py-4">
+  <h1>Team: <%= @team.name %></h1>
+
+  <p>
+    <%= link_to "Back to #{@team.user}'s teams", user_teams_path(@team.user) %>
+  </p>
+
+  <div class="card mb-3">
+    <div class="card-body">
+
+      <p>
+        <strong>Name:</strong>
+        <%= @team.name %>
+      </p>
+
+      <p>
+        <strong>Parent:</strong>
+        <% if @team.team_id.present? %>
+          <%= Team.find(@team.team_id).name %>
+        <% else %>
+        No Parent.
+        <% end %>
+      </p>
+
+      <p>
+        <strong>Description:</strong>
+        <% if @team.description.present? %>
+          <%= @team.description %>
+        <% else %>
+          No Description.
+        <% end %>
+      </p>
+
+      <p>
+        <strong>Created by:</strong>
+        <%= link_to @team.user, user_path(@team.user) %>
+      </p>
+
+      <p>
+        <strong>Created at:</strong>
+        <%= @team.created_at.strftime('%A %d %B %Y at %H:%M:%S') %>
+      </p>
+
+      <!-- <p>
+        <strong>Avatar url:</strong>
+        <%= @team.avatar_url %>
+      </p> -->
+
+      <p>
+        <strong><%= @team.users.length %> Member(s)</strong>
+        <% if @team.memberships.count > 0 %>
+          <ul class="">
+            <% @team.memberships.each do |membership| %>
+              <li><%= link_to "#{membership.user} <#{membership.user.email}>", user_path(membership.user) %><span class="text-muted"> - Role: <%= membership.role %></span></li>
+            <% end %>
+          </ul>
+        <% else %>
+          No members.
+        <% end %>
+      </p>
+
+    </div>
+  </div>
+
+  <%= link_to 'Edit', edit_user_team_path(@team.user, @team.id) %> |
+  <%= link_to 'Back', user_teams_path(@team.user) %>
+
+</div>

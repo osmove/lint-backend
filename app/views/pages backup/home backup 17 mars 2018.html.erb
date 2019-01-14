@@ -1,0 +1,146 @@
+
+<div class="container mt-4 py-5 px-3 text-center">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+      <p><img src="/images/gatrix-logo.png" alt="Gatrix Repositories"></p>
+
+      <h1>Gatrix</h1>
+      <p>The Git Matrix</p>
+      <h3 class="my-4">What is Gatrix?</h3>
+      <p class="w-75 mx-auto my-4 lead">Gatrix is a Mac app and a CLI tool working together to help developers manage their code more efficiently.</p>
+      <!-- <p class="w-75 mx-auto my-5"><img src="/images/dock-toolbar.jpg" alt="Gatrix Repositories" class="img-fluid rounded"></p> -->
+
+      <h2 class="mt-4">Gatrix for Mac</h2>
+      <p>Download Gatrix for free.</p>
+      <p><a href="/app/Gatrix.app.zip" class="btn btn-lg btn-dark mb-3">⇩ Download Gatrix for Mac</a></p>
+
+      <hr class="my-5" />
+
+      <h2 class="mt-3">Gatrix CLI</h2>
+
+      <h3 class="my-4">Installation</h3>
+      <h>Install Homebrew if needed.</p>
+      <h6><kbd class="click-to-copy" id="p0" onclick="copyToClipboard0('#p0')">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</kbd></h6>
+      <p class="click-to-copy text-muted" id="copied0" onclick="copyToClipboard0('#p0')">Click to copy</p>
+
+      <p>Install Gatrix CLI with Homebrew.</p>
+      <h4><kbd class="click-to-copy" id="p1" onclick="copyToClipboard1('#p1')">brew tap jimdou/gatrix && brew install gatrix</kbd></h4>
+      <p class="click-to-copy text-muted" id="copied1" onclick="copyToClipboard1('#p1')">Click to copy</p>
+
+      <h3 class="my-4">Usage</h3>
+      <h4><kbd class="click-to-copy" id="p2" onclick="copyToClipboard2('#p2')">gatrix</kbd></h4>
+      <p class="click-to-copy text-muted" id="copied2" onclick="copyToClipboard2('#p2')">Click to copy</p>
+
+      <!-- <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+      &lt;p&gt;And another line of sample text here...&lt;/p&gt;
+      </code></pre> -->
+
+      <h4 class="my-4">Output</h4>
+
+      <!-- <pre class="text-left card bg-light px-2"><samp> -->
+<pre class="text-left"><samp>
+Jimmys-iMac:dev jimmy$ gatrix show all
+
+Repositories      Language          Branch      Status     Diff
+----------------------------------------------------------------------------------------------------------
+📁 my-repo-1      JS/React          ⎇ dev       ▲ 2 ▼ 1   A src/components/Profile.js
+----------------------------------------------------------------------------------------------------------
+📁 my-repo-2      Python/Django     ⎇ master    ▼ 1       ✓
+----------------------------------------------------------------------------------------------------------
+📁 my-repo-3      PHP/Symfony       ⎇ dev       ▲ 3       A /web/app_dev.php
+----------------------------------------------------------------------------------------------------------
+📁 my-repo-5      Ruby/Rails        ⎇ master    ✓         M app/views/pages/home.html.erb
+                                                           A app/views/pages/contact.html.erb
+                                                           D app/views/pages/contact_us.html.erb
+                                                           + 3 other(s) file(s)
+----------------------------------------------------------------------------------------------------------
+
+Total: 5 repositories.
+
+</samp></pre>
+
+
+<!-- <pre class="text-left card bg-light px-2"><samp>
+Jimmys-iMac:dev jimmy$ gatrix
+
+Repositories             Language          Branch      Status     Diff
+----------------------------------------------------------------------------------------------------------
+📁 my-react-app          JS/React          dev         ✓          A src/components/Main.js
+                                                                  M src/App.js
+----------------------------------------------------------------------------------------------------------
+📁 my-python-app         Python/Django     master      ✓          ✓
+----------------------------------------------------------------------------------------------------------
+📁 my-js-app             JS                dev         ▲ 2 ▼ 1    A package.json
+----------------------------------------------------------------------------------------------------------
+📁 my-clean-app          JS                master      ▼ 2        ✓
+----------------------------------------------------------------------------------------------------------
+📁 my-rails-app          Ruby/Rails        master      ✓          M app/views/pages/home.html.erb
+                                                                  A app/views/pages/contact.html.erb
+                                                                  A app/views/pages/terms.html.erb
+                                                                  + 3 other(s) file(s)
+----------------------------------------------------------------------------------------------------------
+📁 my-ios-app            Xcode             dev         ▼ 2        M MyApp.xcodeproj/project.pbxproj
+----------------------------------------------------------------------------------------------------------
+📁 my-php-website        PHP/Symfony       master      ▲ 3        A web/index.php
+----------------------------------------------------------------------------------------------------------
+📁 my-xcode-app          Xcode             master      ✓          M ChessTimer.xcodeproj/project.pbxproj
+----------------------------------------------------------------------------------------------------------
+📁 my-arduino-project    C/Arduino         master      ✓          D ChatServer/ChatServer.ino
+----------------------------------------------------------------------------------------------------------
+📁 my-clean-app          JS                master      ✓          ✓
+----------------------------------------------------------------------------------------------------------
+
+Total: 10 repositories.
+</samp></pre> -->
+
+      <hr class="mt-5" />
+
+      <footer class="text-muted">
+        Gatrix © 2018
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<style media="screen">
+  .click-to-copy {
+    cursor: pointer;
+  }
+</style>
+<script type="text/javascript">
+function copyToClipboard0(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+  $("#copied0").html("Copied!");
+  setTimeout(function(){
+    $("#copied0").html("Click to copy");
+  }, 1000);
+}
+function copyToClipboard1(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+  $("#copied1").html("Copied!");
+  setTimeout(function(){
+    $("#copied1").html("Click to copy");
+  }, 1000);
+}
+function copyToClipboard2(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+  $("#copied2").html("Copied!");
+  setTimeout(function(){
+    $("#copied2").html("Click to copy");
+  }, 1000);
+}
+</script>

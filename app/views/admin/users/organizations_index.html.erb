@@ -1,0 +1,53 @@
+<div class="container-fluid py-2">
+
+  <div class="row justify-content-between">
+    <h1>Organizations</h1>
+    <%= paginate @users %>
+  </div>
+
+  <div class="row">
+    <%= link_to "+ New Organization", new_admin_user_path, class: "btn btn-primary my-3" %>
+  </div>
+
+</div>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="text-muted">ID</th>
+      <th>Organization Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <!-- <th><%= I18n.t('phone_number') %></th>
+      <th><%= I18n.t('newsletter') %>?</th>
+      <th><%= I18n.t('sign_in_count') %></th>-->
+      <th>Repository Count</th>
+
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="text-muted"><%= user.id %></td>
+        <td>
+          <% if user.username.present? %><%= user.username %><% end %>
+        </td>
+
+        <td><%= user.email %></td>
+
+        <td>
+          <%= user.role %>
+        </td>
+        <td><%= user.repositories.count %><br/></td>
+
+        <td>
+          <%= link_to 'Show', admin_user_url(user), class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Edit', edit_admin_user_path(user), class: "btn btn-sm btn-info" %>
+          <%= link_to 'Destroy', admin_user_url(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

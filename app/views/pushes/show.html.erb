@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @push.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @push.user %>
+</p>
+
+<%= link_to 'Edit', edit_push_path(@push) %> |
+<%= link_to 'Back', pushes_path %>

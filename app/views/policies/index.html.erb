@@ -1,0 +1,44 @@
+
+<section class="" style="background-color: #eeeff0;">
+  <div class="container py-4">
+    <h1>My Policies</h1>
+
+    <p><%= link_to '+ New Policy', new_user_policy_path, class: 'btn btn-success' %></p>
+
+    <div class="card">
+      <div class="card-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Rules</th>
+              <th>Active Rules</th>
+              <th>Uses</th>
+              <th colspan="3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @policies.each do |policy| %>
+              <tr>
+                <td><%= link_to policy.user, user_path(policy.user) %></td>
+                <td><%= link_to policy.user, user_path(policy.user) %>/<%= link_to policy.name, user_policy_path(policy.user, policy) %></td>
+                <td><%= policy.description %></td>
+                <td><%= policy.policy_rules.count %></td>
+                <td><%= policy.policy_rules.where.not(status: "off").count %></td>
+                <td><%= policy.repositories.count %></td>
+                <td><%= link_to 'Show', user_policy_path(current_user, policy) %></td>
+                <td><%= link_to 'Edit', edit_user_policy_path(current_user, policy) %></td>
+                <td><%= link_to 'Destroy', user_policy_path(current_user, policy), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</section>

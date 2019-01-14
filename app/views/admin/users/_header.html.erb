@@ -1,0 +1,36 @@
+<section class="bg-dark text-white" style="height: 150px;">
+  <div class="container py-5">
+    <a href="" class="text-white">
+      <% if user.avatar_url.present? %>
+          <img src="<%= user.avatar_url %>" alt="<%= user %>" class="img-thumbnail mr-4" style="width: 150px; height: 150px; float: left; border-radius: 80px;">
+      <% elsif user.is_organization? %>
+        <img src="/images/organization-blank.jpg" alt="<%= user %>" class="img-thumbnail mr-4" style="width: 150px; height: 150px; float: left; border-radius: 80px;">
+      <% else %>
+        <img src="/images/user-blank.png" alt="<%= user %>" class="img-thumbnail mr-4" style="width: 150px; height: 150px; float: left; border-radius: 80px;">
+      <% end %>
+    </a>
+    <a href="" class="text-white">
+      <h3 class="mt-5">
+        <%= user.username %>
+      </h3>
+    </a>
+  </div>
+</section>
+
+<% if user.is_organization? %>
+
+<section class="bg-white pt-3 pb-3 border-bottom border-top">
+  <a href="<%= admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "show"  %>active<% end %>">Overview</a>
+  <a href="<%= members_admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "organization_members"  %>active<% end %>">People</a>
+  <a href="<%= teams_admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "organization_teams"  %>active<% end %>">Teams</a>
+</section>
+
+<% else %>
+<section class="bg-white pt-3 pb-3 border-bottom border-top">
+  <a href="<%= admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "show"  %>active<% end %>">Overview</a>
+  <a href="<%= policies_admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "user_policies"  %>active<% end %>">Policies</a>
+  <a href="<%= organizations_admin_user_path %>" class="btn btn-outline-secondary <% if controller.action_name == "user_organizations"  %>active<% end %>">Organizations</a>
+  <button class="btn btn-outline-secondary" name="button">Followers</button>
+  <button class="btn btn-outline-secondary" name="button">Following</button>
+</section>
+<% end %>

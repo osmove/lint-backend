@@ -1,0 +1,90 @@
+<%= render 'admin/repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+  <div class="container py-4">
+
+    <%= link_to "Back",  admin_repository_documents_path(@repository) %>
+
+    <h1><%= @document.name %></h1>
+
+    <% if !@document.is_folder %>
+      <div class="card mb-3">
+        <div class="card-header text-muted">
+          <%= @document.name %>
+          <% if @document.type.present? %>
+            &bull; <%= @document.type %> file
+          <% elsif @document.extension.present? %>
+            &bull; <%= @document.extension %> file
+          <% end %>
+          <% if(@document.content.split("\n") rescue nil) %>
+            &bull; <%= pluralize(@document.content.split("\n").length, 'line') %>
+          <% end %>
+          <% if @document.size.present? %>
+            &bull; <%= number_to_human_size(@document.size).downcase %>
+          <% end %>
+        </div>
+        <div class="card-body">
+          <% if @document.size > 2000000 %>
+            <p>File is too big.</p>
+          <% elsif @document.type == 'executable' %>
+            <p>Executables are not supported.</p>
+          <% elsif @document.type == 'image' %>
+            <p><img src="data:image/png;base64,<%= @document.base_64_content %>" class="img-fluid" /></p>
+          <% elsif @document.type == 'markdown' || @document.type == 'md' %>
+            <%= simple_format(@document.content) %>
+          <% elsif @document.type == 'document' || @document.type == 'other' %>
+            <%= @document.content %>
+          <% else %>
+            <%= @document.content %>
+          <% end %>
+        </div>
+      </div>
+    <% elsif @file_contents.length > 0 %>
+      <div class="card mb-4">
+        <div class="card-header">
+          Files <span class="badge badge-secondary"><%= @file_contents.length %>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <!-- <thead>
+              <tr>
+                <th>File</th>
+                <th class="text-muted"></th>
+              </tr>
+            </thead> -->
+            <tbody>
+              <% @file_contents.each do |document| %>
+              <!-- <a href="/test" style="display: block;"> -->
+                <tr style="cursor: pointer;" onclick="javascript: window.location = '<%= admin_repository_document_path(@repository, document.name) %>'">
+                  <td>
+                    <% if document.checksum_type == 'tree' %>
+                      <i class="fa fa-folder mr-2" style="color: #999 !important;"></i>
+                      <a href="<%= admin_repository_document_path(document.repository, document.id) %>">
+                        <%= document.name %>
+                      </a>
+                    <% end %>
+                    <% if document.checksum_type == 'blob' %>
+                      <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i>
+                      <a href="<%= admin_repository_document_path(document.repository, document.id) %>">
+                        <%= document.name %>
+                      </a>
+                    <% else %>
+                      <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i>
+                      <a href="<%= admin_repository_document_path(document.repository, document.id) %>">
+                        <%= document.name %>
+                      </a>
+                    <% end %>
+
+                  </td>
+                  <td class="text-muted"><% if document.size.present? %><%= (document.size.to_i / 1000).round(2) %>Kb<% end %></td>
+                </tr>
+              <!-- </a> -->
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</section>

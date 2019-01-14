@@ -1,0 +1,11 @@
+<%= render 'repositories/header', repository: @repository %>
+
+<section class="bg-white">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+      <section class="" style="background-color: #eeeff0;">
+        <%= render 'repositories/tabs/overview', repository: @repository %>
+      </section>
+    </div>
+  </div>
+</section>

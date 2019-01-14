@@ -1,0 +1,47 @@
+<%= form_with(model: buildpack, local: true) do |form| %>
+  <% if buildpack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(buildpack.errors.count, "error") %> prohibited this buildpack from being saved:</h2>
+
+      <ul>
+      <% buildpack.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :buildpack_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :web_address %>
+    <%= form.text_field :web_address, id: :buildpack_web_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :git_address %>
+    <%= form.text_field :git_address, id: :buildpack_git_address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :command_id %>
+    <%= form.text_field :command_id, id: :buildpack_command_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :buildpack_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :buildpack_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

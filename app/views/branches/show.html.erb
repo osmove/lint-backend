@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @branch.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @branch.slug %>
+</p>
+
+<p>
+  <strong>Default:</strong>
+  <%= @branch.default %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @branch.repository %>
+</p>
+
+<%= link_to 'Edit', edit_branch_path(@branch) %> |
+<%= link_to 'Back', branches_path %>

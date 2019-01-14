@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  operation: MyString
+  document: one
+  commit: one
+
+two:
+  operation: MyString
+  document: two
+  commit: two

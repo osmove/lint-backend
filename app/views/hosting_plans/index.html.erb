@@ -1,0 +1,50 @@
+
+<div class="container py-3 py-md-4">
+  <h2 class="mb-0">Hosting Plans</h2>
+</div>
+
+<section class="bg-white border-top">
+  <div class="container py-4">
+  <%= link_to '+ New Hosting Plan', new_hosting_plan_path %>
+    <div class="table-responsive my-3">
+      <table class="table">
+        <thead>
+          <tr>
+            <!-- <th>Name</th>
+            <th>Slug</th> -->
+            <th>Memory</th>
+            <th>Vcpus</th>
+            <th>Storage</th>
+            <th>Transfer</th>
+            <th>Price</th>
+            <!-- <th>Price per hour</th> -->
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @hosting_plans.each do |hosting_plan| %>
+            <tr>
+              <!-- <th><%= hosting_plan.name %></th>
+              <td><%= hosting_plan.slug %></td> -->
+              <td><%= hosting_plan.smart_memory %></td>
+              <td><%= hosting_plan.smart_vcpus %></td>
+              <td><%= hosting_plan.smart_storage %></td>
+              <td><%= hosting_plan.smart_transfer %></td>
+              <td><%= hosting_plan.smart_price_per_month %></td>
+              <!-- <td>$<%= hosting_plan.price_per_hour %>/hr</td> -->
+              <td><%= link_to 'Show', hosting_plan %></td>
+              <td><%= link_to 'Edit', edit_hosting_plan_path(hosting_plan) %></td>
+              <td><%= link_to 'Destroy', hosting_plan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+
+
+  </div>
+
+</section>

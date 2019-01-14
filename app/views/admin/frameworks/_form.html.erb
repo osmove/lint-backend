@@ -1,0 +1,32 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <%= bootstrap_form_for(@framework, url: @form_url) do |form| %>
+      <% if framework.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(framework.errors.count, "error") %> prohibited this framework from being saved:</h2>
+          <ul>
+          <% framework.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.text_field :name, id: :framework_name %>
+      </div>
+
+      <div class="field">
+        <%= form.text_field :slug, id: :framework_slug %>
+      </div>
+
+      <div class="field">
+        <%= form.text_area :image, id: :framework_image %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<% cache policy_rule do %>
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center bg-white",  id="heading_<%= policy_rule.rule.id %>">
+      <a href="#" class="" data-toggle="collapse" data-target="#collapse_<%= policy_rule.rule.id %>" aria-expanded="<% if (i == 0) %>false<% else %>true<% end %>" aria-controls="collapse_collapse_<%= policy_rule.rule.id %>">
+        <%= policy_rule.rule.name %>
+        <span class="text-muted"> - <%= policy_rule.rule.short_description %></span>
+      </a>
+      <% if policy_rule.rule.linter.command != "prettier" %>
+        <% if policy_rule.status == "off" %>
+          <span class="badge badge badge-secondary">Off</span>
+        <% elsif policy_rule.status == "warn" %>
+          <span class="badge badge badge-warning">Warning</span>
+        <% else policy_rule.status == "error" %>
+          <span class="badge badge badge-danger">Error</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div id="collapse_<%= policy_rule.rule.id %>" class="collapse" aria-labelledby="heading_<%= policy_rule.rule.id %>" data-parent="#accordion">
+      <div class="card-body bg-light">
+        <span class="text-muted"><%= policy_rule.rule.description %></span>
+      </div>
+      <ul class="list-group list-group-flush">
+        <% policy_rule.policy_rule_options.each do |pro| %>
+          <% if pro.rule_option.present? %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>
+                <%= pro.rule_option.name %>
+                <p class="text-muted"><%= pro.rule_option.description %></p>
+              </span>
+              <% if pro.rule_option.value_type != "array-multiple"%>
+                <p class="card-text text-muted"><%= pro.value %></p>
+              <% else %>
+                <p class="card-text text-muted">
+                  <% pro.rule_option_options.each do |selected| %>
+                    <%= selected.value %>
+                  <% end %>
+                </p>
+              <% end %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

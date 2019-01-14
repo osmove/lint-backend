@@ -1,0 +1,11 @@
+
+<div class="container py-4">
+  <div class="row">
+    <div class="col col-md-8 offset-md-2">
+      <h1>Editing Repository Access</h1>
+      <%= render 'form', repository_access: @repository_access %>
+      <%= link_to 'Show', user_repository_repository_access_path(@repository_access.repository.user, @repository_access.repository, @repository_access) %> |
+      <%= link_to 'Back', user_repository_repository_accesses_path(@repository_access.repository.user, @repository_access.repository) %>
+    </div>
+  </div>
+</div>

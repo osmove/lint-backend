@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @buildpack.name %>
+</p>
+
+<p>
+  <strong>Web address:</strong>
+  <%= @buildpack.web_address %>
+</p>
+
+<p>
+  <strong>Git address:</strong>
+  <%= @buildpack.git_address %>
+</p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @buildpack.command %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @buildpack.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @buildpack.user %>
+</p>
+
+<%= link_to 'Edit', edit_buildpack_path(@buildpack) %> |
+<%= link_to 'Back', buildpacks_path %>

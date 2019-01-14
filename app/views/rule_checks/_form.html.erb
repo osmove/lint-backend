@@ -1,0 +1,67 @@
+<%= form_with(model: rule_check, local: true) do |form| %>
+  <% if rule_check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rule_check.errors.count, "error") %> prohibited this rule_check from being saved:</h2>
+
+      <ul>
+      <% rule_check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :rule_check_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :passed %>
+    <%= form.check_box :passed, id: :rule_check_passed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :language_id %>
+    <%= form.text_field :language_id, id: :rule_check_language_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rule_id %>
+    <%= form.text_field :rule_id, id: :rule_check_rule_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :policy_check_id %>
+    <%= form.text_field :policy_check_id, id: :rule_check_policy_check_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :rule_check_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :rule_check_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.text_field :contributor_id, id: :rule_check_contributor_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.text_field :push_id, id: :rule_check_push_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.text_field :device_id, id: :rule_check_device_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

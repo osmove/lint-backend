@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @server.name %>
+</p>
+
+<p>
+  <strong>Ip address:</strong>
+  <%= @server.ip_address %>
+</p>
+
+<p>
+  <strong>Os:</strong>
+  <%= @server.os %>
+</p>
+
+<p>
+  <strong>Ssh host:</strong>
+  <%= @server.ssh_host %>
+</p>
+
+<p>
+  <strong>Ssh user:</strong>
+  <%= @server.ssh_user %>
+</p>
+
+<p>
+  <strong>Ssh password:</strong>
+  <%= @server.ssh_password %>
+</p>
+
+<p>
+  <strong>Ssh path:</strong>
+  <%= @server.ssh_path %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @server.user %>
+</p>
+
+<%= link_to 'Edit', edit_server_path(@server) %> |
+<%= link_to 'Back', servers_path %>

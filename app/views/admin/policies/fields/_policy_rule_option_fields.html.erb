@@ -1,0 +1,49 @@
+<div class='nested-fields'>
+    <% if f.object.value.present? %>
+      <div class="row">
+        <div class="col-6">
+          <%= f.hidden_field :rule_option_id, value: rule_option.id %>
+            <% if rule_option.value_type == "boolean" %>
+              <%= f.check_box :value, {label: "Activate"}, "true", "false" %>
+            <% elsif rule_option.value_type == "integer" %>
+            <%= f.number_field :value %>
+            <% elsif rule_option.value_type == "string" %>
+            <%= f.text_field :value %>
+            <% elsif rule_option.value_type == "array-single" %>
+            <%= f.select :value, options_for_select(rule_option.rule_option_options.collect{|c| [ c.value ] }, f.object.value), {label: "Choose"} %>
+            <%#= f.collection_select :value, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {hide_label: false, selected: f.object.value} %>
+            <% elsif rule_option.value_type == "array-multiple" %>
+            <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {label: "Select", selected: f.object.rule_option_option_ids} %>
+          <% end %>
+        </div>
+        <div class="col-1">
+          <%= link_to_remove_association "Reset", f, class: 'btn btn-info' %>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-6">
+          <%= f.hidden_field :rule_option_id, value: rule_option.id %>
+            <% if rule_option.value_type == "boolean" %>
+              <% if rule_option.rule.options == "true"%>
+                <%= f.check_box :value, {label: "Activate", checked: true}, "true", "false" %>
+              <% else %>
+                <%= f.check_box :value, {label: "Activate"}, "true", "false" %>
+              <% end %>
+            <% elsif rule_option.value_type == "integer" %>
+            <%= f.number_field :value, value: rule_option.rule.options %>
+            <% elsif rule_option.value_type == "string" %>
+            <%= f.text_field :value, value: rule_option.rule.options %>
+            <% elsif rule_option.value_type == "array-single" %>
+            <%= f.select :value, options_for_select(rule_option.rule_option_options.collect{|c| [ c.value ] }, f.object.value), {label: "Choose"} %>
+            <%#= f.collection_select :value, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {hide_label: false, selected: f.object.value} %>
+            <% elsif rule_option.value_type == "array-multiple" %>
+            <%= f.collection_check_boxes :rule_option_option_ids, rule_option.rule_option_options.collect {|c| [ c.value, c.id ] }, :last , :first, {label: "Select", selected: f.object.rule_option_option_ids} %>
+          <% end %>
+        </div>
+        <div class="col-1">
+          <%= link_to_remove_association "Reset", f, class: 'btn btn-info' %>
+        </div>
+      </div>
+    <% end %>
+ </div>

@@ -1,0 +1,34 @@
+<%= form_with(model: policy_rule, local: true) do |form| %>
+  <% if policy_rule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(policy_rule.errors.count, "error") %> prohibited this policy_rule from being saved:</h2>
+
+      <ul>
+      <% policy_rule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rule_id %>
+    <%= form.select :rule_id, Rule.all.collect {|c| [ c.name, c.id ] } %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :policy_id %>
+    <%= form.select :policy_id, Policy.all.collect {|c| [ c.name, c.id ] } %>
+
+  </div>
+
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.number_field :position, id: :policy_rule_position %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

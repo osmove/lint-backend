@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @rule_check.name %>
+</p>
+
+<p>
+  <strong>Passed:</strong>
+  <%= @rule_check.passed %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @rule_check.language %>
+</p>
+
+<p>
+  <strong>Rule:</strong>
+  <%= @rule_check.rule %>
+</p>
+
+<p>
+  <strong>Policy check:</strong>
+  <%= @rule_check.policy_check %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @rule_check.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @rule_check.user %>
+</p>
+
+<p>
+  <strong>Contributor:</strong>
+  <%= @rule_check.contributor %>
+</p>
+
+<p>
+  <strong>Push:</strong>
+  <%= @rule_check.push %>
+</p>
+
+<p>
+  <strong>Device:</strong>
+  <%= @rule_check.device %>
+</p>
+
+<%= link_to 'Edit', edit_admin_rule_check_path(@rule_check) %> |
+<%= link_to 'Back', admin_rule_checks_path %>

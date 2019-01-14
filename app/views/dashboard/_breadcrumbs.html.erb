@@ -1,0 +1,21 @@
+<nav aria-label="breadcrumb" dir="ltr" class="">
+  <ol class="breadcrumb mb-0">
+    <li class="breadcrumb-item"><a href="<%= root_path %>">Dashboard</a></li>
+
+    <% if params[:user_id].present? %>
+      <li class="breadcrumb-item"><a href="/<%= params[:user_id] %>"><%= params[:user_id].titleize %></a></li>
+    <% end %>
+
+    <% if params[:slug].present? %>
+      <li class="breadcrumb-item active"><a href="/<%= params[:slug] %>/<%=params[:slug] %>"><%= params[:slug].titleize %></a></li>
+    <% end %>
+  </ol>
+</nav>
+<style media="screen">
+.breadcrumb-item + .breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: #6c757d;
+    content: ">";
+}
+</style>

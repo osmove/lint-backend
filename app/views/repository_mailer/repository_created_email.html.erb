@@ -1,0 +1,23 @@
+<p>
+  Hi, <%= @repository.user.username %>
+</p>
+<p>
+  Your repository '<strong><%= @repository.slug %></strong>' was created successfully.<br />
+  It is available at: <a href="https://gatrix.io/<%= @repository.user.username %>/<%= @repository.slug %>">https://gatrix.io/<%= @repository.user.username %>/<%= @repository.slug %></a>.
+</p>
+
+<p>
+  Your repository git address is:<br />
+  <a href="<%= @repository.git_address %>"><%= @repository.git_address %></a>.
+</p>
+
+<p>Starting with a <strong>new</strong> repository:</p>
+<p><kbd class="" style="">git clone <%= @repository.git_address %></kbd></p>
+<p>Starting with an <strong>existing</strong> repository:</p>
+<p><kbd class="">git remote add gatrix <%= @repository.git_address %></kbd></p>
+<p><kbd class="">git push gatrix master</kbd></p>
+
+<p>
+  Thank you,<br />
+  The Gatrix team
+</p>

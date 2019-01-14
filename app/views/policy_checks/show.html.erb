@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @policy_check.name %>
+</p>
+
+<p>
+  <strong>Passed:</strong>
+  <%= @policy_check.passed %>
+</p>
+
+<p>
+  <strong>Commit attempt:</strong>
+  <%= @policy_check.commit_attempt %>
+</p>
+
+<p>
+  <strong>Policy:</strong>
+  <%= @policy_check.policy %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @policy_check.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @policy_check.user %>
+</p>
+
+<p>
+  <strong>Contributor:</strong>
+  <%= @policy_check.contributor %>
+</p>
+
+<p>
+  <strong>Push:</strong>
+  <%= @policy_check.push %>
+</p>
+
+<p>
+  <strong>Device:</strong>
+  <%= @policy_check.device %>
+</p>
+
+<%= link_to 'Edit', edit_policy_check_path(@policy_check) %> |
+<%= link_to 'Back', policy_checks_path %>

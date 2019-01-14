@@ -1,0 +1,53 @@
+<%#= form_with(model: team, local: true) do |form| %>
+<%= bootstrap_form_for(@team, url: @form_url) do |form| %>
+
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :team_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :team_description, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url, id: :team_avatar_url, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_id %>
+    <%= collection_select(:team, :team_id, Team.all, :id, :name, :prompt => true, :include_blank => true, hide_label: true) %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :user_id, value: "Organization" %>
+    <%= collection_select(:team, :user_id, User.where(is_organization: true), :id, :username, :prompt => true, hide_label: true) %>
+
+  </div>
+
+
+  <%= form.label :user_ids %>
+  <%= form.collection_check_boxes(:user_ids, User.where(is_organization: [false, nil]), :id, :username, {selected: @team.users, hide_label: true}) %>
+
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

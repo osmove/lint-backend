@@ -1,0 +1,25 @@
+<div class='nested-fields'>
+  <div class="row">
+
+    <div class="col-4">
+      <%= f.text_field :value, hide_label: true %>
+
+    </div>
+    <%# if f.object.policy_rule_option_options.present? %>
+      <%#= f.fields_for :policy_rule_option_options, f.object.policy_rule_option_options do |h| %>
+        <%#= h.hidden_field :value, value: f.object.value %>
+      <%# end %>
+    <%# else %>
+      <%#= f.fields_for :policy_rule_option_options, f.object.policy_rule_option_options.new do |h| %>
+        <%#= h.hidden_field :value, value: f.object.value %>
+
+
+      <%# end %>
+    <%# end %>
+
+    <div class="col">
+
+      <%= link_to_remove_association "-", f, class: 'btn btn-danger btn-sm' %>
+    </div>
+  </div>
+ </div>

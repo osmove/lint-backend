@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @rule.name %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @rule.type %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @rule.description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @rule.status %>
+</p>
+
+<p>
+  <strong>Language:</strong>
+  <%= @rule.language %>
+</p>
+
+<p>
+  <strong>Framework:</strong>
+  <%= @rule.framework %>
+</p>
+
+<p>
+  <strong>Platform:</strong>
+  <%= @rule.platform %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @rule.parent %>
+</p>
+
+<%= link_to 'Edit', edit_rule_path(@rule) %> |
+<%= link_to 'Back', rules_path %>

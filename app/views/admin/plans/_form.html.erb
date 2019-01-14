@@ -1,0 +1,50 @@
+<%= bootstrap_form_for(@plan, :url => @form_url) do |form| %>
+
+  <% if plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(plan.errors.count, "error") %> prohibited this plan from being saved:</h2>
+
+      <ul>
+      <% plan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_field :name, id: :plan_name %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :slug, id: :plan_slug %>
+  </div>
+
+  <div class="field">
+    <%= form.text_area :description, id: :plan_description %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :price_per_month, id: :plan_price_per_month %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :price_per_year, id: :plan_price_per_year %>
+  </div>
+
+  <div class="field">
+    <%= form.number_field :max_users, id: :plan_max_users %>
+  </div>
+
+  <div class="field">
+    <%= form.number_field :max_repositories, id: :plan_max_repositories %>
+  </div>
+
+  <div class="field">
+    <%= form.number_field :max_storage, id: :plan_max_storage %>
+  </div>
+
+  <div class="actions mb-3">
+    <%= form.primary %>
+  </div>
+<% end %>

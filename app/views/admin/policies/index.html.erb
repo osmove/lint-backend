@@ -1,0 +1,30 @@
+<h1>Policies</h1>
+
+<p><%= link_to '+ New Policy', new_admin_policy_path, class: 'btn btn-success' %></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Rules</th>
+      <th>Uses</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @policies.each do |policy| %>
+      <tr>
+        <td><%= policy.name %></td>
+        <td><%= policy.description %></td>
+        <td><% if policy.user.present? %> <%= link_to policy.user, admin_user_path(policy.user) %>  <% end %></td>
+        <td><%= policy.rules.count %></td>
+        <td><%= policy.repositories.count %></td>
+        <td><%= link_to 'Show', admin_policy_path(policy) %></td>
+        <td><%= link_to 'Edit', edit_admin_policy_path(policy) %></td>
+        <td><%= link_to 'Destroy', admin_policy_path(policy), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

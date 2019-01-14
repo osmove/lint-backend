@@ -1,0 +1,29 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @contributor.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @contributor.email %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @contributor.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= link_to @contributor.user, admin_user_path(@contributor.user) %>
+</p>
+
+
+<p>
+  <strong>User:</strong>
+  <%= "All commit from #{@contributor.user.username}: #{@commits.count}"  %>
+</p>
+
+<%= link_to 'Edit', edit_contributor_path(@contributor) %> |
+<%= link_to 'Back', contributors_path %>

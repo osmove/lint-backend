@@ -1,0 +1,77 @@
+
+        <tr style="cursor: pointer;" onclick="javascript: window.location = '<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>'">
+          <td class="text-muted">
+            <% if commit_attempt.sha.present? %>
+              <p class="mb-0"><small><%= "#{commit_attempt.sha.slice(0,7)}" %></small></p>
+            <% end %>
+            <% if commit_attempt.branch_name.present? %>
+              <p class="mb-0"><small><%= "#{commit_attempt.branch_name}" %></small></p>
+            <% end %>
+          </td>
+          <td>
+            <p class="mb-0">
+              <strong>
+                <a href="<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
+                  <% if commit_attempt.message.present? %>
+                    <%= commit_attempt.message %>
+                  <% else %>
+                    Attempt #<%= commit_attempt.id %>
+                  <% end %>
+                </a>
+              </strong>
+              <% if commit_attempt.has_encryption %>
+                <i class="fa fa-lock text-muted"></i>
+              <% end %>
+              <% if commit_attempt.has_lint %>
+                <i class="fa fa-shield text-muted"></i>
+              <% end %>
+              <% if commit_attempt.has_autofix %>
+                <i class="fa fa-wrench text-muted"></i>
+              <% end %>
+            </p>
+            <p class="mb-0 text-muted" style="line-height: 1em;">
+              <small>
+                <% if commit_attempt.created_at.present? %>
+                  Attempt made <%= time_ago_in_words(commit_attempt.created_at) %> ago
+                <% end %>
+                <% if commit_attempt.user.present? %>
+                  by
+                  <a href="<%= user_path(commit_attempt.user) %>">
+                    <span> <%= commit_attempt.user %>
+                      <% if commit_attempt.user.avatar_url.present? %>
+                        <img src="<%= commit_attempt.user.avatar_url %>" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px;; border-radius: 80px;">
+                      <% elsif commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+                        <img src="/images/organization-blank.jpg" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px;; border-radius: 80px;">
+                      <% else %>
+                        <img src="/images/user-blank.png" alt="<%= commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px;; border-radius: 80px;">
+                      <% end %>
+                    </span>
+                  </a>
+                <% end %>
+              </small>
+            </p>
+            <!-- <p>
+              <% if commit_attempt.policy_checks.first.present? %>
+                <span class="text-danger"><%= "#{commit_attempt.policy_checks.first.error_count || 0} error(s)" %></span>
+                |
+                <span class="text-warning"><%= "#{commit_attempt.policy_checks.first.warning_count || 0} warning(s)" %></span>
+              <% else %>
+                No policy check.
+              <% end %>
+            </p> -->
+          </td>
+          <% if commit_attempt.policy_checks.first.present? %>
+            <td class="align-middle text-center bg-danger" style="line-height: 1em;">
+              <% if commit_attempt.policy_checks.first.passed == true %>
+                <p class="text-success mb-1">Passed</p>
+              <% else %>
+                <p class="text-danger mb-1">Failed</p>
+
+              <% end %>
+            </td>
+         <% else %>
+           <td class="align-middle text-center" style="line-height: 1em;">
+             <p class="text-secondary mb-0">No policy check.</p>
+           </td>
+         <% end %>
+        </tr>

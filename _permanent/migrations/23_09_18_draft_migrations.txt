@@ -1,0 +1,17 @@
+Migrations
+
+rails g scaffold Policy name description
+
+rails g scaffold Rule name type description status language:references framework:references platform:references parent:belong_to
+
+rails g scaffold PolicyRule rule:references policy:references position:integer
+
+rails g scaffold CommitAttempt message description commit:references user:references contributor:references push:references device:references repository:references
+
+rails g scaffold PolicyCheck name passed:boolean commit_attempt:references policy:references repository:references user:references contributor:references push:references device:references
+
+rails g scaffold RuleCheck name passed:boolean language:references rule:references policy_check:references repository:references user:references contributor:references push:references device:references
+
+rails g migration AddPolicyToRepositories policy:references
+
+rails g migration AddUserToPolicy user:references

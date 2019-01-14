@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @sync.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sync.user %>
+</p>
+
+<%= link_to 'Edit', edit_sync_path(@sync) %> |
+<%= link_to 'Back', syncs_path %>

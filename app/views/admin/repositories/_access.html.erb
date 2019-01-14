@@ -1,0 +1,13 @@
+<section class="bg-white">
+  <div class="container text-left">
+    <div class="py-4">
+
+      <h4 class="mb-3">Your repository QR Code:</h4>
+
+      <p>UUID: <strong><%= @repository.uuid %></strong></p>
+      <p>Secret Key: <strong><%= @repository.secret_key %></strong></p>
+      <p><%= raw @svg %></p>
+
+    </div>
+  </div>
+</section>

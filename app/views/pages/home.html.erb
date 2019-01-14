@@ -1,0 +1,158 @@
+
+<section class="bg-dark text-white" style="background-color: #080808 !important;">
+  <div style="background: url('/images/bg-white.png');">
+
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-12 col-md-7 py-3 py-md-5 my-auto">
+          <div class="pt-3 pb-0 text-md-left">
+
+            <!-- <img src="/images/gatrix-desktop-icon.png" alt="Gatrix Desktop Icon" width="128" height="128" class="mb-2"> -->
+            <!-- <h1 class="display-4 mt-5"><strong>Welcome to Gatrix</strong></h1> -->
+            <h1 class="mt-4 mb-4 h1-responsive" style="line-height: 1em; font-weight: bold;">End-to-end encrypted git repositories.</h1>
+            <!-- <h4 class="my-4">End-to-end encrypted git repositories.</h4> -->
+            <!-- <h1 class="mt-5" style="text-decoration: line-through;">Efficient workflow.</h1>
+            <h1 class="mt-0">No workflow.</h1> -->
+            <p class="lead mx-auto text-white mb-md-5" style="opacity: 0.6;">Gatrix protects your code base by preventing intellectual property misuses from third party and employees. Your code stays fully encrypted, your key stays on your device and nobody - even us - can see what's in it.</p>
+            <!-- <p class="lead mx-auto text-white" style="opacity: 0.6;">Gatrix dramatically improves the intellectual property of your organization by protecting your code base and prevent against code misuses or copies from employees and third parties. The content of the files of your repositories are fully encrypted and nobody, infact even we can't see what's going on in your code. Gatrix also ships with great tools to help you manage your code more efficiently.</p> -->
+            <!-- <p class="lead mx-auto text-white" style="opacity: 0.6;">Gatrix rethinks developers' workflow making the dealing multiple git repositories, execute simultanous commands, manage shared components, build and deploy as easy as a click on a button.</p> -->
+            <!-- <p class="lead mx-auto text-white" style="opacity: 0.6;"><strong>All our repositories are also end-to-end encrypted.</strong></p> -->
+
+            <!-- <p style="opacity: 0.6;">Gatrix rethinks developers' workflow making the dealing multiple git repositories, execute simultanous commands, manage shared components, build and deploy with complex rules as easy as a click on a button. <strong>All our repositories are also end-to-end encrypted.</strong></p> -->
+            <!-- <p><a href="<%= root_path %>">How does end-to-end encryption work?</a> </p> -->
+            <!-- <p><a href="<%= root_path %>">See features</a></p> -->
+          </div>
+        </div>
+
+        <div class="col-12 col-md-5 my-0 my-md-4 text-dark py-2 py-md-5 pb-5">
+          <div class="card" >
+            <div class="card-body py-3 py-sm-4">
+              <!-- <img class="mt-2 mb-3" src="/images/gatrix-logo.png" alt="" width="72" height="72"> -->
+              <% if defined? user_registration_path %>
+                <h3 class="card-title mb-2 mx-auto" style="max-width: 280px;">Sign up and deploy your app in seconds.</h3>
+
+                <p class="mb-3 mb-0 text-muted">
+                  No credit card required.
+                </p>
+
+                <p>
+                  <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
+                    <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Sign up with Github</span>
+                  </a>
+                </p>
+
+                <p class="mb-3">or</p>
+
+                <%= bootstrap_form_for(resource, as: resource_name, url:  user_registration_path(resource_name)) do |f| %>
+
+
+                  <div class="field">
+                    <%= f.text_field :username, autofocus: true, autocomplete: "username", hide_label: true, class: "custom-form", placeholder: "Username" %>
+                  </div>
+
+                  <div class="field">
+                    <%= f.email_field :email, autocomplete: "email", hide_label: true, class: "custom-form", placeholder: "Email" %>
+                  </div>
+
+                  <div class="field">
+                    <%= f.password_field :password, autocomplete: "off", hide_label: true, class: "custom-form", placeholder: "Password"  %>
+                  </div>
+
+
+
+                  <div class="actions mb-3">
+                    <%= f.submit "Sign up", class: "btn btn-lg btn-dark btn-block" %>
+                  </div>
+
+                  <!-- <%= render "devise/shared/links" %> -->
+
+                  <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                    By clicking "Sign up for Gatrix", you agree to our terms of service and privacy policy. We’ll occasionally send you account related emails.
+                  </p>
+                  <!-- <p class="mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                    © 2018
+                  </p> -->
+                <% end %>
+              <% else %>
+                <h3 class="card-title mb-0 mx-auto" style="max-width: 280px;">Available soon.</h3>
+              <% end %>
+            </div>
+          </div>
+          <!-- <%= link_to "Sign in with Github", user_github_omniauth_authorize_path %> -->
+
+
+        </div>
+
+        <!-- <p>
+          <img class="img-fluid" src="/images/desktop.png" alt="Gatrix Desktop Screnshot" />
+        </p> -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="text-center pb-2" style="margin-bottom: -100px !important;"> -->
+<section class="pt-4 pb-2 bg-white text-center">
+  <div class="container">
+    <!-- <div class="row">
+      <div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 mx-auto">What is Gatrix?</h1>
+        <p class="lead mx-auto" style="max-width: 600px;">Gatrix is an ecosystem of web, desktop and mobile apps to help you write and deploy code more securely and efficiently.</p>
+      </div>
+    </div> -->
+    <div class="app-boxes">
+
+      <div class="row">
+        <div class="col-6 col-lg-3">
+          <a href="/apps#cloud">
+            <div class="card app-box app-box-dark bg-light text-dark pt-4 pb-2 px-2 mb-3">
+              <div style="height: 80px;">
+                <img src="/logo/gatrix-logo-cloud-128.png" alt="Gatrix Desktop Icon" width="70" height="70" class="mb-2">
+              </div>
+              <h6 class="mb-1">Gatrix Cloud</h6>
+              <p style="line-height: 0.8em !important; opacity: 0.6;"><small>For everybody, everywhere.</small></p>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="/apps#desktop">
+            <div class="card app-box app-box-dark bg-light text-dark pt-4 pb-2 px-2 mb-3">
+              <div style="height: 80px;">
+                <img src="/images/gatrix-desktop-icon.png" alt="Gatrix Desktop Icon" width="70" height="70" class="mb-2">
+              </div>
+              <h6 class="mb-1">Gatrix Desktop</h6>
+              <p style="line-height: 0.8em !important; opacity: 0.6;"><small>For Windows, Mac & Linux.</small></p>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="/apps#connect">
+            <div class="card app-box app-box-dark bg-light text-dark pt-4 pb-2 px-2 mb-3">
+              <div style="height: 80px;">
+                <img src="/images/gatrix-mobile-icon.png" alt="Gatrix Mobile Icon" width="70" height="70">
+              </div>
+              <h6 class="mb-1">Gatrix Connect</h6>
+              <p style="line-height: 0.8em !important; opacity: 0.6;"><small>For iOS & Android.</small></p>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-lg-3">
+          <a href="/apps#cli">
+            <div class="card app-box app-box-dark bg-light text-dark pt-4 pb-2 px-2 mb-3">
+              <div style="height: 80px;">
+                <img src="/images/gatrix-icon-cli.png" alt="Gatrix Mobile Icon" width="70" height="70">
+              </div>
+              <h6 class="mb-1">Gatrix CLI</h6>
+              <p style="line-height: 0.8em !important; opacity: 0.6;"><small>Install with NPM.</small></p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

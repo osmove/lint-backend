@@ -1,0 +1,111 @@
+
+<nav class="col-3 col-lg-2 sidebar" id="left_menu">
+  <div class="sidebar-sticky">
+    <% if user_signed_in?  %>
+      <ul class="nav flex-column mb-2 px-0 bg-light">
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: #aaa; font-size: 12px;">GENERAL</a>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "base" %>active<% end %>">
+          <a class="nav-link" href="<%= admin_path %>">
+            <span><i class='fa fa-dashboard mr-1' style='padding-left: 3px;'></i> Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "repositories" %>active<% end %>">
+          <%= link_to "<i class='fa fa-git-square mr-1' style='padding-left: 3px;'></i> Repositories".html_safe, admin_repositories_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "users" && controller.action_name != "organizations_index" %>active<% end %>">
+          <%= link_to "<i class='fa fa-user mr-1' style='padding-left: 3px;'></i> Users".html_safe, admin_users_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "users" && controller.action_name == "organizations_index" %>active<% end %>">
+          <%= link_to "<i class='fa fa-building mr-1' style='padding-left: 3px;'></i> Organizations".html_safe, admin_organizations_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "teams" %>active<% end %>">
+          <%= link_to "<i class='fa fa-users mr-1' style='padding-left: 3px;'></i> Teams".html_safe, admin_teams_path, class:"nav-link" %>
+        </li>
+
+        <li class="nav-item <% if controller.controller_name == "contributors" %>active<% end %>">
+          <%= link_to "<i class='fa fa-user-circle-o mr-1' style='padding-left: 3px;'></i> Contributors".html_safe, admin_contributors_path, class:"nav-link" %>
+        </li>
+
+        <li class="nav-item <% if controller.controller_name == "pushes" %>active<% end %>">
+          <%= link_to "<i class='fa fa-arrow-up mr-1' style='padding-left: 3px;'></i> Pushes".html_safe, admin_pushes_path, class:"nav-link" %>
+        </li>
+
+        <li class="nav-item <% if controller.controller_name == "devices" %>active<% end %>">
+          <%= link_to "<i class='fa fa-mobile mr-1' style='padding-left: 3px;'></i> Devices".html_safe, admin_devices_path, class:"nav-link" %>
+        </li>
+
+
+        <!-- <li class="list-group-item bg-light" style="border-right: 0 none; border-left: 0 none;"><i class="fa fa-book mr-1"></i>Policies Administration</li> -->
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: #aaa; font-size: 12px;">POLICIES</a>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "policies" %>active<% end %>">
+          <%= link_to "<i class='fa fa-shield mr-1'></i>Policies".html_safe, admin_policies_path, class:"nav-link" %>
+        </li>
+
+        <li class="nav-item  <% if controller.controller_name == "rules" %>active<% end %>">
+          <%= link_to "<i class='fa fa-bookmark mr-1'></i> Rules".html_safe, admin_rules_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "policy_checks" %>active<% end %>">
+          <%= link_to "<i class='fa fa-book mr-1'></i> Policy Checks".html_safe, admin_policy_checks_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "rule_checks" %>active<% end %>">
+          <%= link_to "<i class='fa fa-check-square-o mr-1'></i> Rules Checks".html_safe, admin_rule_checks_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "commit_attempts" %>active<% end %>">
+          <%= link_to "<i class='fa fa-arrow-circle-up mr-1'></i> Commit Attempts".html_safe, admin_commit_attempts_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "linters" %>active<% end %>">
+          <%= link_to "<i class='fa fa-cogs mr-1'></i> Linters".html_safe, admin_linters_path, class:"nav-link" %>
+        </li>
+        <!-- <li class="list-group-item bg-light" style="border-right: 0 none; border-left: 0 none;"><i class="fa fa-money mr-1></i>Billing</li> -->
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: #aaa; font-size: 12px;">BILLING</a>
+        </li>
+
+        <li class="nav-item <% if controller.controller_name == "plans" %>active<% end %>">
+          <%= link_to "<i class='fa fa-money mr-1'></i>Plans".html_safe, admin_plans_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "hosting_plans" %>active<% end %>">
+          <%= link_to "<i class='fa fa-server mr-1'></i>Hosting Plans".html_safe, admin_hosting_plans_path, class:"nav-link" %>
+        </li>
+
+        <!-- <li class="list-group-item bg-light" style="border-right: 0 none; border-left: 0 none;"><i class='fa fa-unlock-alt mr-1'></i>Encryptions/.html_safeDecryptions</li> -->
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: #aaa; font-size: 12px;">ENCRYPTION</a>
+        </li>
+
+        <li class="nav-item <% if controller.controller_name == "encryptions" %>active<% end %>">
+          <%= link_to "<i class='fa fa-lock mr-1'></i>Encryptions".html_safe, admin_encryptions_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item  <% if controller.controller_name == "decryptions" %>active<% end %>">
+          <%= link_to "<i class='fa fa-unlock-alt mr-1'></i>Decryptions".html_safe, admin_decryptions_path, class:"nav-link" %>
+        </li>
+        <!-- <li class="nav-item">
+          <%#= link_to "Components", admin_repositories_path, class:"nav-link" %>
+        </li> -->
+        <!-- <li class="list-group-item bg-light" style="border-right: 0 none; border-left: 0 none;"><i class="fa fa-desktop mr-1"></i>Platforms</li> -->
+
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: #aaa; font-size: 12px;">PLATFORMS</a>
+        </li>
+
+        <li class="nav-item  <% if controller.controller_name == "platforms" %>active<% end %>">
+          <%= link_to "<i class='fa fa-desktop mr-1'></i>Platforms".html_safe, admin_platforms_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "languages" %>active<% end %>">
+          <%= link_to "<i class='fa fa-code mr-1'></i>Languages".html_safe, admin_languages_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item <% if controller.controller_name == "frameworks" %>active<% end %>">
+          <%= link_to "<i class='fa fa-file-code-o mr-1'></i>Frameworks".html_safe, admin_frameworks_path, class:"nav-link" %>
+        </li>
+      </ul>
+
+
+    <% end %>
+  </div>
+</nav>

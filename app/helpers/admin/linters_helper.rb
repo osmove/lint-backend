@@ -1,0 +1,2 @@
+module Admin::LintersHelper
+end

@@ -1,0 +1,56 @@
+<%= bootstrap_form_for(@user, url: @form_url, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mt-4 mb-3 text-right">
+    <%= form.text_field :first_name, autofocus: true, input_group_class: "input-group-lg" %>
+    <%= form.text_field :last_name, input_group_class: "input-group-lg" %>
+    <%= form.text_field :address, input_group_class: "input-group-lg" %>
+    <%= form.text_field :address_2, input_group_class: "input-group-lg" %>
+    <%= form.text_field :city, input_group_class: "input-group-lg" %>
+    <%= form.text_field :zip_code, input_group_class: "input-group-lg" %>
+    <%= form.text_field :state, input_group_class: "input-group-lg" %>
+    <%= form.text_field :country, input_group_class: "input-group-lg" %>
+  </div>
+
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <%= form.form_group :is_organization, label: { text: "I am" } do %>
+        <%= form.radio_button :is_organization, false, label: "An invidual", checked: true %>
+        <%= form.radio_button :is_organization, true, label: "An organization" %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <!-- <div class="card mb-3">
+    <div class="card-body">
+      <%= form.form_group :status, label: { text: "Visibility status" }, help: "The visibility status of your repository." do %>
+        <%= form.radio_button :status, "Public", label: "Public", checked: true %>
+        <%= form.radio_button :status, "Private", label: "Private" %>
+      <% end %>
+    </div>
+  </div> -->
+
+
+
+
+  <!-- <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, [["Public"], ["Private"]], { hide_label: true }, { class: "selectpicker",  wrapper: { class: 'has-warning', data: { foo: 'bar' } } } %>
+  </div> -->
+  <%#= form.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "none", label: "Enter your password to confirm the changes", input_group_class: "input-group-lg" %>
+
+  <div class="actions mb-3">
+    <%= form.primary %>
+  </div>
+<% end %>

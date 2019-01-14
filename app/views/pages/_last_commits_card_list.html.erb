@@ -1,0 +1,8 @@
+<% cache commit do %>
+  <li class="mb-2">
+    <%= link_to "#{commit.repository.uuid}", user_repository_commits_path(commit.repository.user, commit.repository) %><br />
+    <strong><%= link_to "#{commit.message}", user_repository_commit_path(commit.repository.user, commit.repository, commit) %></strong>
+    <br />
+    <span class="text-muted">Committed <%= time_ago_in_words(commit.created_at) %> ago</span> 
+  </li>
+<% end %>

@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="row">
+    <h1 class="pl-3">Policies</h1>
+  </div>
+  <div class="row">
+    <% @policies.each do |policy| %>
+
+      <div class="col-12">
+        <div class="card box-shadow mb-2 mb-md-4">
+          <div class="card-body p-2 p-md-3">
+            <a href="<%= admin_policy_path(policy) %>" style="display: block; cursor: pointer;">
+              <h3 class="" style="margin-top: 6px; margin-bottom: 3px; ">
+                <%= policy.name %>
+              </h3>
+              <ul class="list-unstyled text-dark mb-0" style="font-size: 12px;">
+                <li class="text-muted">
+                  <%= policy.description %>
+                </li>
+              </ul>
+            </a>
+
+            <h4>Policy - Rules</h4>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Language</th>
+                  <th>Framework</th>
+                  <th>Platform</th>
+                  <th>Parent</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% policy.rules.each do |rule| %>
+                  <tr>
+                    <td><%= link_to rule.name, admin_rule_path(rule) %></td>
+                    <td><%= rule.type %></td>
+                    <td><%= rule.description %></td>
+                    <td><%= rule.status %></td>
+                    <td><%= rule.language %></td>
+                    <td><%= rule.framework %></td>
+                    <td><%= rule.platform %></td>
+                    <td><% if rule.parent.present? %><%= rule.parent.name %><% end %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+
+            <h4>Policy - Repositories</h4>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Git Address</th>
+                  <th>Status</th>
+                  <th>Language</th>
+                  <th>Framework</th>
+                  <th>Platform</th>
+                  <th>Size</th>
+                  <th>Has_encryption</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% policy.repositories.each do |repo| %>
+                  <tr>
+                    <td><% if repo.name.present? %>  <%= link_to repo.name, admin_repository_path(repo) %>  <% end %></td>
+                    <td><%= repo.git_url %></td>
+                    <td><%= repo.status %></td>
+                    <td><% if repo.language_id.present? %><%= repo.language %><% end %></td>
+                    <td><% if repo.framework_id.present? %><%= repo.framework %><% end %></td>
+                    <td><% if repo.platform_id.present? %><%= repo.platform %><% end %></td>
+                    <td><%= repo.size %></td>
+                    <td><%= repo.has_encryption %></td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <div class="text-right">
+              <%= link_to 'Show', admin_policy_path(policy), class: "btn btn-success btn-sm" %>
+              <%= link_to 'Edit', edit_admin_policy_path(policy), class: "btn btn-info btn-sm" %>
+              <%= link_to 'Destroy', admin_policy_path(policy), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

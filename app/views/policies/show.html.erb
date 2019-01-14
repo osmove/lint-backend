@@ -1,0 +1,43 @@
+
+<section class="" style="background-color: #eeeff0;">
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h1><%= @policy.name %></h1>
+      </div>
+      <div class="col-12 col-sm-6">
+        <p class="text-sm-right">
+          <% if @policy.present? && current_user = @policy.user %>
+            <a href="<%= edit_user_policy_path(@policy.user, @policy) %>" class="btn btn-outline-info btn-sm mx-2">
+              Edit Policy
+            </a>
+          <% end %>
+          <a href="<%= new_user_repository_policy_path(@policy.user, @policy) %>" class="btn btn-outline-secondary btn-sm">
+            + New Policy
+          </a>
+        </p>
+      </div>
+    </div>
+    <% if @policy.present? %>
+      <% @linters.each do |linter| %>
+        <h4> <%= linter.name %></h4>
+        <% @policy.policy_rules.each_with_index do |policy_rule, index| %>
+          <% if policy_rule.rule.linter == linter %>
+            <div id="accordion" class="mb-2">
+              <%= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <h4>Used in <%= @policy.repositories.length %> repositories</h4>
+      <%= render "users/user_repositories", repositories: @policy.repositories %>
+
+    <% end %>
+
+    <%= link_to 'Edit', edit_user_policy_path(@policy.user, @policy) %> |
+    <%= link_to 'Back', :back %>
+
+  </div>
+
+</section>

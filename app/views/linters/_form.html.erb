@@ -1,0 +1,27 @@
+<%= form_with(model: linter, local: true) do |form| %>
+  <% if linter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(linter.errors.count, "error") %> prohibited this linter from being saved:</h2>
+
+      <ul>
+      <% linter.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :linter_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :command %>
+    <%= form.text_field :command, id: :linter_command %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

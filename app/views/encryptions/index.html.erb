@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Encryptions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Cypher name</th>
+      <th>Document</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @encryptions.each do |encryption| %>
+      <tr>
+        <td><%= encryption.status %></td>
+        <td><%= encryption.cypher_name %></td>
+        <td><%= encryption.document %></td>
+        <td><%= encryption.repository %></td>
+        <td><%= encryption.user %></td>
+        <td><%= link_to 'Show', encryption %></td>
+        <td><%= link_to 'Edit', edit_encryption_path(encryption) %></td>
+        <td><%= link_to 'Destroy', encryption, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Encryption', new_encryption_path %>

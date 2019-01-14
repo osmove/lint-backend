@@ -1,0 +1,93 @@
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+
+  <div class="container py-3">
+
+    <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
+
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h2>Issues <span class="badge badge-secondary"><%= @repository.issues.length %></span></h2>
+      </div>
+      <div class="col-12 col-sm-6">
+        <p class="text-sm-right">
+          <a href="<%= new_user_repository_issue_path(@repository.user, @repository) %>" class="btn btn-success">
+            + New Issue
+          </a>
+        </p>
+      </div>
+    </div>
+
+
+    <% if @repository.issues.length > 0 %>
+
+      <div class="card mb-4">
+        <div class="card-header">
+          Open issues <span class="badge badge-secondary"><%= @repository.issues.length %></span>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+
+              <!-- <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Title</th>
+                  <th>Body</th>
+                  <th>Status</th>
+                  <th colspan="3"></th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <% @issues.each do |issue| %>
+                  <tr style="cursor: pointer;" onclick="javascript: window.location = '<%= user_repository_issue_path(@repository.user, @repository, issue) %>'; return false;">
+                    <!-- <td width="10"></td> -->
+                    <td>
+                      <h5 class="mb-0">
+                        <a href="<%= user_repository_issue_path(@repository.user, @repository, issue) %>" class="text-dark">
+                          <strong><%= issue.title %></strong>
+                        </a>
+                      </h5>
+                      <p class="mb-0 text-muted"><small>
+                        <% if issue.created_at != issue.updated_at %>
+                          Updated <%= time_ago_in_words(issue.updated_at) %> ago
+                        <% else %>
+                          Updated <%= time_ago_in_words(issue.updated_at) %> ago
+                        <% end %>
+                        by <%= link_to issue.user.slug, issue.user %>
+                      </small></p>
+                    </td>
+                    <td>
+                      <% if issue.status == 'open' %>
+                        <span class="text-success"><%= issue.status.titleize %></span>
+                      <% else %>
+                        <span class="text-muted"><%= issue.status.titleize %></span>
+                      <% end %>
+                    </td>
+                    <!-- <td class="text-muted">
+                      <% if issue.created_at != issue.updated_at %>
+                        Updated <%= time_ago_in_words(issue.updated_at) %> ago
+                      <% else %>
+                        Updated <%= time_ago_in_words(issue.updated_at) %> ago
+                      <% end %>
+                    </td> -->
+                    <!-- <td><%= link_to 'Show', user_repository_issue_path(@repository.user, @repository, issue) %></td>
+                    <td><%= link_to 'Edit', edit_user_repository_issue_path(@repository.user, @repository, issue) %></td>
+                    <td><%= link_to 'Destroy', user_repository_issue_path(@repository.user, @repository, issue), method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'repositories/tabs/empty', repository: @repository %>
+    <% end %>
+
+    <br>
+
+
+  </div>
+</section>

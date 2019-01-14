@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Linters</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Command</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @linters.each do |linter| %>
+      <tr>
+        <td><%= linter.name %></td>
+        <td><%= linter.command %></td>
+        <td><%= link_to 'Show', admin_linter_path(linter) %></td>
+        <td><%= link_to 'Edit', edit_admin_linter_path(linter) %></td>
+        <td><%= link_to 'Destroy', admin_linter_path(linter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Linter', new_admin_linter_path %>

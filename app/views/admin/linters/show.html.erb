@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @linter.name %>
+</p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @linter.command %>
+</p>
+
+<%= link_to 'Edit', edit_admin_linter_path(@linter) %> |
+<%= link_to 'Back', admin_linters_path %>

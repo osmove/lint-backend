@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html <% if @rtl %> dir="rtl"<% end %>>
+  <head>
+
+    <title>Gatrix</title>
+
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link href="https://fonts.googleapis.com/css?family=Lora|Montserrat" rel="stylesheet">
+
+    <style media="screen">
+      body {
+        font-size: .875rem;
+        padding-top: 50px;
+        background-color: #fff !important;
+      }
+
+      p, h1, h2, h3, h4, h5, h6 {
+        /* font-family: 'Arial', sans-serif; */
+        font-family: inherit;
+      }
+
+      .feather {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+      }
+
+      /*
+      * Sidebar
+      */
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        <% if @rtl %>
+          right: 0;
+          text-align: right;
+        <% else %>
+          left: 0;
+        <% end %>
+        z-index: 100; /* Behind the navbar */
+        padding: 48px 0 0; /* Height of navbar */
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        background-color: #fff !important;
+      }
+
+      .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: .5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      }
+
+      @supports ((position: -webkit-sticky) or (position: sticky)) {
+      .sidebar-sticky {
+          position: -webkit-sticky;
+          position: sticky;
+        }
+      }
+
+      .sidebar .nav-link {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #999;
+      }
+
+      .sidebar .nav-link.active {
+        color: #007bff;
+      }
+
+      .sidebar .nav-link:hover .feather,
+      .sidebar .nav-link.active .feather {
+        color: inherit;
+      }
+
+      .sidebar-heading {
+        font-size: .75rem;
+        text-transform: uppercase;
+      }
+
+      /*
+      * Content
+      */
+
+      [role="main"] {
+        padding-top: 16px; /* Space for fixed navbar */
+      }
+
+      /*
+      * Navbar
+      */
+
+      .navbar-brand {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: 1rem;
+        background-color: rgba(0, 0, 0, .25);
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+      }
+
+      .navbar .form-control {
+        padding: .75rem 1rem;
+        border-width: 0;
+        border-radius: 0;
+      }
+
+      .form-control-dark {
+        color: #fff;
+        background-color: rgba(255, 255, 255, .1);
+        border-color: rgba(255, 255, 255, .1);
+      }
+
+      .form-control-dark:focus {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+      }
+
+      /*
+      * Utilities
+      */
+
+      .border-top { border-top: 1px solid #e5e5e5; }
+      .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+      .breadcrumb {padding-top: 5px;padding-bottom: 5px;}
+
+
+
+      .nav-tabs .nav-link {
+        color: #999;
+      }
+      .sidebar .nav-item:hover{
+        color: #111 !important;
+        background-color: rgba(0, 0, 0, 0.1) !important;
+      }
+      .sidebar .nav-item.active{
+        color: #111 !important;
+        background-color: rgba(0, 0, 0, 0.1) !important;
+      }
+      .sidebar .nav-link:hover {
+        color: #111 !important;
+        /* background-color: red !important; */
+        /* color: #495057; */
+        /* border-color: #007fff #dee2e6 #fff; */
+        /* border-top: 4px solid #007fff; */
+      }
+
+    </style>
+  </head>
+
+  <body class="bg-light">
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+
+      <a class="navbar-brand col-sm-3 mr-auto" href="<%= root_path %>">
+        <img src="/images/gatrix-logo-white.png" style="width:30px; height: 30px;" alt="">
+      </a>
+
+      <ul class="navbar-nav px-2">
+        <li class="nav-item text-nowrap">
+          <button class="btn btn-dark" style="border: none; background-color: inherit; opacity: 0.5" type="button" data-toggle="collapse" data-target="#left_menu" aria-expanded="false" aria-controls="#left_menu">
+            <i class="fa fa-caret-square-o-left text-white fa-lg" style="cursor: pointer;"></i>
+          </button>
+        </li>
+      </ul>
+
+      <form class="w-100" action="<%# admin_search_path %>" method="get">
+        <input name="q" class="form-control form-control-dark w-100" type="text" placeholder= "Search" aria-label="Search" value="<%= params['q'] %>">
+      </form>
+
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <% if user_signed_in?  %>
+          <%= link_to("Log Out", destroy_user_session_path, method: :delete, class: 'nav-link', data: { confirm: 'Are you sure?' }) %>
+          <% end %>
+        </li>
+      </ul>
+
+    </nav>
+
+
+
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <%= render "dashboard/left_menu", user: current_user %>
+
+
+        <main role="main" class="col-12 col-sm-9 ml-sm-auto px-4 pt-5 pt-md-3">
+          <% if notice.present? %>
+            <div class="alert alert-info">
+              <%= notice %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% end %>
+
+          <% if alert.present? %>
+            <div class="alert alert-info">
+              <%= alert %>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          <% end %>
+
+          <!-- Breadcrumbs -->
+
+          <%# render "dashboard/breadcrumbs" %>
+
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script> -->
+    <!-- <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script> -->
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Langage switch -->
+    <script type="text/javascript">
+      $('#language_switch').on('change', function() {
+        var selected = $('#language_switch option:selected').val();
+        window.location.href = "/" + selected + "/admin";
+      });
+    </script>
+    <script type="text/javascript">
+
+      $(document).ready(function(){
+        $(".sidebar").collapse('show')
+
+        $('.sidebar').on('hide.bs.collapse', function () {
+          $(".fa-caret-square-o-left").removeClass( "fa-caret-square-o-left" ).addClass( "fa-caret-square-o-right")
+          $("main").removeClass( "col-sm-9" ).addClass( "col-sm-12" );
+
+        })
+        $('.sidebar').on('show.bs.collapse', function () {
+          $(".fa-caret-square-o-right").removeClass( "fa-caret-square-o-right" ).addClass( "fa-caret-square-o-left")
+          $("main").removeClass( "col-sm-12" ).addClass( "col-sm-9" );
+        })
+
+        $(".fa-caret-square-o-left").click(function(){
+          // $(".sidebar-sticky").toggle(500);
+          //
+          //
+          // if ($('.sidebar-sticky').is(":hidden")) {
+          //   $(".sidebar").toggle(1000);
+          //   $(".sidebar").removeClass( "d-md-block" );
+          //   $("main").removeClass( "col-md-10" ).addClass( "col-md-12" );
+          //
+          // } else {
+          //   $(".sidebar").addClass( "d-md-block" );
+          //   $("main").removeClass( "col-md-12" ).addClass( "col-md-10" );
+          // }
+        });
+
+        // $(".fa-caret-square-o-right").removeClass( "fa-caret-square-o-right" ).addClass( "fa-caret-square-o-left")
+
+      });
+    </script>
+
+    <!-- <script type="text/javascript">
+      $(document).ready(function() {
+        /* Activating Best In Place */
+        jQuery(".best_in_place").best_in_place();
+        jQuery('.best_in_place').bind("ajax:success", function () {$(this).closest('tr').effect('highlight'); });
+      });
+    </script> -->
+
+  </body>
+
+
+
+
+</html>

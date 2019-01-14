@@ -1,0 +1,9 @@
+<div class="container py-5">
+  <h3>Edit Repository</h3>
+  <p>Edit repository's name and visibility status. Please note that updating your repository name will require you to update its remote address in your git client.</p>
+  <%= link_to 'Edit', edit_user_repository_path(@repository.user, @repository.slug),  class: "btn btn-lg btn-outline-info" %>
+  <hr class="mt-5 mb-4" />
+  <h3>Destroy Repository</h3>
+  <p>Destroy repository. Destroying a repository is permanent.</p>
+  <%= link_to 'Destroy', user_repository_path(@user, @repository), method: :delete, data: { confirm: "Are you sure you want to delete repository '#{@repository.slug}'? This is DEFINITIVE and CANNOT BE CANCELLED." }, class: "btn btn-lg btn-outline-danger" %>
+</div>

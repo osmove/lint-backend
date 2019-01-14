@@ -1,0 +1,289 @@
+<!-- <section class="" style="background-color: #e6e6e6 !important;"> -->
+<!-- <section class="bg-light"> -->
+<!-- <section class="" style="background-color: #e1e2e3;"> -->
+<section class="" style="background-color: #eeeff0;">
+  <div class="container text-left py-3 py-md-4">
+
+    <div class="row">
+      <div class="col-12 col-md-7 col-lg-8">
+
+
+        <% if repository.documents.length > 0 %>
+          <div class="card mb-3">
+            <div class="card-header">
+              Files <span class="badge badge-secondary"><%= repository.documents.length %>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+
+                <table class="table table-hover table-sm mb-0">
+                  <!-- <thead>
+                    <tr>
+                      <th>File</th>
+                      <th class="text-muted"></th>
+                    </tr>
+                  </thead> -->
+                  <tbody>
+                    <% @documents.each do |document| %>
+                    <!-- <a href="/test" style="display: block;"> -->
+                      <tr style="cursor: pointer;" onclick="javascript: window.location = '<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>'">
+                        <td>
+                          <% if document.checksum_type == 'tree' %>
+                            <i class="fa fa-folder mx-3" style="color: #999 !important;"></i>
+                            <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
+                              <%= document.name %>
+                            </a>
+                          <% end %>
+                          <% if document.checksum_type == 'blob' %>
+                            <i class="fa fa-file-text-o mx-3" style="color: #999 !important;"></i>
+                            <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
+                              <%= document.name %>
+                            </a>
+                          <% else %>
+                            <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i>
+                            <a href="<%= admin_repository_document_path(document.repository, document.id) %>">
+                              <%= document.name %>
+                            </a>
+                          <% end %>
+                        </td>
+                        <td class="text-muted"><% if document.size.present? %><%= (document.size.to_i / 1000).round(2) %>Kb<% end %></td>
+                      </tr>
+                    <!-- </a> -->
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
+          <% if(@readme.present?) %>
+            <h2>README.md</h2>
+            <div class="card mb-3">
+              <div class="card-header text-muted">
+                <%= @readme.name %>
+                <% if(@readme.content.split("\n") rescue nil) %>
+                  &bull; <%= pluralize(@readme.content.split("\n").length, 'line') %>
+                <% end %>
+                <% if @readme.size.present? %>
+                  &bull; <%= number_to_human_size(@readme.size).downcase %>
+                <% end %>
+              </div>
+              <div class="card-body">
+                <%= simple_format(@readme.content) %>
+              </div>
+
+            </div>
+          <% end %>
+        <% else %>
+          <div class="card mb-3 text-center">
+            <!-- <div class="card-header">
+              Get started with your repository
+            </div> -->
+            <div class="card-body pt-5 pb-5">
+              <img src="/images/assistant/svg/gatrix-assistant-icon.svg" alt="Gatrix Assistant" class="mb-3" width="128" height="128">
+
+
+              <h1 class="mb-5" style="color: #205aa7">Waiting for commits...</h1>
+              <p style="color: #205aa7">Starting with a <strong>new</strong> repository:</p>
+              <div class="mb-5">
+                <!-- <small><kbd class="p-2" style="">git clone <%= repository.git_address %></kbd></small> -->
+                <pre><code>git clone <%= repository.git_address %></code></pre>
+              </div>
+              <p style="color: #205aa7">Starting with an <strong>existing</strong> repository:</p>
+              <div>
+                <!-- <small style="line-height: 3em"><kbd class="p-2">git remote add gatrix <%= repository.git_address %></kbd></small><br />
+                <small><kbd class="p-2">git push gatrix master</kbd></small> -->
+
+                <pre><code>git remote add gatrix <%= repository.git_address %></code></pre>
+                <pre><code>git push gatrix master</code></pre>
+
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+
+
+
+
+
+
+
+      </div>
+      <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
+
+        <p class="mb-1" id="git_address_info">Repository address:</p>
+        <div class="input-group mb-4">
+          <!-- <div class="input-group-prepend">
+            <span class="input-group-text text-muted" id="basic-addon3">GIT</span>
+          </div> -->
+          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_address %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
+          <div class="input-group-append">
+            <span class="input-group-text" onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;"><i class="fa fa-copy"></i></span>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-cog mr-1"></i>
+            REPOSITORY SETTINGS
+          </div>
+          <div class="card-body bg-light">
+            <ul class="list-unstyled mb-2">
+              <!-- <li>UUID: <strong><%= repository.uuid %></strong></li> -->
+
+
+              <% if repository.status.downcase == 'private' %>
+                <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
+              <% else %>
+                <li>Visibility: <strong><%= repository.status %></strong> </li>
+              <% end %>
+
+              <% if repository.platform.present? %>
+                <li>Platform: <strong><%= repository.platform %></strong> </li>
+                <% if repository.platform.language.present? && repository.platform.language.name != repository.platform.name %>
+                  <li>Language: <strong><%= repository.platform.language %></strong> </li>
+                <% end %>
+                <% if repository.platform.framework.present? && repository.platform.framework.name != repository.platform.name && repository.platform.framework.name != repository.platform.language.name  %>
+                  <li>Framework: <strong><%= repository.platform.framework %></strong> </li>
+                <% end %>
+              <% end %>
+
+              <% if repository.has_encryption %>
+                <li>Encryption: <i class="fa fa-lock text-muted"></i> <strong>Yes</strong></li>
+              <% else %>
+                <li>Encryption: <strong>No</strong> </li>
+              <% end %>
+
+              <% if repository.requires_two_step_authentication %>
+                <li>Requires 2FA: <i class="fa fa-shield text-muted"></i> <strong>Yes</strong></li>
+              <% else %>
+                <li>Requires 2FA: <strong>No</strong> </li>
+              <% end %>
+            </ul>
+            <p class="mb-0"><%= link_to 'Edit settings', edit_user_repository_path(@repository.user, @repository.slug),  class: "btn btn-sm btn-outline-info" %></p>
+
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-desktop mr-1"></i>
+            DEPLOYMENT
+          </div>
+          <div class="card-body bg-light">
+            <ul class="list-unstyled mb-0">
+
+
+              <% if repository.deploy_to.present? %>
+                <li>Deployment: <strong><%= repository.deploy_to.titleize %></strong></li>
+                <%# if repository.deploy_to == "gatrix_cloud" %>
+                <% if repository.hosting_plan.present? %>
+                  <li>Memory: <strong><%= repository.hosting_plan.memory / 1000%> MB</strong></li>
+                  <li>vCPUs: <strong><%= repository.hosting_plan.vcpus %> vCPUs</strong></li>
+                  <li>Storage: <strong><%= repository.hosting_plan.storage / 1000 %> MB</strong></li>
+                  <li>Transfer: <strong><%= repository.hosting_plan.transfer / 1000 %> GB</strong></li>
+                  <% if repository.geo_zone.present? %>
+                  <li>Zone: <strong><%= repository.geo_zone.titleize  %></strong></li>
+                  <% end %>
+                  <li>Price: <strong>$<%= repository.hosting_plan.transfer / 1000 %>/mo</strong></li>
+                <% end %>
+              <% else %>
+                <li>Deployment: <strong>None</strong></li>
+              <% end %>
+
+
+
+
+              <!--
+              <% if repository.has_deployment %>
+                <li>Deployment: <i class="fa fa-desktop text-muted"></i> <strong>Yes</strong></li>
+              <% else %>
+                <li>Deployment: <strong>No</strong></li>
+              <% end %> -->
+
+
+              <!-- <li><i class="fa fa-eye text-muted"></i> Visibility: <strong><%= repository.status %></strong></li>
+              <li><i class="fa fa-lock text-muted"></i> End-to-end encryption: <strong><%= repository.has_encryption ? 'Yes' : 'No' %></strong></li>
+              <li><i class="fa fa-shield text-muted"></i> Two-step authentication: <strong><%= repository.requires_two_step_authentication ? 'Yes' : 'No' %></strong></li>
+              <li><i class="fa fa-desktop text-muted"></i> Deployment: <strong><%= repository.has_deployment ? 'Yes' : 'No' %></strong></li> -->
+            </ul>
+          </div>
+        </div>
+        <% if @repository.git_host == 'github' %>
+          <div class="card mb-4">
+            <div class="card-header text-muted">
+              <i class="fa fa-github"></i>
+              GITHUB
+            </div>
+            <div class="card-body bg-light">
+              <ul class="list-unstyled mb-0">
+
+                <li><%= link_to "View on Github",@repository.web_url %></li>
+                <li><%= @repository.smart_created_at %></li>
+
+              </ul>
+            </div>
+          </div>
+        <% end %>
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-qrcode mr-1"></i>
+            LINK
+          </div>
+          <div class="card-body bg-light">
+            <!-- <p>Link to this repository:</p> -->
+            <!-- <div class="qrcode">
+              <%= raw @qrcode_html %>
+            </div> -->
+
+            <div class="qrcode">
+              <%# raw @qrcode_html %>
+              <div class="pull-right ml-3">
+                <%= raw @qrcode_svg %>
+              </div>
+              <!-- <h6>Scan to open</h6> -->
+              <p>Scan this QR code with your mobile phone to load this repository immediately.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-code-fork mr-1"></i>
+            Commits
+          </div>
+          <div class="card-body bg-light">
+            <%= area_chart @repository.commits.group_by_day(:date_raw, last: 10).count, height: "250px" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+function copyGitAdressToClipboard(element_id, info_element_id) {
+  if(element_id) {
+    var element = document.getElementById(element_id);
+    element.select();
+    document.execCommand("copy");
+    /* Alert the copied text */
+    // alert("Copied the text: " + element.value);
+    if(info_element_id) {
+      var infoElement = document.getElementById(info_element_id);
+      var tmpText = infoElement.innerHTML;
+      infoElement.classList.add("text-success");
+      infoElement.innerHTML = "Address copied!";
+      setTimeout(function() {
+        infoElement.classList.remove("text-success");
+        infoElement.innerHTML = tmpText;
+      }, 1000);
+    }
+  } else {
+    alert("Nothing to copy");
+  }
+}
+</script>

@@ -1,0 +1,130 @@
+<%= render 'repositories/header', repository: @commit_attempt.repository %>
+
+<!-- <section class="bg-white"> -->
+<section class="" style="background-color: #eeeff0;">
+
+  <div class="container py-5">
+
+    <p><%= link_to "Back to commit attempts", user_repository_commit_attempts_path(@commit_attempt.repository.user, @commit_attempt.repository) %></p>
+
+    <p>
+      <% if @commit_attempt.repository.policy.present? %>
+        Policy: <%= @commit_attempt.repository.policy.name %>
+      <% else %>
+        No Policy.
+      <% end %>
+    </p>
+
+    <h3>
+      Commit attempt #<%= @commit_attempt.id %>
+    </h3>
+
+
+
+    <% if @commit_attempt.policy_checks.length > 0 %>
+      <p>
+        <% if @commit_attempt.policy_checks.first.report["rule_checks_attributes"].present? %>
+          <% if @commit_attempt.policy_checks.first.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.count > 1 %>
+            <%= "#{@commit_attempt.policy_checks.first.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.count} files checked" %>
+          <% elsif @commit_attempt.policy_checks.first.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.count == 1 %>
+            <%= "#{@commit_attempt.policy_checks.first.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.count} file checked" %>
+          <% else %>
+            No file inspected
+          <% end %>
+        <% else %>
+          <% if @commit_attempt.policy_checks.first.rule_checks.group_by(&:file_path).count > 1 %>
+            <%= "#{@commit_attempt.policy_checks.first.rule_checks.group_by(&:file_path).count} files checked" %>
+          <% elsif @commit_attempt.policy_checks.first.rule_checks.group_by(&:file_path).count == 1 %>
+            <%= "#{@commit_attempt.policy_checks.first.rule_checks.group_by(&:file_path).count} file checked" %>
+          <% else %>
+            No file inspected
+          <% end %>
+        <% end %>
+
+
+      </p>
+
+      <span class="text-danger"><%= "#{@commit_attempt.policy_checks.first.error_count || 0} error(s)" %></span>
+      |
+      <span class="text-warning"><%= "#{@commit_attempt.policy_checks.first.warning_count || 0} warning(s)" %></span>
+      |
+      <% if @commit_attempt.policy_checks.first.passed == true %>
+        <span class="badge badge badge-success">Passed</span>
+      <% else %>
+        <span class="badge badge badge-danger">Failed</span>
+      <% end %>
+      <% if @commit_attempt.policy_checks.first.fixable_offense_count.present? %>
+        <p><%= "#{@commit_attempt.policy_checks.first.fixable_offense_count} Fixable rules, #{@commit_attempt.policy_checks.first.fixable_error_count} errors, #{@commit_attempt.policy_checks.first.fixable_warning_count} warnings" %></p>
+      <% end %>
+    <% end %>
+
+
+
+    <p>
+      <%= @commit_attempt.created_at.strftime("%d %B %Y at %H:%M") %>
+    </p>
+
+    <p>
+      Commit message: "<%= @commit_attempt.message %>"
+
+      <% if @commit_attempt.user.present? %>
+      by
+        <a href="<%= user_path(@commit_attempt.user) %>">
+        <% if @commit_attempt.user.avatar_url.present? %>
+          <img src="<%= @commit_attempt.user.avatar_url %>" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+        <% elsif @commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+          <img src="/images/organization-blank.jpg" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+        <% else %>
+          <img src="/images/user-blank.png" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; float: left; border-radius: 80px;">
+        <% end %>
+        <span><%= @commit_attempt.user %></span></a>
+      <% end %>
+    </p>
+
+    <% if @commit_attempt.policy_checks.first.present? && @commit_attempt.policy_checks.first.report.present? %>
+    <h1>REPORT - JSON</h1>
+      <div class="table-responsive">
+        <table class="table table-sm" style="font-size: 14px;">
+          <tbody>
+            <tr>
+              <% if @commit_attempt.policy_checks.length > 0 %>
+                <% if @commit_attempt.policy_checks.first.report["rule_checks_attributes"].present? %>
+                  <% @commit_attempt.policy_checks.first.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.each do |file, rule_checks| %>
+                    <td class="p-0">
+                      <table class="table border">
+                        <tr class="text-center">
+                          <td class="text-white bg-dark">
+                            <%= file[0] %>
+                          </td>
+                        </tr>
+                        <% rule_checks.sort_by { |h| h["severity_level"]}.reverse!.each do |rule_check| %>
+                          <tr class="text-center">
+                             <% if rule_check["severity_level"].present? %>
+                              <td class="border text-white <% if rule_check["severity_level"] == 1 %>bg-warning<% elsif rule_check["severity_level"] == 2 %>bg-danger<%end%>">
+                                <%= Rule.find(rule_check["rule_id"]).linter.name %>: <%= Rule.find(rule_check["rule_id"]).name %>
+                                <br />
+                                <%= "#{rule_check["line"]}:#{rule_check["column"]}"%> <%= rule_check["message"] %>
+                              </td>
+                             <% end %>
+                          </tr>
+                        <% end %>
+                      </table>
+                    </td>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+
+
+
+    <%= link_to 'Edit', edit_commit_attempt_path(@commit_attempt) %> |
+    <%= link_to 'Back', commit_attempts_path %>
+
+  </div>
+
+</section>

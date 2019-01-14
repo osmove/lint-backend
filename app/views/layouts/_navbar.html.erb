@@ -1,0 +1,112 @@
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-marketing" style="background-color: #222 !important;">
+
+  <% if current_page?(root_path) || current_page?(dashboard_path) %>
+    <a class="navbar-brand mr-0 mr-md-3" href="<%= prelaunch_path %>">
+      <img src="/images/logo/gatrix-logo-dark.svg" width="32" height="32" class="d-inline-block align-top" alt="Gatrix Logo">
+    </a>
+  <% else %>
+    <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
+      <img src="/images/logo/gatrix-logo-dark.svg" width="32" height="32" class="d-inline-block align-top" alt="Gatrix Logo">
+    </a>
+  <% end %>
+
+  <%= render "search/search" %>
+
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> -->
+
+
+  <button class="navbar-toggler p-1" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent search" aria-expanded="false" aria-label="Toggle navigation" style="border: none; opacity: 0.5;">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+    <ul class="navbar-nav mr-auto pt-3 pt-md-0">
+
+
+
+
+      <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
+        <li class="nav-item active">
+          <!-- <a class="nav-link" href="<%= root_path %>">Home <span class="sr-only">(current)</span></a> -->
+          <a class="nav-link" href="<%= prelaunch_path %>">Home <span class="sr-only">(current)</span></a>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <!-- <a class="nav-link" href="<%= root_path %>">Home</a> -->
+          <a class="nav-link" href="<%= prelaunch_path %>">Home</a>
+        </li>
+      <% end %>
+
+      <% if current_page?(apps_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="<%= apps_path %>">Apps <span class="sr-only">(current)</span></a>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= apps_path %>">Apps</a>
+        </li>
+      <% end %>
+
+      <% if current_page?(pricing_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="<%= pricing_path %>">Pricing <span class="sr-only">(current)</span></a>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= pricing_path %>">Pricing</a>
+        </li>
+      <% end %>
+
+      <% if current_page?(faq_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="<%= faq_path %>">Help <span class="sr-only">(current)</span></a>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= faq_path %>">Help</a>
+        </li>
+      <% end %>
+
+    </ul>
+
+
+    <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+      <% if user_signed_in?  %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <strong><%= current_user.slug %></strong>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <%= link_to('Profile', current_user, class: 'dropdown-item') %>
+            <%= link_to('Billing', current_user, class: 'dropdown-item') %>
+            <%= link_to('Settings', current_user, class: 'dropdown-item') %>
+            <div class="dropdown-divider"></div>
+            <%= link_to('SSH Keys', current_user, class: 'dropdown-item') %>
+            <!-- <div class="d-none d-md-block"> -->
+              <div class="dropdown-divider"></div>
+              <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure you want to sign out of Gatrix?' }) %>
+            <!-- </div> -->
+          </div>
+        </li>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-light btn-block-sm-only btn-block-xs-only ml-md-2') %>
+        </li>
+        <% if defined? user_registration_path %>
+        <li class="nav-item">
+          <%= link_to("Sign up", new_user_registration_path, class:'btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2') %>
+        </li>
+        <% end %>
+      <% end %>
+    </ul>
+
+  </div>
+
+
+</nav>

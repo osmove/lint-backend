@@ -1,0 +1,10 @@
+
+<div class="container py-4">
+  <div class="row">
+    <div class="col col-md-8 offset-md-2">
+      <h2><%= @repository.uuid %> > Edit</h2>
+      <%= link_to raw('&larr; Back to repository'), user_repository_path(@user, @repository) %>
+      <%= render 'form', repository: @repository, user: @user %>
+    </div>
+  </div>
+</div>

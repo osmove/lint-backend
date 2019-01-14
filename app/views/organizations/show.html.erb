@@ -1,0 +1,47 @@
+
+<div class="container py-4">
+  <h1>Organization: <%= @organization.name %></h1>
+
+  <p>
+    <%= link_to "Back to #{@organization.user}'s organizations", user_organizations_path(@organization.user) %>
+  </p>
+
+  <div class="card mb-3">
+    <div class="card-body">
+
+      <p>
+        <strong>Name:</strong>
+        <%= @organization.name %>
+      </p>
+
+
+      <p>
+        <strong>Created by:</strong>
+        <%= link_to @organization.user, user_path(@organization.user) %>
+      </p>
+
+      <p>
+        <strong>Created at:</strong>
+        <%= @organization.created_at.strftime('%A %d %B %Y at %H:%M:%S') %>
+      </p>
+
+      <p>
+        <strong><%= @organization.memberships.length %> Member(s)</strong>
+        <% if @organization.memberships.count > 0 %>
+          <ul class="">
+            <% @organization.memberships.each do |membership| %>
+              <li><%= link_to "#{membership.user} <#{membership.user.email}>", user_path(membership.user) %><span class="text-muted"> - Role: <%= membership.role %></span></li>
+            <% end %>
+          </ul>
+        <% else %>
+          No members.
+        <% end %>
+      </p>
+
+    </div>
+  </div>
+
+  <%= link_to 'Edit', edit_user_organization_path(@organization.user, @organization.id) %> |
+  <%= link_to 'Back', user_organizations_path(@organization.user) %>
+
+</div>

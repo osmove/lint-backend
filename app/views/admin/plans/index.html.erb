@@ -1,0 +1,48 @@
+<div class="container-fluid py-2">
+
+
+  <div class="row justify-content-between">
+
+    <h1>Plans</h1>
+
+    <%= paginate @plans %>
+
+  </div>
+
+  <div class="row">
+    <%= link_to '+ New Plan', new_admin_plan_path, class: "btn btn-success mb-3" %>
+  </div>
+
+</div>
+
+<table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Cost</th>
+    <th>Number of Users</th>
+    <th class="colspan-2"></th>
+  </thead>
+  <tbody>
+    <% @plans.each do |plan| %>
+      <tr>
+
+        <td><%= plan.name %></td>
+        <td>
+          <% if plan.price_per_month.present? %>
+            <%= number_to_currency(plan.price_per_month.round) %> <p class="text-muted monthly" style="font-size: 14px;">per month / user</p>
+          <% end %>
+          <% if plan.price_per_year.present? %>
+            <%= number_to_currency(plan.price_per_year.round) %> <p class="text-muted yearly" style="font-size: 14px;">per year / user</p>
+          <% end %>
+        </td>
+        <td><%= plan.users.count %></td>
+        <td>
+          <%= link_to 'Show', admin_plan_url(plan), class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Edit', edit_admin_plan_path(plan), class: "btn btn-sm btn-info" %>
+          <%= link_to 'Destroy', admin_plan_url(plan), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

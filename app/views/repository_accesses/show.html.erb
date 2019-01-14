@@ -1,0 +1,64 @@
+
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+  <div class="container py-4">
+
+    <%= link_to "Back to Repository Access",  user_repository_repository_accesses_path(@user, @repository) %>
+
+    <h2>
+      <a href="<%= user_path(@repository_access.user) %>">
+        <%= @repository_access.user %>
+      </a>
+      <span class="text-muted">'s access</span>
+      <!-- <a href="<%= user_repository_path(@repository_access.user, @repository_access.repository) %>">
+        <%= @repository_access.repository %>
+      </a> -->
+    </h2>
+
+    <div class="card mb-3">
+      <div class="card-header text-muted">
+        <%= @repository_access.status.titleize %> repository access
+        &bull; Created <%= time_ago_in_words(@repository_access.created_at) %> ago
+        <% if @repository_access.created_at != @repository_access.updated_at %>
+          &bull; Updated <%= time_ago_in_words(@repository_access.updated_at) %> ago
+        <% end %>
+      </div>
+      <div class="card-body">
+
+
+        <p>
+          <strong>Role:</strong>
+          <%= @repository_access.role.titleize %>
+        </p>
+
+        <!-- <p>
+          <strong>Status:</strong>
+          <%= @repository_access.status %>
+        </p> -->
+
+        <p>
+          <strong>User:</strong>
+          <%= @repository_access.user %>
+        </p>
+
+        <p>
+          <strong>Repository:</strong>
+          <%= @repository_access.repository.uuid %>
+        </p>
+
+        <p>
+          <strong>Created at:</strong>
+          <%= @repository_access.created_at %>
+        </p>
+
+        <p>
+          <strong>Updated at:</strong>
+          <%= @repository_access.updated_at %>
+        </p>
+
+      </div>
+    </div>
+    <%= link_to 'Edit', edit_user_repository_repository_access_path(@user, @repository, @repository_access) %>
+  </div>
+</section>

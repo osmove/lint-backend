@@ -1,0 +1,114 @@
+
+<%= render 'repositories/header', repository: @repository %>
+<!-- <section class="bg-white"> -->
+<section class="" style="background-color: #eeeff0;">
+
+  <div class="container py-3">
+
+    <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
+
+    <% if @repository.policy.present? %>
+      <h1 class="mb-3"><%= @repository.policy.name %></h1>
+    <% else %>
+      <h1 class="mb-3">No Policy</h1>
+    <% end %>
+
+    <div class="row">
+      <div class="col-4">
+
+        <% if @repository.policy.present? %>
+
+
+
+
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>Assign new policy</h5>
+              <p>Change policy for repository: "<strong><%= @repository.uuid %></strong>".</p>
+              <%= bootstrap_form_for(@repository, url: @form_url) do |form| %>
+                <%# form.select :policy_id, current_user.policies.all.collect {|c| [ c.name, c.id ] }, {prompt: 'No policy', include_blank: true, hide_label: true}, onchange: "this.form.submit();" %>
+                <%= form.check_box :has_autofix, {label: "Enable Autofix - Automatically repair fixable offenses", class: "my-2" } %>
+                <%= form.select :policy_id, Policy.all.collect {|c| [ c.name, c.id ] }, {include_blank: 'No Policy', hide_label: true} %>
+                <div class="actions">
+                  <%= form.submit "Update Policy" %>
+                  <%# form.submit "Update Policy", data: { confirm: "Are you sure you want to submit this form?" }%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <%= pie_chart @repository.policy.policy_rules.order(:status).group(:status).count, colors: ["#ff000f", "#404040", "#ffc107"] %>
+            </div>
+          </div>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5>Edit Policy</h5>
+              <p>Edit rules for policy "<%= @repository.policy.name %>".</p>
+              <% if @repository.policy.present? && current_user == @repository.policy.user %>
+                <a href="<%= edit_user_policy_path(@repository.user, @repository.policy) %>" class="btn btn-outline-info">
+                  Edit Rules
+                </a>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5>Create New</h5>
+            <p>Creates a new policy.</p>
+            <a href="<%= new_user_repository_policy_path(@repository.user, @repository) %>" class="btn btn-outline-success">
+              + New Policy
+            </a>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-8">
+        <% if @repository.policy.present? %>
+          <h2>Rules</h2>
+          <ul class="nav nav-tabs mb-2 border-bottom" id="myTab" role="tablist">
+            <% @linters.each_with_index do |linter, index| %>
+              <li class="nav-item">
+                <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-toggle="tab" href="#<%= linter.name %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
+              </li>
+            <% end %>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <% @linters.each_with_index do |linter, linter_index| %>
+              <div class="tab-pane fade show <% if linter_index == 0 %> active<% end %>" id="<%= linter.name %>" role="tabpanel" aria-labelledby="<%= linter.id %>-tab">
+                <% @repository.policy.policy_rules.each_with_index do |policy_rule, index| %>
+                  <% if policy_rule.rule.linter == linter %>
+                    <div id="accordion" class="mb-2">
+                      <%= render 'policy_rule_card', policy_rule: policy_rule, i: index, cached: true %>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <% if current_user && current_user.policies.length > 0 %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <p>No policies, please select:</p>
+                <%= bootstrap_form_for(@repository, url: @form_url) do |form| %>
+                  <%= form.select :policy_id, current_user.policies.all.collect {|c| [ c.name, c.id ] }, {prompt: 'No policy', hide_label: true} %>
+                  <div class="actions">
+                    <%= form.submit %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</section>

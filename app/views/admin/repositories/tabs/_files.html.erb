@@ -1,0 +1,30 @@
+
+<div class="container pt-4 pb-3">
+  <h3 class="mb-3">Files</h3>
+
+  <%= link_to '+ New File', new_user_repository_document_path %>
+
+  <% if repository.documents.length > 0 %>
+  <table class="table table-hover mt-3">
+    <tbody>
+      <% repository.documents.each do |document| %>
+      <!-- <a href="/test" style="display: block;"> -->
+        <tr>
+          <td>
+            <% if document.checksum_type == 'tree' %>
+              <i class="fa fa-folder mr-2" style="color: #999 !important;"></i><a href="#"><%= document.name %></a>
+            <% end %>
+            <% if document.checksum_type == 'blob' %>
+              <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i><a href="#"><%= document.name %></a>
+            <% end %>
+          </td>
+          <td class="text-muted"><% if document.size.present? %><%= (document.size.to_i / 1000).round(2) %>Kb<% end %></td>
+        </tr>
+      <!-- </a> -->
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+    <%= render 'repositories/tabs/empty' %>
+  <% end %>
+</div>

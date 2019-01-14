@@ -1,0 +1,145 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12 col-md-7 col-lg-8">
+      <% if @repositories.length > 0 %>
+        <% if @repositories.length == 1 %>
+          <p class="my-2 text-muted"><small>1 PUBLIC REPOSITORY</small></p>
+        <% else %>
+          <p class="my-2 text-muted"><small><%= @repositories.length %> PUBLIC REPOSITORIES</small></p>
+        <% end %>
+      <%= render "admin/users/user_repositories", repositories: @repositories %>
+      <% else %>
+        <%= render "repositories/tabs/empty" %>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-file-code-o mr-1"></i>
+          TOP LANGUAGES
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <% @top_languages.each do |language, count| %>
+              <li>
+                <% if language.present? %>
+                  <img class="mr-2" src="<%= language.image_url %>" alt="" style="width: 17px; height: 17px; border-radius: 2px;" />
+                <% else %>
+                  <img class="mr-2" src="/images/platformicons/svg/generic.svg" alt="" style="width: 17px; height: 17px; border-radius: 2px;" />
+                <% end %>
+
+
+                <%= language %>
+                <%= count %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-file-code-o mr-1"></i>
+          INFO
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <% if @user.name.present? %>
+              <li>Name: <%= @user.name %> </li>
+            <% end %>
+            <% if @user.created_at.present? %>
+              <li> Member since: <%= @user.created_at.strftime('%A %d %B %Y') %> </li>
+            <% end %>
+
+            <% if @user.last_sign_in_at.present? %>
+              <li>Last Seen: <%= @user.last_sign_in_at.strftime('%A %d %B %Y') %> </li>
+            <% end %>
+            <% if @user.last_sign_in_ip.present? %>
+              <li> Sign in IP: <%= @user.last_sign_in_ip %></li>
+            <% end %>
+            <% if @user.authentication_token.present? %>
+              <li> authentication_token: <%= @user.authentication_token %></li>
+            <% end %>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-desktop mr-1"></i>
+          DEVICES
+        </div>
+        <div class="card-body">
+          <% user.devices.each do |device| %>
+            <ul class="list-unstyled mb-0">
+
+
+                <li><%= device.type %></li>
+                <li><%= device.brand %></li>
+                <li><%= device.model %></li>
+                <li><%= device.sub_model %></li>
+                <li><%= device.uuid %></li>
+                <li><%= device.os %></li>
+                <li><%= device.os_version %></li>
+                <li><%= device.has_notifications %></li>
+                <li><%= device.has_gatrix_desktop %></li>
+                <li><%= device.has_gatrix_connect %></li>
+                <li><%= device.browser %></li>
+                <li><%= device.user_agent %></li>
+              </ul>
+
+          <% end %>
+        </div>
+      </div>
+      <% if @organizations_of_user.count > 0 %>
+        <div class="card my-3 box-shadow">
+          <div class="card-header">
+            <i class="fa fa-building-o mr-1"></i>
+            ORGANIZATIONS
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li></li>
+
+              <% organizations_of_user.each do |org| %>
+                <li><%= link_to org %></li>
+
+                <li><%= "- Teams" %></li>
+                <ul>
+                  <% Team.where(user_id: org).each do |team| %>
+                    <% if Membership.where(user_id: @user, team: team).length > 0 %>
+
+                      <li><%= link_to "#{org.username}/#{team.name}", team_path(team) %></li>
+                    <% end %>
+
+                  <% end %>
+                </ul>
+
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <div class="card my-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-building-o mr-1"></i>
+          Policies
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li></li>
+
+            <% @user.policies.each do |policy| %>
+              <li><%= link_to policy.name, admin_policy_path(policy) %></li>
+
+              <li><%= "#{policy.rules.count} Rules" %></li>
+
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

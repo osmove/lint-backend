@@ -1,0 +1,58 @@
+
+
+<nav class="navbar navbar-expand-md navbar-light bg-white" style="border: none;" >
+
+
+  <ul class="navbar-nav mx-auto">
+    <% if current_user.present? && current_user.repositories.length > 0 %>
+
+      <li class="nav-item dropdown active">
+        <% if repository.present? && repository.name.present? %>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <% if repository.platform.present? %>
+              <img src="<%= repository.platform.image_url %>" width="30" height="30" class="d-inline-block align-top mr-1" alt="Gatrix Logo" style="border-radius: 5px; margin-top: -2px; margin-bottom: -3px;">
+            <% else %>
+              <img src="/images/platformicons/svg/generic.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="Gatrix Logo" style="border-radius: 5px; margin-top: -2px; margin-bottom: -3px;">
+            <% end %>
+
+            <%= raw repository.pretty_uuid_html %>
+          </a>
+        <% else %>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select repository
+          </a>
+        <% end %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <% current_user.repositories.order(updated_at: :desc).each do |repository| %>
+            <a href="<%= user_repository_path(current_user, repository) %>" class="dropdown-item">
+              <% if repository.platform.present? %>
+                <img src="<%= repository.platform.image_url %>" alt="<%= repository.platform %>" style="width: 24px; height: 24px; border-radius: 4px; margin-right: 5px;" />
+              <% else %>
+                <img src="/images/platformicons/svg/generic.svg" alt="<%= repository.platform %>" style="width: 24px; height: 24px; border-radius: 4px; margin-right: 5px;" />
+              <% end %>
+
+              <%= repository.user.slug %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
+              <% if repository.status == 'Private' %>
+                <i class="fa fa-eye-slash text-muted ml-1"></i>
+              <% end %>
+              <% if repository.has_encryption %>
+                <i class="fa fa-lock text-muted"></i>
+              <% end %>
+              <% if repository.requires_two_step_authentication %>
+                <i class="fa fa-shield text-muted"></i>
+              <% end %>
+              <% if repository.has_deployment %>
+                <i class="fa fa-desktop text-muted"></i>
+              <% end %>
+            </a>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+</nav>
+
+
+
+<%= render "repositories/secondary_menu", repository: repository %>

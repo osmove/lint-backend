@@ -1,0 +1,54 @@
+<%= bootstrap_form_for(@member, url: @form_url) do |form| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this membership from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :membership_username, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin %>
+    <%= form.text_field :origin, id: :membership_origin, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :origin_url %>
+    <%= form.text_field :origin_url, id: :membership_origin_url, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar_url %>
+    <%= form.text_field :avatar_url, id: :membership_avatar_url, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.text_field :role, id: :membership_role, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id, "Organization" %>
+    <%= collection_select(:user, :slug, User.all.where(is_organization: true), :id, :username, :prompt => true, hide_label: true ) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :team_id %>
+    <%= collection_select(:team, :team_id, Team.all, :id, :name, :prompt => true, :include_blank => true, hide_label: true ) %>
+
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

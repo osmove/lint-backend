@@ -1,0 +1,24 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col col-md-8 offset-md-2">
+      <p>
+        <strong>Name:</strong>
+        <%= @framework.name %>
+      </p>
+
+      <p>
+        <strong>Slug:</strong>
+        <%= @framework.slug %>
+      </p>
+
+      <p>
+        <strong>Image:</strong>
+        <%= raw @framework.image %>
+      </p>
+
+      <%= link_to 'Edit', edit_admin_framework_path(@framework) %> |
+      <%= link_to 'Back', admin_frameworks_path %>
+
+    </div>
+  </div>
+</div>

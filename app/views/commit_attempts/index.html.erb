@@ -1,0 +1,203 @@
+
+<% if params[:user_id].present? %>
+  <%= render 'repositories/header', repository: @repository %>
+  <%#= render 'repositories/hard_tabs', repository: @repository %>
+  <!-- <section class="bg-white"> -->
+  <section class="" style="background-color: #eeeff0;">
+
+    <div class="container py-3">
+
+      <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
+
+
+
+
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect">User</label>
+            </div>
+
+            <select class="custom-select" id="inputGroupSelect">
+              <% if !params[:author].present? %>
+                <option selected value="">All</option>
+              <% else %>
+                <option value="">All</option>
+              <% end %>
+
+              <% @authors.each do |author| %>
+                <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                  <option selected value="<%= author.id %>"><%= author %></option>
+                <% else %>
+                  <option value="<%= author.id %>"><%= author %></option>
+                <% end %>
+              <% end %>
+            </select>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $('#inputGroupSelect').on('change', function() {
+            if (this.value ) {
+              var params = '?author=' + this.value + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+
+            } else {
+              var params = '?author=' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+            }
+            window.location = params
+
+          });
+        </script>
+
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelectBranch">
+              <% if !params[:branch].present? %>
+                <option selected value="">All</option>
+              <% else %>
+                <option value="">All</option>
+              <% end %>
+
+              <% @branches.each do |branch| %>
+                <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                  <option selected value="<%= branch %>"><%= branch %></option>
+                <% else %>
+                  <option value="<%= branch %>"><%= branch %></option>
+                <% end %>
+              <% end %>
+
+            </select>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $('#inputGroupSelectBranch').on('change', function() {
+            if (this.value) {
+              var params = '?branch=' + this.value + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+            } else {
+              var params = '?branch=' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+            }
+            window.location = params
+          });
+        </script>
+
+
+
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelectStatus">
+              <% if !params[:status].present? %>
+                <option selected value="">All</option>
+              <% else %>
+                <option value="">All</option>
+              <% end %>
+
+              <% if params[:status].present? && params[:status] == "passed" %>
+                <option selected value="passed">Passed</option>
+              <% else %>
+                <option value="passed">Passed</option>
+              <% end %>
+              <% if params[:status].present? && params[:status] == "failed" %>
+                <option selected value="failed">Failed</option>
+              <% else %>
+                <option value="failed">Failed</option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $('#inputGroupSelectStatus').on('change', function() {
+            if (this.value ) {
+              var params = '?status=' + this.value + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+
+            } else {
+              var params = '?status=' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+            }
+            window.location = params
+
+          });
+        </script>
+
+      </div>
+
+
+
+
+
+      <% if @commit_attempts.length > 0 %>
+        <div class="card mb-3">
+          <div class="card-header">
+            Commit Attempts <span class="badge badge-secondary"><%= @commit_attempts_count %>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <tbody>
+                  <% @commit_attempts.each_with_index do |commit_attempt, index| %>
+                    <% if commit_attempt.policy_checks.length > 0 %>
+                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: commit_attempt.policy_checks.first %>
+                    <% else %>
+                      <%= render 'commit_attempt_card_body', commit_attempt: commit_attempt, i: index, policy_check: nil %>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <%= paginate @commit_attempts %>
+
+      <% else %>
+        <%= render 'repositories/tabs/empty', repository: @repository %>
+      <% end %>
+
+
+    </div>
+  </section>
+<% else %>
+  <h1>commit_attempt Attempts</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Message</th>
+        <th>Description</th>
+        <th>commit_attempt</th>
+        <th>User</th>
+        <th>Contributor</th>
+        <th>Push</th>
+        <th>Device</th>
+        <th>Repository</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @commit_attempts.each do |commit_attempt| %>
+        <tr>
+          <td><%= commit_attempt.message %></td>
+          <td><%= commit_attempt.description %></td>
+          <td><%= commit_attempt.commit %></td>
+          <td><%= commit_attempt.user %></td>
+          <td><%= commit_attempt.contributor %></td>
+          <td><%= commit_attempt.push %></td>
+          <td><%= commit_attempt.device %></td>
+          <td><%= commit_attempt.repository %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <br>
+
+<% end %>

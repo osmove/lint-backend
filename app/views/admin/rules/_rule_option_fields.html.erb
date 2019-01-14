@@ -1,0 +1,22 @@
+<div class='nested-fields'>
+  <%= f.text_field :name %>
+  <%= f.text_field :slug %>
+  <%= f.text_area :description %>
+  <%= f.select :value_type, RuleOption::VALUE_TYPE_OPTIONS, {hide_label: true, inline: true} %>
+  <%#= f.text_area :value %>
+  <%= f.label 'Values'%>
+  <div id='rule_option_options'>
+     <%= f.fields_for :rule_option_options do |option| %>
+       <%= render 'rule_option_option_fields', f: option %>
+     <% end %>
+
+   </div>
+   <div class='links text-right '>
+     <%= link_to_add_association '+', f, :rule_option_options, class: 'btn btn-success bnt-lg mb-4' %>
+   </div>
+
+  <%= f.text_field :units %>
+  <%= f.text_field :condition_value %>
+
+   <%= link_to_remove_association "remove task", f, class: 'btn btn-danger btn-sm mb-4' %>
+ </div>

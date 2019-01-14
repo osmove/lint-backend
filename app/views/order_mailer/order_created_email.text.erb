@@ -1,0 +1,24 @@
+Bonjour <%= @user.name %>,
+
+Nous vous confirmons votre commande:
+
+<% @stones.each do |stone| %>
+ID: <%= stone.id %>
+Couleur: <%= stone.color %>
+Teinte: <%= stone.hue %>
+Carat(s): <%= stone.carat %>
+Prix: <%= stone.price %> <%= stone.currency %>
+<% end %>
+
+Voici les détails de la transaction :
+
+Montant: <%= @order.amount %> <%= @order.currency %>
+Frais de transaction: <%= @order.transaction_fees %> <%= @order.currency %>
+Frais de garde: <%= @order.custody_fees %> <%= @order.currency %>
+Frais de livraison: <%= @order.shipping_fees %> <%= @order.currency %>
+Sous-total: <%= @order.subtotal %> <%= @order.currency %>
+TVA: <%= @order.vat_amount %> <%= @order.currency %>
+Total: <%= @order.total %> <%= @order.currency %>
+
+Pour vous connecter à votre espace, veuillez cliquer sur le lien suivant: <%= @site_url %>.
+Nous vous remercions de votre confiance.

@@ -1,0 +1,125 @@
+
+<div class="row mb-3">
+  <% repositories.each do |repository| %>
+    <!-- <div class="col-12 col-sm-6 col-lg-6"> -->
+    <div class="col-12">
+      <a href="<%= admin_repository_path(repository) %>" style="display: block; cursor: pointer;">
+        <div class="card box-shadow mb-1 mb-md-2">
+          <!-- <div class="card-header"> -->
+            <!-- <h4 class="my-0 font-weight-normal">Free</h4> -->
+            <!-- <h5 class="card-title my-0">
+              <%= repository.user.slug.downcase %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
+
+                <% if repository.status == 'Private' %>
+                  <i class="fa fa-eye-slash text-muted"></i>
+                <% end %>
+                <% if repository.has_encryption %>
+                  <i class="fa fa-lock text-muted"></i>
+                <% end %>
+              <small>
+                <% if repository.requires_two_step_authentication %>
+                  <i class="fa fa-shield text-muted"></i>
+                <% end %>
+                <% if repository.has_deployment %>
+                  <i class="fa fa-desktop text-muted"></i>
+                <% end %>
+              </small>
+            </h5> -->
+          <!-- </div> -->
+          <div class="card-body p-2 p-md-3">
+            <!-- <p class="card-subtitle mb-2 text-muted"><%= repository.slug %></p> -->
+
+
+
+            <% if repository.platform.present? %>
+              <img class="mr-2 mr-md-3" src="<%= repository.platform.image_url %>" alt="" style="width: 50px; height: 50px; float: left; border-radius: 8px;" />
+            <% else %>
+              <img class="mr-2 mr-md-3" src="/images/platformicons/svg/generic.svg" alt="" style="width: 50px; height: 50px; float: left; border-radius: 8px;" />
+            <% end %>
+
+            <h6 class="" style="margin-top: 6px; margin-bottom: 3px; ">
+              <%= repository.user.slug.downcase %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
+
+              <% if repository.status == 'Private' %>
+                <i class="fa fa-eye-slash text-muted"></i>
+              <% end %>
+              <% if repository.has_encryption %>
+                <i class="fa fa-lock text-muted"></i>
+              <% end %>
+              <small>
+                <% if repository.requires_two_step_authentication %>
+                  <i class="fa fa-shield text-muted"></i>
+                <% end %>
+                <% if repository.has_deployment %>
+                  <i class="fa fa-desktop text-muted"></i>
+                <% end %>
+                <% if repository.git_host == 'github' %>
+                  <i class="fa fa-github text-muted"></i>
+                <% end %>
+              </small>
+            </h6>
+
+
+
+            <ul class="list-unstyled text-dark mb-0" style="font-size: 12px;">
+              <% if repository.user == current_user %>
+
+                <!-- <% if repository.status == 'Private' %>
+                  <li>Visibility: <i class="fa fa-eye-slash text-muted"></i> <strong><%= repository.status %></strong> </li>
+                <% else %>
+                  <li>Visibility: <strong><%= repository.status %></strong> </li>
+                <% end %>
+
+                <% if repository.has_encryption %>
+                  <li>End-to-end encryption: <i class="fa fa-lock text-muted"></i> <strong>Yes</strong></li>
+                <% else %>
+                  <li>End-to-end encryption: <strong>No</strong> </li>
+                <% end %>
+
+                <% if repository.requires_two_step_authentication %>
+                  <li>Two-step authentication: <i class="fa fa-shield text-muted"></i> <strong>Yes</strong></li>
+                <% else %>
+                  <li>Two-step authentication: <strong>No</strong> </li>
+                <% end %>
+
+                <% if repository.has_deployment %>
+                  <li>Deployment: <i class="fa fa-desktop text-muted"></i> <strong>Yes</strong></li>
+                <% else %>
+                  <li>Deployment: <strong>No</strong></li>
+                <% end %> -->
+              <% end %>
+
+
+              <!-- <% if repository.status.downcase == 'private' %>
+                <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
+              <% else %>
+                <li>Visibility: <strong><%= repository.status %></strong> </li>
+              <% end %> -->
+
+
+              <li class="text-muted">
+                <%= repository.smart_created_at %>
+              </li>
+
+              <!-- <li class="text-muted">
+              <% if repository.platform.present? %>
+                <%= repository.platform %> repository
+              <% else %>
+                Repository
+              <% end %>
+              created <%= time_ago_in_words(repository.created_at) %> ago.
+              </li> -->
+
+              <!-- <% if repository.updated_at == repository.created_at %>
+                - Updated: <strong><%= time_ago_in_words(repository.updated_at) %> ago</strong>
+              <% end %> -->
+
+            </ul>
+            <!-- <p class="card-subtitle text-muted mb-2"><strong>Created: </strong><%= time_ago_in_words(repository.created_at) %> ago</p> -->
+            <!-- <p class="card-subtitle text-muted"><strong>Updated: </strong><%= time_ago_in_words(repository.updated_at) %> ago</p> -->
+          </div>
+        </div>
+      </a>
+    </div>
+  <% end %>
+</div>

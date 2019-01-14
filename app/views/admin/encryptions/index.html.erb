@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row justify-content-between">
+    <h1>Encryptions</h1>
+    <%= paginate @encryptions %>
+  </div>
+
+  <div class="row">
+    <%= link_to "+ New Encryption", new_admin_encryption_path, class: "btn btn-primary my-3" %>
+  </div>
+
+</div>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>Cypher name</th>
+      <th>Document</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @encryptions.each do |encryption| %>
+      <tr>
+        <td><%= encryption.status %></td>
+        <td><%= encryption.cypher_name %></td>
+        <td><%= encryption.document.name %></td>
+        <td><%= encryption.repository %></td>
+        <td><%= encryption.user %></td>
+        <td><%= link_to 'Show', admin_encryption_url(encryption), class: "btn btn-sm btn-primary"  %></td>
+        <td><%= link_to 'Edit', edit_admin_encryption_path(encryption), class: "btn btn-sm btn-info" %></td>
+        <td><%= link_to 'Destroy', admin_encryption_url(encryption), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

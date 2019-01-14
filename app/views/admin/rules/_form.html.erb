@@ -1,0 +1,92 @@
+
+<%= bootstrap_form_for(@rule, url: @form_url) do |form| %>
+  <% if rule.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rule.errors.count, "error") %> prohibited this rule from being saved:</h2>
+
+      <ul>
+      <% rule.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :rule_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug, id: :rule_slug, hide_label: true %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.text_field :type, id: :rule_type, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :rule_description, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :rule_status, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :options %>
+    <%= form.text_field :options, id: :rule_option, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :language_id %>
+    <%= form.select :language_id, Language.all.collect {|c| [ c.name, c.id ] }, {include_blank: true, hide_label: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :fixable, {label: "Fixable ?", class: "mr-4" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :framework_id %>
+    <%= form.select :framework_id, Framework.all.collect {|c| [ c.name, c.id ] }, {include_blank: true, hide_label: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :platform_id %>
+    <%= form.select :platform_id, Platform.all.collect {|c| [ c.name, c.id ] }, {include_blank: true, hide_label: true} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parent_id %>
+    <%= form.select :parent_id, Rule.all.collect {|c| [ c.name, c.id ] }, {include_blank: true, hide_label: true} %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :linter_id %>
+    <%= form.select :linter_id, Linter.all.collect {|c| [ c.name, c.id ] }, {include_blank: true, hide_label: true} %>
+  </div>
+
+  <h3>Options</h3>
+
+  <div id='options'>
+     <%= form.fields_for :rule_options do |rule_option| %>
+       <%= render 'rule_option_fields', f: rule_option %>
+     <% end %>
+
+     <div class='links'>
+       <%= link_to_add_association 'Add option', form, :rule_options, class: 'btn btn-success bnt-lg text-right mb-4' %>
+     </div>
+   </div>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

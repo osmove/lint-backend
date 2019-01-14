@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Policy Checks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Passed</th>
+      <th>Commit attempt</th>
+      <th>Policy</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th>Contributor</th>
+      <th>Push</th>
+      <th>Device</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @policy_checks.each do |policy_check| %>
+      <tr>
+        <td><%= policy_check.name %></td>
+        <td><%= policy_check.passed %></td>
+        <td><%= policy_check.commit_attempt %></td>
+        <td><%= policy_check.policy %></td>
+        <td><%= policy_check.repository %></td>
+        <td><%= policy_check.user %></td>
+        <td><%= policy_check.contributor %></td>
+        <td><%= policy_check.push %></td>
+        <td><%= policy_check.device %></td>
+        <td><%= link_to 'Show', policy_check %></td>
+        <td><%= link_to 'Edit', edit_policy_check_path(policy_check) %></td>
+        <td><%= link_to 'Destroy', policy_check, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Policy Check', new_policy_check_path %>

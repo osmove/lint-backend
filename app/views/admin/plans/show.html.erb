@@ -1,0 +1,90 @@
+<p id="notice"><%= notice %></p>
+
+<h1>   <%= @plan.name %> Plan </h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plan.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @plan.slug %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @plan.description %>
+</p>
+
+<p>
+  <strong>Price per month:</strong>
+  <%= @plan.price_per_month %>
+</p>
+
+<p>
+  <strong>Price per year:</strong>
+  <%= @plan.price_per_year %>
+</p>
+
+<p>
+  <strong>Max users:</strong>
+  <%= @plan.max_users %>
+</p>
+
+<p>
+  <strong>Max repositories:</strong>
+  <%= @plan.max_repositories %>
+</p>
+
+<p>
+  <strong>Max storage:</strong>
+  <%= @plan.max_storage %>
+</p>
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', admin_plans_path %>
+
+<h1 class="my-3"> Plan's Subscribers - <%= @plan.users.count %></h1> 
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="text-muted">ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <!-- <th><%= I18n.t('phone_number') %></th>
+      <th><%= I18n.t('newsletter') %>?</th>
+      <th><%= I18n.t('sign_in_count') %></th>-->
+      <th>Repository Count</th>
+
+      <th width="160"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td class="text-muted"><%= user.id %></td>
+        <td>
+          <% if user.first_name.present? %><%= user.first_name %><% end %>
+          <% if user.last_name.present? %><%= user.last_name %><% end %>
+        </td>
+
+        <td><%= user.email %></td>
+
+        <td>
+          <%= user.role %>
+        </td>
+        <td><%= user.repositories.count %><br/></td>
+
+        <td>
+          <%= link_to 'Show', admin_user_url(user), class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Edit', edit_admin_user_path(user), class: "btn btn-sm btn-info" %>
+          <%= link_to 'Destroy', admin_user_url(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

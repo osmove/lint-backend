@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dependancies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Slug</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dependancies.each do |dependancy| %>
+      <tr>
+        <td><%= dependancy.name %></td>
+        <td><%= dependancy.slug %></td>
+        <td><%= dependancy.repository %></td>
+        <td><%= dependancy.user %></td>
+        <td><%= link_to 'Show', dependancy %></td>
+        <td><%= link_to 'Edit', edit_dependancy_path(dependancy) %></td>
+        <td><%= link_to 'Destroy', dependancy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dependancy', new_dependancy_path %>

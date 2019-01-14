@@ -1,0 +1,52 @@
+<%= form_with(model: issue_message, local: true) do |form| %>
+  <% if issue_message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(issue_message.errors.count, "error") %> prohibited this issue_message from being saved:</h2>
+
+      <ul>
+      <% issue_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, id: :issue_message_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :slug %>
+    <%= form.text_field :slug, id: :issue_message_slug %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body, id: :issue_message_body %>
+  </div>
+
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :issue_message_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issue_id %>
+    <%= form.text_field :issue_id, id: :issue_message_issue_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :issue_message_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :issue_message_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

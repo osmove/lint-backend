@@ -1,0 +1,13 @@
+<%= render 'admin/users/header', user: @user  %>
+
+
+
+<section class=""  style="background-color: #eeeff0;">
+  <% if @user.is_organization != true %>
+    <%= render 'admin/users/user_cards', user: @user, repository: @repository, organizations_of_user: @organizations_of_user  %>
+  <% else %>
+    <%= render 'admin/users/organization_cards', organization: @user  %>
+
+  <% end %>
+
+</section>

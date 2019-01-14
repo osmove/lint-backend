@@ -1,0 +1,106 @@
+
+<!-- <style media="screen">
+  .search-dark {
+    background-color: #000;
+  }
+  .search-dark:focus {
+    background-color: #fff !important;
+  }
+</style> -->
+<!-- <form class="form-inline form-search input-search mr-0 mr-md-2"  action="/repositories" autocomplete="off"> -->
+  <div class="input-group mb-3" id="search_users">
+    <% if !params["q"].blank? %>
+      <input class="form-control typeahead input-search bg-white typeahead-navbar border-right-0" style="border-radius: 5px 0px 0px 5px;" type="search" placeholder="<%= params['q'] %>" aria-label="Search" name="q" value="<%= @query %>" autocomplete="off"  autofocus />
+    <% else %>
+      <input class="form-control typeahead input-search bg-white typeahead-navbar border-right-0" style="border-radius: 5px 0px 0px 5px;" type="search" placeholder="Search" aria-label="Search" name="q" value="<%= @query %>" autocomplete="off" autofocus />
+    <% end %>
+    <!-- <div class="input-group-append">
+      <button class="btn btn-outline-light px-lg-4" type="submit"  style="border-color: #cfd4d9; color: #aaa;"><i class="fa fa-search"></i></button>
+    </div> -->
+  </div>
+<!-- </form> -->
+
+
+
+
+
+<script type="text/javascript">
+  // Twitter typeahead example.
+
+  var usersSearch2 = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    // prefetch: '/users.json',
+    remote: {
+      url: '/users.json?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
+//   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
+//   queryTokenizer: Bloodhound.tokenizers.whitespace,
+//   // prefetch: '/users.json',
+//
+//   remote: {
+//     // url: 'abc.com&qterm=#%QUERY',
+//       url: '/users.json?q=%QUERY',
+//       wildcard: '%QUERY',
+//       rateLimitWait: 300 ,
+//       transport: function (opts, onSuccess, onError) {
+//           // var url = opts.url.split("#")[0];
+//           // var query = opts.url.split("#")[1];
+//           var url = opts.url;
+//           var query = opts.url;
+//           $.ajax({
+//               url: url + query,
+//               type: "POST",
+//               success: onSuccess,
+//               error: onError,
+//           });
+//
+//
+//       },
+//       filter: function (data) {
+//           if (data) {
+//               var result = data.data.results.data;
+//               return $.map(result, function (object) {
+//                   return { name: object.basicinfo.object_name, id: object.basicinfo.id };
+//               });
+//           } else {
+//               return {};
+//           }
+//       }
+//   },
+//   dupDetector: function (remoteMatch, localMatch) {
+//       return remoteMatch.slug === localMatch.slug;
+//   }
+// });
+
+
+  usersSearch2.initialize(); // initialize the bloodhound suggestion engine
+
+
+  // instantiate the typeahead UI
+  $('#search_users .typeahead').typeahead({
+    highlight: true,
+    minLength: 1,
+  }, {
+    display: 'slug',
+    source: usersSearch2.ttAdapter(),
+    // limit: 3,
+    templates: {
+      // header: '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-users mr-1"></i> USERS</h6>',
+      empty: [
+        '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-users mr-1"></i> USERS</h6>',
+        '<div class="text-md-center py-2 text-muted">',
+          '<p class="px-3 mb-0">No result</p>',
+        '</div>'
+      ].join('\n'),
+      // suggestion: function(val) { console.log(val); return '<p class="px-3 mb-0">' + val.slug + '</p>'; }
+      // suggestion: Handlebars.compile('<div><strong>{{uuid}}</strong> – {{slug}}</div>')
+    }
+  }).on('typeahead:selected', function(e, val) {
+    // window.location = `/${$('#search_input').val()}`
+    $('#repository_access_user_id').val('' + val.id)
+  });
+</script>

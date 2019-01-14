@@ -1,0 +1,17 @@
+Hi, <%= @repository.user.username %>
+
+Your repository <%= @repository.slug %> was created successfully.
+It is available at: https://gatrix.io/<%= @repository.user.username %>/<%= @repository.slug %>
+
+Your repository git address is:
+<%= @repository.git_address %>.
+
+Starting with a 'new' repository:
+git clone <%= @repository.git_address %>
+
+Starting with an <strong>existing</strong> repository:
+git remote add gatrix <%= @repository.git_address %>
+git push gatrix master
+
+Thank you,
+The Gatrix team

@@ -1,0 +1,63 @@
+<%= render 'admin/repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+
+<section class="bg-white">
+  <div class="container py-3">
+    <p><%= link_to "Back to repository", admin_repository_path(@repository) %></p>
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h2>Access</h2>
+      </div>
+      <div class="col-12 col-sm-6">
+        <p class="text-sm-right">
+          <a href="<%= new_admin_repository_repository_access_path(@repository) %>" class="btn btn-success">
+            + New Repository Access
+          </a>
+        </p>
+      </div>
+    </div>
+    <% if @repository.repository_accesses.length > 0 %>
+      <div class="card mb-4">
+        <div class="card-header">
+          <% if @repository.repository_accesses.length == 1 %>
+            1 user has access to <%= @repository %>
+          <% else %>
+            <%= @repository.repository_accesses.length %> users have access to <%= @repository %>
+          <% end %>
+        </div>
+        <div class="card-body p-0">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Role</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @repository_accesses.each do |repository_access| %>
+                <tr>
+                  <td>
+                    <a href="<%= user_path(repository_access.user) %>">
+                      <%= repository_access.user %>
+                    </a>
+                  </td>
+                  <td><%= repository_access.role.titleize %></td>
+                  <!-- <td><%= repository_access.status %></td> -->
+                  <!-- <td><%= repository_access.repository %></td> -->
+                  <td class="text-right">
+                    <!-- <%= link_to 'Show', user_repository_repository_access_path(@user, @repository, repository_access), class: "btn btn-outline-primary btn-sm mb-2" %> -->
+                    <%= link_to 'Edit', edit_admin_repository_repository_access_path(@repository, repository_access), class: "btn btn-outline-secondary btn-sm mb-2" %>
+                    <%= link_to 'Revoke', admin_repository_repository_access_path(@repository, repository_access), method: :delete, data: { confirm: "Are you sure you want to revoke #{@repository}'s access from #{@user}?" }, class: "btn btn-outline-danger btn-sm mb-2" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'admin/repositories/tabs/empty', repository: @repository %>
+    <% end %>
+  </div>
+</section>

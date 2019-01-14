@@ -1,0 +1,47 @@
+<h1>Rule Checks</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Passed</th>
+      <th>Language</th>
+      <th>Rule</th>
+      <th>Policy</th>
+      <th>File</th>
+      <th>Repository</th>
+      <th>User</th>
+      <th>Contributor</th>
+      <th>Severity</th>
+      <!-- <th>Push</th> -->
+      <th>Device</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rule_checks.each do |rule_check| %>
+      <tr>
+        <td><%= rule_check.rule %></td>
+        <td><%= rule_check.passed %></td>
+        <td><%= rule_check.language %></td>
+        <td><%= link_to rule_check.rule, admin_rule_path(rule_check.rule) %></td>
+        <td><%= rule_check.policy_check %></td>
+        <td><%= rule_check.file_path %></td>
+        <td><%= rule_check.repository %></td>
+        <td><%= rule_check.user %></td>
+        <td><%= rule_check.contributor %></td>
+        <!-- <td><%#= rule_check.push %></td> -->
+        <td><%= rule_check.severity %></td>
+        <td><%= rule_check.device %></td>
+        <td><%= link_to 'Show', admin_rule_check_path(rule_check) %></td>
+        <td><%= link_to 'Edit', edit_admin_rule_check_path(rule_check) %></td>
+        <td><%= link_to 'Destroy', admin_rule_check_path(rule_check), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rule Check', new_admin_rule_check_path %>

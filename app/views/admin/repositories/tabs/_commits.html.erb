@@ -1,0 +1,50 @@
+
+<div class="container pt-4 pb-3">
+  <h3 class="mb-3">Commit</h3>
+
+  <%= link_to '+ New Commit', new_user_repository_commit_path %>
+
+
+
+  <% if repository.commits.count > 0 %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Message</th>
+        <th>Date</th>
+        <th>Contributor</th>
+        <th>Repository</th>
+        <th>User</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @commits.each do |commit| %>
+       <tr>
+         <td><%= commit.message %></td>
+         <td><%= commit.date_raw %></td>
+         <td>
+          <a href="<%= user_path(commit.contributor_name) %>">
+            <%= commit.contributor_name %><br />
+          </a>
+          <a href="mailto: <%= commit.contributor_email %>">
+            <%= commit.contributor_email %>
+          </a>
+
+         </td>
+         <td><%= commit.repository.name %></td>
+         <td><%= commit.user.username %></td>
+         <td><%= link_to 'Show', user_repository_commit_path(@user, @repository, commit) %></td>
+         <td><%= link_to 'Edit', edit_user_repository_commit_path(@user, @repository, commit) %></td>
+         <td><%= link_to 'Destroy', user_repository_commit_path(@user, @repository, commit), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       </tr>
+     <% end %>
+    </tbody>
+  </table>
+
+  <% else %>
+    <%= render 'repositories/tabs/empty' %>
+  <% end %>
+</div>

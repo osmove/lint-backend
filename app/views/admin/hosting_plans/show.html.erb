@@ -1,0 +1,51 @@
+
+<section>
+  <div class="container py-3">
+    <p><%= link_to "Back to Hosting Plans", hosting_plans_path %></p>
+    <h2>Editing plan</h2>
+
+    <p>
+      <strong>Name:</strong>
+      <%= @hosting_plan.name %>
+    </p>
+
+    <p>
+      <strong>Slug:</strong>
+      <%= @hosting_plan.slug %>
+    </p>
+
+    <p>
+      <strong>Memory:</strong>
+      <%= @hosting_plan.memory %>
+    </p>
+
+    <p>
+      <strong>Vcpus:</strong>
+      <%= @hosting_plan.vcpus %>
+    </p>
+
+    <p>
+      <strong>Storage:</strong>
+      <%= @hosting_plan.storage %>
+    </p>
+
+    <p>
+      <strong>Transfer:</strong>
+      <%= @hosting_plan.transfer %>
+    </p>
+
+    <!-- <p>
+      <strong>Price per month:</strong>
+      <%= @hosting_plan.price_per_month %>
+    </p> -->
+
+    <p>
+      <strong>Price per hour:</strong>
+      <%= @hosting_plan.price_per_hour %>
+    </p>
+
+    <%= link_to 'Edit', edit_admin_hosting_plan_path(@hosting_plan) %> |
+    <%= link_to 'Back', admin_hosting_plans_path %>
+
+  </div>
+</section>

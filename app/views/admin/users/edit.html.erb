@@ -1,0 +1,8 @@
+<h1><%= link_to @user.username, admin_user_path(@user) %> > Edit </h1>
+
+
+
+<%= render 'form', admin_user: @user %>
+
+<%= link_to I18n.t('show'), admin_user_path(@user) %> |
+<%= link_to I18n.t('back'),  admin_users_path %>

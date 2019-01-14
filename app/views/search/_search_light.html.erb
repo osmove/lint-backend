@@ -1,0 +1,113 @@
+
+<form class="form-inline form-search input-search mr-0 mr-md-2" id="search" action="/repositories" autocomplete="off">
+  <div class="input-group" id="scrollable-dropdown-menu">
+    <% if !params["q"].blank? %>
+      <input class="form-control typeahead input-search bg-white typeahead-navbar border-right-0" style="border-radius: 5px 0px 0px 5px;" type="search" placeholder="<%= params['q'] %>" aria-label="Search" name="q" value="<%= @query %>" autocomplete="off" id="search_input">
+    <% else %>
+      <input class="form-control typeahead input-search bg-white typeahead-navbar border-right-0" style="border-radius: 5px 0px 0px 5px;" type="search" placeholder="Search" aria-label="Search" name="q" value="<%= @query %>" autocomplete="off" id="search_input">
+    <% end %>
+    <div class="input-group-append">
+      <button class="btn btn-outline-light px-lg-4" type="submit"  style="border-color: #cfd4d9; color: #aaa;"><i class="fa fa-search"></i></button>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+<script type="text/javascript">
+  // Twitter typeahead example.
+
+  var usersSearch = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('slug'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: '/users.json',
+    remote: {
+      url: '/users.json?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  usersSearch.initialize(); // initialize the bloodhound suggestion engine
+
+
+  var repositories = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('uuid'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: '/repositories.json',
+    remote: {
+      url: '/repositories.json?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  repositoriesSearch.initialize(); // initialize the bloodhound suggestion engine
+
+  <% if user_signed_in? %>
+  var myRepositories = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('uuid'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: '/<%= current_user.slug %>/repositories.json',
+    remote: {
+      url: '/<%= current_user.slug %>/repositories.json?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+  myRepositories.Searchinitialize(); // initialize the bloodhound suggestion engine
+  <% end %>
+
+
+  // instantiate the typeahead UI
+  $('.navbar .typeahead').typeahead({
+    highlight: true,
+    minLength: 0,
+    <% if user_signed_in? %>
+  }, {
+    display: 'uuid',
+    // source: myRepositories,
+    source: myRepositoriesSearch.ttAdapter(),
+    limit: 3,
+    templates: {
+      header: '<h6 class="px-3 text-muted bg-light py-2 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-folder mr-1"></i> MY REPOSITORIES</h6>',
+      empty: [
+        '<h6 class="px-3 text-muted bg-light py-2 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-folder mr-1"></i> MY REPOSITORIES</h6>',
+        '<div class="text-md-center py-2 text-muted">',
+          '<p class="px-3 mb-0">No result</p>',
+        '</div>'
+      ].join('\n'),
+    }
+    <% end %>
+  }, {
+    display: 'uuid',
+    // source: repositories,
+    source: repositoriesSearch.ttAdapter(),
+    limit: 3,
+    templates: {
+      header: '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-globe mr-1"></i> PUBLIC REPOSITORIES</h6>',
+      empty: [
+        '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-globe mr-1"></i> PUBLIC REPOSITORIES</h6>',
+        '<div class="text-md-center py-2 text-muted">',
+          '<p class="px-3 mb-0">No result</p>',
+        '</div>'
+      ].join('\n'),
+      // suggestion: Handlebars.compile('<div><strong>{{uuid}}</strong> – {{slug}}</div>')
+    }
+  }, {
+    display: 'slug',
+    // source: repositories,
+    source: usersSearch.ttAdapter(),
+    limit: 3,
+    templates: {
+      header: '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-users mr-1"></i> USERS</h6>',
+      empty: [
+        '<h6 class="px-3 text-muted bg-light py-2 mt-1 mb-1" style="border-bottom: 1px solid #ddd; border-top: 1px solid #cfd4d9; font-size: 12px;"><i class="fa fa-users mr-1"></i> USERS</h6>',
+        '<div class="text-md-center py-2 text-muted">',
+          '<p class="px-3 mb-0">No result</p>',
+        '</div>'
+      ].join('\n'),
+      // suggestion: Handlebars.compile('<div><strong>{{uuid}}</strong> – {{slug}}</div>')
+    }
+  }).on('typeahead:selected', function(val) {
+    // $("form#search").submit()
+    window.location = `/${$('#search_input').val()}`
+  });
+</script>

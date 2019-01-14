@@ -1,0 +1,27 @@
+<%= form_with(model: sync, local: true) do |form| %>
+  <% if sync.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sync.errors.count, "error") %> prohibited this sync from being saved:</h2>
+
+      <ul>
+      <% sync.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :sync_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :sync_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

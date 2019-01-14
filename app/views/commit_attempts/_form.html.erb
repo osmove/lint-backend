@@ -1,0 +1,57 @@
+<%= form_with(model: commit_attempt, local: true) do |form| %>
+  <% if commit_attempt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(commit_attempt.errors.count, "error") %> prohibited this commit_attempt from being saved:</h2>
+
+      <ul>
+      <% commit_attempt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :message %>
+    <%= form.text_field :message, id: :commit_attempt_message %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :commit_attempt_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commit_id %>
+    <%= form.text_field :commit_id, id: :commit_attempt_commit_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :commit_attempt_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.text_field :contributor_id, id: :commit_attempt_contributor_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.text_field :push_id, id: :commit_attempt_push_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.text_field :device_id, id: :commit_attempt_device_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :commit_attempt_repository_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

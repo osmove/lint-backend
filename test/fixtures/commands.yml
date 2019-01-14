@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  command: MyString
+  path: MyString
+  port: 1
+  repository: one
+  user: one
+
+two:
+  command: MyString
+  path: MyString
+  port: 1
+  repository: two
+  user: two

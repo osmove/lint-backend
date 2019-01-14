@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @command.command %>
+</p>
+
+<p>
+  <strong>Path:</strong>
+  <%= @command.path %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @command.port %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @command.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @command.user %>
+</p>
+
+<%= link_to 'Edit', edit_command_path(@command) %> |
+<%= link_to 'Back', commands_path %>

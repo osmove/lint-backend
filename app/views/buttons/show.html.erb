@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Command:</strong>
+  <%= @button.command %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @button.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @button.user %>
+</p>
+
+<%= link_to 'Edit', edit_button_path(@button) %> |
+<%= link_to 'Back', buttons_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  slug: MyString
+  value: MyText
+  value_type: MyString
+  units: MyString
+  condition_value: MyString
+  rule: one
+
+two:
+  name: MyString
+  slug: MyString
+  value: MyText
+  value_type: MyString
+  units: MyString
+  condition_value: MyString
+  rule: two

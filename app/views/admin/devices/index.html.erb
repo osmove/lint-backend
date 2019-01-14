@@ -1,0 +1,42 @@
+<div class="container-fluid py-2">
+
+  <div class="row justify-content-between">
+    <h1>Devices</h1>
+    <%= paginate @devices %>
+  </div>
+  <div class="row">
+    <%= link_to '+ New device', new_admin_device_path, class: "btn btn-success mb-3" %>
+  </div>
+
+</div>
+<table class="table">
+  <thead>
+    <th>Type</th>
+    <th>Brand</th>
+    <th>Model</th>
+    <th>UUID</th>
+    <th>User</th>
+    <th class="colspan-2"></th>
+  </thead>
+  <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <td><%= device.type %></td>
+        <td><%= device.brand %></td>
+        <td><%= device.model %></td>
+        <td><%= device.uuid %></td>
+        <td>
+          <% if device.user.present? %>
+            <%= link_to device.user, admin_user_url(device.user) %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Show', admin_device_url(device), class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Edit', edit_admin_device_path(device), class: "btn btn-sm btn-info" %>
+          <%= link_to 'Destroy', admin_device_url(device), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-danger" %>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>

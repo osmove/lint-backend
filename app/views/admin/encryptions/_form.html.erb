@@ -1,0 +1,42 @@
+<%= bootstrap_form_for(@encryption, url: @form_url) do |form| %>
+  <% if @encryption.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@encryption.errors.count, "error") %> prohibited this encryption from being saved:</h2>
+
+      <ul>
+      <% @encryption.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :encryption_status, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cypher_name %>
+    <%= form.text_field :cypher_name, id: :encryption_cypher_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+  <%= form.label :document_id %>
+  <%= form.collection_select :document_id, Document.all, :id, :name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.collection_select :repository_id, Repository.all, :id, :name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, User.all, :id, :username, hide_label: true  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

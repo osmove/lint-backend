@@ -1,0 +1,33 @@
+<div class="container py-4">
+
+  <h1>Contributors</h1>
+
+
+  <%# link_to 'New Contributor', new_contributor_path %>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Repository</th>
+        <th>Date</th>
+        <th>User</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @contributors.each do |contributor| %>
+        <tr>
+          <td><%= link_to contributor.name, contributor %></td>
+          <td><%= contributor.email %></td>
+          <td><%= link_to contributor.repository.uuid, user_repository_path(contributor.repository.user, contributor.repository) %></td>
+          <td><%= contributor.created_at.strftime('%d/%m/%Y') %></td>
+          <td><%= contributor.user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

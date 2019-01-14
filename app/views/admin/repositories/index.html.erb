@@ -1,0 +1,22 @@
+
+<div class="container py-2">
+
+
+
+  <div class="row justify-content-between">
+    <h2>Repositories</h2>
+    <%= paginate @repositories %>
+
+  </div>
+
+  <div class="row">
+    <% if @repositories.length > 0 %>
+      <h6 class="my-3 text-muted" style="text-transform: uppercase;">All repositories</h6>
+      <%= render "admin/repositories/all_repositories", repositories: @repositories %>
+    <% end %>
+  </div>
+
+
+  <br>
+
+</div>

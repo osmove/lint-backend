@@ -1,0 +1,88 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Rules</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>slug</th>
+      <th>Linter</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Language</th>
+      <th>Parent</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rules.each do |rule| %>
+      <tr>
+        <td>
+          <% if rule.linter.present? %>
+            <% if rule.linter.command == 'eslint' %>
+              <a href="https://eslint.org/docs/rules/<%= rule.slug %>"><%= rule.name %></a>
+            <% elsif rule.linter.command == 'rubocop' %>
+
+              <% if rule.type.downcase == 'layout cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_layout/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'linting cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_lint/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'metrics cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_metrics/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'naming cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_naming/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'performance cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_performance/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'rails cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_rails/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'security cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_security/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'style cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_style/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'bundler cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_bundler/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% elsif rule.type.downcase == 'gemspec cops' %>
+                <a href="https://rubocop.readthedocs.io/en/latest/cops_gemspec/#<%= rule.name.tr("/","").downcase %>"><%= rule.name %></a>
+              <% end %>
+            <% elsif rule.linter.command == 'stylelint' %>
+              <a href="https://stylelint.io/user-guide/rules/<%= rule.slug.downcase %>"><%= rule.name %></a>
+            <% else %>
+              <%= rule.name %>
+            <% end %>
+
+          <% else %>
+          <%= rule.name %>
+          <% end %>
+        </td>
+        <td>
+          <%= rule.slug %>
+        </td>
+        <td>
+          <% if rule.linter.present? %>
+          <%= link_to rule.linter.name, admin_linter_path(rule.linter) %>
+          <% end %>
+
+        </td>
+        <td><%= rule.type %></td>
+        <td><%= rule.description %></td>
+        <td><%= rule.status %></td>
+        <td><%= rule.language %></td>
+        <td>
+          <% if rule.parent.present? %>
+            <%= rule.parent.name %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Show', admin_rule_path(rule) %></td>
+        <td><%= link_to 'Edit', edit_admin_rule_path(rule) %></td>
+        <td><%= link_to 'Destroy', admin_rule_path(rule), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rule', new_admin_rule_path %>

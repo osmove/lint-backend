@@ -1,0 +1,42 @@
+<h1>Commit Attempts</h1>
+
+<table class="table table-hover mb-0">
+  <tr>
+    <th>Message</th>
+    <!-- <th>Description</th> -->
+    <!-- <th>Commit</th> -->
+    <th>Repository</th>
+    <th>User</th>
+    <!-- <th>Contributor</th> -->
+    <!-- <th>Push</th> -->
+    <!-- <th>Device</th> -->
+    <th>Date</th>
+
+    <th colspan="3"></th>
+  </tr>
+  <tbody>
+    <% @commit_attempts.each do |commit_attempt| %>
+    <tr>
+      <td><%= link_to commit_attempt.message, admin_commit_attempt_path(commit_attempt) %></td>
+      <!-- <td><%#= commit_attempt.description %></td> -->
+      <!-- <td><%#= commit_attempt.commit %></td> -->
+      <td><% if commit_attempt.repository.present? %><%= link_to commit_attempt.repository.uuid, admin_repository_path(commit_attempt.repository) %><% end %></td>
+      <td><% if commit_attempt.user.present? %><%= link_to commit_attempt.user, admin_user_path(commit_attempt.user) %><% end %></td>
+      <!-- <td><%#= commit_attempt.contributor %></td> -->
+      <!-- <td><%#= commit_attempt.push %></td> -->
+      <!-- <td><%#= commit_attempt.device %></td> -->
+      <td><%= commit_attempt.created_at.strftime('%d %B %Y') %></td>
+
+      <!-- <td><%#= link_to 'Show', admin_commit_attempt_path(commit_attempt) %></td> -->
+      <!-- <td><%#= link_to 'Edit', edit_commit_attempt_path(commit_attempt) %></td>
+      <td><%#= link_to 'Destroy', commit_attempt, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @commit_attempts %>
+
+<%= link_to 'New Commit Attempt', new_admin_commit_attempt_path %>

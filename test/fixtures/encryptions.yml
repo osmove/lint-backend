@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  cypher_name: MyString
+  document: one
+  repository: one
+  user: one
+
+two:
+  status: MyString
+  cypher_name: MyString
+  document: two
+  repository: two
+  user: two

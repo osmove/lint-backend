@@ -1,0 +1,37 @@
+
+<div class="container py-4 py-lg-5">
+
+  <h2>Repositories</h2>
+
+
+  <div class="row">
+    <div class="col-12 col-md-7 col-lg-8">
+      <% if @my_repositories.length > 0 %>
+        <h6 class="my-3 text-muted" style="text-transform: uppercase;">My repositories</h6>
+        <%= render "users/user_repositories", repositories: @my_repositories %>
+      <% end %>
+    </div>
+    <div class="col-12 col-md-5 col-lg-4">
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-7 col-lg-8">
+      <% if @repositories.length > 0 %>
+        <h6 class="my-3 text-muted" style="text-transform: uppercase;">Public repositories</h6>
+        <%= render "users/user_repositories", repositories: @repositories %>
+      <% end %>
+    </div>
+    <div class="col-12 col-md-5 col-lg-4">
+
+    </div>
+  </div>
+
+  <%# @github_repos.each do |repo| %>
+    <%# repo.id %>
+  <%# end %>
+
+  <br>
+
+</div>

@@ -1,0 +1,70 @@
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+
+  <div class="container py-3">
+
+    <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
+
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h2>Files</h2>
+      </div>
+      <div class="col-12 col-sm-6">
+        <p class="text-sm-right">
+          <a href="<%= new_user_repository_document_path(@repository.user, @repository) %>" class="btn btn-outline-secondary btn-sm">
+            + New File
+          </a>
+          <a href="<%= new_user_repository_document_path(@repository.user, @repository) %>" class="btn btn-outline-secondary btn-sm">
+            + Upload File
+          </a>
+        </p>
+      </div>
+    </div>
+
+
+    <% if @documents.length > 0 %>
+      <div class="card mb-4">
+        <div class="card-header">
+          Files <span class="badge badge-secondary"><%= @repository.documents.length %>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-hover mb-0">
+            <!-- <thead>
+              <tr>
+                <th>File</th>
+                <th class="text-muted"></th>
+              </tr>
+            </thead> -->
+            <tbody>
+              <% @documents.each do |document| %>
+              <!-- <a href="/test" style="display: block;"> -->
+                <tr style="cursor: pointer;" onclick="javascript: window.location = '<%= user_repository_document_path(@repository.user, @repository, document.name) %>'">
+                  <td>
+                    <% if document.checksum_type == 'tree' %>
+                      <i class="fa fa-folder mr-2" style="color: #999 !important;"></i>
+                      <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
+                        <%= document.name %>
+                      </a>
+                    <% end %>
+                    <% if document.checksum_type == 'blob' %>
+                      <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i>
+                      <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
+                        <%= document.name %>
+                      </a>
+                    <% end %>
+                  </td>
+                  <td class="text-muted"><% if document.size.present? %><%= (document.size.to_i / 1000).round(2) %>Kb<% end %></td>
+                </tr>
+              <!-- </a> -->
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'repositories/tabs/empty', repository: @repository %>
+    <% end %>
+
+  </div>
+</section>

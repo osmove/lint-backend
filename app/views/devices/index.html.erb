@@ -1,0 +1,57 @@
+
+<h1>Devices</h1>
+
+<section class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Type</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Sub model</th>
+        <th>Uuid</th>
+        <th>Os</th>
+        <th>Os version</th>
+        <th>Has notifications</th>
+        <th>Has gatrix desktop</th>
+        <th>Has gatrix connect</th>
+        <th>Last seen</th>
+        <th>Browser</th>
+        <th>User agent</th>
+        <th>Push token</th>
+        <th>Created at</th>
+        <th>Updated at</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @devices.each do |device| %>
+        <tr>
+          <td><%= device.user %></td>
+          <td><%= device.type %></td>
+          <td><%= device.brand %></td>
+          <td><%= device.model %></td>
+          <td><%= device.sub_model %></td>
+          <td><%= device.uuid %></td>
+          <td><%= device.os %></td>
+          <td><%= device.os_version %></td>
+          <td><%= device.has_notifications %></td>
+          <td><%= device.has_gatrix_desktop %></td>
+          <td><%= device.has_gatrix_connect %></td>
+          <td><%= device.last_seen %></td>
+          <td><%= device.browser %></td>
+          <td><%= device.user_agent %></td>
+          <td><%= device.push_token %></td>
+          <td><%= device.created_at %></td>
+          <td><%= device.updated_at %></td>
+          <td><%= link_to 'Show', device %></td>
+          <td><%= link_to 'Edit', edit_device_path(device) %></td>
+          <td><%= link_to 'Destroy', device, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+<%= link_to 'New Device', new_device_path %>

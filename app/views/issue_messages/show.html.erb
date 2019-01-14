@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @issue_message.title %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @issue_message.slug %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @issue_message.body %>
+</p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @issue_message.username %>
+</p>
+
+<p>
+  <strong>Issue:</strong>
+  <%= @issue_message.issue %>
+</p>
+
+<p>
+  <strong>Repository:</strong>
+  <%= @issue_message.repository %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @issue_message.user %>
+</p>
+
+<%= link_to 'Edit', edit_issue_message_path(@issue_message) %> |
+<%= link_to 'Back', issue_messages_path %>

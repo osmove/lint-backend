@@ -1,0 +1,102 @@
+
+<%= render 'repositories/header', repository: @repository %>
+<%# render 'repositories/hard_tabs', repository: @repository %>
+<section class="" style="background-color: #eeeff0;">
+
+  <div class="container py-3">
+
+    <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
+
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <h2>Commits</h2>
+      </div>
+      <div class="col-12 col-sm-6">
+        <p class="text-sm-right">
+          <a href="<%= new_user_repository_commit_path(@repository.user, @repository) %>" class="btn btn-outline-secondary btn-sm">
+            + New Commit
+          </a>
+        </p>
+      </div>
+    </div>
+
+
+    <% if @commits.length > 0 %>
+      <div class="card mb-4">
+        <div class="card-header">
+          Commits <span class="badge badge-secondary"><%= @commits.length %>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <!-- <thead>
+                <tr>
+                  <th>Commits</th>
+                  <th class="text-muted">Author</th>
+                  <th class="text-muted">Date</th>
+                </tr>
+              </thead> -->
+              <tbody>
+                <% @commits.each do |commit| %>
+                  <tr style="cursor: pointer;" onclick="javascript: location.href='<%= user_repository_commit_path(commit.repository.user, commit.repository, commit) %>'">
+
+                    <% if commit[:hash].present? %>
+                      <td class="text-muted"><small><%= commit[:hash].slice(0,7)  %></small></td>
+                    <% else %>
+                      <td class="text-muted"><small><%= commit.sha.slice(0,7) if commit.sha.present? %></small></td>
+                    <% end %>
+
+                    <!-- <td><strong><%= commit[:message] if commit[:message].present? %></strong></td> -->
+                    <!-- A -->
+                    <td>
+                      <p class="mb-0">
+                        <strong>
+                          <% if commit[:hash].present? %>
+                            <%= commit[:message] %>
+                          <% else %>
+                            <%# link_to commit.message, user_repository_commit_path(commit.repository.user, commit.repository, commit) %>
+                            <a href="<%= user_repository_commit_path(commit.repository.user, commit.repository, commit) %>"><%= commit.message %></a>
+                          <% end %>
+                        </strong>
+                        <% if commit.has_encryption %>
+                          <i class="fa fa-lock text-muted"></i>
+                        <% end %>
+                        <% if commit.has_lint %>
+                          <i class="fa fa-shield text-muted"></i>
+                        <% end %>
+                        <% if commit.has_autofix %>
+                          <i class="fa fa-wrench text-muted"></i>
+                        <% end %>
+                      </p>
+                      <p class="mb-0 text-muted"><small>
+                        <% if commit.created_at.present? %>
+                          Committed <%= time_ago_in_words(commit.created_at) %> ago
+                        <% end %>
+                        <% if commit.contributor_raw.present? %>
+                          <% if commit.contributor_raw = User.where(email: commit.contributor_email).first %>
+                            by <%= link_to commit.contributor_name, admin_user_url(User.where(email: commit.contributor_email).first) %>
+                          <% else %>
+                            by <%= link_to commit.contributor_name, contributor_path(Contributor.where(email: commit.contributor_email).first) %>
+                          <% end %>
+                        <% end %>
+                      </small></p>
+                    </td>
+                    <td class="align-middle bg-light text-center" style="line-height: 1em;">
+                      <h4 class="text-muted mb-1"> <%= commit.commit_attempts.length || 0 %></h4>
+                      <small class="text-muted"><%= 'Attempt'.pluralize(commit.commit_attempts.length) %></small>
+                    </td>
+                    <!-- <td class="text-muted"><%= commit[:author] if commit[:author].present? %></td>
+                    <td class="text-muted"><%= time_ago_in_words commit[:date] if commit[:date].present? %> ago</td> -->
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <%= render 'repositories/tabs/empty', repository: @repository %>
+    <% end %>
+
+  </div>
+</section>

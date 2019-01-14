@@ -1,0 +1,60 @@
+<%= render 'repositories/header', repository: @repository %>
+<% # render 'repositories/hard_tabs', repository: @repository %>
+<section class="bg-white">
+  <div class="container py-4">
+
+    <%= link_to "Back",  user_repository_documents_path(@user, @repository) %>
+
+    <h1><%= @document.name %></h1>
+    <div class="card mb-3">
+      <div class="card-header text-muted">
+        <%= @document.name %>
+        <% if @document.type.present? %>
+          &bull; <%= @document.type %> file
+        <% elsif @document.extension.present? %>
+          &bull; <%= @document.extension %> file
+        <% end %>
+        <% if(@document.content.split("\n") rescue nil) %>
+          &bull; <%= pluralize(@document.content.split("\n").length, 'line') %>
+        <% end %>
+        <% if @document.size.present? %>
+          &bull; <%= number_to_human_size(@document.size).downcase %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <% if @document.size > 2000000 %>
+          <p>File is too big.</p>
+        <% elsif @document.type == 'executable' %>
+          <p>Executables are not supported.</p>
+        <% elsif @document.type == 'image' %>
+          <p><img src="data:image/png;base64,<%= @document.base_64_content %>" class="img-fluid" /></p>
+        <% elsif @document.type == 'markdown' || @document.type == 'md' %>
+          <%= simple_format(@document.content) %>
+        <% elsif @document.type == 'document' || @document.type == 'other' %>
+          <%= @document.content %>
+        <% else %>
+          <%= @document.content %>
+        <% end %>
+      </div>
+    </div>
+
+
+    <!-- <p>
+      <strong>Path:</strong>
+      <%= @document.path %>
+    </p>
+
+
+    <p>
+      <strong>Size:</strong>
+      <%= @document.size %>
+    </p>
+
+    <p>
+      <strong>Extension:</strong>
+      <%= @document.extension %>
+    </p> -->
+
+
+  </div>
+</section>

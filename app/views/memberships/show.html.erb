@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @membership.username %>
+</p>
+
+<p>
+  <strong>Origin:</strong>
+  <%= @membership.origin %>
+</p>
+
+<p>
+  <strong>Origin url:</strong>
+  <%= @membership.origin_url %>
+</p>
+
+<p>
+  <strong>Avatar url:</strong>
+  <%= @membership.avatar_url %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @membership.role %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @membership.user %>
+</p>
+
+<p>
+  <strong>Team:</strong>
+  <%= @membership.team %>
+</p>
+
+<%= link_to 'Edit', user_team_membership_path(@membership) %> |
+<%= link_to 'Back', user_team_memberships_path %>

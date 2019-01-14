@@ -1,0 +1,78 @@
+<%= bootstrap_form_for(@rule_check, url: @form_url) do |form| %>
+  <% if rule_check.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rule_check.errors.count, "error") %> prohibited this rule_check from being saved:</h2>
+
+      <ul>
+      <% rule_check.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :rule_check_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file_name %>
+    <%= form.text_field :file_name, id: :rule_check_file_name, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :file_path %>
+    <%= form.text_field :file_path, id: :rule_check_file_path, hide_label: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :passed %>
+    <%= form.check_box :passed, id: :rule_check_passed, hide_label: true, inline: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :policy_check_id %>
+    <%= form.select(:policy_check_id, PolicyCheck.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.policy_check_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.select(:repository_id, Repository.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.repository_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+
+  <div class="field">
+    <%= form.label :rule_id %>
+    <%= form.select(:rule_id, Rule.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.rule_id, hide_label: true, include_blank: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.select(:user_id, User.where(is_organization: [false, nil]).all.collect {|p| [ p.username, p.id ] }, {selected: @rule_check.user_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contributor_id %>
+    <%= form.select(:contributor_id, Contributor.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.contributor_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :push_id %>
+    <%= form.select(:push_id, Push.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.push_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_id %>
+    <%= form.select(:device_id, Device.all.collect {|p| [ p.model, p.id ] }, {selected: @rule_check.device_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :linter_id %>
+    <%= form.select(:linter_id, Linter.all.collect {|p| [ p.name, p.id ] }, {selected: @rule_check.linter_id, include_blank: true, hide_label: true}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

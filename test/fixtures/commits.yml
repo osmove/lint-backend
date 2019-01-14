@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message: MyString
+  date: 2018-08-04 15:00:52
+  date_raw: MyString
+  contributor_raw: MyString
+  contributor_name: MyString
+  contributor_email: MyString
+  repository: one
+  user: one
+
+two:
+  message: MyString
+  date: 2018-08-04 15:00:52
+  date_raw: MyString
+  contributor_raw: MyString
+  contributor_name: MyString
+  contributor_email: MyString
+  repository: two
+  user: two

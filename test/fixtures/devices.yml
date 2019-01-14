@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  type: 
+  brand: MyString
+  model: MyString
+  sub_model: MyString
+  uuid: MyString
+  os: MyString
+  os_version: MyString
+  has_notifications: false
+  has_gatrix_desktop: false
+  has_gatrix_connect: false
+  last_seen: 2018-08-15 16:56:58
+  browser: MyString
+  user_agent: MyString
+
+two:
+  user: two
+  type: 
+  brand: MyString
+  model: MyString
+  sub_model: MyString
+  uuid: MyString
+  os: MyString
+  os_version: MyString
+  has_notifications: false
+  has_gatrix_desktop: false
+  has_gatrix_connect: false
+  last_seen: 2018-08-15 16:56:58
+  browser: MyString
+  user_agent: MyString

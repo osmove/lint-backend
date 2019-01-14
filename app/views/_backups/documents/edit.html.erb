@@ -1,0 +1,8 @@
+<div class="my-4">
+  <div class="mx-auto px-3" style="max-width: 400px;">
+    <h1>Editing Document</h1>
+    <%= render 'form', document: @document %>
+    <%= link_to 'Show', user_repository_document_path(@user, @repository, @document) %> |
+    <%= link_to 'Back', user_repository_documents_path(@user, @repository, @document) %>
+  </div>
+</div>

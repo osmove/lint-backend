@@ -1,0 +1,59 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-12 col-md-7 col-lg-8">
+      <% if @repositories.length > 0 %>
+        <% if @repositories.length == 1 %>
+          <p class="my-2 text-muted"><small>1 PUBLIC REPOSITORY</small></p>
+        <% else %>
+          <p class="my-2 text-muted"><small><%= @repositories.length %> PUBLIC REPOSITORIES</small></p>
+        <% end %>
+      <%= render "admin/users/user_repositories", repositories: @repositories %>
+      <% else %>
+        <%= render "repositories/tabs/empty" %>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-file-code-o mr-1"></i>
+          TOP LANGUAGES
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <% @top_languages.each do |language, count| %>
+              <li>
+                <img class="mr-2" src="<%= language.image_url %>" alt="" style="width: 17px; height: 17px; border-radius: 2px;" />
+                <%= language %>
+                <%= count %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">
+          <i class="fa fa-desktop"></i>
+          Teams
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mb-0">
+            <li></li>
+
+            <% @teams.each do |team| %>
+              <li><strong><%= link_to team.name, admin_team_path(team) %></strong> </li>
+              <li><%= "-Members: #{team.memberships.count}" %></li>
+              <% team.memberships.each do |member| %>
+                <li> &#9;<%= link_to member.user.username, admin_user_path(member.user.username) %></li>
+
+              <% end %>
+
+              <br/>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

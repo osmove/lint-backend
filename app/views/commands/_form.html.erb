@@ -1,0 +1,42 @@
+<%= form_with(model: command, local: true) do |form| %>
+  <% if command.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(command.errors.count, "error") %> prohibited this command from being saved:</h2>
+
+      <ul>
+      <% command.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :command %>
+    <%= form.text_field :command, id: :command_command %>
+  </div>
+
+  <div class="field">
+    <%= form.label :path %>
+    <%= form.text_field :path, id: :command_path %>
+  </div>
+
+  <div class="field">
+    <%= form.label :port %>
+    <%= form.number_field :port, id: :command_port %>
+  </div>
+
+  <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :command_repository_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id, id: :command_user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

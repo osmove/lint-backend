@@ -1,0 +1,50 @@
+<%# form_with(model: repository_access, local: true) do |form| %>
+<% # bootstrap_form_for(@repository_access, url: user_repository_repository_accesses_path(@user, @repository)) do |form| %>
+<%= bootstrap_form_for(@repository_access, url: @form_action) do |form| %>
+
+  <% if repository_access.errors.any? %>
+    <div id="error_explanation">
+      <h5 class="text-danger"><%= pluralize(repository_access.errors.count, "error") %> prohibited this repository_access from being saved:</h5>
+
+      <ul>
+      <% repository_access.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <!-- <%= form.text_field :user, input_group_class: "input-group-lg", autofocus: true %> -->
+    <%= render "search/search_users_light" %>
+  </div>
+
+
+  <%= form.label :role %>
+    <%= form.form_group :role, help: "The permissions of the user for this repository." do %>
+    <%= form.radio_button :role, 'read_only', label: raw("Read-only <span class='text-muted'>- Read only permissions</span>") %>
+    <%= form.radio_button :role, 'contributor', label: raw("Contributor <span class='text-muted'>- Read + Write permissions</span>"), checked: true %>
+    <%= form.radio_button :role, 'admin', label: raw("Administrator <span class='text-muted'>- All permissions</span>") %>
+  <% end %>
+
+
+  <!-- <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status, id: :repository_access_status %>
+  </div> -->
+
+  <div class="field">
+    <!-- <%= form.label :user_id %> -->
+    <%# form.text_field :user_id %>
+    <%= form.hidden_field :user_id %>
+  </div>
+
+  <!-- <div class="field">
+    <%= form.label :repository_id %>
+    <%= form.text_field :repository_id, id: :repository_access_repository_id %>
+  </div> -->
+
+  <div class="actions text-right">
+    <%= form.primary %>
+  </div>
+<% end %>

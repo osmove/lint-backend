@@ -1,0 +1,32 @@
+<%= form_with(model: policy_rule_option, local: true) do |form| %>
+  <% if policy_rule_option.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(policy_rule_option.errors.count, "error") %> prohibited this policy_rule_option from being saved:</h2>
+
+      <ul>
+      <% policy_rule_option.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :policy_rule_id %>
+    <%= form.text_field :policy_rule_id, id: :policy_rule_option_policy_rule_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rule_option_id %>
+    <%= form.text_field :rule_option_id, id: :policy_rule_option_rule_option_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value, id: :policy_rule_option_value %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

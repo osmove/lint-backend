@@ -1,0 +1,164 @@
+<div class="container py-4 py-md-5">
+
+
+  <!-- <h1>Plans</h1>
+
+  <%= link_to '+ New Plan', new_plan_path, class: "btn btn-success mb-3" %> -->
+
+
+
+  <section class="text-center mb-4">
+
+    <div class="pricing-header mx-auto text-center">
+      <h1 class="display-4 mx-auto pb-2" style="line-height: 0.9em;">Billing</h1>
+      <p class="lead mx-auto" style="max-width: 600px;">Choose your plan.</p>
+      <!-- <p class="lead mx-auto" style="max-width: 600px;">Gatrix is free to use for public and open source projects. For  private projects, Gatrix provides a plan for the needs of every workflow.</p> -->
+    </div>
+
+    <nav class="text-center" style="text-align: center !important;">
+      <div class="nav nav-pills text-center mx-auto" role="tablist" style="max-width: 250px;">
+        <a class="nav-item nav-link active" id="nav_pay_monthly" data-toggle="tab" role="tab" aria-selected="true" style="width: 120px; cursor: pointer;">Pay monthy</a>
+        <a class="nav-item nav-link" id="nav_pay_yearly" data-toggle="tab" role="tab"  aria-selected="false" style="width: 120px; cursor: pointer;">
+          Pay yearly
+          <!-- <span class="badge badge-secondary">-10%</span> -->
+        </a>
+      </div>
+    </nav>
+  </section>
+
+
+  <section class="text-center">
+    <div class="">
+      <div class="">
+        <%= form_tag charges_path do %>
+          <div class="text-center">
+            <div class="row">
+              <% @plans.each do |plan| %>
+
+                <div class="col">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal"><%= plan.name %></h4>
+                    </div>
+                    <div class="card-body">
+                      <% if plan.price_per_month.present? %>
+                        <h1 class="card-title pricing-card-title mb-0 monthly">$<%= plan.price_per_month.round %></h1>
+                        <p class="text-muted monthly" style="font-size: 14px;">per month / user</p>
+                        <h1 class="card-title pricing-card-title mb-0 yearly" style="display: none;"><% if plan.price_per_year.present? %>$<%= plan.price_per_year.round %><% else %>Contact us<% end %></h1>
+                        <p class="text-muted yearly" style="font-size: 14px; display: none;">per year / user</p>
+                      <% else %>
+                        <h4 class="mt-2">Contact us</h4>
+                        <p class="text-muted" style="font-size: 14px;">talk to an expert</p>
+                      <% end %>
+                      <div class="text-dark mt-3 mb-4" style="font-size: 14px;"><%= simple_format(plan.description) %></div>
+
+
+                      <!-- <% if plan.max_users && plan.max_users > 0 %>
+                        <p>Up to <%= plan.max_users %> users</p>
+                      <% else %>
+                        <p>Unlimited users</p>
+                      <% end %>
+
+                      <% if plan.max_repositories && plan.max_repositories > 0 %>
+                        <p>Up to <%= plan.max_repositories %> repositories</p>
+                      <% else %>
+                        <p>Unlimited repositories</p>
+                      <% end %>
+
+                      <% if plan.max_storage && plan.max_storage > 0 %>
+                        <p>Up to <%= plan.max_storage %> MB</p>
+                      <% else %>
+                        <p>Unlimited storage</p>
+                      <% end %> -->
+
+                      <% if user_signed_in? && current_user.plan.present? && current_user.plan.slug == plan.slug %>
+                      <!-- <button class="btn btn-block btn-dark">Current plan</button> -->
+                        <p class="text-muted"><strong>Current plan</strong></p>
+                      <% else %>
+                        <!-- <button class="btn btn-block btn-primary">Upgrade</button> -->
+                        <div class="monthly">
+                          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                            data-image="https://gatrix.io/images/gatrix-logo-circled@2x.png"
+                            data-name="Gatrix"
+                            data-description="<%= plan.name %>"
+                            data-amount="<%= (plan.price_per_month.to_i * 100).to_s %>"
+                            data-email="<%= current_user.email %>"
+                            data-allow-remember-me="false"
+                            data-label="Upgrade to <%= plan.name %>"
+                            data-locale="auto"></script>
+                        </div>
+                        <div class="yearly" style="display:none;">
+                          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                            data-image="https://gatrix.io/images/gatrix-logo-circled@2x.png"
+                            data-name="Gatrix"
+                            data-description="<%= plan.name %>"
+                            data-amount="<%= (plan.price_per_year.to_i * 100).to_s %>"
+                            data-email="<%= current_user.email %>"
+                            data-allow-remember-me="false"
+                            data-label="Upgrade to <%= plan.name %>"
+                            data-locale="auto"></script>
+                        </div>
+
+
+                      <% end %>
+
+
+                      <% if user_signed_in? && current_user.slug == 'jimdou' %>
+                        <p class="mt-2 mb-0"><%= link_to 'Edit', edit_plan_path(plan) %> | <%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+                      <% end %>
+
+                      <% if user_signed_in? && current_user.role == 'admin' %>
+                        <!-- <p class="mt-2"><%= link_to 'Show', plan %> | <%= link_to 'Edit', edit_plan_path(plan) %> | <%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></p> -->
+                      <% end %>
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- <td><%= plan.name %></td>
+                <td><%= plan.slug %></td>
+                <td><%= plan.description %></td>
+                <td><%= plan.price_per_month %></td>
+                <td><%= plan.price_per_year %></td>
+                <td><%= plan.max_users %></td>
+                <td><%= plan.max_repositories %></td>
+                <td><%= plan.max_storage %></td>
+                <td><%= link_to 'Show', plan %></td>
+                <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+                <td><%= link_to 'Destroy', plan, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center">
+    <% if user_signed_in? && current_user.slug == 'jimdou' %>
+      <%= link_to '+ New Plan', new_plan_path, class: "btn btn-success mb-3" %>
+    <% end %>
+  </div>
+
+
+
+</div>
+
+
+<script type="text/javascript">
+  $("#nav_pay_yearly").click(() => {
+    $(".monthly").hide()
+    $(".yearly").show()
+  })
+  $("#nav_pay_monthly").click(() => {
+    $(".monthly").show()
+    $(".yearly").hide()
+  })
+</script>
