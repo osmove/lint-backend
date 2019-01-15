@@ -127,9 +127,13 @@ class RepositoriesController < ProtectedController
 
 
 
-    require 'rqrcode'
-    qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{@repository.uuid}")
-    @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 3)
+    # require 'rqrcode'
+    # qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{@repository.uuid}")
+    # @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 3)
+
+
+
+
     # @qrcode_html = qrcode.as_html
 
     # List files in bare repository
