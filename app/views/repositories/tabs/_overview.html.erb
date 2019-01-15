@@ -89,8 +89,9 @@
     <div class="card mb-3">
       <div class="card-body pt-1 pb-0">
         <%= column_chart [
-          {name: 'Passed', color: 'green', data: @repository.policy_checks.where(passed: true).group_by_day(:created_at, last: 21).count},
-          {name: 'Failed', color: 'red', data: @repository.policy_checks.where(passed: false).group_by_day(:created_at, last: 21).count}
+          {name: 'Passed', color: 'green', data: @repository.commit_attempts.where(passed: true).group_by_day(:created_at, last: 21).count},
+          {name: 'Failed', color: 'red', data: @repository.commit_attempts.where(passed: false).group_by_day(:created_at, last: 21).count},
+          {name: 'No policy', color: 'grey', data: @repository.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 21).count}
         ], height: "200px", stacked: true
         %>
       </div>
