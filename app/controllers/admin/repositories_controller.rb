@@ -53,7 +53,7 @@ class Admin::RepositoriesController < Admin::BaseController
       params[:user_id] = @repository.user.id
     end
     # @commits = Commit.all.order(date: :desc).where(user: @user).where(repository: @repository)
-    @user
+    # @user
 
 
 
@@ -84,41 +84,41 @@ class Admin::RepositoriesController < Admin::BaseController
     #     end
     #   end
 
-      @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
-
-      if @documents.map(&:name).include?('README.md')
-        # Read README,md file
-        @readme = Document.new
-        @readme.name = 'README.md'
-        @readme.path = 'README.md'
-        @readme.extension = 'md'
-        @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
-        @content2 = ssh.exec!(@request2)
-        @readme.raw_content = @content2
-        # @readme.content = @content2
-        @readme.size = @content2.length
-
-        # Check file type
-        if @readme.size > 2000000
-          @readme.type = 'error'
-          @readme.content = 'File is too big.'
-        else
-          @readme.content = @readme.raw_content
-          @readme.type = 'markdown'
-          require 'redcarpet'
-          markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
-          @readme.content = markdown.render(@readme.raw_content)
-        end
-      else
-        @readme = false
-      end
-
-
-      impressionist(@repository, @repository.uuid)
-
-
-
-    end
+  #   @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
+  #
+  #   if @documents.map(&:name).include?('README.md')
+  #     # Read README,md file
+  #     @readme = Document.new
+  #     @readme.name = 'README.md'
+  #     @readme.path = 'README.md'
+  #     @readme.extension = 'md'
+  #     @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
+  #     @content2 = ssh.exec!(@request2)
+  #     @readme.raw_content = @content2
+  #     # @readme.content = @content2
+  #     @readme.size = @content2.length
+  #
+  #     # Check file type
+  #     if @readme.size > 2000000
+  #       @readme.type = 'error'
+  #       @readme.content = 'File is too big.'
+  #     else
+  #       @readme.content = @readme.raw_content
+  #       @readme.type = 'markdown'
+  #       require 'redcarpet'
+  #       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+  #       @readme.content = markdown.render(@readme.raw_content)
+  #     end
+  #   else
+  #     @readme = false
+  #   end
+  #
+  #
+  #   impressionist(@repository, @repository.uuid)
+  #
+  #
+  #
+  # end
 
     #
     # if @repository.documents.map(&:name).include?('README.md')
