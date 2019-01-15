@@ -17,7 +17,7 @@ class PolicyCheck < ApplicationRecord
   after_create :copy_status_to_commit_attempt
   def copy_status_to_commit_attempt
     if self.commit_attempt.present?
-      self.commit_attempt.passed = self.passed
+      self.commit_attempt.update(passed: self.passed)
     end
   end
 
