@@ -9,8 +9,6 @@ class PolicyCheck < ApplicationRecord
   belongs_to :push, optional: true
   belongs_to :device, optional: true
 
-
-
   # after_create :send_report
   # def send_report
   #   UserMailer.commit_attempt_report(self).deliver_now
