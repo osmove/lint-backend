@@ -31,7 +31,7 @@
     <p class="mb-0 text-muted" style="line-height: 1em;">
       <small>
         <% if commit_attempt.created_at.present? %>
-          Attempt made <%= time_ago_in_words(commit_attempt.created_at) %> ago
+          <%= time_ago_in_words(commit_attempt.created_at) %> ago
         <% end %>
         <% if commit_attempt.user.present? %>
           by

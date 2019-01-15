@@ -97,12 +97,13 @@
               <% end %> -->
 
 
-              <li class="text-muted">
-                <%= repository.smart_created_at %>
-              </li>
               <% if repository.commits.present? && repository.commits.last.created_at.present? %>
                 <li class="text-muted">
                   <%= "Last commit #{time_ago_in_words(repository.commits.last.created_at)} ago." %>
+                </li>
+              <% else %>
+                <li class="text-muted">
+                  <%= repository.smart_created_at %>
                 </li>
               <% end %>
 
