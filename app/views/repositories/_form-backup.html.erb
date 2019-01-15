@@ -1,0 +1,569 @@
+<%= bootstrap_form_for(@repository, url: @form_url, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-9") do |form| %>
+
+
+<% if @repository.errors.any? %>
+  <div id="error_explanation" class="text-danger text-center">
+    <h5><%= pluralize(@repository.errors.count, "error") %> prohibited this repository from being saved:</h5>
+    <ul class="list-unstyled">
+    <% @repository.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+
+
+  <%# form.text_field :platform_id %>
+
+  <%# form.collection_select :platform_id, Platform.all, :id, :name %>
+
+  <style media="screen">
+    /* .platform-box {
+      border: 2px solid #fff;
+      padding: 3px;
+      border-radius: 14px;
+      font-size: 11px;
+    }
+    .platform-box:hover {
+      background-color: #c7e1fc !important;
+      border: 2px solid #006ee0 !important;
+      cursor: pointer;
+    }
+    .platform-box:active {
+      background-color: #c7e1fc;
+      border: 2px solid #006ee0;
+      cursor: pointer;
+    }
+    .platform-box img {
+      border-radius: 10px;
+    } */
+
+    .card-body{
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  </style>
+
+
+
+
+
+  <%= form.hidden_field :platform_id %>
+
+  <div class="card my-3">
+    <div class="card-body text-center">
+      <p id="platform_error">Select your development platform:</p>
+
+
+      <nav class="text-center" style="text-align: center !important;">
+        <div class="nav nav-tabs text-center mx-auto" role="tablist" style="max-width: 250px;">
+          <a class="nav-item nav-link active" id="nav_popular" href="#popular" data-toggle="tab" role="tab" aria-selected="true" style="width: 120px; cursor: pointer; border: 1px solid #ccc; border-bottom: none;">Popular</a>
+          <a class="nav-item nav-link" id="nav_all" href="#all" data-toggle="tab" role="tab" aria-selected="false" style="width: 120px; cursor: pointer; border: 1px solid #ccc; border-bottom: none;">All</a>
+        </div>
+      </nav>
+
+
+
+      <section class="tab-content" style="border-top: 1px solid #ccc; padding-top: 20px;">
+        <div class="tab-pane fade show active" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+          <div class="row">
+            <% Platform.where(is_popular: true).order(slug: :asc).each do |platform| %>
+              <div class="col-4 col-md-3 col-lg-2 mb-2">
+                <a href="#" style="color: #000;" onclick="selectPlatform('<%= platform.id %>'); return false;">
+                  <div class="platform-box" id="platform_<%= platform.id %>_popular">
+                    <img src="<%= platform.image_url %>" class="img-fluid mb-1" alt="">
+                    <%= platform.name %>
+                  </div>
+                </a>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+          <div class="row">
+            <% Platform.all.order(slug: :asc).each do |platform| %>
+              <div class="col-4 col-md-3 col-lg-2 mb-2">
+                <a href="#" style="color: #000;" onclick="selectPlatform('<%= platform.id %>'); return false;">
+                  <div class="platform-box" id="platform_<%= platform.id %>">
+                    <img src="<%= platform.image_url %>" class="img-fluid mb-1" alt="">
+                    <%= platform.name %>
+                  </div>
+                </a>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function selectPlatform(id) {
+      const oldId = document.getElementById('repository_platform_id').value;
+      document.getElementById('repository_platform_id').value = id;
+      if (oldId) {
+        document.getElementById('platform_' + oldId).style.borderColor = "#fff";
+        document.getElementById('platform_' + oldId).style.backgroundColor = "#fff";
+        document.getElementById('platform_' + oldId + '_popular').style.borderColor = "#fff";
+        document.getElementById('platform_' + oldId + '_popular').style.backgroundColor = "#fff";
+      }
+      document.getElementById('platform_' + id).style.borderColor = "#006ee0";
+      document.getElementById('platform_' + id).style.backgroundColor = "#c7e1fc";
+      document.getElementById('platform_' + id + '_popular').style.borderColor = "#006ee0";
+      document.getElementById('platform_' + id + '_popular').style.backgroundColor = "#c7e1fc";
+      return false;
+    }
+    // Init
+    const nameSent = document.getElementById('repository_name');
+    const platformSent = document.getElementById('repository_platform_id');
+    if (platformSent.value) {
+      document.getElementById('platform_' + platformSent.value).style.borderColor = "#006ee0";
+      document.getElementById('platform_' + platformSent.value).style.backgroundColor = "#c7e1fc";
+      document.getElementById('platform_' + platformSent.value + '_popular').style.borderColor = "#006ee0";
+      document.getElementById('platform_' + platformSent.value + '_popular').style.backgroundColor = "#c7e1fc";
+    }
+
+    // if (nameSent) {
+    //   if (platformSent) {
+    //     document.getElementById('platform_' + platformSent).style.borderColor = "#006ee0";
+    //     document.getElementById('platform_' + platformSent).style.backgroundColor = "#c7e1fc";
+    //   } else {
+    //     document.getElementById('platform_error').style.color = "#b00";
+    //   }
+    // }
+
+    // if (nameSent && !platformSent) {
+    //   document.getElementById('platform_error').style.color = "#b00";
+    // }
+
+    function convertToSlug(Text)
+    {
+      return Text
+        .toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-')
+        ;
+    }
+
+    function convertSelfToSlug(Text)
+    {
+      return Text
+        .toLowerCase()
+        .replace(/ /g,'-')
+        .replace(/[^\w-]+/g,'')
+        ;
+    }
+
+  </script>
+
+
+  <script type="text/javascript">
+    function updateDomainSlug(name) {
+      document.getElementById('domain_slug').value = "<%= current_user.slug %>-" + convertToSlug(name);
+    }
+    function updateSelfDomainSlug(name) {
+      document.getElementById('domain_slug').value = convertSelfToSlug(name);
+    }
+
+
+
+
+  </script>
+
+
+
+  <div class="mb-3">
+    <div class="pt-3">
+      <% if @repository.id.present? %>
+        <%= form.text_field :name, id: :repository_name, label: { text: "Name" }, help: "The name of your repository.", prepend: "#{@repository.user.slug}/", input_group_class: "input-group-lg mb-0", id: "name_field", onkeyup: "updateDomainSlug(this.value);", placeholder: "My Great Repo", autofocus: true, disabled: true %>
+      <% else %>
+        <%= form.text_field :name, id: :repository_name, label: { text: "Name" }, help: "The name of your repository.", prepend: "#{current_user.slug}/", input_group_class: "input-group-lg mb-0", id: "name_field", onkeyup: "updateDomainSlug(this.value);", placeholder: "my-great-repo", autofocus: true %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+  <div class="mb-3">
+    <div class="row">
+      <div class="col-3">
+        Slug
+      </div>
+      <div class="col-9">
+        <div id="permalink_show">
+          <div>
+            <%= request.base_url + user_path %>/<span id="permalink" style="font-weight:bold; background-color: #FFFFD6;"><%= @repository.slug || "my-great-repo" %></span>
+          </div>
+          <a href="#" id="permalink_edit">Edit</a>
+        </div>
+
+        <div id="edit_permalink_row" style="display: none;">
+          <%= form.text_field :slug, id: :repository_slug, placeholder: "my-great-repo", hide_label: true %>
+          <div class="help-block">The slug can't be changed later. <a href="#" id="permalink_ok" class="">OK</a></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script type="text/javascript">
+    $( "#permalink_edit" ).click(function() {
+      $("#edit_permalink_row").show();
+      $("#permalink_show").hide();
+      $("#repository_slug").focus();
+    });
+
+    $( "#permalink_ok" ).click(function() {
+      $("#edit_permalink_row").hide();
+      $("#permalink_show").show();
+      $("#name_field").focus();
+    });
+
+
+
+    $("#name_field").keyup(function() {
+      var value = $(this).val()
+            .toLowerCase()
+            .replace(/[^\w ]+/g,'')
+            .replace(/ +/g,'-')
+            ;
+
+        $("#permalink").html( value );
+        $("#repository_slug").val( value );
+
+      // $("#product_name_he").val( value );
+
+      // $(this).val($(this).val().replace(/^\s/g,'').replace(/\s{2}/g,''));
+    })
+
+
+    $("#repository_slug").keyup(function() {
+      var value = $(this).val()
+            .toLowerCase()
+            .replace(/ /g,'-')
+            .replace(/[^\w-]+/g,'')
+            .replace(/-+/g,'-')
+            ;
+      $(this).val(value);
+      $("#permalink").html( value );
+    })
+
+    $("#repository_slug").blur(function() {
+      var value = $(this).val().replace(/-$/,'');
+      $(this).val(value);
+      $("#permalink").html( value );
+    })
+  </script>
+
+  <%= form.form_group :status, label: { text: "Visibility status" }, help: "The visibility status of your repository." do %>
+    <div class="card mb-2">
+      <div class="card-body py-2">
+          <%= form.radio_button :status, "Public", label: "Public", checked: true %>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body py-2">
+        <%= form.radio_button :status, "Private", label: "Private" %>
+      </div>
+    </div>
+  <% end %>
+
+
+  <%= form.form_group :has_encryption, label: { text: "End-to-end encryption" }, help: "The encryption status of your repository." do %>
+    <div class="card mb-2">
+      <div class="card-body py-2">
+        <%= form.radio_button :has_encryption, false, label: "Disabled", checked: true %>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <div class="card-body py-2">
+        <%= form.radio_button :has_encryption, true, label: "Enabled" %>
+      </div>
+    </div>
+  <% end %>
+  
+  <!-- <div class="card mb-3">
+    <div class="card-body pb-2">
+      <%= form.form_group :has_deployment, label: { text: "Has deployment" }, help: "The deployment status of your repository." do %>
+        <%= form.radio_button :has_deployment, false, label: "No", checked: true %>
+        <%= form.radio_button :has_deployment, true, label: "Yes" %>
+      <% end %>
+    </div>
+  </div> -->
+
+
+    <script type="text/javascript">
+      function selectDeployTo(deployTo) {
+        if (deployTo == 'omnilint_cloud') {
+          document.getElementById('omnilint_cloud').style.display = "block";
+          document.getElementById('aws').style.display = "none";
+          document.getElementById('gcp').style.display = "none";
+          document.getElementById('azure').style.display = "none";
+          document.getElementById('own_server').style.display = "none";
+        } else if (deployTo == 'aws') {
+          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('aws').style.display = "block";
+          document.getElementById('gcp').style.display = "none";
+          document.getElementById('azure').style.display = "none";
+          document.getElementById('own_server').style.display = "none";
+        } else if (deployTo == 'gcp') {
+          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('aws').style.display = "none";
+          document.getElementById('gcp').style.display = "block";
+          document.getElementById('azure').style.display = "none";
+          document.getElementById('own_server').style.display = "none";
+        } else if (deployTo == 'azure') {
+          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('aws').style.display = "none";
+          document.getElementById('gcp').style.display = "none";
+          document.getElementById('azure').style.display = "block";
+          document.getElementById('own_server').style.display = "none";
+        } else if (deployTo == 'own_server') {
+          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('aws').style.display = "none";
+          document.getElementById('gcp').style.display = "none";
+          document.getElementById('azure').style.display = "none";
+          document.getElementById('own_server').style.display = "block";
+        } else {
+          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('aws').style.display = "none";
+          document.getElementById('gcp').style.display = "none";
+          document.getElementById('azure').style.display = "none";
+          document.getElementById('own_server').style.display = "none";
+        }
+        return false;
+      }
+
+
+
+
+
+      // $("form#new_repository").click((event) => {
+      //   console.log(event)
+      //   if ($("#repository_deploy_to_omnilint").prop("checked")) {
+      //     // do something
+      //     alert('repository_deploy_to_omnilint checked')
+      //   } else {
+      //     alert('repository_deploy_to_omnilint not checked')
+      //   }
+      //     event.stopPropagation();
+      //     event.preventDefault();
+      // })
+
+    </script>
+
+
+  <div class="mb-3" id="deploy_to">
+    <div class="">
+      <%= form.form_group :deploy_to, label: { text: "Deployment" }, help: "The deployment status of your repository." do %>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "none", label: "No deployement", checked: true, onclick: "selectDeployTo('none');" %>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "omnilint_cloud", label: "Omnilint Cloud", onclick: "selectDeployTo('omnilint_cloud');" %>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "aws", label: "Amazon Web Services", onclick: "selectDeployTo('aws');" %>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "gcp", label: "Google Cloud Platform", onclick: "selectDeployTo('gcp');" %>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "azure", label: "Microsoft Azure", onclick: "selectDeployTo('azure');" %>
+          </div>
+        </div>
+        <div class="card mb-2">
+          <div class="card-body py-2">
+            <%= form.radio_button :deploy_to, "own_server", label: "Own Server (FTP/SFTP)", onclick: "selectDeployTo('own_server');" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+
+  <section id="omnilint_cloud" style="display:none;">
+
+
+    <div class="mb-3">
+      <div class="pb-2">
+        <%= form.form_group :hosting_plan, label: { text: "Omnilint Cloud" }, help: "The hosting plan of your repository." do %>
+          <p class="mb-1"><small class="text-muted" style="font-size: 12px;">MEMORY | VCPUS | SSD DISK | TRANSFER | PRICE</small></p>
+
+          <% HostingPlan.all.order(price_per_month: :asc).each do |plan| %>
+            <div style="font-size: 14px;" id="repository_hosting_plan_id">
+              <div class="card mb-2">
+                <div class="card-body py-2">
+                  <%= form.radio_button :hosting_plan_id, plan.id, label: plan %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+
+
+          <!-- <div class="table-responsive">
+            <table class="table" style="font-size: 14px;">
+              <thead>
+                <tr>
+                  <th>Memory</th>
+                  <th>VCPUS</th>
+                  <th>Storage</th>
+                  <th>Transfer</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% HostingPlan.all.each do |hosting_plan| %>
+                  <tr>
+                    <td><%= hosting_plan.memory %> MB</td>
+                    <td><%= hosting_plan.vcpus %></td>
+                    <td><%= hosting_plan.storage %> MB</td>
+                    <td><%= hosting_plan.transfer %> GB</td>
+                    <td>
+                      <%= hosting_plan.price_per_month != '' ? "$#{hosting_plan.price_per_month}/mo" : 'Free' %><br />
+                      <small class="text-muted">
+                        $<%= ((hosting_plan.price_per_month.to_i / 30.0) / 24.0).round(5) %>/hr
+                      </small>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div> -->
+
+
+
+
+          <!-- <%= form.radio_button :server_size, "0", label: "Free hosting - No guaranteed configuration", checked: true %>
+          <%= form.radio_button :server_size, "1", label: "1 GB - 1 vCPUs - 100 MB - 1 TB - Free" %>
+          <%= form.radio_button :server_size, "2", label: "2 GB - 2 vCPUs - 250 MB - 1 TB - $5/mo" %>
+          <%= form.radio_button :server_size, "3", label: "4 GB - 2 vCPUs - 250 MB - 1 TB - $10/mo" %>
+          <%= form.radio_button :server_size, "4", label: "8 GB - 2 vCPUs - 250 MB - 1 TB - $15/mo" %>
+          <%= form.radio_button :server_size, "4", label: "16 GB - 6 vCPUs - 250 MB - 1 TB - $25/mo" %>
+          <%= form.radio_button :server_size, "5", label: "32 GB - 32 vCPUs - 250 MB - 1 TB - $50/mo" %>
+          <%= form.radio_button :server_size, "6", label: "48 GB - 12 vCPUs - 250 MB - 1 TB - $75/mo" %>
+          <%= form.radio_button :server_size, "7", label: "64 GB - 16 vCPUs - 250 MB - 1 TB - $150/mo" %>
+          <%= form.radio_button :server_size, "8", label: "96 GB - 20 vCPUs - 250 MB - 1 TB - $250/mo" %>
+          <%= form.radio_button :server_size, "10", label: "128 GB - 24 vCPUs - 250 MB - 1 TB - $500/mo" %>
+          <%= form.radio_button :server_size, "11", label: "192 GB - 32 vCPUs - 250 MB - 1 TB - $1000/mo" %> -->
+
+        <% end %>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+
+    // $("input[name='repository[hosting_plan_id]']").click(() => alert('e'))
+    // $("#repository_hosting_plan_id input").click(() => {
+    //
+    // })
+    //
+    const hostingSent = $("#repository_deploy_to_omnilint_cloud").prop('checked')
+    if (hostingSent) {
+      selectDeployTo('omnilint_cloud');
+    }
+
+    </script>
+
+    <!-- <div class="card mb-3">
+      <div class="card-body pb-2">
+        <%= form.form_group :geo_zone, label: { text: "Omnilint Cloud" }, help: "Where the code will be hosted." do %>
+          <%= form.radio_button :geo_zone, "america", label: "America", checked: true  %>
+          <%= form.radio_button :geo_zone, "europe", label: "Europe" %>
+          <%= form.radio_button :geo_zone, "asia", label: "Asia" %>
+        <% end %>
+      </div>
+    </div> -->
+
+
+    <div class="mb-3">
+      <div class="pb-2">
+        <%= form.text_field :domain_slug, id: :domain_slug, label: { text: "Domain slug" }, help: "The domain slug of your repository.", append: ".omnilintapp.com", input_group_class: "input-group-md mb-0", value: "", placeholder: "Enter a domain slug", onkeyup: "updateSelfDomainSlug(this.value);" %>
+      </div>
+    </div>
+
+
+
+
+  </section>
+
+
+  <section id="aws" style="display:none;">
+    <div class="card mb-3">
+      <div class="card-body py-3 text-center">
+        Amazon Web Services will be available soon.
+      </div>
+    </div>
+  </section>
+
+  <section id="gcp" style="display:none;">
+    <div class="card mb-3">
+      <div class="card-body py-3 text-center">
+        Google Cloud Platform will be available soon.
+      </div>
+    </div>
+  </section>
+
+  <section id="azure" style="display:none;">
+    <div class="card mb-3">
+      <div class="card-body py-3 text-center">
+        Microsoft Azure will be available soon.
+      </div>
+    </div>
+  </section>
+
+  <section id="own_server" style="display:none;">
+    <div class="card mb-3">
+      <div class="card-body py-3 text-center">
+        Available soon.
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- <div class="card mb-3">
+    <div class="card-body">
+      <%= form.form_group :requires_two_step_authentication, label: { text: "Two-step authentication" }, help: "The two-step authentication status of your repository." do %>
+        <%= form.radio_button :requires_two_step_authentication, false, label: "Disabled", checked: true %>
+        <%= form.radio_button :requires_two_step_authentication, true, label: "Enabled" %>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <%= form.form_group :status, label: { text: "Deployment" }, help: "The deployment status of your repository." do %>
+        <%= form.radio_button :has_deployment, false, label: "Disabled", checked: true %>
+        <%= form.radio_button :has_deployment, true, label: "Enabled" %>
+      <% end %>
+    </div>
+  </div> -->
+
+
+
+
+
+
+  <div class="actions mb-3">
+    <%= form.submit "CONFIRM", class: "btn btn-lg btn-success btn-block" %>
+  </div>
+<% end %>
