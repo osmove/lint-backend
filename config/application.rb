@@ -24,5 +24,5 @@ end
 
 # Sentry
 Raven.configure do |config|
-  config.dsn = 'https://80439ce277124fe7a3b44a4c25f1172e:33374df5388146b29d08209b2ce42341@sentry.io/1263763'
+  config.dsn = 'https://4ec3c1a9ed22428f845dc691801695be:b4ba860f40da429ebad3d9ab9c27ddad@sentry.io/1371911'
 end
