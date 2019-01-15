@@ -4,6 +4,6 @@ class UserMailerPreview < ActionMailer::Preview
   end
 
   def commit_attempt_report
-    UserMailer.with(user: User.first).commit_attempt_report(User.first.commit_attempts.last.policy_checks.first)
+    UserMailer.with(user: User.first).commit_attempt_report(User.first.commit_attempts.last)
   end
 end
