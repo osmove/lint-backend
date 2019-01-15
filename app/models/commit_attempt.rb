@@ -32,15 +32,15 @@ class CommitAttempt < ApplicationRecord
   end
 
   # Create Commit with common attributes
-  after_update :create_commit
-  def create_commit
-    if !self.commit.present?
-      if self.sha.present? && !Commit.where(sha: self.sha).where(message: self.message).first.present?
-        new_commit = Commit.create(self.attributes.select{ |key, _| Commit.attribute_names.include? key })
-        self.commit = new_commit
-      end
-    end
-  end
+  # after_update :create_commit
+  # def create_commit
+  #   if !self.commit.present?
+  #     if self.sha.present? && !Commit.where(sha: self.sha).where(message: self.message).first.present?
+  #       new_commit = Commit.create(self.attributes.select{ |key, _| Commit.attribute_names.include? key })
+  #       self.commit = new_commit
+  #     end
+  #   end
+  # end
 
   # Update Encryption From Repository
   before_create :update_encryption_from_repository
