@@ -1,6 +1,6 @@
 class RepositoriesController < ProtectedController
 # class RepositoriesController < ApplicationController
-  before_action :set_repository, only: [:show, :edit, :update, :destroy, :qr_code, :settings]
+  before_action :set_repository, only: [:show, :edit, :update, :destroy, :qr_code, :settings, :repository_policies]
 
   # before_action :authenticate_user!, only: :settings
   before_action :authenticate_user!, except: [:index, :show]
@@ -88,25 +88,27 @@ class RepositoriesController < ProtectedController
   end
 
   def repository_policies
-    repository_slug = params[:repository_id] || params[:id]
-    user_slug = params[:user_id]
+    # repository_slug = params[:repository_id] || params[:id]
+    # user_slug = params[:user_id]
     # puts ''
     # puts repository_slug
     # puts user_slug
     #
     # puts ''
 
-    if repository_slug.present? && user_slug.present?
-      @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-      # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: [:rule_option, :rule_option_options ] }]}).where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-      # @policy = @repository.policy
-    else
-      raise ActionController::RoutingError.new('Repository Not Found')
-    end
+    # if repository_slug.present? && user_slug.present?
+    #   @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
+    #   # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: [:rule_option, :rule_option_options ] }]}).where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
+    #   # @policy = @repository.policy
+    # else
+    #   raise ActionController::RoutingError.new('Repository Not Found')
+    # end
+    @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
+
 
     @linters = Linter.all
     @form_url = user_repository_path(@repository.user, @repository)
-    fresh_when @repository.policy
+    fresh_when @repository
   end
 
   # GET /:user_id/:slug
