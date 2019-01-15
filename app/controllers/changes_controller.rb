@@ -2,7 +2,7 @@ class ChangesController < ProtectedController
   before_action :set_change, only: [:show, :edit, :update, :destroy]
 
   impressionist
-    
+
   # GET /changes
   # GET /changes.json
   def index
@@ -18,6 +18,7 @@ class ChangesController < ProtectedController
   def new
     @change = Change.new
   end
+
 
   # GET /changes/1/edit
   def edit
