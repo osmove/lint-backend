@@ -1,22 +1,148 @@
-<!-- <section class="bg-omnilint" style="background-color: #e1e2e3;"> -->
 <section class="" style="background-color: #eeeff0;">
-<!-- <section> -->
-<!-- <section class=""> -->
   <div class="container py-4 py-lg-5">
-    <!-- <h2>Dashboard</h2> -->
-    <!-- <h2 class="mb-0">Welcome, <%= current_user.username %>.</h2> -->
     <h2 class="mb-3"><%= current_user.greet %>.</h2>
 
 
-  <!--
+
+
     <div class="row">
-      <div class="col-12 col-md-8"> -->
+
+
+
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectRepository">Repository</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelectRepository">
+            <% if !params[:repository].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% current_user.repositories_with_access.each do |repository| %>
+              <% if params[:repository].present? && params[:repository] == repository.uuid %>
+                <option selected value="<%= repository.uuid %>"><%= repository.uuid %></option>
+              <% else %>
+                <option value="<%= repository.uuid %>"><%= repository.uuid %></option>
+              <% end %>
+            <% end %>
+
+          </select>
+        </div>
+      </div>
+
+
+
+
+      <!-- <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelectBranch">
+            <% if !params[:branch].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% @branches.each do |branch| %>
+              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                <option selected value="<%= branch %>"><%= branch %></option>
+              <% else %>
+                <option value="<%= branch %>"><%= branch %></option>
+              <% end %>
+            <% end %>
+
+          </select>
+        </div>
+      </div> -->
+
+
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect">User</label>
+          </div>
+
+          <select class="custom-select" id="inputGroupSelect">
+            <% if !params[:author].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% @authors.each do |author| %>
+              <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                <option selected value="<%= author.id %>"><%= author %></option>
+              <% else %>
+                <option value="<%= author.id %>"><%= author %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+
+
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelectStatus">
+            <% if !params[:status].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% if params[:status].present? && params[:status] == "passed" %>
+              <option selected value="passed">Passed</option>
+            <% else %>
+              <option value="passed">Passed</option>
+            <% end %>
+            <% if params[:status].present? && params[:status] == "failed" %>
+              <option selected value="failed">Failed</option>
+            <% else %>
+              <option value="failed">Failed</option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
 
 
 
     <div class="row">
       <div class="col-12 col-md-7 col-lg-8">
-        <% if @last_commit_attempts.length > 0 %>
+        <% if @commit_attempts.length > 0 %>
+
+
+
+
+          <div class="card mb-3">
+            <div class="card-body pt-1 pb-0">
+              <%= column_chart [
+                {name: 'Passed', color: 'green', data: current_user.commit_attempts.where(passed: true).group_by_day(:created_at, last: 21).count},
+                {name: 'Failed', color: 'red', data: current_user.commit_attempts.where(passed: false).group_by_day(:created_at, last: 21).count},
+                {name: 'No policy', color: 'grey', data: current_user.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 21).count}
+              ], height: "200px", stacked: true
+              %>
+            </div>
+          </div>
+
+
+
+
+
           <div class="card mb-3">
             <div class="card-header">
               Last Commit Attempts
@@ -26,7 +152,7 @@
               <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <tbody>
-                    <% @last_commit_attempts.each_with_index do |commit_attempt, index| %>
+                    <% @commit_attempts.each_with_index do |commit_attempt, index| %>
                       <% if commit_attempt.policy_checks.length > 0 %>
                         <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: commit_attempt.policy_checks.first %>
                       <% else %>
@@ -41,32 +167,6 @@
         <% else %>
 
           <div class="card mb-3 text-center">
-
-            <!-- NPM (Local)
-            npm install -D omnilint
-            (npx omnilint install)
-
-            NPM (Global)
-            npm install -g omnilint
-            (omnilint install)
-
-            YARN (Local)
-            yarn add -D omnilint
-            npx omnilint install
-
-            yarn add -D omnilint && npx omnilint install
-
-            YARN (Global)
-            yarn global add omnilint
-            omnilint install
-
-            yarn global add omnilint && omnilint install -->
-
-
-            <!-- <div class="card-header">
-              Get started with your repository
-            </div> -->
-
             <div class="card-body pt-5 pb-5">
               <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
               <h1 class="mb-5 text-muted">Waiting for commits...</h1>
@@ -75,33 +175,15 @@
               <div class="mb-5">
                 <p><kbd class="p-2">npm install -D omnilint</kbd></p>
               </div>
-
-              <!-- <p>Install with <strong>Yarn</strong> (local):</p>
-              <div class="mb-5">
-                <p><kbd class="p-2">yarn add -D omnilint && npx omnilint install</kbd></p>
-              </div> -->
-
               <h3>Global Install</h3>
-
               <p>Install with <strong>NPM</strong> (global):</p>
               <div class="mb-4">
                 <p><kbd class="p-2">npm install -g omnilint</kbd></p>
               </div>
-
-              <!-- <p>Install with <strong>Yarn</strong> (global):</p>
-              <div class="mb-4">
-                <p><kbd class="p-2">yarn global add omnilint && omnilint install</kbd></p>
-              </div>
-              <p>Go to your repository then:</p>
-              <div class="mb-4">
-                <p><kbd class="p-2">yarn global add omnilint && omnilint install</kbd></p>
-              </div> -->
-
               <p>Then inside your repository root:</p>
               <div class="mb-4">
                 <p><kbd class="p-2">omnilint install</kbd></p>
               </div>
-
             </div>
           </div>
 
@@ -119,8 +201,6 @@
           <% end %>
           <%= render "users/user_repositories", repositories: current_user.repositories_with_access %>
         <% end %>
-
-
 
         <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
@@ -151,114 +231,48 @@
           </div>
         </div>
 
-        <!-- <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <div class="row">
-              <div class="col">
-                <i class="fa fa-building-o mr-1"></i>
-                ORGANIZATIONS
-              </div>
-              <div class="col text-right">
-                <%= link_to "+ New Org.", new_user_organization_path(current_user) %>
-              </div>
-            </div>
-          </div>
-          <div class="card-body bg-light">
-            <% if current_user.memberships.joins(:organization).count > 0 %>
-              <ul class="list-unstyled mb-0">
-                <% current_user.memberships.joins(:organization).each do |membership| %>
-                  <li>
-                    <strong><%= link_to "#{membership.organization.name || '-'}", organization_path(membership.organization) %></strong>
-                    <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships.count, 'member') %></span>
-                    <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
-                  </li>
-                <% end %>
-              </ul>
-            <% else %>
-              No organization.
-            <% end %>
-          </div>
-        </div> -->
-
-
-
-
-
-
-        <!-- <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <i class="fa fa-qrcode mr-1"></i>
-            LINK
-          </div>
-          <div class="card-body bg-light pt-3">
-            <div class="qrcode">
-              <%# raw @qrcode_html %>
-              <div class="pull-right ml-3">
-                <%= raw @qrcode_svg %>
-              </div>
-              <p>Scan this QR code with your mobile phone to load this project immediately.</p>
-            </div>
-          </div>
-        </div> -->
-
-        <!-- <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <i class="fa fa-qrcode mr-1"></i>
-            Last commits
-          </div>
-          <div class="card-body bg-light pt-3">
-            <ul class="list-unstyled mb-0">
-              <% @last_commits.each do |commit| %>
-              <%= render "last_commits_card_list", commit: commit, cached: true %>
-
-              <% end %>
-            </ul>
-
-          </div>
-        </div> -->
-
-        <!-- <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <i class="fa fa-qrcode mr-1"></i>
-            Last commits attempts
-          </div>
-          <div class="card-body pt-3">
-            <ul class="list-unstyled mb-0">
-              <% @last_commit_attempts.each do |commit_attempt| %>
-                <%= render "last_commit_attempts_card_list", commit_attempt: commit_attempt, cached: true %>
-              <% end %>
-            </ul>
-
-          </div>
-        </div> -->
-
-
-
-
-        <!-- <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <i class="fa fa-lock mr-1"></i>
-            SECURITY
-          </div>
-          <div class="card-body bg-light">
-            <ul class="list-unstyled mb-0">
-              <li>Browser: <strong><%= browser.name %></strong></li>
-              <li>OS: <strong><%= browser.platform.name %></strong></li>
-              <li><% if browser.device.name != 'Unknown' %>Device: <strong><%= browser.device.name %><% end %></strong></li>
-              <li>IP: <strong><%= @smart_ip %></strong></li>
-              <li>Current sign in: <strong><%= @user.current_sign_in_at.to_s(:short) %></strong></li>
-              <li>Last sign in: <strong><%= @user.last_sign_in_at.to_s(:short) %></strong></li>
-              <li>Last sign in IP: <strong><%= @user.last_sign_in_ip %></strong></li>
-            </ul>
-          </div>
-        </div> -->
-
-
-
-
       </div>
-
     </div>
-
   </div>
 </section>
+
+
+<!-- Filters -->
+<script type="text/javascript">
+
+  $('#inputGroupSelectRepository').on('change', function() {
+    if (this.value ) {
+      var params = '?repository=' + this.value + '&status=' + '<%= params[:status] %>' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+    } else {
+      var params = '?repository=' + '' + '&status=' + '<%= params[:status] %>' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+    }
+    window.location = params
+  });
+
+  $('#inputGroupSelectStatus').on('change', function() {
+    if (this.value ) {
+      var params = '?status=' + this.value + '&repository=' + '<%= params[:repository] %>' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+    } else {
+      var params = '?status=' + '' + '&repository=' + '<%= params[:repository] %>' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+    }
+    window.location = params
+  });
+
+  $('#inputGroupSelectBranch').on('change', function() {
+    if (this.value) {
+      var params = '?branch=' + this.value + '&repository=' + '<%= params[:repository] %>' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+    } else {
+      var params = '?branch=' + '' + '&repository=' + '<%= params[:repository] %>' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+    }
+    window.location = params
+  });
+
+  $('#inputGroupSelect').on('change', function() {
+    if (this.value ) {
+      var params = '?author=' + this.value + '&repository=' + '<%= params[:repository] %>' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+    } else {
+      var params = '?author=' + '' + '&repository=' + '<%= params[:repository] %>' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+    }
+    window.location = params
+  });
+</script>

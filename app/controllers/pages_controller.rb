@@ -93,13 +93,13 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @user = current_user
+    # @user = current_user
 
-    @private_repositories = Repository.all.where(user: @user).private.includes(:commits).order('commits.created_at DESC NULLS LAST')
-    @public_repositories = Repository.all.where(user: @user).public.includes(:commits).order('commits.created_at DESC NULLS LAST')
-    @private_repositories_count = @private_repositories.length
-    @public_repositories_count = @public_repositories.length
-    @memberships = @user.memberships
+    # @private_repositories = Repository.all.where(user: @user).private.includes(:commits).order('commits.created_at DESC NULLS LAST')
+    # @public_repositories = Repository.all.where(user: @user).public.includes(:commits).order('commits.created_at DESC NULLS LAST')
+    # @private_repositories_count = @private_repositories.length
+    # @public_repositories_count = @public_repositories.length
+    @memberships = current_user.memberships
     @organizations_of_current_user = []
 
     @memberships.each do |membership|
@@ -117,14 +117,58 @@ class PagesController < ApplicationController
     qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{current_user.slug}")
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 4, width: '100%')
     # @qrcode_html = qrcode.as_html
-    @all_repos =  @user.repositories_with_access
+    @all_repos =  current_user.repositories_with_access
     @all_repos = @all_repos.sort_by{|a| a[:updated_at]}.reverse!.first(10)
 
     @last_commits = @all_repos.flat_map(&:commits).sort_by{|a| a[:created_at]}.reverse!.first(10)
 
     # @last_commits = @user.commits.order(created_at: :desc).first(10)
     # @last_commit_attempts = @user.repositories.commit_attempts.order(created_at: :desc).first(10)
-    @last_commit_attempts = @all_repos.flat_map(&:commit_attempts).sort_by{|e| e[:created_at]}.reverse!.first(10)
+
+    # If Admin
+    # @commit_attempts = @all_repos.flat_map(&:commit_attempts).sort_by{|e| e[:created_at]}.reverse!.first(10)
+
+    # Else
+    @commit_attempts = current_user.commit_attempts
+
+
+
+
+    # @commit_attempts = @last_commit_attempts
+
+
+    @authors = @commit_attempts.map(&:user).compact.uniq
+    @branches = @commit_attempts.map(&:branch_name).compact.uniq
+
+
+    if params[:repository].present?
+      @repository = current_user.repositories_with_access.where(uuid: params[:repository])
+      @commit_attempts = current_user.commit_attempts.where(repository: @repository).includes(:policy_checks)
+    end
+
+    if params[:author].present?
+      @author = params[:author]
+      @commit_attempts = @commit_attempts.where(user_id: @author).includes(:policy_checks)
+    end
+
+    if params[:branch].present?
+      @branch = params[:branch].gsub(/[^a-zA-Z0-9\-]/,"")
+      @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks)
+      # @commit_attempts = @commit_attempts.where("lower(name) = ?", name.downcase).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
+    end
+
+    if params[:status].present?
+      # @status = params[:status]
+      if params[:status] == "passed"
+        @commit_attempts = @commit_attempts.where(passed: true)
+      elsif params[:status] == "failed"
+        @commit_attempts = @commit_attempts.where(passed: false)
+      end
+    end
+
+
+
+    @commit_attempts = @commit_attempts.order(created_at: :desc).page(params[:page]).per(10)
 
 
     #
