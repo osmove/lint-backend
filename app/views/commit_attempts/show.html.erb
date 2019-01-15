@@ -11,10 +11,12 @@
       <div class="col-12 col-md-6">
         <h2>
           Commit attempt #<%= @commit_attempt.id %>
-          <% if @policy_check.present? && @policy_check.passed == true %>
-            <span class="badge badge badge-success">Passed</span>
-          <% else %>
-            <span class="badge badge badge-danger">Failed</span>
+          <% if @policy_check.present? %>
+             <% if @policy_check.passed == true %>
+               <span class="badge badge badge-success">Passed</span>
+             <% else %>
+               <span class="badge badge badge-danger">Failed</span>
+             <% end %>
           <% end %>
         </h2>
 

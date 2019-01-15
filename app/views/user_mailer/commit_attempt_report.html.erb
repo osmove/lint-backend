@@ -26,10 +26,12 @@
       |
       <span style="color:#f7a000;"><%= pluralize(@policy_check.warning_count || 0, 'warning') %></span>
       |
-      <% if @policy_check.passed == true %>
-        <span style="color:#5cb85c;">Passed</span>
-      <% else %>
-        <span style="color:#d9534f;">Failed</span>
+      <% if @policy_check.present? %>
+        <% if @policy_check.passed == true %>
+          <span style="color:#5cb85c;">Passed</span>
+        <% else %>
+          <span style="color:#d9534f;">Failed</span>
+        <% end %>
       <% end %>
     </p>
   <% end %>
@@ -106,7 +108,7 @@
             <div style="margin:0; padding:0">
               <table style="margin:0; padding:0; width: 100%;">
                 <% if !(rule_checks.select { |check| check['severity_level']}.count > 0) %>
-                  
+
                 <% else %>
 
                   <% rule_checks.sort_by!{|h| [h["line"] ? h["line"] : 0]}.group_by{ |h| [h['rule_id'] ? h['rule_id'] : h['name'] ? h['name'] : nil] }.each do |rule_id, rule_checks| %>
