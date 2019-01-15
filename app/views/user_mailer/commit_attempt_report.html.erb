@@ -54,7 +54,7 @@
     <% end %>
   </p>
 
-  <% if @policy_check.report.present? && @policy_check.report["staged_files"].present? %>
+  <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["staged_files"].present? %>
 
     <table style="margin-bottom: 30px; text-align: center; width: 100%; background-color: #eee; padding-bottom:24px;">
       <tr>
@@ -78,7 +78,7 @@
   <div style="width:100%; text-align: center;" >
     <% if @commit_attempt.policy_checks.length > 0 %>
 
-      <% if @policy_check.report.present? && @policy_check.report["rule_checks_attributes"].present? %>
+      <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["rule_checks_attributes"].present? %>
         <% @policy_check.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.each do |file, rule_checks| %>
           <div>
             <h2 style="margin-bottom: 5px; word-wrap:break-word;"><%=file[0]%></h2>
@@ -208,7 +208,7 @@
       <% end %>
     <% end %>
 
-    <% if @policy_check.report.present? && @policy_check.report["not_inspected_files"].present? && @policy_check.report["not_inspected_files"].count > 0 %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["not_inspected_files"].present? && @policy_check.report["not_inspected_files"].count > 0 %>
       <% @policy_check.report["not_inspected_files"].each do |file| %>
         <h2><%= file %></h2>
       <div>
