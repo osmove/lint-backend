@@ -25,6 +25,12 @@ class UserMailer < ApplicationMailer
       @generic_logo_url = '/images/platformicons/svg/generic.svg'
       if @commit_attempt.policy_checks.first.present?
         @policy_check = @commit_attempt.policy_checks.first
+        if @policy_check.report["rule_checks_attributes"].present?
+          @report = @policy_check.report["rule_checks_attributes"].sort_by!{|h| [h["security_level"] ? h["security_level"] : 0]}.group_by{ |h| [h['file_path']] }
+        else
+          @report = nil
+        end
+
       else
         @policy_check = nil
       end
@@ -43,7 +49,18 @@ class UserMailer < ApplicationMailer
         end
       end
 
+    else
+      if @commit_attempt.policy_checks.first.present?
+      @policy_check = @commit_attempt.policy_checks.first
+      @report = @policy_check.report["rule_checks_attributes"].sort_by!{|h| [h["security_level"] ? h["security_level"] : 0]}.group_by{ |h| [h['file_path']] }
+      else
+        @policy_check = nil
+        @report = nil
+      end
+      mail(from: "Omnilint <support@omnilint.com>", to: "#{@user.username} <#{@user.email}>", subject: "#{@repository.uuid} - #{@commit_attempt.name}")
     end
+
+
 
   end
 

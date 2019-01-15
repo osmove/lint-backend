@@ -44,8 +44,6 @@
   </p>
 
 
-
-
   <p>
     <% if @commit_attempt.repository.policy.present? %>
       Policy: <strong><%= @commit_attempt.repository.policy.name %></strong>
@@ -53,6 +51,12 @@
       No Policy.
     <% end %>
   </p>
+
+  <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["lint_execution_time"].present? %>
+    <p>
+      Execution time: <%= number_with_delimiter(@policy_check.report["lint_execution_time"]) %> ms
+    </p>
+  <% end %>
 
   <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["staged_files"].present? %>
 
@@ -76,10 +80,10 @@
 
 
   <div style="width:100%; text-align: center;" >
-    <% if @commit_attempt.policy_checks.length > 0 %>
+    <% if @commit_attempt.policy_checks.length > 0 || @policy_check.present? %>
 
-      <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["rule_checks_attributes"].present? %>
-        <% @policy_check.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.each do |file, rule_checks| %>
+      <% if @policy_check.present? && @report.present? %>
+        <% @report.each do |file, rule_checks| %>
           <div>
             <h2 style="margin-bottom: 5px; word-wrap:break-word;"><%=file[0]%></h2>
             <div style="margin-bottom: 15px;">
@@ -101,105 +105,110 @@
 
             <div style="margin:0; padding:0">
               <table style="margin:0; padding:0; width: 100%;">
-                <% rule_checks.sort_by { |h, v| [h["severity_level"]]}.reverse!.group_by{ |h| [h['rule_id']] }.each do |rule_id, rule_checks| %>
-                  <% if rule_id[0].present? %>
-                    <tr>
-                      <td style="color: #fff; <% if rule_checks[0]["severity_level"] == 1 %>background-color:#f7a000;<% elsif rule_checks[0]["severity_level"] == 2 %>background-color:#d9534f;<% end %> border-bottom: 20px solid #fff;">
-                        <% if rule_id[0].present? %>
-                          <div style="padding: 10px 20px 10px 20px; text-align:center">
-                             <%= Rule.find(rule_id[0]).name %> (<%= pluralize(rule_checks.count, 'occurence') %>)
-                          </div>
-                        <% end %>
-                        <% rule_checks.sort_by{|h| [-h["severity_level"], h['line']]}.each do |rule_check| %>
-                          <div style="<% if rule_check["severity_level"] == 1 %>background-color:#ffc356; <% elsif rule_check["severity_level"] == 2 %>background-color:#f47b87;<% end %>">
-                            <div style="padding: 10px 20px 10px 20px; text-align:center"><%= rule_check["message"] %></div>
-                            <% if rule_check["source"].present? && rule_check["source"].length> 0 %>
-                              <div style="background-color:#ffff; " >
-                                <code style="color:#000">
-                                  <% rule_check["source"].each do |line| %>
-                                    <div style="
-                                      <% if line["line"] == rule_check["line"] %>
-                                        <% if rule_check["severity_level"] == 1 %>
-                                          background-color:#ffedcd;
-                                        <% elsif rule_check["severity_level"] == 2 %>
-                                          background-color:#ffe4e7;
+                <% if !(rule_checks.select { |check| check['severity_level']}.count > 0) %>
+                  
+                <% else %>
+
+                  <% rule_checks.sort_by!{|h| [h["line"] ? h["line"] : 0]}.group_by{ |h| [h['rule_id'] ? h['rule_id'] : h['name'] ? h['name'] : nil] }.each do |rule_id, rule_checks| %>
+                    <% if rule_id[0].present? %>
+                      <tr>
+                        <td style="color: #fff; <% if rule_checks[0]["severity_level"] == 1 %>background-color:#f7a000;<% elsif rule_checks[0]["severity_level"] == 2 %>background-color:#d9534f;<% end %> border-bottom: 20px solid #fff;">
+                          <% if rule_id[0].is_a? String %>
+                            <% rule = Rule.find_by(slug: rule_id[0]) rescue nil %>
+                          <% else %>
+                            <% rule = Rule.find(rule_id[0]) rescue nil %>
+                          <% end %>
+                          <% if rule.present? %>
+
+                            <%#= "#{rule_checks[0]["linter"].titleize}:" rescue nil %>
+                             <%= rule.name %> <span class="badge badge-secondary"><%= "#{rule_checks.count}" %></span>
+                          <% end %>
+                          <% rule_checks.sort_by{|h| [-h["severity_level"], h['line']]}.each do |rule_check| %>
+                            <div style="<% if rule_check["severity_level"] == 1 %>background-color:#ffc356; <% elsif rule_check["severity_level"] == 2 %>background-color:#f47b87;<% end %>">
+                              <div style="padding: 10px 20px 10px 20px; text-align:center"><%= rule_check["message"] %></div>
+                              <% if rule_check["source"].present? && rule_check["source"].length> 0 %>
+                                <div style="background-color:#ffff; " >
+                                  <code style="color:#000">
+                                    <% rule_check["source"].each do |line| %>
+                                      <div style="
+                                        <% if line["line"] == rule_check["line"] %>
+                                          <% if rule_check["severity_level"] == 1 %>
+                                            background-color:#ffedcd;
+                                          <% elsif rule_check["severity_level"] == 2 %>
+                                            background-color:#ffe4e7;
+                                          <% end %>
                                         <% end %>
-                                      <% end %>
-                                      overflow:auto; width:auto;">
-                                      <table border="0" cellspacing="0" cellpadding="0">
-                                        <tr style="padding-top: 10px; padding-bottom: 10px;">
-                                          <!-- Line Number -->
-                                          <td style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px; border-right: 4px solid #eee; border-top: 0; min-width: 50px; line-height: 1em; text-align: right; ">
-                                            <code style="margin: 0; opacity: 0.5; color:#333; font-size: 13px;"><%="#{line["line"]}"%><br/></code>
-                                          </td>
-                                          <!-- Line Content -->
-                                          <td class="text-left" style="border-top: 0; line-height: 1em; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; text-align: left; ">
-                                            <code style="margin: 0; color: #222; font-size: 13px;"><span><%= "#{line["code"]}" %></span><br/></code>
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  <% end %>
-                                </code>
-                              </div>
-                            <% end %>
-                          </div>
-                        <% end %>
-                      </td>
-                    </tr>
-                  <% elsif (rule_checks.select { |check| check['severity_level'] == 2 }.count) > 0 || (rule_checks.select { |check| check['severity_level'] == 1 }.count) > 0 %>
-                    <tr>
-                      <td style="color: #fff; <% if rule_checks[0]["severity_level"] == 1 %>background-color:#f7a000;<% elsif rule_checks[0]["severity_level"] == 2 %>background-color:#d9534f;<% end %> border-bottom: 20px solid #fff;">
-                        <% if rule_id[0].present? %>
-                          <div style="padding: 10px 20px 10px 20px; text-align:center">
-                             <%= Rule.find(rule_id[0]).name %> (<%= pluralize(rule_checks.count, 'occurence') %>)
-                          </div>
-                        <% end %>
-                        <% rule_checks.sort_by{|h| [-h["severity_level"], h['line']]}.each do |rule_check| %>
-                          <div style="<% if rule_check["severity_level"] == 1 %>background-color:#ffc356; <% elsif rule_check["severity_level"] == 2 %>background-color:#f47b87;<% end %>">
-                            <div style="padding: 10px 20px 10px 20px; text-align:center"><%= rule_check["message"] %></div>
+                                        overflow:auto; width:auto;">
+                                        <table border="0" cellspacing="0" cellpadding="0">
+                                          <tr style="padding-top: 10px; padding-bottom: 10px;">
+                                            <!-- Line Number -->
+                                            <td style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px; border-right: 4px solid #eee; border-top: 0; min-width: 50px; line-height: 1em; text-align: right; ">
+                                              <code style="margin: 0; opacity: 0.5; color:#333; font-size: 13px;"><%="#{line["line"]}"%><br/></code>
+                                            </td>
+                                            <!-- Line Content -->
+                                            <td class="text-left" style="border-top: 0; line-height: 1em; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; text-align: left; ">
+                                              <code style="margin: 0; color: #222; font-size: 13px;"><span><%= "#{line["code"]}" %></span><br/></code>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    <% end %>
+                                  </code>
+                                </div>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% elsif (rule_checks.select { |check| check['severity_level'] == 2 }.count) > 0 || (rule_checks.select { |check| check['severity_level'] == 1 }.count) > 0 %>
+                      <tr>
+                        <td style="color: #fff; <% if rule_checks[0]["severity_level"] == 1 %>background-color:#f7a000;<% elsif rule_checks[0]["severity_level"] == 2 %>background-color:#d9534f;<% end %> border-bottom: 20px solid #fff;">
+                          <% if rule_id[0].present? %>
+                            <div style="padding: 10px 20px 10px 20px; text-align:center">
+                               <%= Rule.find(rule_id[0]).name %> (<%= pluralize(rule_checks.count, 'occurence') %>)
+                            </div>
+                          <% end %>
+                          <% rule_checks.sort_by{|h| [-h["severity_level"], h['line']]}.each do |rule_check| %>
+                            <div style="<% if rule_check["severity_level"] == 1 %>background-color:#ffc356; <% elsif rule_check["severity_level"] == 2 %>background-color:#f47b87;<% end %>">
+                              <div style="padding: 10px 20px 10px 20px; text-align:center"><%= rule_check["message"] %></div>
 
-                            <% if rule_check["source"].present? && rule_check["source"].length> 0 %>
-                              <div style="background-color:#ffff; " >
-                                <code style="color:#000">
+                              <% if rule_check["source"].present? && rule_check["source"].length> 0 %>
+                                <div style="background-color:#ffff; " >
+                                  <code style="color:#000">
 
-                                  <% rule_check["source"].each do |line| %>
-                                    <div style="
-                                      <% if line["line"] == rule_check["line"] %>
-                                        <% if rule_check["severity_level"] == 1 %>
-                                          background-color:#ffedcd;
-                                        <% elsif rule_check["severity_level"] == 2 %>
-                                          background-color:#ffe4e7;
+                                    <% rule_check["source"].each do |line| %>
+                                      <div style="
+                                        <% if line["line"] == rule_check["line"] %>
+                                          <% if rule_check["severity_level"] == 1 %>
+                                            background-color:#ffedcd;
+                                          <% elsif rule_check["severity_level"] == 2 %>
+                                            background-color:#ffe4e7;
+                                          <% end %>
                                         <% end %>
-                                      <% end %>
-                                      overflow:auto; width:auto;">
-                                      <table border="0" cellspacing="0" cellpadding="0">
-                                        <tr style="padding-top: 10px; padding-bottom: 10px;">
-                                          <!-- Line Number -->
-                                          <td style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px; border-right: 4px solid #eee; border-top: 0; min-width: 50px; line-height: 1em; text-align: right; ">
-                                            <code style="margin: 0; opacity: 0.5; color:#333; font-size: 13px;"><%="#{line["line"]}"%><br/></code>
-                                          </td>
-                                          <!-- Line Content -->
-                                          <td class="text-left" style="border-top: 0; line-height: 1em; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; text-align: left; ">
-                                            <code style="margin: 0; color: #222; font-size: 13px;"><span><%= "#{line["code"]}" %></span><br/></code>
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </div>
-                                  <% end %>
-
-
-
-
-                                </code>
-                              </div>
-                            <% end %>
-                          </div>
-                        <% end %>
-                      </td>
-                    </tr>
+                                        overflow:auto; width:auto;">
+                                        <table border="0" cellspacing="0" cellpadding="0">
+                                          <tr style="padding-top: 10px; padding-bottom: 10px;">
+                                            <!-- Line Number -->
+                                            <td style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px; border-right: 4px solid #eee; border-top: 0; min-width: 50px; line-height: 1em; text-align: right; ">
+                                              <code style="margin: 0; opacity: 0.5; color:#333; font-size: 13px;"><%="#{line["line"]}"%><br/></code>
+                                            </td>
+                                            <!-- Line Content -->
+                                            <td class="text-left" style="border-top: 0; line-height: 1em; padding-top: 10px; padding-bottom: 10px; padding-left: 10px; text-align: left; ">
+                                              <code style="margin: 0; color: #222; font-size: 13px;"><span><%= "#{line["code"]}" %></span><br/></code>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    <% end %>
+                                  </code>
+                                </div>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
                   <% end %>
-
                 <% end %>
               </table>
             </div>
