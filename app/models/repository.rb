@@ -64,7 +64,7 @@ class Repository < ApplicationRecord
   validates :slug, presence: true
   validates :status, presence: true
 
-  validates :deploy_to, presence: true
+  # validates :deploy_to, presence: true
 
 
   self.inheritance_column = :_type_disabled
