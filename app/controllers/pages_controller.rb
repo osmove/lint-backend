@@ -117,7 +117,7 @@ class PagesController < ApplicationController
     qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{current_user.slug}")
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 4, width: '100%')
     # @qrcode_html = qrcode.as_html
-    @all_repos =  @user.repositories_with_access + Repository.all.where(user: @user)
+    @all_repos =  @user.repositories_with_access
     @all_repos = @all_repos.sort_by{|a| a[:updated_at]}.reverse!.first(10)
 
     @last_commits = @all_repos.flat_map(&:commits).sort_by{|a| a[:created_at]}.reverse!.first(10)
