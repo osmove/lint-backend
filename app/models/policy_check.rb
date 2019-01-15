@@ -16,7 +16,7 @@ class PolicyCheck < ApplicationRecord
   #   UserMailer.commit_attempt_report(self).deliver_now
   # end
 
-  before_create :copy_status_to_commit_attempt
+  after_create :copy_status_to_commit_attempt
   def copy_status_to_commit_attempt
     if self.commit_attempt.present?
       self.commit_attempt.passed = self.passed
