@@ -19,7 +19,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'support@omnilint.com'
+  config.mailer_sender = 'supportomnilint.com'
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Devise::Mailer'
@@ -264,7 +264,7 @@ Devise.setup do |config|
   # config.omniauth :github, 'c6970dc8ce50f48bbd7e', '49947ed386d02c5ce282eb3baaf978d92325598b', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
 
   # Omnilint Prod
-  #config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://omnilint.com/users/auth/github'
+  #config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
 
   # (no scope)	Grants read-only access to public information (includes public user profile info, public repository info, and gists)
   # repo	Grants read/write access to code, commit statuses, invitations, collaborators, adding team memberships, and deployment statuses for public and private repositories and organizations.

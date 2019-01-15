@@ -114,7 +114,7 @@ class PagesController < ApplicationController
     @github_repos = @passed_param
 
     require 'rqrcode'
-    qrcode = RQRCode::QRCode.new("https://omnilint.com/#{current_user.slug}")
+    qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{current_user.slug}")
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 4, width: '100%')
     # @qrcode_html = qrcode.as_html
     @all_repos =  @user.repositories_with_access + Repository.all.where(user: @user)

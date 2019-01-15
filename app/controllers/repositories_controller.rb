@@ -128,7 +128,7 @@ class RepositoriesController < ProtectedController
 
 
     require 'rqrcode'
-    qrcode = RQRCode::QRCode.new("https://omnilint.com/#{@repository.uuid}")
+    qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{@repository.uuid}")
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 3)
     # @qrcode_html = qrcode.as_html
 
@@ -227,7 +227,7 @@ class RepositoriesController < ProtectedController
 
 
 
-    # 
+    #
     # repository_slug = params[:repository_id] || params[:id]
     # user_slug = params[:user_id]
     #
