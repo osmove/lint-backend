@@ -17,7 +17,7 @@ module Omnilint
 
     # Postmark
     config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = { :api_token => "542bee45-b32b-48c5-889d-fac0a797116b" }
+    config.action_mailer.postmark_settings = { :api_token => "b478ccd7-dcde-4e1b-8ffc-9dcc025d4686" }
 
   end
 end
