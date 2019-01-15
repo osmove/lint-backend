@@ -129,7 +129,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
             if !User.where(type: "organization", username: org["login"], is_organization: true).present?
               # @organization = Organization.new(name: org["login"], user: @user)
-              @organization = User.new(login: org["login"], type: "organization", username: org["login"], avatar_url: org["avatar_url"], is_organization: true, email: "#{org["login"]}omnilint.com")
+              @organization = User.new(login: org["login"], type: "organization", username: org["login"], avatar_url: org["avatar_url"], is_organization: true, email: "#{org["login"]}@omnilint.com")
             else
               @organization = User.where(type: "organization", username: org["login"], is_organization: true).first
             end
