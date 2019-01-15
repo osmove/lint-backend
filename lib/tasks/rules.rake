@@ -21,6 +21,15 @@ namespace :rules do
     eslint = Linter.where(name: "ESlint", command: "eslint").first
     rubocop = Linter.where(name: "Rubocop", command: "rubocop").first
     prettier = Linter.where(name: "Prettier", command: "prettier").first
+
+    if !eslint.present?
+      eslint = Linter.create(name: "ESlint", command: "eslint")
+    end
+
+    if !rubocop.present?
+      rubocop = Linter.create(name: "Rubocop", command: "rubocop")
+    end
+
     if !prettier.present?
       prettier = Linter.create(name: "Prettier", command: "prettier")
     end
