@@ -1,281 +1,162 @@
-<!-- <section class="" style="background-color: #e6e6e6 !important;"> -->
-<!-- <section class="bg-light"> -->
-<!-- <section class="" style="background-color: #e1e2e3;"> -->
+
 <section class="" style="background-color: #eeeff0;">
-  <div class="container text-left py-3 py-md-4">
+  <div class="container text-left py-4 py-lg-5">
 
-
-
-    <h3>Last Commit Attempts</h3>
-    <div class="mb-3">
-      <%= column_chart [
-        {name: 'Passed', color: 'green', data: @repository.policy_checks.where(passed: true).group_by_day(:created_at, last: 30).count},
-        {name: 'Failed', color: 'red', data: @repository.policy_checks.where(passed: false).group_by_day(:created_at, last: 30).count}
-      ], height: "300px", stacked: true
-      %>
-    </div>
-
-
+    <h3 class="pb-2">Last Commit Attempts</h3>
 
     <div class="row">
-      <div class="col-12 col-md-7 col-lg-8">
 
-
-        <% if repository.documents.length > 0 %>
-          <div class="card mb-3">
-            <div class="card-header">
-              Files <span class="badge badge-secondary"><%= repository.documents.length %>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-
-                <table class="table table-hover table-sm mb-0">
-                  <!-- <thead>
-                    <tr>
-                      <th>File</th>
-                      <th class="text-muted"></th>
-                    </tr>
-                  </thead> -->
-                  <tbody>
-                    <% @documents.each do |document| %>
-                    <!-- <a href="/test" style="display: block;"> -->
-                    <tr style="cursor: pointer;" onclick="javascript: window.location = '<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>'">
-                      <td>
-                        <% if document.checksum_type == 'tree' %>
-                          <i class="fa fa-folder mx-3" style="color: #999 !important;"></i>
-                          <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
-                            <%= document.name %>
-                          </a>
-                        <% end %>
-                        <% if document.checksum_type == 'blob' %>
-                          <i class="fa fa-file-text-o mx-3" style="color: #999 !important;"></i>
-                          <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
-                            <%= document.name %>
-                          </a>
-                        <% else %>
-                          <i class="fa fa-file-text-o mr-2" style="color: #999 !important;"></i>
-                          <a href="<%= user_repository_document_path(document.repository.user, document.repository, document.name) %>">
-                            <%= document.name %>
-                          </a>
-                        <% end %>
-                      </td>
-                      <td class="text-muted"><% if document.size.present? %><%= (document.size.to_i / 1000).round(2) %>Kb<% end %></td>
-                    </tr>
-                    <!-- </a> -->
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect">User</label>
           </div>
 
+          <select class="custom-select" id="inputGroupSelect">
+            <% if !params[:author].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
 
-          <% if(@readme.present?) %>
-            <h2>README.md</h2>
-            <div class="card mb-3">
-              <div class="card-header text-muted">
-                <%= @readme.name %>
-                <% if(@readme.content.split("\n") rescue nil) %>
-                  &bull; <%= pluralize(@readme.content.split("\n").length, 'line') %>
-                <% end %>
-                <% if @readme.size.present? %>
-                  &bull; <%= number_to_human_size(@readme.size).downcase %>
-                <% end %>
-              </div>
-              <div class="card-body">
-                <%= simple_format(@readme.content) %>
-              </div>
-
-            </div>
-          <% end %>
-
-
-        <% else %>
-          <div class="card mb-3 text-center">
-            <!-- <div class="card-header">
-              Get started with your repository
-            </div> -->
-            <div class="card-body pt-5 pb-5">
-              <!-- <img src="/images/assistant/svg/omnilint-assistant-icon.svg" alt="Omnilint Assistant" class="mb-3" width="128" height="128"> -->
-
-
-              <h1 class="mb-5" style="color: #205aa7">Waiting for commits...</h1>
-              <p style="color: #205aa7">Starting with a <strong>new</strong> repository:</p>
-              <div class="mb-5">
-                <!-- <small><kbd class="p-2" style="">git clone <%= repository.git_address %></kbd></small> -->
-                <pre><code>git clone <%= repository.git_address %></code></pre>
-              </div>
-              <p style="color: #205aa7">Starting with an <strong>existing</strong> repository:</p>
-              <div>
-                <!-- <small style="line-height: 3em"><kbd class="p-2">git remote add omnilint <%= repository.git_address %></kbd></small><br />
-                <small><kbd class="p-2">git push omnilint master</kbd></small> -->
-
-                <pre><code>git remote add omnilint <%= repository.git_address %></code></pre>
-                <pre><code>git push omnilint master</code></pre>
-
-              </div>
-            </div>
-          </div>
-        <% end %>
-
-
-
-
-
-
-
-
+            <% @authors.each do |author| %>
+              <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                <option selected value="<%= author.id %>"><%= author %></option>
+              <% else %>
+                <option value="<%= author.id %>"><%= author %></option>
+              <% end %>
+            <% end %>
+          </select>
+        </div>
       </div>
-      <div class="col-12 col-md-5 col-lg-4" style="font-size: 14px; color: #333;">
 
-        <p class="mb-1" id="git_address_info">Repository address:</p>
-        <div class="input-group mb-4">
-          <!-- <div class="input-group-prepend">
-            <span class="input-group-text text-muted" id="basic-addon3">GIT</span>
-          </div> -->
-          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_address %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
-          <div class="input-group-append">
-            <span class="input-group-text" onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;"><i class="fa fa-copy"></i></span>
+
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
           </div>
+          <select class="custom-select" id="inputGroupSelectBranch">
+            <% if !params[:branch].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% @branches.each do |branch| %>
+              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                <option selected value="<%= branch %>"><%= branch %></option>
+              <% else %>
+                <option value="<%= branch %>"><%= branch %></option>
+              <% end %>
+            <% end %>
+
+          </select>
         </div>
+      </div>
 
-        <div class="card mb-4">
-          <div class="card-header text-muted">
-            <i class="fa fa-cog mr-1"></i>
-            REPOSITORY SETTINGS
+
+
+      <div class="col-12 col-md-4">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
           </div>
-          <div class="card-body bg-light">
-            <ul class="list-unstyled mb-2">
-              <!-- <li>UUID: <strong><%= repository.uuid %></strong></li> -->
+          <select class="custom-select" id="inputGroupSelectStatus">
+            <% if !params[:status].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
 
-
-              <% if repository.status.downcase == 'private' %>
-                <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
-              <% else %>
-                <li>Visibility: <strong><%= repository.status %></strong> </li>
-              <% end %>
-
-              <% if repository.platform.present? %>
-                <li>Platform: <strong><%= repository.platform %></strong> </li>
-                <% if repository.platform.language.present? && repository.platform.language.name != repository.platform.name %>
-                  <li>Language: <strong><%= repository.platform.language %></strong> </li>
-                <% end %>
-                <% if repository.platform.framework.present? && repository.platform.framework.name != repository.platform.name && repository.platform.framework.name != repository.platform.language.name  %>
-                  <li>Framework: <strong><%= repository.platform.framework %></strong> </li>
-                <% end %>
-              <% end %>
-
-              <% if repository.has_encryption %>
-                <li>Encryption: <i class="fa fa-lock text-muted"></i> <strong>Yes</strong></li>
-              <% else %>
-                <li>Encryption: <strong>No</strong> </li>
-              <% end %>
-
-              <% if repository.requires_two_step_authentication %>
-                <li>Requires 2FA: <i class="fa fa-shield text-muted"></i> <strong>Yes</strong></li>
-              <% else %>
-                <li>Requires 2FA: <strong>No</strong> </li>
-              <% end %>
-            </ul>
-            <p class="mb-0"><%= link_to 'Edit settings', edit_user_repository_path(@repository.user, @repository.slug),  class: "btn btn-sm btn-outline-info" %></p>
-
-          </div>
+            <% if params[:status].present? && params[:status] == "passed" %>
+              <option selected value="passed">Passed</option>
+            <% else %>
+              <option value="passed">Passed</option>
+            <% end %>
+            <% if params[:status].present? && params[:status] == "failed" %>
+              <option selected value="failed">Failed</option>
+            <% else %>
+              <option value="failed">Failed</option>
+            <% end %>
+          </select>
         </div>
+      </div>
 
-        <div class="card mb-4">
-          <div class="card-header text-muted">
-            <i class="fa fa-desktop mr-1"></i>
-            DEPLOYMENT
-          </div>
-          <div class="card-body bg-light">
-            <ul class="list-unstyled mb-0">
+    </div>
 
 
-              <% if repository.deploy_to.present? %>
-                <li>Deployment: <strong><%= repository.deploy_to.titleize %></strong></li>
-                <%# if repository.deploy_to == "omnilint_cloud" %>
-                <% if repository.hosting_plan.present? %>
-                  <li>Memory: <strong><%= repository.hosting_plan.memory / 1000%> MB</strong></li>
-                  <li>vCPUs: <strong><%= repository.hosting_plan.vcpus %> vCPUs</strong></li>
-                  <li>Storage: <strong><%= repository.hosting_plan.storage / 1000 %> MB</strong></li>
-                  <li>Transfer: <strong><%= repository.hosting_plan.transfer / 1000 %> GB</strong></li>
-                  <% if repository.geo_zone.present? %>
-                  <li>Zone: <strong><%= repository.geo_zone.titleize  %></strong></li>
-                  <% end %>
-                  <li>Price: <strong>$<%= repository.hosting_plan.transfer / 1000 %>/mo</strong></li>
-                <% end %>
-              <% else %>
-                <li>Deployment: <strong>None</strong></li>
-              <% end %>
-
-
-
-
-              <!--
-              <% if repository.has_deployment %>
-                <li>Deployment: <i class="fa fa-desktop text-muted"></i> <strong>Yes</strong></li>
-              <% else %>
-                <li>Deployment: <strong>No</strong></li>
-              <% end %> -->
-
-
-              <!-- <li><i class="fa fa-eye text-muted"></i> Visibility: <strong><%= repository.status %></strong></li>
-              <li><i class="fa fa-lock text-muted"></i> End-to-end encryption: <strong><%= repository.has_encryption ? 'Yes' : 'No' %></strong></li>
-              <li><i class="fa fa-shield text-muted"></i> Two-step authentication: <strong><%= repository.requires_two_step_authentication ? 'Yes' : 'No' %></strong></li>
-              <li><i class="fa fa-desktop text-muted"></i> Deployment: <strong><%= repository.has_deployment ? 'Yes' : 'No' %></strong></li> -->
-            </ul>
-          </div>
-        </div>
-
-
-        <div class="card mb-4">
-          <div class="card-header text-muted">
-            <i class="fa fa-qrcode mr-1"></i>
-            LINK
-          </div>
-          <div class="card-body bg-light">
-            <!-- <p>Link to this repository:</p> -->
-            <!-- <div class="qrcode">
-              <%= raw @qrcode_html %>
-            </div> -->
-
-            <div class="qrcode">
-              <%# raw @qrcode_html %>
-              <div class="pull-right ml-3">
-                <%= raw @qrcode_svg %>
-              </div>
-              <!-- <h6>Scan to open</h6> -->
-              <p>Scan this QR code with your mobile phone to load this repository immediately.</p>
-            </div>
-
-          </div>
-        </div>
-
+    <div class="card mb-3">
+      <div class="card-body pt-1 pb-0">
+        <%= column_chart [
+          {name: 'Passed', color: 'green', data: @repository.policy_checks.where(passed: true).group_by_day(:created_at, last: 21).count},
+          {name: 'Failed', color: 'red', data: @repository.policy_checks.where(passed: false).group_by_day(:created_at, last: 21).count}
+        ], height: "200px", stacked: true
+        %>
       </div>
     </div>
+
+
+
+    <% if @commit_attempts.length > 0 %>
+      <div class="card mb-3">
+        <div class="card-header">
+          Commit Attempts <span class="badge badge-secondary"><%= @commit_attempts_count %>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <tbody>
+                <% @commit_attempts.each_with_index do |commit_attempt, index| %>
+                  <% if commit_attempt.policy_checks.length > 0 %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: commit_attempt.policy_checks.first %>
+                  <% else %>
+                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: nil %>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <%= paginate @commit_attempts %>
+
+    <% else %>
+      <%= render 'repositories/tabs/empty', repository: @repository %>
+    <% end %>
+
+
   </div>
 </section>
 
+
+<!-- Filters -->
 <script type="text/javascript">
-function copyGitAdressToClipboard(element_id, info_element_id) {
-  if(element_id) {
-    var element = document.getElementById(element_id);
-    element.select();
-    document.execCommand("copy");
-    /* Alert the copied text */
-    // alert("Copied the text: " + element.value);
-    if(info_element_id) {
-      var infoElement = document.getElementById(info_element_id);
-      var tmpText = infoElement.innerHTML;
-      infoElement.classList.add("text-success");
-      infoElement.innerHTML = "Address copied!";
-      setTimeout(function() {
-        infoElement.classList.remove("text-success");
-        infoElement.innerHTML = tmpText;
-      }, 1000);
+  $('#inputGroupSelectStatus').on('change', function() {
+    if (this.value ) {
+      var params = '?status=' + this.value + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+    } else {
+      var params = '?status=' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
     }
-  } else {
-    alert("Nothing to copy");
-  }
-}
+    window.location = params
+  });
+
+  $('#inputGroupSelectBranch').on('change', function() {
+    if (this.value) {
+      var params = '?branch=' + this.value + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+    } else {
+      var params = '?branch=' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+    }
+    window.location = params
+  });
+
+  $('#inputGroupSelect').on('change', function() {
+    if (this.value ) {
+      var params = '?author=' + this.value + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+    } else {
+      var params = '?author=' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+    }
+    window.location = params
+  });
 </script>

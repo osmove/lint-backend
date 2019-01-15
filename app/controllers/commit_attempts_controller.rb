@@ -9,11 +9,6 @@ class CommitAttemptsController < ProtectedController
   def index
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
-    # puts ''
-    # puts repository_slug
-    # puts user_slug
-    #
-    # puts ''
 
     if repository_slug.present? && user_slug.present?
       @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
@@ -23,7 +18,7 @@ class CommitAttemptsController < ProtectedController
 
     if @repository.present?
       @languages = Language.all
-      @commit_attempts = @repository.commit_attempts.includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
+      @commit_attempts = @repository.commit_attempts.includes(:policy_checks)
       @commit_attempts_count = @repository.commit_attempts.order(created_at: :desc).count
 
       @authors = @commit_attempts.map(&:user).compact.uniq
@@ -32,27 +27,29 @@ class CommitAttemptsController < ProtectedController
 
       if params[:author].present?
         @author = params[:author]
-        @commit_attempts = @commit_attempts.where(user_id: @author).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
+        @commit_attempts = @commit_attempts.where(user_id: @author).includes(:policy_checks)
       end
 
       if params[:branch].present?
         @branch = params[:branch].gsub(/[^a-zA-Z0-9\-]/,"")
-        @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
+        @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks)
         # @commit_attempts = @commit_attempts.where("lower(name) = ?", name.downcase).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
       end
 
       if params[:status].present?
-        @status = params[:status]
-        if @status == "passed"
-          @commit_attempts = @commit_attempts.joins(:policy_checks).where(passed: true).order(created_at: :desc).page(params[:page]).per(10)
-        elsif @status == "failed"
-          @commit_attempts = @commit_attempts.joins(:policy_checks).where(passed: false).order(created_at: :desc).page(params[:page]).per(10)
+        # @status = params[:status]
+        if params[:status] == "passed"
+          @commit_attempts = @commit_attempts.where(passed: true)
+        elsif params[:status] == "failed"
+          @commit_attempts = @commit_attempts.where(passed: false)
         end
       end
     else
-      @commit_attempts = CommitAttempt.all.includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
+      @commit_attempts = CommitAttempt.all.includes(:policy_checks)
       @commit_attempts_count = @commit_attempts.count
     end
+
+    @commit_attempts = @commit_attempts.order(created_at: :desc).page(params[:page]).per(10)
     fresh_when etag: @commit_attempts
 
   end
