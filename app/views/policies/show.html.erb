@@ -19,17 +19,27 @@
       </div>
     </div>
     <% if @policy.present? %>
-      <% @linters.each do |linter| %>
+
+      <% @policy_rules_grouped.each do |linter, policy_rules| %>
         <h4> <%= linter.name %></h4>
-        <% @policy.policy_rules.order(name: :asc).each_with_index do |policy_rule, index| %>
-          <% if policy_rule.rule.linter == linter %>
-            <div id="accordion" class="mb-2">
-              <%= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index %>
-            </div>
-          <% end %>
+        <% policy_rules.each_with_index do |policy_rule, index| %>
+          <div id="accordion" class="mb-2">
+            <%= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index %>
+          </div>
         <% end %>
       <% end %>
-
+      <!--
+        <%# @linters.each do |linter| %>
+          <h4> <%#= linter.name %></h4>
+          <%# @policy.policy_rules.each_with_index do |policy_rule, index| %>
+            <%# if policy_rule.rule.linter == linter %>
+              <div id="accordion" class="mb-2">
+                <%#= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index %>
+              </div>
+            <%# end %>
+          <%# end %>
+        <%# end %>
+      --->
       <h4>Used in <%= @policy.repositories.length %> repositories</h4>
       <%= render "users/user_repositories", repositories: @policy.repositories %>
 

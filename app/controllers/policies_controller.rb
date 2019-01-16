@@ -13,6 +13,9 @@ class PoliciesController < ApplicationController
   # GET /policies/1.json
   def show
     @linters = Linter.all
+    @policy_rules = @policy.policy_rules.order(name: :asc)
+    @policy_rules_grouped = @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}
+
   end
 
   # GET /policies/new
@@ -89,7 +92,9 @@ class PoliciesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_policy
       # @policy = Policy.find(params[:id])
-      @policy = Policy.includes( policy_rules: [{rule: [:linter, { rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+      # @policy = Policy.includes( policy_rules: [{rule: [:linter, { rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+      @policy = Policy.includes( policy_rules: [{rule: [{ rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+
     end
 
 

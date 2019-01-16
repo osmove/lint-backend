@@ -1,14 +1,14 @@
 <% cache policy_rule do %>
   <div class="card">
-    <div class="card-header d-flex justify-content-between align-items-center bg-white",  id="heading_<%= policy_rule.rule.id %>">
-      <a href="#" class="" data-toggle="collapse" data-target="#collapse_<%= policy_rule.rule.id %>" aria-expanded="<% if (i == 0) %>false<% else %>true<% end %>" aria-controls="collapse_collapse_<%= policy_rule.rule.id %>">
-        <%= policy_rule.rule.name %>
-        <% if policy_rule.fixable? && policy_rule.rule.linter.command != "prettier"%>
+    <div class="card-header d-flex justify-content-between align-items-center bg-white",  id="heading_<%= policy_rule.id %>">
+      <a href="#" class="" data-toggle="collapse" data-target="#collapse_<%= policy_rule.id %>" aria-expanded="<% if (i == 0) %>false<% else %>true<% end %>" aria-controls="collapse_collapse_<%= policy_rule.id %>">
+        <%= policy_rule.name %>
+        <% if policy_rule.fixable? && policy_rule.linter.command != "prettier"%>
           <i class='fa fa-wrench text-muted'></i>
         <% end %>
-        <span class="text-muted"> - <%= policy_rule.rule.short_description %></span>
+        <span class="text-muted"> - <%= policy_rule.short_description %></span>
       </a>
-      <% if policy_rule.rule.linter.command != "prettier" %>
+      <% if policy_rule.linter.command != "prettier" %>
         <% if policy_rule.status == "off" %>
           <span class="badge badge badge-secondary">Off</span>
         <% elsif policy_rule.status == "warn" %>
@@ -27,9 +27,9 @@
 
     </div>
 
-    <div id="collapse_<%= policy_rule.rule.id %>" class="collapse" aria-labelledby="heading_<%= policy_rule.rule.id %>" data-parent="#accordion">
+    <div id="collapse_<%= policy_rule.id %>" class="collapse" aria-labelledby="heading_<%= policy_rule.id %>" data-parent="#accordion">
       <div class="card-body bg-light">
-        <span class="text-muted"><%= policy_rule.rule.description %></span>
+        <span class="text-muted"><%= policy_rule.description %></span>
       </div>
       <ul class="list-group list-group-flush">
         <% policy_rule.policy_rule_options.each do |pro| %>
