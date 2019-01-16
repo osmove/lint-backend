@@ -19,6 +19,7 @@
       <%= form.label :name %>
       <%= form.text_field :name, id: :policy_name, hide_label: true, required: true, class: "form-control-lg", placeholder: "Give a name to this policy" %>
     </div>
+
     <div class="field">
       <%= form.label :description %>
       <%= form.text_field :description, id: :policy_description, hide_label: true, placeholder: "Describe this policy"  %>
@@ -27,7 +28,6 @@
     <%= form.check_box :prevent_commits_on_errors, {label: "Prevent commiting if at least one rule with error severity is detected", class: "mr-4" } %>
 
     <h2>Rules</h2>
-
 
     <%# form.check_box :autofix, {label: "Enforce Policy - Prevent commit in case of error", class: "" } %>
     <%= form.check_box :autofix, {label: "Enable Autofix - Automatically repair fixable offenses", class: "" } %>
@@ -39,6 +39,12 @@
           <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-toggle="tab" href="#<%= linter.name %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
         </li>
       <% end %>
+      <li class="nav-item ml-auto pt-2">
+        <a class="" href="#" tabindex="-1" aria-disabled="true" onclick="selectAllOffs(); return false;">All off</a> |
+        <a class="" href="#" tabindex="-1" aria-disabled="true" onclick="selectAllWarnings(); return false;">All warnings</a> |
+        <a class="" href="#" tabindex="-1" aria-disabled="true" onclick="selectAllErrors(); return false;">All errors</a> |
+        <a class="" href="#" tabindex="-1" aria-disabled="true" onclick="selectAllOns(); return false;">All on</a>
+      </li>
     </ul>
     <div class="tab-content" id="myTabContent">
       <% @linters.each_with_index do |linter, index| %>
@@ -76,3 +82,21 @@
     <%= form.submit %>
   <% end %>
 </div>
+
+<script type="text/javascript">
+  function selectAllOffs() {
+    $('input[value="off"]').prop("checked", true);
+  }
+
+  function selectAllOns() {
+    $('input[value="on"]').prop("checked", true);
+  }
+
+  function selectAllWarnings() {
+    $('input[value="warn"]').prop("checked", true);
+  }
+
+  function selectAllErrors() {
+    $('input[value="error"]').prop("checked", true);
+  }
+</script>
