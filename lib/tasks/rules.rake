@@ -562,7 +562,8 @@ namespace :rules do
 
     lintStringConversionInInterpolation = Rule.create(name: "Lint/StringConversionInInterpolation", slug: "Lint/StringConversionInInterpolation", description: "This cop checks for string conversion in string interpolation, which is redundant.", fixable: true, type: "Linting Cops", linter: rubocop)
 
-    lintSyntax = Rule.create(name: "Lint/Syntax", slug: "Lint/Syntax", description: "This is not actually a cop. It does not inspect anything. It just provides methods to repack Parser's diagnostics/errors into RuboCop's offenses.", type: "Linting Cops", linter: rubocop)
+    #This is a category Name not a rule, this causes issues
+    #lintSyntax = Rule.create(name: "Lint/Syntax", slug: "Lint/Syntax", description: "This is not actually a cop. It does not inspect anything. It just provides methods to repack Parser's diagnostics/errors into RuboCop's offenses.", type: "Linting Cops", linter: rubocop)
 
     lintUnderscorePrefixedVariableName = Rule.create(name: "Lint/UnderscorePrefixedVariableName", slug: "Lint/UnderscorePrefixedVariableName", description: "This cop checks for underscore-prefixed variables that are actually used.", type: "Linting Cops", linter: rubocop)
 
@@ -722,7 +723,8 @@ namespace :rules do
 
     performanceLstripRstrip = Rule.create(name: "Performance/LstripRstrip", slug: "Performance/LstripRstrip", description: "This cop identifies places where lstrip.rstrip can be replaced by strip.", fixable: true, type: "Performance Cops", linter: rubocop)
 
-    performanceOpenStruct = Rule.create(name: "Performance/OpenStruct", slug: "Performance/OpenStruct", description: "This cop checks for OpenStruct.new calls. Instantiation of an OpenStruct invalidates Ruby global method cache as it causes dynamic method definition during program runtime. This could have an effect on performance, especially in case of single-threaded applications with multiple OpenStruct instantiations.", type: "Performance Cops", linter: rubocop)
+    #This rules doesn't work
+    #performanceOpenStruct = Rule.create(name: "Performance/OpenStruct", slug: "Performance/OpenStruct", description: "This cop checks for OpenStruct.new calls. Instantiation of an OpenStruct invalidates Ruby global method cache as it causes dynamic method definition during program runtime. This could have an effect on performance, especially in case of single-threaded applications with multiple OpenStruct instantiations.", type: "Performance Cops", linter: rubocop)
 
     performanceRangeInclude = Rule.create(name: "Performance/RangeInclude", slug: "Performance/RangeInclude", description: "This cop identifies uses of Range#include?, which iterates over each item in a Range to see if a specified item is there. In contrast, Range#cover? simply compares the target item with the beginning and end points of the Range. In a great majority of cases, this is what is wanted.", type: "Performance Cops", linter: rubocop)
 
