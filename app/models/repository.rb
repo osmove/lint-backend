@@ -242,6 +242,10 @@ class Repository < ApplicationRecord
     require 'securerandom'
     # secret_key = SecureRandom.hex()
     secret_key = SecureRandom.hex(30)
+
+    return
+
+    puts 'Hello'
   end
 
 
