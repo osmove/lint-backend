@@ -26,8 +26,8 @@ class CommitAttempt < ApplicationRecord
   after_update :send_report
   def send_report
     if message_changed?
-      # UserMailer.commit_attempt_report(self).deliver_later
-      UserMailer.commit_attempt_report(self).deliver_now
+      UserMailer.commit_attempt_report(self).deliver_later
+      # UserMailer.commit_attempt_report(self).deliver_now
     end
   end
 
