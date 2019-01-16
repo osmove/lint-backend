@@ -8,9 +8,9 @@
 
 
     <div class="row">
-      <div class="col-12 col-md-6">
-        <h2>
-          Commit attempt #<%= @commit_attempt.id %>
+      <div class="col-12 col-md-8">
+        <h1>
+          <%= @commit_attempt.name %>
           <% if @policy_check.present? %>
              <% if @policy_check.passed == true %>
                <span class="badge badge badge-success">Passed</span>
@@ -18,29 +18,23 @@
                <span class="badge badge badge-danger">Failed</span>
              <% end %>
           <% end %>
-        </h2>
+        </h1>
 
 
-          <p>
-            <% if @commit_attempt.message.present? %>
-              <strong>
-                <%= @commit_attempt.message %>
-              </strong>
+        <p>
+          <% if @commit_attempt.user.present? %>
+          by
+            <a href="<%= user_path(@commit_attempt.user) %>">
+            <% if @commit_attempt.user.avatar_url.present? %>
+              <img src="<%= @commit_attempt.user.avatar_url %>" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
+            <% elsif @commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+              <img src="/images/organization-blank.jpg" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
+            <% else %>
+              <img src="/images/user-blank.png" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
             <% end %>
-
-            <% if @commit_attempt.user.present? %>
-            by
-              <a href="<%= user_path(@commit_attempt.user) %>">
-              <% if @commit_attempt.user.avatar_url.present? %>
-                <img src="<%= @commit_attempt.user.avatar_url %>" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
-              <% elsif @commit_attempt.user.present? && commit_attempt.user.is_organization? %>
-                <img src="/images/organization-blank.jpg" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
-              <% else %>
-                <img src="/images/user-blank.png" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
-              <% end %>
-              <span><%= @commit_attempt.user %></span></a>
-            <% end %>
-          </p>
+            <span><%= @commit_attempt.user %></span></a>
+          <% end %>
+        </p>
 
       </div>
       <div class="col text-md-right">
