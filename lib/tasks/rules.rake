@@ -914,6 +914,7 @@ namespace :rules do
   end
 end
 
+
    # "no-extend-native": 2, -- SEEMS TO BE CAUSING BUG NOT IMPLEMENTED
    # "no-extra-parens": 0, -- Conflict with Prettier
    # "no-extra-semi": 2,  -- Conflict with Prettier
