@@ -124,7 +124,7 @@ class CommitAttemptsController < ProtectedController
         # @commit_attempt.joins( repository: { policy: { policy_rules: [:rule, { policy_rule_options: [:rule_option, :rule_option_options ] }] } })
         if @commit_attempt.present? && @commit_attempt.repository.present? && @commit_attempt.repository.policy.present?
           # @policy = @commit_attempt.repository.policy
-          @policy = Policy.includes( policy_rules: [{rule: :linter}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(@commit_attempt.repository.policy.id)
+          @policy = Policy.includes( policy_rules: [:linter, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(@commit_attempt.repository.policy.id)
         end
         format.html { redirect_to @commit_attempt, notice: 'Commit attempt was successfully created.' }
         format.json { render :show, status: :created, location: @commit_attempt }

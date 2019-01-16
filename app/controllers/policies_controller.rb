@@ -93,7 +93,9 @@ class PoliciesController < ApplicationController
     def set_policy
       # @policy = Policy.find(params[:id])
       # @policy = Policy.includes( policy_rules: [{rule: [:linter, { rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
-      @policy = Policy.includes( policy_rules: [{rule: [{ rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+      # @policy = Policy.includes( policy_rules: [{rule: [{ rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+      @policy = Policy.includes( policy_rules: [:linter, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+
 
     end
 
