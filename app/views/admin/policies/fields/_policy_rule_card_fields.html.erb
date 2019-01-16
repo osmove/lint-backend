@@ -2,7 +2,11 @@
 	<div class="card">
 		<div class="card-header d-flex justify-content-between align-items-center bg-white",  id="heading_<%= rule.id %>">
 			<a href="#" class="" data-toggle="collapse" data-target="#collapse_<%= rule.id %>" aria-expanded="false" aria-controls="collapse_collapse_<%= rule.id %>">
-				<%= f.check_box :rule_id, {label: "<strong>#{rule.name}</strong>".html_safe, inline: true, class: "mr-3", checked: true, style: "display: none;" }, rule.id, nil %>
+				<% if rule.fixable && rule.linter.command != "prettier" %>
+					<%= f.check_box :rule_id, {label: "<strong>#{rule.name} <i class='fa fa-wrench text-muted'></i></strong>".html_safe, inline: true, class: "mr-3", checked: true, style: "display: none;" }, rule.id, nil %>
+				<% else %>
+					<%= f.check_box :rule_id, {label: "<strong>#{rule.name}</strong>".html_safe, inline: true, class: "mr-3", checked: true, style: "display: none;" }, rule.id, nil %>
+				<% end %>
 				<%# if rule.name != rule.slug %>
 				<% if rule.description.length > 60 %>
 					<span class="text-muted"> - <%= "#{rule.description.slice(0, 60)}..." %></span>
@@ -18,7 +22,10 @@
 				<div class="ml-3" style="min-width: 200px;">
 					<%= f.collection_radio_buttons( :status, PolicyRule::STATUS_OPTIONS, :last, :first, {hide_label: true, inline: true, layout: :default } ) %>
 				</div>
+			<% elsif rule.linter.command == "prettier"%>
+				<%= f.collection_radio_buttons( :status, [[ "Off","off"],["On", "on"]], :last, :first, {hide_label: true, inline: true, layout: :default } ) %>
 			<% end %>
+
 		</div>
 		<div id="collapse_<%= rule.id %>" class="collapse" aria-labelledby="heading_<%= rule.id %>" data-parent="#accordion">
 			<div class="card-body">
