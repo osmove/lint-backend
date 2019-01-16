@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190116112518) do
+ActiveRecord::Schema.define(version: 20190116163652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -550,6 +550,8 @@ ActiveRecord::Schema.define(version: 20190116112518) do
     t.boolean "is_ignored"
     t.bigint "policy_id"
     t.boolean "has_autofix"
+    t.boolean "prevent_commits_on_errors"
+    t.boolean "send_reports", default: true
     t.index ["domain_slug"], name: "index_repositories_on_domain_slug"
     t.index ["framework_id"], name: "index_repositories_on_framework_id"
     t.index ["hosting_plan_id"], name: "index_repositories_on_hosting_plan_id"
