@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     resources :repositories
     resource :repository, path: "repositories/:repository_id", only: [:show, :destroy, :delete, :qr_code] do
       get '/commits/index_ssh', to: 'commits#index_ssh'
+      resources :commit_attempts
       resources :commits
       get '/documents/:id/show_ssh', to: 'documents#show_ssh'
       get '/documents/index_ssh', to: 'documents#index_ssh'

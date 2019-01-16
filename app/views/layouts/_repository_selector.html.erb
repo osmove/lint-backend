@@ -23,7 +23,26 @@
     <% end %>
     <div class="dropdown-menu main-dropdown-menu" aria-labelledby="navbarDropdown">
       <% current_user.repositories_with_access.order(updated_at: :desc).each do |repository| %>
-        <a href="<%= user_repository_path(current_user, repository) %>" class="dropdown-item">
+
+        <!-- <%# <a href="<%= user_repository_path(current_user, repository) %>" class="dropdown-item"> %>-->
+
+
+        <% if controller.controller_name == "commit_attempts" %>
+        <a href="<%= user_repository_commit_attempts_path(current_user, repository) %>" class="dropdown-item">
+        <% elsif controller.controller_name == "commits" %>
+        <a href="<%= user_repository_commits_path(current_user, repository) %>" class="dropdown-item">
+        <% elsif controller.controller_name == "commit_attempts" %>
+          <a href="<%= user_repository_commit_attempts_path(current_user, repository) %>" class="dropdown-item">
+        <% elsif controller.controller_name == "repositories" && controller.action_name == "repository_policies" %>
+          <a href="<%= policy_user_repository_path(current_user, repository) %>" class="dropdown-item">
+        <% elsif controller.controller_name == "repositories" && controller.action_name == "settings" %>
+          <a href="<%= user_repository_settings_path(current_user, repository) %>" class="dropdown-item">
+        <% elsif controller.controller_name == "repository_accesses" %>
+          <a href="<%= user_repository_repository_accesses_path(current_user, repository) %>" class="dropdown-item">
+        <% else %>
+          <a href="<%= user_repository_path(current_user, repository) %>" class="dropdown-item">
+        <% end %>
+
           <% if repository.platform.present? %>
             <img src="<%= repository.platform.image_url %>" alt="<%= repository.platform %>" style="width: 24px; height: 24px; border-radius: 4px; margin-right: 5px;" />
           <% else %>
