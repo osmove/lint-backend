@@ -38,15 +38,15 @@
           </div>
           <div class="card mb-3">
             <div class="card-body">
-              <%= pie_chart @repository.policy.policy_rules.order(:status).group(:status).count, colors: ["#ff000f", "#404040", "#ffc107"] %>
+              <%= pie_chart @policy.policy_rules.order(:status).group(:status).count, colors: ["#ff000f", "#404040", "#ffc107"] %>
             </div>
           </div>
           <div class="card mb-3">
             <div class="card-body">
               <h5>Edit Policy</h5>
-              <p>Edit rules for policy "<%= @repository.policy.name %>".</p>
-              <% if @repository.policy.present? && current_user == @repository.policy.user %>
-                <a href="<%= edit_user_policy_path(@repository.user, @repository.policy) %>" class="btn btn-outline-info">
+              <p>Edit rules for policy "<%= @policy.name %>".</p>
+              <% if @policy.present? && current_user == @policy.user %>
+                <a href="<%= edit_user_policy_path(@repository.user, @policy) %>" class="btn btn-outline-info">
                   Edit Rules
                 </a>
               <% end %>
@@ -67,28 +67,30 @@
 
       </div>
       <div class="col-8">
-        <% if @repository.policy.present? %>
+        <% if @policy.present? %>
           <h2>Rules</h2>
+
           <ul class="nav nav-tabs mb-2 border-bottom" id="myTab" role="tablist">
             <% @linters.each_with_index do |linter, index| %>
               <li class="nav-item">
-                <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-toggle="tab" href="#<%= linter.name %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
+                <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-toggle="tab" href="#linter-<%= linter.id %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
               </li>
             <% end %>
           </ul>
+
           <div class="tab-content" id="myTabContent">
-            <% @linters.each_with_index do |linter, linter_index| %>
-              <div class="tab-pane fade show <% if linter_index == 0 %> active<% end %>" id="<%= linter.name %>" role="tabpanel" aria-labelledby="<%= linter.id %>-tab">
-                <% @repository.policy.policy_rules.order(name: :asc).each_with_index do |policy_rule, index| %>
-                  <% if policy_rule.rule.linter == linter %>
-                    <div id="accordion" class="mb-2">
-                      <%= render 'policy_rule_card', policy_rule: policy_rule, i: index, cached: true %>
-                    </div>
-                  <% end %>
+            <% @linters.each_with_index do |linter, index| %>
+              <div class="tab-pane fade show <% if index == 0 %> active<% end %>" id="linter-<%= linter.id %>" role="tabpanel" aria-labelledby="<%= linter.id %>-tab">
+                <% @policy.policy_rules.order(name: :asc).select{|x| x.linter_id == linter.id}.each_with_index do |policy_rule, index2| %>
+                  <div class="mb-2" id="accordion_<%= policy_rule.id %>">
+                    <%= render 'policy_rule_card', policy_rule: policy_rule, i: index2, cached: true %>
+                  </div>
                 <% end %>
               </div>
             <% end %>
+
           </div>
+
         <% else %>
           <% if current_user && current_user.policies.length > 0 %>
             <div class="card mb-3">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190108151544) do
+ActiveRecord::Schema.define(version: 20190116112518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -476,6 +476,13 @@ ActiveRecord::Schema.define(version: 20190108151544) do
     t.string "status"
     t.boolean "autofix", default: false
     t.string "options"
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.string "type"
+    t.boolean "fixable"
+    t.bigint "linter_id"
+    t.index ["linter_id"], name: "index_policy_rules_on_linter_id"
     t.index ["policy_id"], name: "index_policy_rules_on_policy_id"
     t.index ["rule_id"], name: "index_policy_rules_on_rule_id"
   end
@@ -627,7 +634,7 @@ ActiveRecord::Schema.define(version: 20190108151544) do
   create_table "rules", force: :cascade do |t|
     t.string "name"
     t.string "type"
-    t.string "description"
+    t.text "description"
     t.string "status"
     t.bigint "language_id"
     t.bigint "framework_id"
@@ -817,6 +824,7 @@ ActiveRecord::Schema.define(version: 20190108151544) do
   add_foreign_key "policy_rule_option_options", "rule_option_options"
   add_foreign_key "policy_rule_options", "policy_rules"
   add_foreign_key "policy_rule_options", "rule_options"
+  add_foreign_key "policy_rules", "linters"
   add_foreign_key "policy_rules", "policies"
   add_foreign_key "policy_rules", "rules"
   add_foreign_key "pulls", "repositories"

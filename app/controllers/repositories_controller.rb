@@ -103,12 +103,20 @@ class RepositoriesController < ProtectedController
     # else
     #   raise ActionController::RoutingError.new('Repository Not Found')
     # end
-    @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
+    # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
+    # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
 
+    if @repository.present?
+      @repository = Repository.includes( policy: { policy_rules: [:linter, :policy_rule_options] }).where(uuid: @repository.uuid).first rescue nil
+    end
+
+    @policy = @repository.policy
+    # @policy_rules = @policy.policy_rules.order(name: :asc)
+    # @policy_rules_grouped_by_linter = @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}
 
     @linters = Linter.all
     @form_url = user_repository_path(@repository.user, @repository)
-    fresh_when @repository
+    fresh_when @policy
   end
 
   # GET /:user_id/:slug
