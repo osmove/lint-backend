@@ -20,7 +20,7 @@
     </div>
     <% if @policy.present? %>
 
-      <% @policy_rules_grouped.each do |linter, policy_rules| %>
+      <% @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}.each do |linter, policy_rules| %>
         <h4> <%= linter.name %></h4>
         <% policy_rules.each_with_index do |policy_rule, index| %>
           <div id="accordion" class="mb-2">

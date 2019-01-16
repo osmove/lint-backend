@@ -14,7 +14,7 @@ class PoliciesController < ApplicationController
   def show
     @linters = Linter.all
     @policy_rules = @policy.policy_rules.order(name: :asc)
-    @policy_rules_grouped = @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}
+    # @policy_rules_grouped = @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}
 
   end
 
