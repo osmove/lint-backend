@@ -9,7 +9,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "omnilint": "^0.5.22"
+    "omnilint": "^0.5.23"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
