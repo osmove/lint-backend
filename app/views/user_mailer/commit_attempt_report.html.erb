@@ -5,18 +5,15 @@
 <section>
 
 
-  <h3>
-    Commit attempt #<%= @commit_attempt.id %>
-  </h3>
+  <h2>
+    <%= @commit_attempt.name %>
+  </h2>
 
   <% if @commit_attempt.message.present? %>
     <p>
-        <strong>
-          <%= @commit_attempt.message %>
-        </strong>
-        <% if @user.present? %>
+      <% if @user.present? %>
         by <%= @user %>
-        <% end %>
+      <% end %>
     </p>
   <% end %>
 
