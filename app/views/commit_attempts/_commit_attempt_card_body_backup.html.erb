@@ -56,7 +56,7 @@
                 |
                 <span class="text-warning"><%= "#{commit_attempt.policy_checks.first.warning_count || 0} warning(s)" %></span>
               <% else %>
-                No policy check.
+                No policy.
               <% end %>
             </p> -->
           </td>
@@ -92,7 +92,7 @@
                   <br/>
                   <small class="text-white"><%= "#{pluralize(commit_attempt.policy_checks.first.warning_count || 0, 'warning').gsub!(' ', ' ')}" %></small>
                 <% else %>
-                  No policy check.
+                  No policy.
                 <% end %>
               </td>
              <% else %>
@@ -103,13 +103,13 @@
                    <br/>
                    <small class="text-white"><%= "#{pluralize(commit_attempt.policy_checks.first.warning_count || 0, 'warning').gsub!(' ', ' ')}" %></small>
                  <% else %>
-                   No policy check.
+                   No policy.
                  <% end %>
                </td>
              <% end %>
            <% else %>
              <td class="align-middle bg-secondary text-center" style="line-height: 1em;">
-               <p class="text-white mb-0">No policy check.</p>
+               <p class="text-white mb-0">No policy.</p>
              </td>
 
            <% end %>
