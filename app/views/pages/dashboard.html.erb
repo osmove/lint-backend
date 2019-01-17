@@ -236,11 +236,12 @@
   </div>
 </section>
 
-<!-- Facebook Pixel - Complete Registration Event -->
-<script>
-  fbq('track', 'CompleteRegistration');
-</script>
-
+<% if Rails.env.production? %>
+  <!-- Facebook Pixel - Complete Registration Event -->
+  <script>
+    fbq('track', 'CompleteRegistration');
+  </script>
+<% end %>
 
 
 <!-- Filters -->
