@@ -60,7 +60,7 @@ class CommitAttemptsController < ProtectedController
     @javascript_logo_url = '/images/platformicons/svg/javascript.svg'
     @ruby_logo_url = '/images/platformicons/svg/ruby.svg'
     @generic_logo_url = '/images/platformicons/svg/generic.svg'
-
+    @repository = @commit_attempt.repository
     if @commit_attempt.policy_checks.first.present?
       @policy_check = @commit_attempt.policy_checks.first
       # @report = @policy_check.report["rule_checks_attributes"].sort_by{|h| [h["security_level"], h['line']]}.group_by{ |h| [h['file_path']] }
