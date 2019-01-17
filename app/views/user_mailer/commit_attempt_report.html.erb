@@ -1,5 +1,8 @@
 <section>
-  <%= link_to 'View in Browser', user_repository_commit_attempt_url(@commit_attempt.repository.user, @commit_attempt.repository, @commit_attempt), target: :blank %>
+  <%#= link_to 'View in Browser', user_repository_commit_attempt_url(@commit_attempt.repository.user, @commit_attempt.repository, @commit_attempt), target: :blank %>
+  <a href="<%= user_repository_commit_attempt_url(@commit_attempt.repository.user, @commit_attempt.repository, @commit_attempt) %>" style="display: block; padding: 8px 10px; background-color: #0069d9; width: 100px; height: 15px; font-size: 13px; color: #fff; text-decoration: none; border-radius: 5px; text-align: center;">
+    Open in Browser
+  </a>
 </section>
 
 <section>
