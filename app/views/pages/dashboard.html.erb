@@ -199,7 +199,7 @@
           <% else %>
             <p class="mb-2 text-muted"><small><%= current_user.repositories_with_access.length %> REPOSITORY ACCESSES</small></p>
           <% end %>
-          <%= render "users/user_repositories", repositories: current_user.repositories_with_access %>
+          <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
         <% end %>
 
         <div class="card my-3 box-shadow">
