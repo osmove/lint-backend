@@ -1,109 +1,179 @@
 
 <nav class="navbar navbar-expand-md navbar-light bg-light navbar-marketing">
+  <div class="container">
 
-  <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
-    <img src="/images/logo/logo-shield-circle-only-simple.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
-    <!-- OMNILINT -->
-  </a>
-
-
-  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button> -->
+    <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
+      <img src="/images/logo/logo-shield-circle-only-simple.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
+      <!-- OMNILINT -->
+    </a>
 
 
-  <button class="navbar-toggler p-1" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent search" aria-expanded="false" aria-label="Toggle navigation" style="border: none; opacity: 0.5;">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <button class="navbar-toggler p-1" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent search" aria-expanded="false" aria-label="Toggle navigation" style="border: none; opacity: 0.5;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
 
-    <ul class="navbar-nav mr-auto pt-3 pt-md-0">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+      <ul class="navbar-nav mr-auto pt-3 pt-md-0">
 
 
 
-
-      <!-- <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
+        <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="<%= prelaunch_path %>">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
-      <% else %>
+        <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="<%= prelaunch_path %>">Home</a>
+          <a class="nav-link" href="#">Home</a>
         </li>
-      <% end %>
+        <% end %>
 
-      <% if current_page?(apps_path) %>
+        <% if current_page?(features_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="<%= apps_path %>">Apps <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#features">What is Omnilint ? <span class="sr-only">(current)</span></a>
         </li>
-      <% else %>
+        <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="<%= apps_path %>">Apps</a>
+          <a class="nav-link" href="#features">What is Omnilint ?</a>
         </li>
-      <% end %>
+        <% end %>
 
-      <% if current_page?(pricing_path) %>
+        <% if current_page?(features_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#features">Features <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Features</a>
+        </li>
+        <% end %>
+
+        <% if current_page?(pricing_path) %>
         <li class="nav-item active">
           <a class="nav-link" href="<%= pricing_path %>">Pricing <span class="sr-only">(current)</span></a>
         </li>
-      <% else %>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="<%= pricing_path %>">Pricing</a>
         </li>
-      <% end %>
+        <% end %>
 
-      <% if current_page?(faq_path) %>
+
+        <% if current_page?(features_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#features">How to install ? <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="#features">How to install ?</a>
+        </li>
+        <% end %>
+
+        <% if current_page?(faq_path) %>
         <li class="nav-item active">
           <a class="nav-link" href="<%= faq_path %>">Help <span class="sr-only">(current)</span></a>
         </li>
-      <% else %>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="<%= faq_path %>">Help</a>
         </li>
-      <% end %> -->
-
-    </ul>
+        <% end %>
 
 
-    <ul class="navbar-nav ml-auto mt-2 mt-md-0">
-      <% if user_signed_in?  %>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <strong><%= current_user.slug %></strong>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to('Profile', current_user, class: 'dropdown-item') %>
-            <%= link_to('Billing', current_user, class: 'dropdown-item') %>
-            <%= link_to('Settings', current_user, class: 'dropdown-item') %>
-            <div class="dropdown-divider"></div>
-            <%= link_to('SSH Keys', current_user, class: 'dropdown-item') %>
-            <!-- <div class="d-none d-md-block"> -->
+
+
+          <!--
+         <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= prelaunch_path %>">Home <span class="sr-only">(current)</span></a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= prelaunch_path %>">Home</a>
+          </li>
+        <% end %>
+
+        <% if current_page?(features_path) %>
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= features_path %>">Features <span class="sr-only">(current)</span></a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= features_path %>">Features</a>
+          </li>
+        <% end %>
+
+        <% if current_page?(pricing_path) %>
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= pricing_path %>">Pricing <span class="sr-only">(current)</span></a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= pricing_path %>">Pricing</a>
+          </li>
+        <% end %>
+
+        <% if current_page?(faq_path) %>
+          <li class="nav-item active">
+            <a class="nav-link" href="<%= faq_path %>">Help <span class="sr-only">(current)</span></a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= faq_path %>">Help</a>
+          </li>
+        <% end %>
+        -->
+
+      </ul>
+
+
+      <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+        <% if user_signed_in?  %>
+          <li class="nav-item dropdown">
+
+
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <!-- <strong><%= current_user.slug %></strong> -->
+              <% if current_user.avatar_url.present? %>
+                <img src="<%= current_user.avatar_url %>" alt="<%= current_user %>" style="width: 24px; height: 24px; float: left; border-radius: 15px;">
+              <% else %>
+                <span class="fa fa-user"></span>
+              <% end %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <%= link_to("Logged in as: <strong>#{current_user}</strong>".html_safe, current_user, class: 'dropdown-item') %>
+              <div class="dropdown-divider"></div>
+              <%= link_to('Profile', current_user, class: 'dropdown-item') %>
+              <%= link_to('Billing', current_user, class: 'dropdown-item') %>
+              <%= link_to('Settings', current_user, class: 'dropdown-item') %>
               <div class="dropdown-divider"></div>
               <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure you want to sign out of Omnilint?' }) %>
-            <!-- </div> -->
-          </div>
-        </li>
-      <% else %>
-        <!-- <li class="nav-item">
-          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-light btn-block-sm-only btn-block-xs-only ml-md-2') %>
-        </li>
-        <% if defined? user_registration_path %>
-        <li class="nav-item">
-          <%= link_to("Sign up", new_user_registration_path, class:'btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2') %>
-        </li>
-        <% end %> -->
+            </div>
+          </li>
+        <% else %>
+          <!-- <li class="nav-item">
+            <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-light btn-block-sm-only btn-block-xs-only ml-md-2') %>
+          </li>
+          <% if defined? user_registration_path %>
+          <li class="nav-item">
+            <%= link_to("Sign up", new_user_registration_path, class:'btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2') %>
+          </li>
+          <% end %> -->
+          <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2">
+            <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Connect with Github</span>
+          </a>
+        <% end %>
+      </ul>
 
-        <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2">
-          <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Connect with Github</span>
-        </a>
+    </div>
 
-      <% end %>
-    </ul>
 
   </div>
-
-
 </nav>
