@@ -37,11 +37,11 @@
 
         <% if current_page?(features_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="#features">What is Omnilint ? <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#what_is_omnilint">What is Omnilint <span class="sr-only">(current)</span></a>
         </li>
         <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="#features">What is Omnilint ?</a>
+          <a class="nav-link" href="#what_is_omnilint">What is Omnilint</a>
         </li>
         <% end %>
 
@@ -55,38 +55,47 @@
         </li>
         <% end %>
 
-        <% if current_page?(pricing_path) %>
+        <% if current_page?(features_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="<%= pricing_path %>">Pricing <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#linters">Linters <span class="sr-only">(current)</span></a>
         </li>
         <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="<%= pricing_path %>">Pricing</a>
+          <a class="nav-link" href="#linters">Linters</a>
         </li>
         <% end %>
 
 
-        <% if current_page?(features_path) %>
+        <% if current_page?(faq_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="#features">How to install ? <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#installation">Installation <span class="sr-only">(current)</span></a>
         </li>
         <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="#features">How to install ?</a>
+          <a class="nav-link" href="#installation">Installation</a>
         </li>
         <% end %>
 
         <% if current_page?(faq_path) %>
         <li class="nav-item active">
-          <a class="nav-link" href="<%= faq_path %>">Help <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#usage">Usage <span class="sr-only">(current)</span></a>
         </li>
         <% else %>
         <li class="nav-item">
-          <a class="nav-link" href="<%= faq_path %>">Help</a>
+          <a class="nav-link" href="#usage">Usage</a>
         </li>
         <% end %>
 
 
+        <% if current_page?(pricing_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#pricing">Pricing <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="#pricing">Pricing</a>
+        </li>
+        <% end %>
 
 
           <!--
@@ -167,7 +176,7 @@
           </li>
           <% end %> -->
           <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2">
-            <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Connect with Github</span>
+            <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Github Login</span>
           </a>
         <% end %>
       </ul>

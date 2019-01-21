@@ -39,7 +39,7 @@
                   </div>
                   <!-- <%= render "devise/shared/links" %> -->
                   <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
-                    By clicking "Sign up for Omnilint", you agree to our terms of service and privacy policy. We’ll occasionally send you account related emails.
+                    By clicking "Sign up for Omnilint", you agree to our terms of service and privacy policy. We may send you account related emails.
                   </p>
                 <% end %>
               <% else %>
@@ -56,7 +56,7 @@
 
 
 
-<section class="pt-5 pb-3 bg-light text-center">
+<section class="pt-5 pb-3 bg-light text-center" id="what_is_omnilint">
   <div class="container">
     <h1 class="h1-responsive">What is Omnilint</h1>
     <!-- <p class="lead mx-auto">Not every rule has the same importance. <br /> -->
@@ -100,36 +100,36 @@
 </section>
 
 
-<section class="py-4 py-md-5 bg-light mx-auto text-center" id="features">
+<section class="py-4 py-md-5 bg-light mx-auto text-center" id="linters">
   <h1 class="h1-responsive">Linters</h1>
   <p class="lead mx-auto" style="max-width: 650px;">Some of Omnilint's built-in linters.</p>
   <div class="container">
     <div class="row">
       <div class="col-6 col-md-4 mb-3">
-        <img src="/images/linters/eslint.png" alt="ERBLint" class="img-fluid">
+        <img src="/images/linters/eslint.png" alt="ESLint" class="img-fluid">
       </div>
       <div class="col-6 col-md-4 mb-3">
-        <img src="/images/linters/rubocop.png" alt="ERBLint" class="img-fluid">
+        <img src="/images/linters/rubocop.png" alt="Rubocop" class="img-fluid">
       </div>
       <div class="col-6 col-md-4 mb-3">
-        <img src="/images/linters/stylelint.png" alt="ERBLint" class="img-fluid">
+        <img src="/images/linters/stylelint.png" alt="StyleLint" class="img-fluid">
       </div>
       <div class="col-6 col-md-4 mb-3">
         <img src="/images/linters/erblint.png" alt="ERBLint" class="img-fluid">
       </div>
       <div class="col-6 col-md-4 mb-3">
-        <img src="/images/linters/brakeman.png" alt="ERBLint" class="img-fluid">
+        <img src="/images/linters/brakeman.png" alt="Brakeman" class="img-fluid">
       </div>
       <div class="col-6 col-md-4 mb-3">
-        <img src="/images/linters/prettier.png" alt="ERBLint" class="img-fluid">
+        <img src="/images/linters/prettier.png" alt="Prettier" class="img-fluid">
       </div>
     </div>
   </div>
 </section>
 
 
-<section class="py-4 py-md-5 bg-white mx-auto text-center">
-  <h1 class="h1-responsive">How to Install</h1>
+<section class="py-4 py-md-5 bg-white mx-auto text-center" id="installation">
+  <h1 class="h1-responsive">Installation</h1>
   <p class="lead mx-auto" style="max-width: 650px;">Install Omnilint easily with NPM.</p>
   <div class="text-center" style="text-align: center !important;">
     <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 250px;">
@@ -169,14 +169,177 @@
 </section>
 
 
-<section class="px-3 py-3 pt-md-5 pb-md-5 bg-dark mx-auto text-center">
-  <h1 class="h1-responsive text-white">How to Use</h1>
+<section class="px-3 py-3 pt-md-5 pb-md-5 bg-dark mx-auto text-center" id="usage">
+  <h1 class="h1-responsive text-white">Usage</h1>
   <p class="lead mx-auto text-white" style="max-width: 650px; opacity: 0.6">Simply commit a file <br/>and an analysis will start automatically.</p>
   <p><kbd class="p-2">$ git add example.rb</kbd></p>
   <p><kbd class="p-2">$ git commit -m "Test Omnilint"</kbd></p>
 </section>
 
-<section class="bg-white py-5 text-center">
+
+
+
+
+
+
+<section class="text-center bg-light" id="pricing">
+  <div class="pricing-header px-3 py-4 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="h1-responsive">Pricing</h1>
+    <p class="lead mx-auto mb-0" style="max-width: 600px;">Omnilint is free to use for personal use. For teams, Omnilint provides a plan for the needs of every size.</p>
+  </div>
+  <nav class="text-center" style="text-align: center !important;">
+    <div class="nav nav-tabs text-center mx-auto" role="tablist" style="max-width: 250px;">
+      <a class="nav-item nav-link active" id="nav_pay_monthly" data-toggle="tab" role="tab" aria-selected="true" style="width: 120px; cursor: pointer;">Pay monthy</a>
+      <a class="nav-item nav-link" id="nav_pay_yearly" data-toggle="tab" role="tab"  aria-selected="false" style="width: 120px; cursor: pointer;"> Pay yearly </a>
+    </div>
+  </nav>
+</section>
+
+
+
+<section class="pricing-boxes bg-white">
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+
+
+      <section class="text-center">
+        <div class="">
+          <div class="container pt-5 pb-4">
+            <div class="text-center">
+              <div class="row">
+
+                <div class="col">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">Free</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title mb-0">Free</h1>
+                      <p class="text-muted">ideal for experimenting</p>
+                      <ul class="list-unstyled mt-3 mb-4" style="font-size: 14px;">
+                        <li>Unlimited public repositories</li>
+                        <li>Community support</li>
+                        <li>100 MB of storage</li>
+                        <li>Unlimited collaborators</li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">Developer</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title mb-0 monthly">$10</h1>
+                      <h1 class="card-title pricing-card-title mb-0 yearly" style="display: none;">$120</h1>
+                      <p class="text-muted monthly">per month</p>
+                      <p class="text-muted yearly" style="display: none;">per year / user</p>
+                      <ul class="list-unstyled mt-3 mb-4" style="font-size: 14px;">
+                        <li>Unlimited public repositories</li>
+                        <li>Unlimited private repositories</li>
+                        <li>Email support</li>
+                        <!-- <li>300 MB of storage</li> -->
+                        <li>Personal account</li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">Business</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title mb-0 monthly">$20</h1>
+                      <h1 class="card-title pricing-card-title mb-0 yearly" style="display: none;">$240</h1>
+                      <p class="text-muted monthly">per month / user</p>
+                      <p class="text-muted yearly" style="display: none;">per year / user</p>
+                      <ul class="list-unstyled mt-3 mb-4" style="font-size: 14px;">
+                        <li>Unlimited public repositories</li>
+                        <li>Unlimited private repositories</li>
+                        <li>Priority email support</li>
+                        <!-- <li>300 MB of storage</li> -->
+                        <li>Team and user permissions</li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4 class="my-0 font-weight-normal">Enterprise</h4>
+                    </div>
+                    <div class="card-body">
+                      <h1 class="card-title pricing-card-title mb-0 monthly">$50</h1>
+                      <h1 class="card-title pricing-card-title mb-0 yearly" style="display: none;">$600</h1>
+                      <p class="text-muted yearly" style="display: none;">per year / user</p>
+                      <p class="text-muted monthly">per month / user</p>
+                      <ul class="list-unstyled mt-3 mb-4" style="font-size: 14px;">
+                        <li>Unlimited public repositories</li>
+                        <li>Unlimited private repositories</li>
+                        <li>24/7 support / 99.95% SLA</li>
+                        <li>Self-hosted solutions</li>
+                      </ul>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- <div class="card mb-4 mx-auto" style="max-width: 600px;">
+                <div class="card-header">
+                  <h4 class="my-0 font-weight-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled mb-4" style="font-size: 14px;">
+                    <li>Ideal for experimenting</li>
+                    <li>Unlimited public repositories</li>
+                    <li>Community support</li>
+                    <li>Unlimited collaborators</li>
+                  </ul>
+                  <% if defined? user_registration_path %>
+                    <%= link_to("Get started", new_user_registration_path({plan: 'free'}), class:'btn btn-lg btn-block btn-dark') %>
+                  <% end %>
+                </div>
+              </div> -->
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+<section class="bg-light py-5 text-center" id="sign_up">
   <div class="mx-auto" style="max-width: 350px;">
     <img class="mt-2 mb-3" src="/images/logo/omnilint-logo.png" alt="" width="72" height="72">
     <% if defined? user_registration_path %>
@@ -194,3 +357,20 @@
     <% end %>
   </div>
 </section>
+
+
+
+
+
+
+
+<script type="text/javascript">
+  $("#nav_pay_yearly").click(() => {
+    $(".monthly").hide()
+    $(".yearly").show()
+  })
+  $("#nav_pay_monthly").click(() => {
+    $(".monthly").show()
+    $(".yearly").hide()
+  })
+</script>
