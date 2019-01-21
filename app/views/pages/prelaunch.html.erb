@@ -1,43 +1,218 @@
 
 <section class="bg-dark text-white" style="background-color: #080808 !important;">
+<!-- <section class="bg-dark text-white" style="background-color: #080808 !important;"> -->
   <div style="background: url('/images/bg-white.png');">
 
     <div class="container text-center">
-      <div class="pt-4 pb-3">
-        <!-- <img src="/images/omnilint-desktop-icon.png" alt="Omnilint Desktop Icon" width="128" height="128" class="mb-2"> -->
-        <!-- <h1 class="mt-4 mb-4 h1-responsive" style="line-height: 1em; font-weight: bold;">End-to-end encrypted git repositories.</h1> -->
-        <!-- <h1 class="mt-4 mb-4 h1-responsive mx-auto" style="line-height: 1em; font-weight: bold; max-width: 800px;">Pre-commit code quality & security framework.</h1> -->
-        <!-- <h1 class="mt-4 mb-4 h1-responsive mx-auto" style="line-height: 1em; font-weight: bold; max-width: 800px;">Multi-language pre-commit code linter.</h1> -->
-        <h1 class="mt-4 mb-4 h1-responsive mx-auto" style="line-height: 1em; font-weight: bold; max-width: 800px;">Pre-commit multi-language code analyzer.</h1>
+      <div class="row">
+        <div class="col-12 col-md-7 py-3 py-md-5 my-auto">
+          <div class="pt-3 pb-0 text-md-left">
+            <h1 class="mt-4 mb-4 h1-responsive" style="line-height: 1em; font-weight: bold;">Pre-commit multi-language code linter.</h1>
+            <p class="lead mx-auto text-white mb-md-5" style="opacity: 0.6;">Omnilint helps developers discover and fix security, performance and style offenses in their code and allow developement teams leaders to easily enforce code policies accross all their repositories.</p>
+          </div>
+        </div>
 
-        <!-- <p class="lead mx-auto text-white mb-md-5" style="opacity: 0.6;">Omnilint protects your code base by preventing intellectual property misuses from third party and employees. Your code stays fully encrypted, your key stays on your device and nobody - even us - can see what's in it.</p> -->
-        <p class="lead mx-auto text-white" style="opacity: 0.6; max-width: 650px;">Omnilint helps developers discover and fix security, performance and style offenses in their code.</p>
+        <div class="col-12 col-md-5 my-0 my-md-4 text-dark py-2 py-md-5 pb-5">
+          <div class="card" >
+            <div class="card-body py-3 py-sm-4">
+              <!-- <img class="mt-2 mb-3" src="/images/omnilint-logo.png" alt="" width="72" height="72"> -->
+              <% if defined? user_registration_path %>
+                <h3 class="card-title mb-2 mx-auto" style="max-width: 320px;">Sign up and start fixing your code in seconds.</h3>
+                <p class="mb-3 mb-0 text-muted">
+                  No credit card required.
+                </p>
+                <p>
+                  <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
+                    <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Sign up with Github</span>
+                  </a>
+                </p>
 
-        <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mx-auto" style="max-width: 360px;">
-          <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Connect with Github</span>
-        </a>
+                <p class="mb-3">or</p>
+
+                <%= bootstrap_form_for(resource, as: resource_name, url:  user_registration_path(resource_name)) do |f| %>
+
+
+                  <div class="field">
+                    <%= f.text_field :username, autofocus: true, autocomplete: "username", hide_label: true, class: "custom-form", placeholder: "Username" %>
+                  </div>
+
+                  <div class="field">
+                    <%= f.email_field :email, autocomplete: "email", hide_label: true, class: "custom-form", placeholder: "Email" %>
+                  </div>
+
+                  <div class="field">
+                    <%= f.password_field :password, autocomplete: "off", hide_label: true, class: "custom-form", placeholder: "Password"  %>
+                  </div>
+
+
+
+                  <div class="actions mb-3">
+                    <%= f.submit "Sign up", class: "btn btn-lg btn-dark btn-block" %>
+                  </div>
+
+                  <!-- <%= render "devise/shared/links" %> -->
+
+                  <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                    By clicking "Sign up for Omnilint", you agree to our terms of service and privacy policy. We’ll occasionally send you account related emails.
+                  </p>
+                  <!-- <p class="mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                    © 2018
+                  </p> -->
+                <% end %>
+              <% else %>
+                <h3 class="card-title mb-0 mx-auto" style="max-width: 280px;">Available soon.</h3>
+              <% end %>
+            </div>
+          </div>
+          <!-- <%= link_to "Sign in with Github", user_github_omniauth_authorize_path %> -->
+
+
+        </div>
+
+        <!-- <p>
+          <img class="img-fluid" src="/images/desktop.png" alt="Omnilint Desktop Screnshot" />
+        </p> -->
 
       </div>
-
-      <img class="img-fluid" src="/images/screenshots/1.png" alt="Omnilint Screnshot" />
-      <!-- <img class="img-fluid" src="/images/desktop.png" alt="Omnilint Desktop Screnshot" /> -->
-
-      <!-- <img class="img-fluid" src="/images/cli.png" alt="Omnilint CLI Screnshot" /> -->
-
     </div>
   </div>
 </section>
 
 
 
-<!-- <section class="text-center pb-2" style="margin-bottom: -100px !important;"> -->
-<section class="pt-4 pb-2 bg-white text-center">
+<!-- <section class="bg-dark text-white pt-4 pb-4" style="background-color: #111111 !important;">
+  <div class="container text-center">
+    <h1 class="mt-4 mb-4 mx-auto" style="line-height: 1em; font-weight: bold; max-width: 800px;">Pre-commit multi-language code analyzer.</h1>
+    <p class="lead mx-auto text-white" style="opacity: 0.6; max-width: 650px;">Omnilint helps developers discover and fix security, performance and style offenses in their code and allow developement teams leaders to easily enforce code policies accross all their repositories.</p>
+    <p>
+      <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mx-auto" style="max-width: 360px;">
+        <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Connect with Github</span>
+      </a>
+    </p>
+    <img class="img-fluid" src="/images/screenshots/1.png" alt="Omnilint Screnshot" />
+  </div>
+</section> -->
+
+
+
+
+<!-- <section class="text-center pb-2" style="margin-bottom: -100px !important;">
   <div class="container">
     <div class="row">
       <div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 mx-auto">What is Omnilint?</h1>
-        <p class="lead mx-auto" style="max-width: 600px;">Omnilint helps developers discover and fix performance, security and formatting code issues.
-        <br/>Available for PC, Mac & Linux.</p>
+        <h1 class="display-4 mx-auto">Apps</h1>
+        <p class="lead mx-auto mb-0" style="max-width: 600px;">Omnilint is an ecosystem of web, desktop and mobile apps to help you write and deploy code more securely and efficiently.</p>
+      </div>
+    </div>
+    <div class="app-boxes">
+      <div class="card bg-light text-dark pt-3 px-2 mb-3">
+        <div style="height: 80px;">
+          <h1><pre><kbd>npm install -D omnilint</kbd></pre></h1>
+        </div>
+        <h5 class="mb-0">Omnilint Web</h5>
+        <p><small>For everybody, everywhere.</small></p>
+      </div>
+    </div>
+
+  </div>
+</section> -->
+
+
+
+
+<section class="py-5 pb-4 bg-light text-center">
+  <div class="container">
+    <h1 class="display-4 mx-auto">What is Omnilint?</h1>
+    <p class="lead mx-auto" style="max-width: 650px;">Omnilint helps developers discover and fix security, performance and style offenses in their code and allow developement teams leaders to easily enforce code policies accross all their repositories.</p>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <%= render "pages/offenses/warning" %>
+      </div>
+      <div class="col-12 col-md-6">
+        <%= render "pages/offenses/error" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 pb-4 bg-white text-center">
+  <div class="container">
+    <h1 class="display-4 mx-auto">How to Install</h1>
+    <p class="lead mx-auto" style="max-width: 650px;">Install Omnilint easily with NPM.</p>
+    <!-- <p class="lead mx-auto" style="max-width: 650px;">Omnilint helps developers discover and fix security, performance and style offenses in their code and allow developement teams leaders to easily enforce code policies accross all their repositories.</p> -->
+    <!-- <p>Get started with NPM :</p>
+    <h1><pre><kbd>npm install -D omnilint</kbd></pre></h1> -->
+
+
+    <!-- <nav class="text-center" style="text-align: center !important;">
+      <div class="nav nav-pills text-center mx-auto" role="tablist" style="max-width: 250px;">
+        <a class="nav-item nav-link active" id="nav_pay_monthly" data-toggle="tab" role="tab" aria-selected="true" style="width: 120px; cursor: pointer;">Pay monthy</a>
+        <a class="nav-item nav-link" id="nav_pay_yearly" data-toggle="tab" role="tab"  aria-selected="false" style="width: 120px; cursor: pointer;">
+          Pay yearly
+        </a>
+      </div>
+    </nav> -->
+
+
+    <div class="text-center" style="text-align: center !important;">
+      <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 250px;">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Local install</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Global install</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <!-- <h3>Local Install</h3> -->
+          <p>Install with <strong>NPM</strong> (local):</p>
+          <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+          <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
+          <!-- <h4>NPX</h4> -->
+          <p>You can then use NPX to run Omnilint <br> commands from inside your repository:</p>
+          <p><kbd class="p-2">$ npx omnilint [COMMAND]</kbd></p>
+
+          <p>To (re)install Omnilint's git hooks:</p>
+          <p><kbd class="p-2">$ npx omnilint install</kbd></p>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <!-- <h3 class="mt-4">Global Install</h3> -->
+          <p>Install with <strong>NPM</strong> (global):</p>
+          <div class="mb-4">
+            <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
+          </div>
+          <p>You can then run Omnilint commands anywhere:</p>
+          <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+          <p><kbd class="p-2">$ omnilint [COMMAND]</kbd></p>
+          <p>To (re)install Omnilint's git hooks:</p>
+          <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+          <p><kbd class="p-2">$ omnilint install</kbd></p>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+</section>
+
+
+<!-- <section class="text-center pb-2" style="margin-bottom: -100px !important;"> -->
+<section class="pt-4 pb-2 bg-light text-center">
+  <div class="container">
+    <div class="row">
+      <div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 mx-auto">How to Use</h1>
+        <p class="lead mx-auto" style="max-width: 650px;">Omnilint helps developers discover and fix security, performance and style offenses in their code and allow developement teams leaders to easily enforce code policies accross all their repositories.</p>
       </div>
     </div>
     <div class="app-boxes">

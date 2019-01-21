@@ -97,11 +97,18 @@
       "size": 59209,
       "digest": "9f2391bd3558aa202d115773075a996805443b4701065e0f1fe5ca4291098655",
       "integrity": "sha256-nyORvTVYqiAtEVdzB1qZaAVEO0cBBl4PH+XKQpEJhlU="
+    },
+    "application-43bfb8a34fa85d9b4140b53e4ffa6c0d36d3e46ff65fcc0b707a8c6bd8988649.css": {
+      "logical_path": "application.css",
+      "mtime": "2019-01-21T14:01:38+02:00",
+      "size": 590597,
+      "digest": "43bfb8a34fa85d9b4140b53e4ffa6c0d36d3e46ff65fcc0b707a8c6bd8988649",
+      "integrity": "sha256-Q7+4o0+oXZtBQLU+T/psDTbT5G/2X8wLcHqMa9iYhkk="
     }
   },
   "assets": {
     "application.js": "application-168448ed2736ae576adea03c43c08d980464873206f08dcbb5ef1432f638c545.js",
-    "application.css": "application-699dce3f849c60fdad0402b7fa44d94bad7a1ec2733a10863b8c6a4f55da0984.css",
+    "application.css": "application-43bfb8a34fa85d9b4140b53e4ffa6c0d36d3e46ff65fcc0b707a8c6bd8988649.css",
     "fontawesome-webfont.eot": "fontawesome-webfont-7bfcab6db99d5cfbf1705ca0536ddc78585432cc5fa41bbd7ad0f009033b2979.eot",
     "fontawesome-webfont.woff2": "fontawesome-webfont-2adefcbc041e7d18fcf2d417879dc5a09997aa64d675b7a3c4b6ce33da13f3fe.woff2",
     "fontawesome-webfont.woff": "fontawesome-webfont-ba0c59deb5450f5cb41b3f93609ee2d0d995415877ddfa223e8a8a7533474f07.woff",
