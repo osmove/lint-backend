@@ -16,14 +16,14 @@ class ChargesController < ProtectedController
     )
 
     # charge = Stripe::Charge.create(
-    #   :customer    => customer.id,
+    #   :customer    => @customer.id,
     #   :amount      => @amount,
     #   :description => 'Omnilint Customer',
     #   :currency    => 'usd'
     # )
 
     @subscription = Stripe::Subscription.create(
-      customer: customer.id,
+      customer: @customer.id,
       items:[
         {
           plan: 'monthly',
