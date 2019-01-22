@@ -3,10 +3,9 @@
   <div class="container">
 
     <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
-
       <!-- <img src="/images/logo/omnilint-logo.png" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo"> -->
-      <img src="/images/logo/logo-shield-circle-only-simple.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
-      <!-- OMNILINT -->
+      <img src="/images/logo/logo-shield-circle-only-simple.svg" width="32" height="32" class="align-top d-none d-md-block d-lg-none" alt="Omnilint Logo">
+      <img src="/images/logo/logo-simple-with-text.svg"  height="32" class="align-top d-inline-block d-md-none d-lg-inline-block" alt="Omnilint Logo">
     </a>
 
 
@@ -27,7 +26,7 @@
 
 
 
-        <li class="nav-item">
+        <li class="nav-item d-none d-xl-block">
           <a class="nav-link active" href="#home">Home</a>
         </li>
         <li class="nav-item">
@@ -127,10 +126,10 @@
             <%= link_to("Sign up", new_user_registration_path, class:'btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2') %>
           </li>
           <% end %> -->
-          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-dark') %>
+          <%= link_to("Sign in", new_user_session_path, class:'btn btn-outline-dark d-none d-xl-block') %>
 
           <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-primary btn-block-sm-only btn-block-xs-only ml-md-2">
-            <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Github Login</span>
+            <i class="fa fa-github mr-2" style="font-size: 28px; vertical-align: middle;"></i> <span style="vertical-align: middle;"><span class="d-inline-block d-md-none d-lg-inline-block">Github</span> Login</span>
           </a>
         <% end %>
       </ul>
