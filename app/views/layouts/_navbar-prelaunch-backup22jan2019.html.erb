@@ -1,5 +1,5 @@
 
-<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light navbar-marketing" id="home">
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light navbar-marketing">
   <div class="container">
 
     <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
@@ -27,27 +27,77 @@
 
 
 
-        <li class="nav-item">
-          <a class="nav-link active" href="#home">Home</a>
+        <% if current_page?(root_path) || current_page?(home_path) || current_page?(prelaunch_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
+        <% else %>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <% end %>
+
+        <% if current_page?(features_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#what_is_omnilint">What is Omnilint <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#what_is_omnilint">What is Omnilint</a>
         </li>
+        <% end %>
+
+        <% if current_page?(features_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#features">Features <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#features">Features</a>
         </li>
+        <% end %>
+
+        <% if current_page?(features_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#linters">Linters <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#linters">Linters</a>
         </li>
+        <% end %>
+
+
+        <% if current_page?(faq_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#installation">Installation <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#installation">Installation</a>
         </li>
+        <% end %>
+
+        <% if current_page?(faq_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#usage">Usage <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#usage">Usage</a>
         </li>
+        <% end %>
+
+
+        <% if current_page?(pricing_path) %>
+        <li class="nav-item active">
+          <a class="nav-link" href="#pricing">Pricing <span class="sr-only">(current)</span></a>
+        </li>
+        <% else %>
         <li class="nav-item">
           <a class="nav-link" href="#pricing">Pricing</a>
         </li>
+        <% end %>
 
 
           <!--
