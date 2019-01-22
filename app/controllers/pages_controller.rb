@@ -88,6 +88,18 @@ class PagesController < ApplicationController
     @resource ||= User.new
   end
 
+  def security
+    @resource ||= User.new
+  end
+
+  def about
+    @resource ||= User.new
+  end
+  
+  def contact
+    @resource ||= User.new
+  end
+
   def available_soon
 
   end

@@ -1,13 +1,13 @@
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-dashboard" style="background-color: #222 !important;">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-dashboard" style="background-color: #111 !important;">
 
   <% if current_page?(root_path) || current_page?(dashboard_path) %>
     <a class="navbar-brand mr-0 mr-md-3" href="<%= prelaunch_path %>">
-      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
+      <img src="/images/logo/omnilint-logo-light.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
     </a>
   <% else %>
     <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
-      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
+      <img src="/images/logo/omnilint-logo-light.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
     </a>
   <% end %>
 

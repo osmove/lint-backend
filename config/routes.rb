@@ -140,6 +140,8 @@ Rails.application.routes.draw do
   get '/contact'       => 'pages#contact'
   get '/privacy'       => 'pages#privacy'
   get '/terms'         => 'pages#terms'
+  get '/security'      => 'pages#security'
+  get '/about'         => 'pages#about'
 
   get '/desktop'        => 'pages#desktop'
   get '/connect'        => 'pages#connect'
