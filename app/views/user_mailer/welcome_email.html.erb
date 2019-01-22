@@ -1,12 +1,19 @@
-<p>
-  Hi, <%= @user.username %>
-</p>
-<p>
-  Your Omnilint account was created successfully.<br />
-  Your username is: <strong><%= @user.username %></strong>.<br />
-  To connect, just click on this link: <a href="https://www.omnilint.com/">https://www.omnilint.com/</a>.
-</p>
-<p>
-  Thank you,<br />
-  The Omnilint team
-</p>
+<section>
+
+  <a href="https://www.omnilint.com/" style="float:left;margin-bottom: 20px;">
+    <img src="https://www.omnilint.com/images/mailer/logo.png" alt="Omnilint Logo" width="140" height="30" />
+  </a>
+
+  <p style="clear: both;">
+    Hi, <%= @user.username %>
+  </p>
+  <p>
+    Your Omnilint account was created successfully.<br />
+    Your username is: <strong><%= @user.username %></strong>.<br />
+    To connect, just click on this link: <a href="https://www.omnilint.com/">https://www.omnilint.com/</a>.
+  </p>
+  <p>
+    Thank you,<br />
+    The Omnilint team
+  </p>
+</section>
