@@ -102,3 +102,8 @@ end
 Devise.setup do |config|
   config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
 end
+
+Rails.configuration.stripe = {
+  :publishable_key => 'pk_live_i1fRSbizSAr8LM9WrJ2fXi3T',
+  :secret_key      => 'STRIPE_LIVE_KEY_REDACTED'
+}

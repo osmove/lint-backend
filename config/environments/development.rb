@@ -70,3 +70,9 @@ end
 Devise.setup do |config|
   config.omniauth :github, 'aae25e7b1428bbec9be7', '33c19ebca07374476393ee83d6d2cecc18c1fa2d', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
 end
+
+
+Rails.configuration.stripe = {
+  :publishable_key => 'pk_test_eBB6xUuMesZwAGiVN1f09kox',
+  :secret_key      => 'STRIPE_TEST_KEY_REDACTED'
+}

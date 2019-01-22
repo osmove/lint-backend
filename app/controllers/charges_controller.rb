@@ -1,7 +1,7 @@
 class ChargesController < ProtectedController
 
   impressionist
-    
+
   def new
   end
 
@@ -18,7 +18,7 @@ class ChargesController < ProtectedController
     charge = Stripe::Charge.create(
       :customer    => customer.id,
       :amount      => @amount,
-      :description => 'Rails Stripe customer',
+      :description => 'Omnilint Customer',
       :currency    => 'usd'
     )
 
