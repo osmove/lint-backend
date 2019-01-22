@@ -142,14 +142,14 @@
   <div class="text-center" style="text-align: center !important;">
     <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 250px;">
       <li class="nav-item">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Local install</a>
+        <a class="nav-link active" id="local-tab" data-toggle="tab" href="#local" role="tab" aria-controls="local" aria-selected="true">Local install</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Global install</a>
+        <a class="nav-link" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="false">Global install</a>
       </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="local-tab" id="local">
         <p>Install with <strong>NPM</strong> (local):</p>
         <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
         <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
@@ -159,7 +159,7 @@
         <p>To (re)install Omnilint's git hooks:</p>
         <p><kbd class="p-2">$ npx omnilint install</kbd></p>
       </div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
         <p>Install with <strong>NPM</strong> (global):</p>
         <div class="mb-4">
           <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
