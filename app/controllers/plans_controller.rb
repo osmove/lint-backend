@@ -72,6 +72,6 @@ class PlansController < ProtectedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, :max_repositories, :max_storage)
+      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, :max_repositories, :max_storage, :stripe_product_id)
     end
 end

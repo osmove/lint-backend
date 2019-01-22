@@ -43,6 +43,10 @@
     <%= form.number_field :max_storage, id: :plan_max_storage %>
   </div>
 
+  <div class="field">
+    <%= form.text_field :stripe_product_id, id: :plan_stripe_product_id %>
+  </div>
+
   <div class="actions mb-3">
     <%= form.primary %>
   </div>

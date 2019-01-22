@@ -148,7 +148,7 @@ class User < ApplicationRecord
 
   before_validation :add_free_plan
   def add_free_plan
-    free_plan = Plan.find(1) rescue nil
+    free_plan = Plan.findBySlug("free").first rescue nil
     if free_plan.present?
       self.plan = free_plan
     end
