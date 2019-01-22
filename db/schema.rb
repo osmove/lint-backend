@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190116163652) do
+ActiveRecord::Schema.define(version: 20190122092628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -344,6 +344,18 @@ ActiveRecord::Schema.define(version: 20190116163652) do
     t.boolean "visible", default: true
   end
 
+  create_table "leads", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "title"
+    t.text "message"
+    t.string "type"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "linters", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -366,6 +378,22 @@ ActiveRecord::Schema.define(version: 20190116163652) do
     t.boolean "enable_push_notifications", default: true
     t.index ["team_id"], name: "index_memberships_on_team_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "title"
+    t.text "message"
+    t.string "type"
+    t.string "status"
+    t.boolean "read"
+    t.bigint "user_id"
+    t.bigint "lead_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lead_id"], name: "index_messages_on_lead_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -811,6 +839,8 @@ ActiveRecord::Schema.define(version: 20190116163652) do
   add_foreign_key "issues", "users"
   add_foreign_key "memberships", "teams"
   add_foreign_key "memberships", "users"
+  add_foreign_key "messages", "leads"
+  add_foreign_key "messages", "users"
   add_foreign_key "organizations", "users"
   add_foreign_key "platforms", "frameworks"
   add_foreign_key "platforms", "languages"

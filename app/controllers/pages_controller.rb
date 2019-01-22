@@ -95,9 +95,10 @@ class PagesController < ApplicationController
   def about
     @resource ||= User.new
   end
-  
+
   def contact
     @resource ||= User.new
+    @message = Message.new
   end
 
   def available_soon

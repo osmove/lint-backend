@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   # has_many :repositories, :dependent => :destroy
   has_many :repositories
+  has_many :messages
 
   has_many :repository_accesses
   has_many :repositories_with_access, :through => :repository_accesses, :source => :repository

@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   resources :changes
   resources :commits
   resources :teams
+  get '/contact', to: 'messages#new'
+  get '/messages/thank-you', to: 'messages#thank_you'
+  resources :messages
 
 
 
@@ -137,7 +140,7 @@ Rails.application.routes.draw do
   get '/is_signed_in'  => 'auth#is_signed_in?'
   get '/me'            => 'auth#me'
   get '/team'          => 'pages#team'
-  get '/contact'       => 'pages#contact'
+  # get '/contact'       => 'pages#contact'
   get '/privacy'       => 'pages#privacy'
   get '/terms'         => 'pages#terms'
   get '/security'      => 'pages#security'

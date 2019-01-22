@@ -16,16 +16,15 @@
       <% end %>
       <div class="row">
         <div class="col">
-          <%= form.text_field :name, id: :message_name %>
+          <%= form.text_field :name, id: :message_name, placeholder: "Your name" %>
         </div>
         <div class="col">
-          <%= form.email_field :email, id: :message_email %>
+          <%= form.email_field :email, id: :message_email, placeholder: "Your email address" %>
         </div>
       </div>
 
       <div class="field">
-        <!-- <%= form.label :message %> -->
-        <%= form.text_area :message, id: :message_message, rows: 6 %>
+        <%= form.text_area :message, id: :message_message, rows: 6, placeholder: "Your message" %>
       </div>
 
       <div class="actions">
