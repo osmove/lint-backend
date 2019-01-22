@@ -19,6 +19,7 @@
     <%= @commit_attempt.name %>
   </h2>
 
+
   <% if @commit_attempt.present? && @commit_attempt.repository.present? %>
     <p><strong>Repository:</strong> <%= @commit_attempt.repository.uuid %></p>
   <% end %>
