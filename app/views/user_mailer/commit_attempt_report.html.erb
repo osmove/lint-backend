@@ -15,7 +15,7 @@
 
 <section style="clear: both;">
 
-  <h2>
+  <h2 style="word-wrap:break-word;">
     <%= @commit_attempt.name %>
   </h2>
 
@@ -94,7 +94,7 @@
       <% if @policy_check.present? && @report.present? %>
         <% @report.each do |file, rule_checks| %>
           <div>
-            <h2 style="margin-bottom: 5px; word-wrap:break-word;"><%=file[0]%></h2>
+            <h2 style="margin-bottom: 5px; word-wrap:break-word;"><%= file[0] %></h2>
             <div style="margin-bottom: 15px;">
               <% if (rule_checks.select { |check| check['severity_level'] == 2 }.count) == 0 && (rule_checks.select { |check| check['severity_level'] == 1 }.count) == 0 %>
                 <span style="color:#5cb85c">No offense</span>
