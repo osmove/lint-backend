@@ -245,8 +245,8 @@ Rails.application.routes.draw do
 
 
 
-  # root to: "pages#prelaunch"
+  root to: "pages#prelaunch"
   #root to: "pages#home"
-  root to: "pages#available_soon"
+  # root to: "pages#available_soon"
 
 end

@@ -2,8 +2,9 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white navbar-dashboard">
   <div class="container">
 
+    <%# <% if current_page?(root_path) || current_page?(dashboard_path) %>
     <% if current_page?(root_path) || current_page?(dashboard_path) %>
-      <a class="navbar-brand mr-0 mr-md-3" href="<%= prelaunch_path %>">
+      <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
         <img src="/images/logo/logo-shield-circle-only-simple.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
       </a>
     <% else %>

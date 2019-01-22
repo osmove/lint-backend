@@ -8,13 +8,14 @@ class PagesController < ApplicationController
   impressionist
 
 
-  # layout "dashboard", only: :dashboard
-  layout "marketing", except: [:dashboard, :select_repositories]
-
-  layout "prelaunch", only: [:prelaunch, :available_soon]
+  layout "dashboard", only: :dashboard
+  # layout "marketing", except: [:dashboard, :select_repositories]
+  # layout "prelaunch", only: [:prelaunch, :available_soon]
+  layout "prelaunch", except: [:dashboard, :select_repositories]
 
   # before_action :authenticate_user!, except: :home
-  before_action :authenticate_user!, except: [:prelaunch, :available_soon]
+  before_action :authenticate_user!, only: [:dashboard, :select_repositories]
+  # before_action :authenticate_user!, except: [:prelaunch, :available_soon]
 
   def home
     @resource ||= User.new
