@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'postmark/inbound'
+  post 'postmark/inbound'
 
   resources :policy_rule_options
   resources :linters
