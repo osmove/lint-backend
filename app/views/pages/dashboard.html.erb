@@ -202,6 +202,34 @@
           <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
         <% end %>
 
+
+
+
+        <div class="card my-3 box-shadow">
+          <div class="card-header text-muted">
+            <div class="row">
+              <div class="col">
+                <i class="fa fa-dollar mr-1"></i>
+                PLAN
+              </div>
+            </div>
+          </div>
+          <div class="card-body bg-light">
+            <% if current_user.plan.present? %>
+              <p class="mb-0">
+                Your current plan:
+                <strong><%= current_user.plan %></strong>
+                <!-- ($<%= current_user.plan.price_per_month.to_i %>/mo) -->
+                <br/>
+              <%= link_to "Change Plan", plans_path %></p>
+            <% else %>
+              No plan.
+            <% end %>
+          </div>
+        </div>
+
+
+
         <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">

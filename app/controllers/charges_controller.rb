@@ -37,15 +37,18 @@ class ChargesController < ProtectedController
 
     # if @customer.present? && @customer.id.present? && @subscription.present? && @subscription.id.present?
     if params[:stripeEmail].present?
+
+      # Find user by Stripe Customer Id
       @user = User.where(stripe_customer_id: @customer.id).first rescue nil
       if(@user.present?)
         @message = "User found: #{@user.username}"
       else
-
+        # Fall back to Find user by Stripe Email
         @customer = Stripe::Customer.create(
           :email => params[:stripeEmail],
           :source  => params[:stripeToken]
         )
+        # Update Stripe Customer Id
         if @customer.present? && @customer.id.present?
           @user = User.where(email: @customer.email).first rescue nil
           if @user.present? && @user.stripe_customer_id.blank?
@@ -130,7 +133,8 @@ class ChargesController < ProtectedController
   rescue Stripe::CardError => e
     flash[:error] = e.message
     # @message = e.message
-    redirect_to plans_path
+    # redirect_to plans_path
+    redirect_to(plans_path, error: "Error: Stripe Error.")
     # redirect_to new_charge_path
   end
 
