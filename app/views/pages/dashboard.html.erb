@@ -293,7 +293,7 @@
             <%# if current_user.memberships.joins(:organization).count > 0 %>
             <% org_count = 0 %>
             <ul class="list-unstyled mb-0" id="organizations_list_container">
-              <% current_user.memberships.joins(:organization).each do |membership| %>
+              <% current_user.memberships.joins(:organization).order(id: :desc).each do |membership| %>
                 <% if membership.organization.is_organization.present? && membership.organization.is_organization == true %>
                   <li>
                     <strong><%= link_to "#{membership.organization.organization_name}", "#{membership.organization}" %></strong>
@@ -326,7 +326,7 @@
           <div class="card-body bg-white">
             <% if current_user.memberships.joins(:team).count > 0 %>
               <ul class="list-unstyled mb-0">
-                <% current_user.memberships.joins(:team).each do |membership| %>
+                <% current_user.memberships.joins(:team).order(id: :desc).each do |membership| %>
                   <li>
                     <strong><%= link_to "#{membership.team.name}", team_path(membership.team) %></strong>
                     <span class="text-muted ml-2"><%= pluralize(membership.team.memberships.count, 'member') %></span>
