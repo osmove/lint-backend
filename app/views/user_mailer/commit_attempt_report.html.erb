@@ -15,25 +15,9 @@
 
 <section style="clear: both;">
 
-  <h2 style="word-wrap:break-word;">
-    <%= @commit_attempt.name %>
-  </h2>
-
-  <% if @commit_attempt.repository.present? %>
-    <p><strong>Repository:</strong> <%= @commit_attempt.repository.uuid %></p>
-  <% end %>
-
-  <% if @commit_attempt.user.present? %>
-    <strong>User:</strong>  <%= @commit_attempt.user %>
-  <% end %>
-
-  <% if @commit_attempt.branch_name.present? %>
-    <p><strong>Branch:</strong> <%= @commit_attempt.branch_name %></p>
-  <% end %>
-
-  <% if @commit_attempt.sha.present? %>
-    <p><strong>SHA:</strong> <%= @commit_attempt.sha.slice(0,7) %></p>
-  <% end %>
+  <h3 style="word-wrap:break-word;">
+    New commit: <%= @commit_attempt.name %>
+  </h3>
 
   <% if @policy_check.present? && @policy_check.report.present? %>
     <p>
@@ -49,6 +33,25 @@
         <% end %>
       <% end %>
     </p>
+  <% end %>
+
+  <% if @commit_attempt.repository.present? %>
+    <p><strong>Repository:</strong> <%= @commit_attempt.repository.uuid %></p>
+  <% end %>
+
+  <% if @commit_attempt.user.present? %>
+    <p><strong>User:</strong>  <%= @commit_attempt.user.username %> <%= "<#{@commit_attempt.user.email}>" %></p>
+    <% if defined? @commit_attempt.team.present? %>
+      <p><strong>Team:</strong> <%= @commit_attempt.team.name %></p>
+    <% end %>
+  <% end %>
+
+  <% if @commit_attempt.branch_name.present? %>
+    <p><strong>Branch:</strong> <%= @commit_attempt.branch_name %></p>
+  <% end %>
+
+  <% if @commit_attempt.sha.present? %>
+    <p><strong>SHA:</strong> <%= @commit_attempt.sha.slice(0,7) %></p>
   <% end %>
 
 
