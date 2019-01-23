@@ -145,7 +145,7 @@
 
           <div class="card mb-3">
             <div class="card-header">
-              Last Commit Attempts
+              Last Commits
               <!-- <span class="badge badge-secondary"><%#= @last_commit_attempts.count %> -->
             </div>
             <div class="card-body p-0">
@@ -296,7 +296,7 @@
               <% current_user.memberships.joins(:organization).each do |membership| %>
                 <% if membership.organization.is_organization.present? && membership.organization.is_organization == true %>
                   <li>
-                    <strong><%= link_to "#{membership.organization.username || '-'}", "#{membership.organization.username}" %></strong>
+                    <strong><%= link_to "#{membership.organization.organization_name}", "#{membership.organization}" %></strong>
                     <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships_as_organization.count, 'member') %></span>
                     <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
                   </li>
