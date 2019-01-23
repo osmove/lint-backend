@@ -20,18 +20,14 @@
 <section class="bg-white pt-3 pb-3 border-bottom border-top">
   <% if current_user == @user %>
     <!-- <button type="button" name="button" class="btn btn-outline-dark btn-sm">Edit my Profile</button> -->
-
     <%= link_to 'Edit profile', edit_user_path(@user.slug),  class: "btn btn-sm btn-outline-info" %>
     <!-- <%= link_to 'Destroy', user_path(@user), method: :delete, data: { confirm: "Are you sure you want to delete your account? This is DEFINITIVE and CANNOT BE CANCELLED." }, class: "btn btn-sm btn-outline-danger" %> -->
-
-
   <% else %>
-    <button type="button" name="button" class="btn btn-outline-dark btn-sm">Follow</button>
+    <!-- <button type="button" name="button" class="btn btn-outline-dark btn-sm">Follow</button> -->
+    <%= link_to 'Back', :back, class: "btn btn-outline-dark btn-sm" %>
+
   <% end %>
 
-  <% if user_signed_in? && current_user.role == 'admin' %>
-    <%= link_to 'Admin', admin_path,  class: "btn btn-outline-dark btn-sm" %>
-  <% end %>
 </section>
 
 <!-- <section class="bg-omnilint" style="background-color: #e6e6e6; clear: both;"> -->
