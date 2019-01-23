@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     # get '/edit' => 'devise/registrations#edit'
   end
 
+  resources :users, only: :destroy
+
 
   # devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
 
