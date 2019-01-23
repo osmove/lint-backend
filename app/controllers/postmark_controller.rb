@@ -14,20 +14,21 @@ class PostmarkController < ApplicationController
         # @message.to_name = @result['ToFull']['Name'] rescue nil
         # @message.to_email = @result['ToFull']['Email'] rescue nil
         @message.to_email = @result['To']
-        # @message.origin = 'postmark'
+        @message.raw_post = request.raw_post
         @message.subject = @result['Subject']
         @message.message = @result['TextBody']
         @message.save!
+        respond_to do |format|
+          if @message.save!
+            format.json { render json: @message, status: :created }
+          else
+            format.json { render json: @message.errors, status: :unprocessable_entity }
+          end
+        end
       end
-    end
-
-    respond_to do |format|
-      if @message.save!
-        # format.html { redirect_to messages_thank_you_path }
-        format.json { render json: @message, status: :created }
-      else
-        # format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+    else
+      respond_to do |format|
+        format.json { render json: "Error", status: :unprocessable_entity }
       end
     end
 

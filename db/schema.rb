@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190123170713) do
+ActiveRecord::Schema.define(version: 20190123185610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,6 +397,7 @@ ActiveRecord::Schema.define(version: 20190123170713) do
     t.string "subject"
     t.string "origin"
     t.string "provider"
+    t.text "raw_post"
     t.index ["lead_id"], name: "index_messages_on_lead_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
