@@ -174,8 +174,6 @@ class User < ApplicationRecord
   # end
 
 
-
-
   before_create :add_free_plan
   def add_free_plan
     unless self.plan.present?
