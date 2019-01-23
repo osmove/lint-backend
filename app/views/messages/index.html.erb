@@ -1,0 +1,32 @@
+
+<section class="bg-light">
+  <div class="container py-4">
+    <h1>Messages</h1>
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+              <th>Message</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @messages.each do |message| %>
+              <tr>
+                <td><%= message.name %> <%= message.email ? "<#{truncate(message.email, length: 20)}>" : '' %></td>
+                <td><%= truncate(message.to_email, length: 20) %></td>
+                <td><%= link_to "<strong>#{message.subject}</strong> #{message.message}".html_safe, message_path(message) %></td>
+                <td><%= "#{time_ago_in_words(message.created_at)} ago" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</section>

@@ -3,14 +3,21 @@ class MessagesController < ApplicationController
 
   # GET /contact
   # GET /messages/new
+  def index
+    @messages = Message.last(10)
+    # @messages = current_user.messages
+  end
+
+  # GET /contact
+  # GET /messages/new
   def new
     @message = Message.new()
   end
 
   # GET /messages/:id
-  # def show
-  #   @message = Message.new()
-  # end
+  def show
+    @message = Message.find(params[:id])    
+  end
 
 
   # POST /messages
