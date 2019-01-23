@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /contact
   # GET /messages/new
   def index
-    @messages = Message.last(10)
+    @messages = Message.order(id: :desc).limit(20)
     # @messages = current_user.messages
   end
 
@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/:id
   def show
-    @message = Message.find(params[:id])    
+    @message = Message.find(params[:id])
   end
 
 
