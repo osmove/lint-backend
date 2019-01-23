@@ -11,11 +11,13 @@ class PostmarkController < ApplicationController
         @message.provider = 'postmark'
         @message.name = @result['FromName']
         @message.email = @result['FromEmail']
-        @message.to_name = @result['ToFull']['Name']
-        @message.to_email = @result['ToFull']['Email']
+        # @message.to_name = @result['ToFull']['Name'] rescue nil
+        # @message.to_email = @result['ToFull']['Email'] rescue nil
+        @message.to_email = @result['To']
         # @message.origin = 'postmark'
         @message.subject = @result['Subject']
         @message.message = @result['TextBody']
+        @message.save!
       end
     end
     #
