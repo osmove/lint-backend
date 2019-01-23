@@ -258,7 +258,7 @@
               <p>Create an organization</p>
               <%= bootstrap_form_for(resource, as: resource_name, url: users_path) do |f| %>
                 <div class="field">
-                  <%= f.text_field :organization_name, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
+                  <%= f.text_field :organization_name, autofocus: true, autocomplete: "off", autocorrect: "off", autocapitalize: true, hide_label: true, class: "custom-form", placeholder: "Organization name", wrapper: { class: '' } %>
                 </div>
                 <!--
                 <div class="field">
