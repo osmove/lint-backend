@@ -1,5 +1,5 @@
 
-<tr style="cursor: pointer;" onclick="javascript: window.location = '<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>'">
+<tr style="cursor: pointer;" onclick="javascript: window.location = '<%= user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>'">
   <td class="text-muted">
     <% if commit_attempt.sha.present? %>
       <p class="mb-0"><small><%= "#{commit_attempt.sha.slice(0,7)}" %></small></p>
@@ -10,12 +10,14 @@
   </td>
   <td>
     <p class="mb-0">
+      <a href="<%= user_repository_path(commit_attempt.repository.user, commit_attempt.repository) %>" class="">
+        <% if display_repository.present? && display_repository == true %>
+          <small><%= commit_attempt.repository.uuid %></small> <br />
+        <% end %>
+      </a>
       <strong>
-        <a href="<%=  user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
-          <% if display_repository.present? &&  display_repository == true %>
-            <%= commit_attempt.repository.uuid %> -
-          <% end %>
-            <%= commit_attempt.name %>
+        <a href="<%= user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
+          <%= commit_attempt.name %>
         </a>
       </strong>
       <% if commit_attempt.has_encryption %>
