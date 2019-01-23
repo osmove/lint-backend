@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :pushes
   resources :changes
   resources :commits
+  resources :users
   resources :teams
   get '/contact', to: 'messages#new'
   get '/messages/thank-you', to: 'messages#thank_you'
@@ -172,7 +173,7 @@ Rails.application.routes.draw do
     root :to => "pages#dashboard"
   end
 
-  get '/users' => 'users#index', :as => :users
+  # get '/users' => 'users#index', :as => :users
 
   get '/login' => 'devise/sessions#new'
 

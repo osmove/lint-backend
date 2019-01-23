@@ -228,24 +228,85 @@
                 ORGANIZATIONS
               </div>
               <div class="col-4 text-right">
-                <%= link_to "+ New Org.", new_user_organization_path(current_user) %>
+                <%#= link_to "+ New Org.", new_user_path(current_user) %>
+                <script type="text/javascript">
+                  var showOrganizationForm = function() {
+                    document.getElementById('new_organization_form_container').style.display = 'block';
+                    document.getElementById('organizations_list_container').style.display = 'none';
+                    document.getElementById('hide_organizations_form_button').style.display = 'block';
+                    document.getElementById('show_organizations_form_button').style.display = 'none';
+                    return false;
+                  }
+
+                  var hideOrganizationForm = function() {
+                    document.getElementById('new_organization_form_container').style.display = 'none';
+                    document.getElementById('organizations_list_container').style.display = 'block';
+                    document.getElementById('hide_organizations_form_button').style.display = 'none';
+                    document.getElementById('show_organizations_form_button').style.display = 'block';
+                    return false;
+                  }
+                </script>
+                <a href="#" id="show_organizations_form_button" onclick="showOrganizationForm()">+ New Org.</a>
+                <a href="#" id="hide_organizations_form_button" style="display: none;" onclick="hideOrganizationForm()">Hide</a>
               </div>
             </div>
           </div>
           <div class="card-body bg-white">
-            <% if current_user.memberships.joins(:organization).count > 0 %>
-              <ul class="list-unstyled mb-0">
-                <% current_user.memberships.joins(:organization).each do |membership| %>
+
+
+            <div class="mb-3" id="new_organization_form_container" style="display: none;">
+              <p>Create an organization</p>
+              <%= bootstrap_form_for(resource, as: resource_name, url: users_path) do |f| %>
+                <div class="field">
+                  <%= f.text_field :organization_name, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
+                </div>
+                <!--
+                <div class="field">
+                  <%= f.text_field :username, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
+                </div>
+                <div class="field">
+                  <%= f.email_field :email, autocomplete: "email", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form email-input", placeholder: "Email", wrapper: { class: '' } %>
+                </div>
+                <div class="field">
+                  <%= f.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Password", wrapper: { class: '' }  %>
+                </div>
+
+                  <%= f.form_group :is_organization, label: { text: "I am" } do %>
+                    <%= f.radio_button :is_organization, false, label: "An invidual" %>
+                    <%= f.radio_button :is_organization, true, label: "An organization", checked: true %>
+                  <% end %>
+
+
+                -->
+                <%= f.hidden_field :is_organization, value: true %>
+
+                <div class="actions mb-3">
+                  <%= f.submit "Create Organization", class: "btn btn-dark btn-block" %>
+                </div>
+                <!-- <%#= render "devise/shared/links" %> -->
+                <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                  By using this form, you agree to our terms of service and privacy policy. We may send you account related emails.
+                </p>
+              <% end %>
+            </div>
+
+            <%# if current_user.memberships.joins(:organization).count > 0 %>
+            <% org_count = 0 %>
+            <ul class="list-unstyled mb-0" id="organizations_list_container">
+              <% current_user.memberships.joins(:organization).each do |membership| %>
+                <% if membership.organization.is_organization.present? && membership.organization.is_organization == true %>
                   <li>
-                    <strong><%= link_to "#{membership.organization.name || '-'}", organization_path(membership.organization) %></strong>
-                    <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships.count, 'member') %></span>
+                    <strong><%= link_to "#{membership.organization.username || '-'}", "#{membership.organization.username}" %></strong>
+                    <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships_as_organization.count, 'member') %></span>
                     <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
                   </li>
+                  <% org_count = org_count + 1 %>
                 <% end %>
-              </ul>
-            <% else %>
-              No organization.
-            <% end %>
+              <% end %>
+              <% if org_count == 0 %>
+                <li>No organization.</li>
+              <% end %>
+            </ul>
           </div>
         </div>
 

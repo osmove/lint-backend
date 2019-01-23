@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(@user, url: @form_url, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |form| %>
   <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    <div id="error_explanation" class="text-danger">
+      <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>
 
       <ul>
       <% @user.errors.full_messages.each do |message| %>
@@ -11,14 +11,18 @@
     </div>
   <% end %>
   <div class="mt-4 mb-3 text-right">
-    <%= form.text_field :first_name, autofocus: true, input_group_class: "input-group-lg" %>
-    <%= form.text_field :last_name, input_group_class: "input-group-lg" %>
-    <%= form.text_field :address, input_group_class: "input-group-lg" %>
-    <%= form.text_field :address_2, input_group_class: "input-group-lg" %>
-    <%= form.text_field :city, input_group_class: "input-group-lg" %>
-    <%= form.text_field :zip_code, input_group_class: "input-group-lg" %>
-    <%= form.text_field :state, input_group_class: "input-group-lg" %>
-    <%= form.text_field :country, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :first_name, autofocus: true, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :last_name, input_group_class: "input-group-lg" %>
+    <%= form.text_field :organization_name, input_group_class: "input-group-lg" %>
+    <%= form.text_field :username, input_group_class: "input-group-lg" %>
+    <%= form.text_field :email, input_group_class: "input-group-lg" %>
+    <%= form.text_field :password, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :address, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :address_2, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :city, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :zip_code, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :state, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :country, input_group_class: "input-group-lg" %>
   </div>
 
 
@@ -31,6 +35,14 @@
     </div>
   </div>
 
+  <div class="card mb-3">
+    <div class="card-body">
+      <%= form.form_group :plan_id, label: { text: "Plan" } do %>
+        <%= form.radio_button :plan_id, 'free', label: "Free Plan", checked: true %>
+        <%= form.radio_button :plan_id, 'team', label: "Team Plan" %>
+      <% end %>
+    </div>
+  </div>
 
   <!-- <div class="card mb-3">
     <div class="card-body">

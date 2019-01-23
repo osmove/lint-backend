@@ -44,7 +44,7 @@
       <div class="col-9">
         <div id="permalink_show">
           <div>
-            <%= request.base_url + user_path %>/<span id="permalink" style="font-weight:bold; background-color: #FFFFD6;"><%= @repository.slug || "my-great-repo" %></span>
+            <%= request.base_url + user_path(current_user) %>/<span id="permalink" style="font-weight:bold; background-color: #FFFFD6;"><%= @repository.slug || "my-great-repo" %></span>
           </div>
           <a href="#" id="permalink_edit">Edit</a>
         </div>

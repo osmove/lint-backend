@@ -126,14 +126,22 @@ class Repository < ApplicationRecord
   end
 
   def pretty_uuid
-    splitted_uuid = self.uuid.split("/")
-    @pretty_uuid = "#{splitted_uuid.first} / #{splitted_uuid.last}"
+    if self.uuid.present?
+      splitted_uuid = self.uuid.split("/")
+      @pretty_uuid = "#{splitted_uuid.first} / #{splitted_uuid.last}"
+    else
+      @pretty_uuid = '-'
+    end
   end
 
 
   def pretty_uuid_html
-    splitted_uuid = self.uuid.split("/")
-    @pretty_uuid_html = "#{splitted_uuid.first} / <strong>#{splitted_uuid.last}</strong>"
+    if self.uuid.present?
+      splitted_uuid = self.uuid.split("/")
+      @pretty_uuid_html = "#{splitted_uuid.first} / <strong>#{splitted_uuid.last}</strong>"
+    else
+      @pretty_uuid_html = '-'
+    end
   end
 
   # before_save do

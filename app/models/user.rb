@@ -8,9 +8,18 @@ class User < ApplicationRecord
   attr_accessor :current_password
 
 
-  validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, if: :check_if_user
-  validates :email, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, if: :check_if_user
-  validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }, if: :check_if_user
+  # validates :username, presence: :true, unless: -> { from_omniauth? }, if: :check_if_user
+  # validates :email, presence: :true, unless: -> { from_omniauth? }, if: :check_if_user
+  # validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }, if: :check_if_user
+
+  validates :organization_name, presence: :true, if: :check_if_organization
+
+  validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, unless: :check_if_organization
+  validates :email, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, unless: :check_if_organization
+  validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }, unless: :check_if_organization
+
+
+
   # validates :password_confirmation, presence: :true
 
   # has_many :repositories, :dependent => :destroy
@@ -63,6 +72,14 @@ class User < ApplicationRecord
 
   def check_if_user
     if self.is_organization == false || self.is_organization == nil
+      return true
+    else
+      return false
+    end
+  end
+
+  def check_if_organization
+    if self.is_organization.present? && self.is_organization == true
       return true
     else
       return false
@@ -146,17 +163,34 @@ class User < ApplicationRecord
   end
 
 
-  before_validation :add_free_plan
+
+
+  # before_create :add_creator_to_members
+  # def add_creator_to_members
+  #   if self.is_organization == true
+  #     membership = Membership.create({user: current_user, role: 'admin'})
+  #     self.memberships_as_organization.push(membership)
+  #   end
+  # end
+
+
+
+
+  before_create :add_free_plan
   def add_free_plan
-    free_plan = Plan.findBySlug("free").first rescue nil
-    if free_plan.present?
-      self.plan = free_plan
+    unless self.plan.present?
+      free_plan = Plan.findBySlug("free").first rescue nil
+      if free_plan.present?
+        self.plan = free_plan
+      end
     end
   end
 
   after_create :send_welcome_email
   def send_welcome_email
-    UserMailer.welcome_email(self).deliver_now
+    unless self.is_organization == true
+      UserMailer.welcome_email(self).deliver_now
+    end
   end
 
   def name

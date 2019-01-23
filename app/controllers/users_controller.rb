@@ -65,10 +65,25 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
+    if @user.organization_name.present?
+      @user.username = @user.organization_name.parameterize
+    end
+    if @user.email.blank?
+      # @user.email = current_user.email
+      @user.email = "#{@user.username}@omnilint.com"
+    end
+    if @user.password.blank?
+      # @user.email = current_user.email
+      @user.password = "9283jp2d89p239idm2p93imp5"
+    end
+
+    # Create Membership As Organization
+    membership = Membership.create({user: current_user, role: 'admin'})
+    @user.memberships_as_organization.push(membership)
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Organization was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -90,7 +105,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+      params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
     end
 
 end
