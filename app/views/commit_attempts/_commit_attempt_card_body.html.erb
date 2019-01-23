@@ -10,11 +10,12 @@
   </td>
   <td>
     <p class="mb-0">
-      <a href="<%= user_repository_path(commit_attempt.repository.user, commit_attempt.repository) %>" class="">
-        <% if display_repository.present? && display_repository == true %>
-          <small><%= commit_attempt.repository.uuid %></small> <br />
-        <% end %>
-      </a>
+
+            <a href="<%= user_repository_path(commit_attempt.repository.user, commit_attempt.repository) %>" class="">
+              <% if display_repository.present? && display_repository == true %>
+                <small>[<%= commit_attempt.repository.uuid %>]</small>
+              <% end %>
+            </a>
       <strong>
         <a href="<%= user_repository_commit_attempt_path(commit_attempt.repository.user, commit_attempt.repository, commit_attempt) %>" class="">
           <%= commit_attempt.name %>
@@ -29,6 +30,7 @@
       <% if commit_attempt.has_autofix %>
         <i class="fa fa-wrench text-muted"></i>
       <% end %>
+
     </p>
     <p class="mb-0 text-muted" style="line-height: 1em;">
       <small>

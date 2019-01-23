@@ -1,6 +1,7 @@
-<section class="" style="background-color: #eeeff0;">
-  <div class="container py-4 py-lg-5">
-    <h2 class="mb-3"><%= current_user.greet %>.</h2>
+<!-- <section class="" style="background-color: #eeeff0;"> -->
+<section class="bg-light">
+  <div class="container py-4">
+    <h4 class="mb-3 text-muted"><%= current_user.greet %>.</h4>
 
 
 
@@ -129,11 +130,14 @@
 
 
           <div class="card mb-3">
+            <div class="card-header">
+              Commits in the last 15 days
+            </div>
             <div class="card-body pt-1 pb-0">
               <%= column_chart [
-                {name: 'Passed', color: 'green', data: current_user.commit_attempts.where(passed: true).group_by_day(:created_at, last: 21).count},
-                {name: 'Failed', color: 'red', data: current_user.commit_attempts.where(passed: false).group_by_day(:created_at, last: 21).count},
-                {name: 'No policy', color: 'grey', data: current_user.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 21).count}
+                {name: 'Passed', color: 'green', data: current_user.commit_attempts.where(passed: true).group_by_day(:created_at, last: 15).count},
+                {name: 'Failed', color: 'red', data: current_user.commit_attempts.where(passed: false).group_by_day(:created_at, last: 15).count},
+                {name: 'No policy', color: 'grey', data: current_user.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 15).count}
               ], height: "200px", stacked: true
               %>
             </div>
@@ -200,7 +204,7 @@
             <div class="row">
               <div class="col">
                 <i class="fa fa-tag mr-1"></i>
-                PLAN
+                <small>PLAN</small>
               </div>
               <div class="col text-right">
                 <%= link_to "Update Plan", plans_path %>
@@ -223,11 +227,11 @@
         <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">
-              <div class="col-8">
+              <div class="col-7">
                 <i class="fa fa-building-o mr-1"></i>
-                ORGANIZATIONS
+                <small>ORGANIZATIONS</small>
               </div>
-              <div class="col-4 text-right">
+              <div class="col-5 text-right">
                 <%#= link_to "+ New Org.", new_user_path(current_user) %>
                 <script type="text/javascript">
                   var showOrganizationForm = function() {
@@ -247,7 +251,7 @@
                   }
                 </script>
                 <a href="#" id="show_organizations_form_button" onclick="showOrganizationForm()">+ New Org.</a>
-                <a href="#" id="hide_organizations_form_button" style="display: none;" onclick="hideOrganizationForm()">Hide</a>
+                <a href="#" id="hide_organizations_form_button" style="display: none;" onclick="hideOrganizationForm()">Done</a>
               </div>
             </div>
           </div>
@@ -316,7 +320,7 @@
             <div class="row">
               <div class="col">
                 <i class="fa fa-users mr-1"></i>
-                TEAMS
+                <small>TEAMS</small>
               </div>
               <div class="col text-right">
                 <%= link_to "+ New Team", new_user_team_path(current_user) %>

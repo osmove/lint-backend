@@ -156,7 +156,7 @@ class PagesController < ApplicationController
 
 
     if params[:repository].present?
-      @repository = current_user.repositories_with_access.where(uuid: params[:repository])
+      @repository = current_user.repositories_with_access.where(uuid: params[:repository]).last
       @commit_attempts = current_user.commit_attempts.where(repository: @repository).includes(:policy_checks)
     end
 

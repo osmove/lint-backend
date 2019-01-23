@@ -2,7 +2,7 @@
 
 
 
-<section class=""  style="background-color: #eeeff0;">
+<section class="bg-light">
   <% if @user.is_organization != true %>
     <%= render 'admin/users/user_cards', user: @user, repository: @repository, organizations_of_user: @organizations_of_user  %>
   <% else %>

@@ -7,7 +7,7 @@
     white-space: nowrap;
     text-align: center;
     /* border-top: 1px solid #cfd4d9; */
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.045);
 
     /* padding-top: 10px;
     padding-bottom: 5px; */
@@ -105,7 +105,7 @@
   <img src="/images/menu-hide-left.png" class="d-block d-lg-none" alt="" style="position: absolute; top: 0; left: 0; z-index:2; pointer-events: none; opacity: 0.8" onclick="return true;">
   <img src="/images/menu-hide-right.png" class="d-block d-lg-none" alt="" style="position: absolute; top: 0; right: 0; z-index:2; pointer-events: none; opacity: 0.8" onclick="return true;">
 
-  <div class="scrollmenu bg-light">
+  <div class="scrollmenu bg-light" style="background-color: #eeeff0 !important">
     <div class="container-fluid">
       <% if current_page?(user_repository_path(repository.user, repository)) && controller.action_name != "settings" %>
         <a href="<%= user_repository_path(repository.user, repository) %>" class="ml-4 active" aria-selected="true">
