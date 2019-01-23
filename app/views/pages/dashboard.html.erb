@@ -9,7 +9,7 @@
 
 
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelectRepository">Repository</label>
@@ -36,32 +36,8 @@
 
 
 
-      <!-- <div class="col-12 col-md-4">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectBranch">
-            <% if !params[:branch].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
 
-            <% @branches.each do |branch| %>
-              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
-                <option selected value="<%= branch %>"><%= branch %></option>
-              <% else %>
-                <option value="<%= branch %>"><%= branch %></option>
-              <% end %>
-            <% end %>
-
-          </select>
-        </div>
-      </div> -->
-
-
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect">User</label>
@@ -87,7 +63,7 @@
 
 
 
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
@@ -113,6 +89,30 @@
         </div>
       </div>
 
+
+      <div class="col-12 col-md-3">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelectBranch">
+            <% if !params[:branch].present? %>
+              <option selected value="">All</option>
+            <% else %>
+              <option value="">All</option>
+            <% end %>
+
+            <% @branches.each do |branch| %>
+              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                <option selected value="<%= branch %>"><%= branch %></option>
+              <% else %>
+                <option value="<%= branch %>"><%= branch %></option>
+              <% end %>
+            <% end %>
+
+          </select>
+        </div>
+      </div>
 
 
 
@@ -193,48 +193,68 @@
 
       <div class="col-12 col-md-5 col-lg-4">
 
-        <% if current_user.repositories_with_access.length > 0 %>
-          <% if current_user.repositories_with_access.length == 1 %>
-            <p class="mb-2 text-muted"><small>1 REPOSITORY ACCESS</small></p>
-          <% else %>
-            <p class="mb-2 text-muted"><small><%= current_user.repositories_with_access.length %> REPOSITORY ACCESSES</small></p>
-          <% end %>
-          <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
-        <% end %>
-
-
 
 
         <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">
               <div class="col">
-                <i class="fa fa-dollar mr-1"></i>
+                <i class="fa fa-tag mr-1"></i>
                 PLAN
+              </div>
+              <div class="col text-right">
+                <%= link_to "Update Plan", plans_path %>
               </div>
             </div>
           </div>
-          <div class="card-body bg-light">
+          <div class="card-body bg-white">
             <% if current_user.plan.present? %>
               <p class="mb-0">
                 Your current plan:
                 <strong><%= current_user.plan %></strong>
                 <!-- ($<%= current_user.plan.price_per_month.to_i %>/mo) -->
                 <br/>
-              <%= link_to "Change Plan", plans_path %></p>
             <% else %>
               No plan.
             <% end %>
           </div>
         </div>
 
+        <div class="card my-3 box-shadow">
+          <div class="card-header text-muted">
+            <div class="row">
+              <div class="col-8">
+                <i class="fa fa-building-o mr-1"></i>
+                ORGANIZATIONS
+              </div>
+              <div class="col-4 text-right">
+                <%= link_to "+ New Org.", new_user_organization_path(current_user) %>
+              </div>
+            </div>
+          </div>
+          <div class="card-body bg-white">
+            <% if current_user.memberships.joins(:organization).count > 0 %>
+              <ul class="list-unstyled mb-0">
+                <% current_user.memberships.joins(:organization).each do |membership| %>
+                  <li>
+                    <strong><%= link_to "#{membership.organization.name || '-'}", organization_path(membership.organization) %></strong>
+                    <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships.count, 'member') %></span>
+                    <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              No organization.
+            <% end %>
+          </div>
+        </div>
 
 
         <div class="card my-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">
               <div class="col">
-                <i class="fa fa-building-o mr-1"></i>
+                <i class="fa fa-users mr-1"></i>
                 TEAMS
               </div>
               <div class="col text-right">
@@ -242,7 +262,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body bg-light">
+          <div class="card-body bg-white">
             <% if current_user.memberships.joins(:team).count > 0 %>
               <ul class="list-unstyled mb-0">
                 <% current_user.memberships.joins(:team).each do |membership| %>
@@ -258,6 +278,20 @@
             <% end %>
           </div>
         </div>
+
+
+        <% if current_user.repositories_with_access.length > 0 %>
+          <% if current_user.repositories_with_access.length == 1 %>
+            <p class="mb-2 text-muted"><small>1 REPOSITORY ACCESS</small></p>
+          <% else %>
+            <p class="mb-2 text-muted"><small><%= current_user.repositories_with_access.length %> REPOSITORY ACCESSES</small></p>
+          <% end %>
+          <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
+        <% end %>
+
+
+
+
 
       </div>
     </div>
