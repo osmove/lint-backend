@@ -1,8 +1,9 @@
 <div class="container py-5 text-center">
   <span class="fa fa-message" style="font-size: 70px;"></span>
-  <p class="mt-4 text-center">From: <%= @message.name %> <%= @message.email ? "<#{truncate(@message.email, length: 20)}>" : '' %></p>
+  <p class="mt-4 text-center">From: <%= @message.name %> <%= @message.email.present? ? "<#{truncate(@message.email, length: 20)}>" : '' %></p>
   <p class="mt-4 text-center">To: <%= @message.to_email %></p>
-  <h4 class="mt-4 text-center">Subject:<%= @message.subject %></h4>
+  <h4 class="mt-4 text-center">Subject: <%= @message.subject %></h4>
   <p class="mt-4 text-center">Message: <%= @message.message %></p>
+  <p class="mt-4 text-center">Raw post: <%= @message.raw_post %></p>
   <p><%= link_to raw('&larr; Back to messages'), :back %></p>
 </div>
