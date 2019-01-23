@@ -42,6 +42,21 @@ Rails.application.routes.draw do
   resources :pushes
   resources :changes
   resources :commits
+
+
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  get "/auth/:provider/callback" => "pages#dashboard"
+
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+    # get '/edit' => 'devise/registrations#edit'
+  end
+
+
+  devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
+
+
   resources :users
   resources :teams
   get '/contact', to: 'messages#new'
@@ -156,17 +171,6 @@ Rails.application.routes.draw do
   get '/github_repos'           => 'pages#github_repos'
   get '/onboarding/step_1' => 'pages#select_repositories'
 
-
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-
-  get "/auth/:provider/callback" => "pages#dashboard"
-
-  devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-    # get '/edit' => 'devise/registrations#edit'
-  end
-
-  devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
 
   authenticated :user do
     get '/dashboard'            => 'pages#dashboard'
