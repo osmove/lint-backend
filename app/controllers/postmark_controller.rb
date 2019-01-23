@@ -20,6 +20,17 @@ class PostmarkController < ApplicationController
         @message.save!
       end
     end
+
+    respond_to do |format|
+      if @message.save!
+        # format.html { redirect_to messages_thank_you_path }
+        format.json { render json: @message }
+      else
+        # format.html { render :new }
+        format.json { render json: @message.errors, status: :unprocessable_entity }
+      end
+    end
+
     #
     # @result = JSON.parse ('{"FromName": "Jimmy Douieb",
     #       "From": "jimmydouieb@gmail.com",
