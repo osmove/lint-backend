@@ -15,8 +15,8 @@
     <%#= form.text_field :last_name, input_group_class: "input-group-lg" %>
     <%= form.text_field :organization_name, input_group_class: "input-group-lg" %>
     <%= form.text_field :username, input_group_class: "input-group-lg" %>
-    <%= form.text_field :email, input_group_class: "input-group-lg" %>
-    <%= form.text_field :password, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :email, input_group_class: "input-group-lg" %>
+    <%#= form.text_field :password, input_group_class: "input-group-lg" %>
     <%#= form.text_field :address, input_group_class: "input-group-lg" %>
     <%#= form.text_field :address_2, input_group_class: "input-group-lg" %>
     <%#= form.text_field :city, input_group_class: "input-group-lg" %>
@@ -25,7 +25,7 @@
     <%#= form.text_field :country, input_group_class: "input-group-lg" %>
   </div>
 
-
+<!--
   <div class="card mb-3">
     <div class="card-body">
       <%= form.form_group :is_organization, label: { text: "I am" } do %>
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <!-- <div class="card mb-3">
+  <div class="card mb-3">
     <div class="card-body">
       <%= form.form_group :status, label: { text: "Visibility status" }, help: "The visibility status of your repository." do %>
         <%= form.radio_button :status, "Public", label: "Public", checked: true %>

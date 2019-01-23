@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :changes
   resources :commits
 
+  resources :users, except: :destroy
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
@@ -54,10 +55,9 @@ Rails.application.routes.draw do
   end
 
 
-  devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
+  # devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
 
 
-  resources :users
   resources :teams
   get '/contact', to: 'messages#new'
   get '/messages/thank-you', to: 'messages#thank_you'

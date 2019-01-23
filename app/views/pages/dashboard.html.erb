@@ -1,7 +1,6 @@
 <!-- <section class="" style="background-color: #eeeff0;"> -->
 <section class="bg-light">
   <div class="container py-4">
-    <h4 class="mb-3 text-muted"><%= current_user.greet %>.</h4>
 
 
 
@@ -197,9 +196,13 @@
 
       <div class="col-12 col-md-5 col-lg-4">
 
+        <div class="card mb-3">
+          <div class="card-body py-2 bg-light">
+            <p class="text-muted mb-0"><%= current_user.greet %>.</p>
+          </div>
+        </div>
 
-
-        <div class="card my-3 box-shadow">
+        <div class="card mb-3 box-shadow">
           <div class="card-header text-muted">
             <div class="row">
               <div class="col">

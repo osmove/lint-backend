@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-    if @user.organization_name.present?
+    if @user.username.blank? && @user.organization_name.present?
       @user.username = @user.organization_name.parameterize
     end
     if @user.email.blank?
