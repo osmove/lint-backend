@@ -16,8 +16,8 @@ class User < ApplicationRecord
 
   # validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, unless: :check_if_organization
   validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
-  validates :email, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, unless: :check_if_organization
-  validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }, unless: :check_if_organization
+  validates :email, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
+  validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }
 
 
 

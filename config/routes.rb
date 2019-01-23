@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'postmark/inbound'
+
   resources :policy_rule_options
   resources :linters
   get 'search/search'
