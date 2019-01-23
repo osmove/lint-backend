@@ -24,7 +24,7 @@ class PostmarkController < ApplicationController
     respond_to do |format|
       if @message.save!
         # format.html { redirect_to messages_thank_you_path }
-        format.json { render json: @message }
+        format.json { render json: @message, status: :created }
       else
         # format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
