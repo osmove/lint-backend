@@ -104,6 +104,11 @@ Devise.setup do |config|
 end
 
 Rails.configuration.stripe = {
-  :publishable_key => 'pk_live_i1fRSbizSAr8LM9WrJ2fXi3T',
-  :secret_key      => 'STRIPE_LIVE_KEY_REDACTED'
+  :publishable_key => 'pk_test_eBB6xUuMesZwAGiVN1f09kox',
+  :secret_key      => 'STRIPE_TEST_KEY_REDACTED'
 }
+
+# Rails.configuration.stripe = {
+#   :publishable_key => 'pk_live_i1fRSbizSAr8LM9WrJ2fXi3T',
+#   :secret_key      => 'STRIPE_LIVE_KEY_REDACTED'
+# }

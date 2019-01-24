@@ -39,25 +39,33 @@ class ChargesController < ProtectedController
     if params[:stripeEmail].present?
 
       # Find user by Stripe Customer Id
-      @user = User.where(stripe_customer_id: @customer.id).first rescue nil
+      @user = User.where(email: params[:stripeEmail]).first rescue nil
       if(@user.present?)
         @message = "User found: #{@user.username}"
-      else
-        # Fall back to Find user by Stripe Email
-        @customer = Stripe::Customer.create(
-          :email => params[:stripeEmail],
-          :source  => params[:stripeToken]
-        )
-        # Update Stripe Customer Id
-        if @customer.present? && @customer.id.present?
-          @user = User.where(email: @customer.email).first rescue nil
-          if @user.present? && @user.stripe_customer_id.blank?
+        if @user.stripe_customer_id.present?
+          @customer = Stripe::Customer.retrieve(@user.stripe_customer_id) rescue nil
+          if @customer.blank?
+            @customer = Stripe::Customer.create(
+              :email => params[:stripeEmail],
+              :source  => params[:stripeToken]
+            )
+            if @customer.id.present?
+              @user.stripe_customer_id = @customer.id
+              @user.save
+            end
+          end
+        else
+          @customer = Stripe::Customer.create(
+            :email => params[:stripeEmail],
+            :source  => params[:stripeToken]
+          )
+          if @customer.id.present?
             @user.stripe_customer_id = @customer.id
             @user.save
           end
-        else
-          @message = "Error: Impossible to create Stripe Customer"
         end
+      else
+        @message = "Error: Impossible to create Stripe Customer"
       end
 
       if(@user.present?)
@@ -66,24 +74,27 @@ class ChargesController < ProtectedController
           customer: @customer.id,
           items:[
             {
-              plan: 'developer_monthly',
-              quantity: 1
+              plan: params['stripe_plan_id'],
+              quantity: params['number_of_seats']
             }
           ]
         )
+
         if(@subscription.present?)
+          # TODO: Cancel current subsription
           # @new_plan_nickname = @subscription.plan.nickname.downcase rescue nil
           @stripe_product_id = @subscription.plan.product
           if @stripe_product_id.present?
             @new_plan = Plan.where(stripe_product_id: @stripe_product_id).first rescue nil
             if @new_plan.present?
-              @user.plan = @new_plan
-              @user.save
               # @message = "Plan successfully updated from: #{@current_plan} to #{@new_plan}"
               if @current_plan.id == @new_plan.id
                 redirect_to(plans_path, notice: "Plan was already: #{@new_plan.name}")
               else
-                redirect_to(plans_path, notice: "Plan successfully updated from: #{@current_plan.name} to #{@new_plan.name}")
+                @user.plan = @new_plan
+                @user.number_of_seats = params['number_of_seats']
+                @user.save
+                redirect_to(plans_path, notice: "Plan successfully updated from: #{@current_plan.name} to #{@new_plan.name} (#{params['number_of_seats']} seats)")
               end
             else
               redirect_to(plans_path, error: "Error: No Plan Found")
