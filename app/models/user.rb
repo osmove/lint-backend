@@ -167,6 +167,7 @@ class User < ApplicationRecord
   before_create :set_defaults
   def set_defaults
     self.number_of_seats ||= 1
+    self.plan_id ||= 1
   end
 
 
@@ -179,15 +180,15 @@ class User < ApplicationRecord
   # end
 
 
-  before_create :add_free_plan
-  def add_free_plan
-    unless self.plan.present?
-      free_plan = Plan.findBySlug("free").first rescue nil
-      if free_plan.present?
-        self.plan = free_plan
-      end
-    end
-  end
+  # before_create :add_free_plan
+  # def add_free_plan
+  #   unless self.plan.present?
+  #     free_plan = Plan.findBySlug("free").first rescue nil
+  #     if free_plan.present?
+  #       self.plan = free_plan
+  #     end
+  #   end
+  # end
 
   after_create :send_welcome_email
   def send_welcome_email

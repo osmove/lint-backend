@@ -5,364 +5,421 @@
 
 
 
-    <div class="row">
 
+      <div class="row">
+        <div class="col-12 col-md-7 col-lg-8">
+          <% if current_user.repository_accesses.count == 0 %>
 
+            <!-- Onboarding: Create First Repository -->
+            <div class="text-center mb-3 bg-light">
+              <a href="<%= new_user_repository_path(current_user) %>" class="text-dark">
+                <div class="card pt-4 pt-md-5 pb-4 pb-md-5 box-shadow">
+                  <div class="card-body">
+                    <!-- <h4>Welcome, <%= current_user.username %>.</h4> -->
+                    <img class="mb-3" src="/images/logo/omnilint-logo.svg" style="max-width: 100px; max-height: 100px;" alt="Omnilint Logo">
+                    <h4 class="mb-3">Get started by creating your first repository.</h4>
+                    <!-- <h4 class="mb-3" style="color: #205aa7">It seems that you don't have any repository yet.</h4> -->
+                    <!-- <p class="mb-3">Get started by creating your first repository.</p> -->
+                    <p class=""><button class="btn btn-lg btn-success">+ Add repository</button></p>
 
-      <div class="col-12 col-md-3">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectRepository">Repository</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectRepository">
-            <% if !params[:repository].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% current_user.repositories_with_access.each do |repository| %>
-              <% if params[:repository].present? && params[:repository] == repository.uuid %>
-                <option selected value="<%= repository.uuid %>"><%= repository.uuid %></option>
-              <% else %>
-                <option value="<%= repository.uuid %>"><%= repository.uuid %></option>
-              <% end %>
-            <% end %>
-
-          </select>
-        </div>
-      </div>
+                    <p class="">or</p>
+                    <p>Install with <strong>NPM</strong> (local):</p>
+                    <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+                    <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
+                    <p><kbd class="p-2">$ omnilint install</kbd></p>
 
 
 
 
 
-      <div class="col-12 col-md-3">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect">User</label>
-          </div>
-
-          <select class="custom-select" id="inputGroupSelect">
-            <% if !params[:author].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% @authors.each do |author| %>
-              <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
-                <option selected value="<%= author.id %>"><%= author %></option>
-              <% else %>
-                <option value="<%= author.id %>"><%= author %></option>
-              <% end %>
-            <% end %>
-          </select>
-        </div>
-      </div>
-
-
-
-      <div class="col-12 col-md-3">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectStatus">
-            <% if !params[:status].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% if params[:status].present? && params[:status] == "passed" %>
-              <option selected value="passed">Passed</option>
-            <% else %>
-              <option value="passed">Passed</option>
-            <% end %>
-            <% if params[:status].present? && params[:status] == "failed" %>
-              <option selected value="failed">Failed</option>
-            <% else %>
-              <option value="failed">Failed</option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-
-
-      <div class="col-12 col-md-3">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectBranch">
-            <% if !params[:branch].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% @branches.each do |branch| %>
-              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
-                <option selected value="<%= branch %>"><%= branch %></option>
-              <% else %>
-                <option value="<%= branch %>"><%= branch %></option>
-              <% end %>
-            <% end %>
-
-          </select>
-        </div>
-      </div>
-
-
-
-
-    </div>
-
-
-
-    <div class="row">
-      <div class="col-12 col-md-7 col-lg-8">
-        <% if @commit_attempts.length > 0 %>
-
-
-
-
-          <div class="card mb-3">
-            <div class="card-header">
-              Commits in the last 15 days
+                  </div>
+                </div>
+              </a>
             </div>
-            <div class="card-body pt-1 pb-0">
-              <%= column_chart [
-                {name: 'Passed', color: 'green', data: current_user.commit_attempts.where(passed: true).group_by_day(:created_at, last: 15).count},
-                {name: 'Failed', color: 'red', data: current_user.commit_attempts.where(passed: false).group_by_day(:created_at, last: 15).count},
-                {name: 'No policy', color: 'grey', data: current_user.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 15).count}
-              ], height: "200px", stacked: true
-              %>
-            </div>
-          </div>
+            <!-- End of Onboarding: Create First Repository -->
+
+
+          <% elsif @commit_attempts.length > 0 %>
 
 
 
 
+            <!-- Filters -->
+            <div class="row">
+              <div class="col-12 col-md-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelectRepository">Repository</label>
+                  </div>
+                  <select class="custom-select" id="inputGroupSelectRepository">
+                    <% if !params[:repository].present? %>
+                      <option selected value="">All</option>
+                    <% else %>
+                      <option value="">All</option>
+                    <% end %>
 
-          <div class="card mb-3">
-            <div class="card-header">
-              Last Commits
-              <!-- <span class="badge badge-secondary"><%#= @last_commit_attempts.count %> -->
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                  <tbody>
-                    <% @commit_attempts.each_with_index do |commit_attempt, index| %>
-                      <% if commit_attempt.policy_checks.length > 0 %>
-                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: commit_attempt.policy_checks.first %>
+                    <% current_user.repositories_with_access.each do |repository| %>
+                      <% if params[:repository].present? && params[:repository] == repository.uuid %>
+                        <option selected value="<%= repository.uuid %>"><%= repository.uuid %></option>
                       <% else %>
-                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: nil %>
+                        <option value="<%= repository.uuid %>"><%= repository.uuid %></option>
                       <% end %>
                     <% end %>
-                  </tbody>
-                </table>
+
+                  </select>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="col-12 col-md-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect">User</label>
+                  </div>
+
+                  <select class="custom-select" id="inputGroupSelect">
+                    <% if !params[:author].present? %>
+                      <option selected value="">All</option>
+                    <% else %>
+                      <option value="">All</option>
+                    <% end %>
+
+                    <% @authors.each do |author| %>
+                      <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                        <option selected value="<%= author.id %>"><%= author %></option>
+                      <% else %>
+                        <option value="<%= author.id %>"><%= author %></option>
+                      <% end %>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+
+
+              <div class="col-12 col-md-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+                  </div>
+                  <select class="custom-select" id="inputGroupSelectStatus">
+                    <% if !params[:status].present? %>
+                      <option selected value="">All</option>
+                    <% else %>
+                      <option value="">All</option>
+                    <% end %>
+
+                    <% if params[:status].present? && params[:status] == "passed" %>
+                      <option selected value="passed">Passed</option>
+                    <% else %>
+                      <option value="passed">Passed</option>
+                    <% end %>
+                    <% if params[:status].present? && params[:status] == "failed" %>
+                      <option selected value="failed">Failed</option>
+                    <% else %>
+                      <option value="failed">Failed</option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+
+
+              <div class="col-12 col-md-3">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+                  </div>
+                  <select class="custom-select" id="inputGroupSelectBranch">
+                    <% if !params[:branch].present? %>
+                      <option selected value="">All</option>
+                    <% else %>
+                      <option value="">All</option>
+                    <% end %>
+
+                    <% @branches.each do |branch| %>
+                      <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                        <option selected value="<%= branch %>"><%= branch %></option>
+                      <% else %>
+                        <option value="<%= branch %>"><%= branch %></option>
+                      <% end %>
+                    <% end %>
+
+                  </select>
+                </div>
+              </div>
+
+
+
+
+            </div>
+            <!-- End of Filters -->
+
+
+
+            <!-- Chart -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Commits in the last 15 days
+              </div>
+              <div class="card-body pt-1 pb-0">
+                <%= column_chart [
+                  {name: 'Passed', color: 'green', data: current_user.commit_attempts.where(passed: true).group_by_day(:created_at, last: 15).count},
+                  {name: 'Failed', color: 'red', data: current_user.commit_attempts.where(passed: false).group_by_day(:created_at, last: 15).count},
+                  {name: 'No policy', color: 'grey', data: current_user.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 15).count}
+                ], height: "200px", stacked: true
+                %>
               </div>
             </div>
-          </div>
-        <% else %>
+            <!-- End of Chart -->
 
-          <div class="card mb-3 text-center">
-            <div class="card-body pt-5 pb-5">
-              <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
-              <h1 class="mb-5 text-muted">Waiting for commits...</h1>
-              <h3>Local Install</h3>
-              <p>Install with <strong>NPM</strong> (local):</p>
-              <div class="mb-5">
-                <p><kbd class="p-2">npm install -D omnilint</kbd></p>
+            <!-- Last Commits -->
+            <div class="card mb-3">
+              <div class="card-header">
+                Last Commits
+                <!-- <span class="badge badge-secondary"><%#= @last_commit_attempts.count %> -->
               </div>
-              <h3>Global Install</h3>
-              <p>Install with <strong>NPM</strong> (global):</p>
-              <div class="mb-4">
-                <p><kbd class="p-2">npm install -g omnilint</kbd></p>
-              </div>
-              <p>Then inside your repository root:</p>
-              <div class="mb-4">
-                <p><kbd class="p-2">omnilint install</kbd></p>
+              <div class="card-body p-0">
+                <div class="table-responsive">
+                  <table class="table table-hover mb-0">
+                    <tbody>
+                      <% @commit_attempts.each_with_index do |commit_attempt, index| %>
+                        <% if commit_attempt.policy_checks.length > 0 %>
+                          <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: commit_attempt.policy_checks.first %>
+                        <% else %>
+                          <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, display_repository: true, i: index, policy_check: nil %>
+                        <% end %>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
-          </div>
+            <!-- End Last Commits -->
 
-        <% end %>
-      </div>
+          <% else %>
 
+            <div class="card mb-3 text-center">
+              <div class="card-body pt-5 pb-5">
+                <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
+                <h1 class="mb-4 text-muted">Waiting for commits...</h1>
 
-      <div class="col-12 col-md-5 col-lg-4">
+                <div class="text-center" style="text-align: center !important;">
+                  <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 150px;">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="local-tab" data-toggle="tab" href="#local" role="tab" aria-controls="local" aria-selected="true">Local</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="false">Global</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="local-tab" id="local">
+                      <p>Install with <strong>NPM</strong> (local):</p>
+                      <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+                      <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
+                      <p>You can then use NPX to run Omnilint <br> commands from inside your repository:</p>
+                      <p><kbd class="p-2">$ npx omnilint [COMMAND]</kbd></p>
 
-        <div class="card mb-3">
-          <div class="card-body py-2 bg-light">
-            <p class="text-muted mb-0"><%= current_user.greet %>.</p>
-          </div>
+                      <p>To (re)install Omnilint's git hooks:</p>
+                      <p><kbd class="p-2">$ npx omnilint install</kbd></p>
+                    </div>
+                    <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
+                      <p>Install with <strong>NPM</strong> (global):</p>
+                      <div class="mb-4">
+                        <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
+                      </div>
+                      <p>You can then run Omnilint commands anywhere:</p>
+                      <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+                      <p><kbd class="p-2">$ omnilint [COMMAND]</kbd></p>
+                      <p>To (re)install Omnilint's git hooks:</p>
+                      <p><kbd class="p-2">$ cd path/to/repository</kbd></p>
+                      <p><kbd class="p-2">$ omnilint install</kbd></p>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          <% end %>
         </div>
 
-        <div class="card mb-3 box-shadow">
-          <div class="card-header text-muted">
-            <div class="row">
-              <div class="col">
-                <i class="fa fa-tag mr-1"></i>
-                <small>PLAN</small>
-              </div>
-              <div class="col text-right">
-                <%= link_to "Update Plan", plans_path %>
-              </div>
+
+        <div class="col-12 col-md-5 col-lg-4">
+
+          <div class="card mb-3">
+            <div class="card-body py-2 bg-light">
+              <p class="text-muted mb-0"><%= current_user.greet %>.</p>
             </div>
           </div>
-          <div class="card-body bg-white">
-            <% if current_user.plan.present? %>
-              <p class="mb-0">
-                Your current plan:
-                <strong><%= current_user.plan %></strong>
-                <!-- ($<%= current_user.plan.price_per_month.to_i %>/mo) -->
-                <br/>
-            <% else %>
-              No plan.
-            <% end %>
-          </div>
-        </div>
 
-        <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <div class="row">
-              <div class="col-7">
-                <i class="fa fa-building-o mr-1"></i>
-                <small>ORGANIZATIONS</small>
-              </div>
-              <div class="col-5 text-right">
-                <%#= link_to "+ New Org.", new_user_path(current_user) %>
-                <script type="text/javascript">
-                  var showOrganizationForm = function() {
-                    document.getElementById('new_organization_form_container').style.display = 'block';
-                    document.getElementById('organizations_list_container').style.display = 'none';
-                    document.getElementById('hide_organizations_form_button').style.display = 'block';
-                    document.getElementById('show_organizations_form_button').style.display = 'none';
-                    return false;
-                  }
-
-                  var hideOrganizationForm = function() {
-                    document.getElementById('new_organization_form_container').style.display = 'none';
-                    document.getElementById('organizations_list_container').style.display = 'block';
-                    document.getElementById('hide_organizations_form_button').style.display = 'none';
-                    document.getElementById('show_organizations_form_button').style.display = 'block';
-                    return false;
-                  }
-                </script>
-                <a href="#" id="show_organizations_form_button" onclick="showOrganizationForm()">+ New Org.</a>
-                <a href="#" id="hide_organizations_form_button" style="display: none;" onclick="hideOrganizationForm()">Done</a>
+          <div class="card mb-3 box-shadow">
+            <div class="card-header text-muted">
+              <div class="row">
+                <div class="col">
+                  <i class="fa fa-tag mr-1"></i>
+                  <small>PLAN</small>
+                </div>
+                <div class="col text-right">
+                  <%= link_to "Update Plan", plans_path %>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-body bg-white">
-
-
-            <div class="mb-3" id="new_organization_form_container" style="display: none;">
-              <p>Create an organization</p>
-              <%= bootstrap_form_for(resource, as: resource_name, url: users_path) do |f| %>
-                <div class="field">
-                  <%= f.text_field :organization_name, autofocus: true, autocomplete: "off", autocorrect: "off", autocapitalize: true, hide_label: true, class: "custom-form", placeholder: "Organization name", wrapper: { class: '' } %>
-                </div>
-                <!--
-                <div class="field">
-                  <%= f.text_field :username, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
-                </div>
-                <div class="field">
-                  <%= f.email_field :email, autocomplete: "email", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form email-input", placeholder: "Email", wrapper: { class: '' } %>
-                </div>
-                <div class="field">
-                  <%= f.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Password", wrapper: { class: '' }  %>
-                </div>
-
-                  <%= f.form_group :is_organization, label: { text: "I am" } do %>
-                    <%= f.radio_button :is_organization, false, label: "An invidual" %>
-                    <%= f.radio_button :is_organization, true, label: "An organization", checked: true %>
-                  <% end %>
-
-
-                -->
-                <%= f.hidden_field :is_organization, value: true %>
-
-                <div class="actions mb-3">
-                  <%= f.submit "Create Organization", class: "btn btn-dark btn-block" %>
-                </div>
-                <!-- <%#= render "devise/shared/links" %> -->
-                <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
-                  By using this form, you agree to our terms of service and privacy policy. We may send you account related emails.
-                </p>
+            <div class="card-body bg-white">
+              <% if current_user.plan.present? %>
+                <p class="mb-0">
+                  Your current plan:
+                  <strong><%= current_user.plan %></strong>
+                  (<%= pluralize(current_user.number_of_seats.to_i, 'seat') %>)
+                  <!-- ($<%= current_user.plan.price_per_month.to_i %>/mo) -->
+                  <br/>
+              <% else %>
+                No plan.
               <% end %>
             </div>
+          </div>
 
-            <%# if current_user.memberships.joins(:organization).count > 0 %>
-            <% org_count = 0 %>
-            <ul class="list-unstyled mb-0" id="organizations_list_container">
-              <% current_user.memberships.joins(:organization).order(id: :desc).each do |membership| %>
-                <% if membership.organization.is_organization.present? && membership.organization.is_organization == true %>
-                  <li>
-                    <strong><%= link_to "#{membership.organization.organization_name}", "#{membership.organization}" %></strong>
-                    <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships_as_organization.count, 'member') %></span>
-                    <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
-                  </li>
-                  <% org_count = org_count + 1 %>
+          <div class="card my-3 box-shadow">
+            <div class="card-header text-muted">
+              <div class="row">
+                <div class="col-7">
+                  <i class="fa fa-building-o mr-1"></i>
+                  <small>ORGANIZATIONS</small>
+                </div>
+                <div class="col-5 text-right">
+                  <%#= link_to "+ New Org.", new_user_path(current_user) %>
+                  <script type="text/javascript">
+                    var showOrganizationForm = function() {
+                      document.getElementById('new_organization_form_container').style.display = 'block';
+                      document.getElementById('organizations_list_container').style.display = 'none';
+                      document.getElementById('hide_organizations_form_button').style.display = 'block';
+                      document.getElementById('show_organizations_form_button').style.display = 'none';
+                      return false;
+                    }
+
+                    var hideOrganizationForm = function() {
+                      document.getElementById('new_organization_form_container').style.display = 'none';
+                      document.getElementById('organizations_list_container').style.display = 'block';
+                      document.getElementById('hide_organizations_form_button').style.display = 'none';
+                      document.getElementById('show_organizations_form_button').style.display = 'block';
+                      return false;
+                    }
+                  </script>
+                  <a href="#" id="show_organizations_form_button" onclick="showOrganizationForm()">+ New Org.</a>
+                  <a href="#" id="hide_organizations_form_button" style="display: none;" onclick="hideOrganizationForm()">Done</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body bg-white">
+
+
+              <div class="mb-3" id="new_organization_form_container" style="display: none;">
+                <p>Create an organization</p>
+                <%= bootstrap_form_for(resource, as: resource_name, url: organizations_path) do |f| %>
+                  <div class="field">
+                    <%= f.text_field :organization_name, autofocus: true, autocomplete: "off", autocorrect: "off", autocapitalize: true, hide_label: true, class: "custom-form", placeholder: "Organization name", wrapper: { class: '' } %>
+                  </div>
+                  <!--
+                  <div class="field">
+                    <%= f.text_field :username, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
+                  </div>
+                  <div class="field">
+                    <%= f.email_field :email, autocomplete: "email", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form email-input", placeholder: "Email", wrapper: { class: '' } %>
+                  </div>
+                  <div class="field">
+                    <%= f.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Password", wrapper: { class: '' }  %>
+                  </div>
+
+                    <%= f.form_group :is_organization, label: { text: "I am" } do %>
+                      <%= f.radio_button :is_organization, false, label: "An invidual" %>
+                      <%= f.radio_button :is_organization, true, label: "An organization", checked: true %>
+                    <% end %>
+
+
+                  -->
+                  <%= f.hidden_field :is_organization, value: true %>
+
+                  <div class="actions mb-3">
+                    <%= f.submit "Create Organization", class: "btn btn-dark btn-block" %>
+                  </div>
+                  <!-- <%#= render "devise/shared/links" %> -->
+                  <p class="mt-2 mb-0 text-muted" style="line-height: 1em; font-size: 11px;">
+                    By using this form, you agree to our terms of service and privacy policy. We may send you account related emails.
+                  </p>
                 <% end %>
-              <% end %>
-              <% if org_count == 0 %>
-                <li>No organization.</li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-
-
-        <div class="card my-3 box-shadow">
-          <div class="card-header text-muted">
-            <div class="row">
-              <div class="col">
-                <i class="fa fa-users mr-1"></i>
-                <small>TEAMS</small>
               </div>
-              <div class="col text-right">
-                <%= link_to "+ New Team", new_user_team_path(current_user) %>
-              </div>
-            </div>
-          </div>
-          <div class="card-body bg-white">
-            <% if current_user.memberships.joins(:team).count > 0 %>
-              <ul class="list-unstyled mb-0">
-                <% current_user.memberships.joins(:team).order(id: :desc).each do |membership| %>
-                  <li>
-                    <strong><%= link_to "#{membership.team.name}", team_path(membership.team) %></strong>
-                    <span class="text-muted ml-2"><%= pluralize(membership.team.memberships.count, 'member') %></span>
-                    <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
-                  </li>
+
+              <%# if current_user.memberships.joins(:organization).count > 0 %>
+              <% org_count = 0 %>
+              <ul class="list-unstyled mb-0" id="organizations_list_container">
+                <% current_user.memberships.joins(:organization).order(id: :desc).each do |membership| %>
+                  <% if membership.organization.is_organization.present? && membership.organization.is_organization == true %>
+                    <li>
+                      <strong><%= link_to "#{membership.organization.organization_name}", "#{membership.organization}" %></strong>
+                      <span class="text-muted ml-2"><%= pluralize(membership.organization.memberships_as_organization.count, 'member') %></span>
+                      <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
+                    </li>
+                    <% org_count = org_count + 1 %>
+                  <% end %>
+                <% end %>
+                <% if org_count == 0 %>
+                  <li>No organization.</li>
                 <% end %>
               </ul>
-            <% else %>
-              No team.
-            <% end %>
+            </div>
           </div>
-        </div>
 
 
-        <% if current_user.repositories_with_access.length > 0 %>
-          <% if current_user.repositories_with_access.length == 1 %>
-            <p class="mb-2 text-muted"><small>1 REPOSITORY ACCESS</small></p>
-          <% else %>
-            <p class="mb-2 text-muted"><small><%= current_user.repositories_with_access.length %> REPOSITORY ACCESSES</small></p>
+          <div class="card my-3 box-shadow">
+            <div class="card-header text-muted">
+              <div class="row">
+                <div class="col">
+                  <i class="fa fa-users mr-1"></i>
+                  <small>TEAMS</small>
+                </div>
+                <div class="col text-right">
+                  <%= link_to "+ New Team", new_user_team_path(current_user) %>
+                </div>
+              </div>
+            </div>
+            <div class="card-body bg-white">
+              <% if current_user.memberships.joins(:team).count > 0 %>
+                <ul class="list-unstyled mb-0">
+                  <% current_user.memberships.joins(:team).order(id: :desc).each do |membership| %>
+                    <li>
+                      <strong><%= link_to "#{membership.team.name}", team_path(membership.team) %></strong>
+                      <span class="text-muted ml-2"><%= pluralize(membership.team.memberships.count, 'member') %></span>
+                      <span class="text-muted ml-2"><%= "(#{membership.role})" %></span>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                No team.
+              <% end %>
+            </div>
+          </div>
+
+
+          <% if current_user.repositories_with_access.length > 0 %>
+            <% if current_user.repositories_with_access.length == 1 %>
+              <p class="mb-2 text-muted"><small>1 REPOSITORY ACCESS</small></p>
+            <% else %>
+              <p class="mb-2 text-muted"><small><%= current_user.repositories_with_access.length %> REPOSITORY ACCESSES</small></p>
+            <% end %>
+            <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
           <% end %>
-          <%= render "users/user_repositories", repositories: current_user.repositories_with_access.order(updated_at: :desc) %>
-        <% end %>
 
 
 
 
 
+        </div>
       </div>
-    </div>
+
   </div>
 </section>
 
