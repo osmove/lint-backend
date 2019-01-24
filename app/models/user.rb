@@ -164,6 +164,10 @@ class User < ApplicationRecord
   end
 
 
+  before_create :set_defaults
+  def set_defaults
+    self.number_of_seats ||= 1
+  end
 
 
   # before_create :add_creator_to_members
