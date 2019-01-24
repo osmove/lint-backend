@@ -1,133 +1,286 @@
 
 <section class="bg-light">
-  <div class="container text-left py-4 py-lg-5">
+  <div class="container text-left py-4">
 
-    <h3 class="pb-2">Last Commit Attempts</h3>
-
-    <div class="row">
-
-      <div class="col-12 col-md-4">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect">User</label>
-          </div>
-
-          <select class="custom-select" id="inputGroupSelect">
-            <% if !params[:author].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% @authors.each do |author| %>
-              <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
-                <option selected value="<%= author.id %>"><%= author %></option>
-              <% else %>
-                <option value="<%= author.id %>"><%= author %></option>
-              <% end %>
-            <% end %>
-          </select>
-        </div>
-      </div>
-
-
-      <div class="col-12 col-md-4">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectBranch">
-            <% if !params[:branch].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% @branches.each do |branch| %>
-              <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
-                <option selected value="<%= branch %>"><%= branch %></option>
-              <% else %>
-                <option value="<%= branch %>"><%= branch %></option>
-              <% end %>
-            <% end %>
-
-          </select>
-        </div>
-      </div>
-
-
-
-      <div class="col-12 col-md-4">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
-          </div>
-          <select class="custom-select" id="inputGroupSelectStatus">
-            <% if !params[:status].present? %>
-              <option selected value="">All</option>
-            <% else %>
-              <option value="">All</option>
-            <% end %>
-
-            <% if params[:status].present? && params[:status] == "passed" %>
-              <option selected value="passed">Passed</option>
-            <% else %>
-              <option value="passed">Passed</option>
-            <% end %>
-            <% if params[:status].present? && params[:status] == "failed" %>
-              <option selected value="failed">Failed</option>
-            <% else %>
-              <option value="failed">Failed</option>
-            <% end %>
-          </select>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="card mb-3">
-      <div class="card-body pt-1 pb-0">
-        <%= column_chart [
-          {name: 'Passed', color: 'green', data: @repository.commit_attempts.where(passed: true).group_by_day(:created_at, last: 21).count},
-          {name: 'Failed', color: 'red', data: @repository.commit_attempts.where(passed: false).group_by_day(:created_at, last: 21).count},
-          {name: 'No policy', color: 'grey', data: @repository.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 21).count}
-        ], height: "200px", stacked: true
-        %>
-      </div>
-    </div>
-
-
+    <!-- <h3 class="pb-2">Last Commit Attempts</h3> -->
 
     <% if @commit_attempts.length > 0 %>
-      <div class="card mb-3">
-        <div class="card-header">
-          Commit Attempts <span class="badge badge-secondary"><%= @commit_attempts_count %>
-        </div>
-        <div class="card-body p-0">
-          <div class="table-responsive">
-            <table class="table table-hover mb-0">
-              <tbody>
-                <% @commit_attempts.each_with_index do |commit_attempt, index| %>
-                  <% if commit_attempt.policy_checks.length > 0 %>
-                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: commit_attempt.policy_checks.first %>
-                  <% else %>
-                    <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: nil %>
-                  <% end %>
+      <!-- Filters -->
+      <div class="row">
+
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect">User</label>
+            </div>
+
+            <select class="custom-select" id="inputGroupSelect">
+              <% if !params[:author].present? %>
+                <option selected value="">All</option>
+                <option value="">All</option>
+              <% end %>
+
+              <% @authors.each do |author| %>
+                <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                  <option selected value="<%= author.id %>"><%= author %></option>
+                <% else %>
+                  <option value="<%= author.id %>"><%= author %></option>
                 <% end %>
-              </tbody>
-            </table>
+              <% end %>
+            </select>
           </div>
         </div>
+
+
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelectBranch">
+              <% if !params[:branch].present? %>
+                <option selected value="">All</option>
+              <% else %>
+                <option value="">All</option>
+              <% end %>
+
+              <% @branches.each do |branch| %>
+                <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                  <option selected value="<%= branch %>"><%= branch %></option>
+                <% else %>
+                  <option value="<%= branch %>"><%= branch %></option>
+                <% end %>
+              <% end %>
+
+            </select>
+          </div>
+        </div>
+
+
+
+        <div class="col-12 col-md-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelectStatus">
+              <% if !params[:status].present? %>
+                <option selected value="">All</option>
+              <% else %>
+                <option value="">All</option>
+              <% end %>
+
+              <% if params[:status].present? && params[:status] == "passed" %>
+                <option selected value="passed">Passed</option>
+              <% else %>
+                <option value="passed">Passed</option>
+              <% end %>
+              <% if params[:status].present? && params[:status] == "failed" %>
+                <option selected value="failed">Failed</option>
+              <% else %>
+                <option value="failed">Failed</option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+
       </div>
 
-      <%= paginate @commit_attempts %>
-
-    <% else %>
-      <%= render 'repositories/tabs/empty', repository: @repository %>
+      <!-- End of Filters -->
     <% end %>
 
 
+
+    <div class="row">
+      <div class="col-12 col-md-8">
+
+
+
+
+        <% if @commit_attempts.length > 0 %>
+
+          <div class="card mb-3">
+            <div class="card-body pt-1 pb-0">
+              <%= column_chart [
+                {name: 'Passed', color: 'green', data: @repository.commit_attempts.where(passed: true).group_by_day(:created_at, last: 21).count},
+                {name: 'Failed', color: 'red', data: @repository.commit_attempts.where(passed: false).group_by_day(:created_at, last: 21).count},
+                {name: 'No policy', color: 'grey', data: @repository.commit_attempts.where(passed: nil).group_by_day(:created_at, last: 21).count}
+              ], height: "200px", stacked: true
+              %>
+            </div>
+          </div>
+
+
+          <div class="card mb-3">
+            <div class="card-header">
+              Commit Attempts <span class="badge badge-secondary"><%= @commit_attempts_count %>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <tbody>
+                    <% @commit_attempts.each_with_index do |commit_attempt, index| %>
+                      <% if commit_attempt.policy_checks.length > 0 %>
+                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: commit_attempt.policy_checks.first %>
+                      <% else %>
+                        <%= render 'commit_attempts/commit_attempt_card_body', commit_attempt: commit_attempt, i: index, display_repository: false, policy_check: nil %>
+                      <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <%= paginate @commit_attempts %>
+
+        <% else %>
+          <div class="card mb-3 text-center">
+            <div class="card-body pt-5 pb-5">
+              <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
+              <h1 class="mb-4 text-muted">Waiting for commits...</h1>
+
+              <div class="text-center" style="text-align: center !important;">
+                <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 150px;">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="local-tab" data-toggle="tab" href="#local" role="tab" aria-controls="local" aria-selected="true">Local</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="false">Global</a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="local-tab" id="local">
+                    <p>Install with <strong>NPM</strong> (local):</p>
+                    <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                    <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
+                    <p>You can then use NPX to run Omnilint <br> commands from inside your repository:</p>
+                    <p><kbd class="p-2">$ npx omnilint [COMMAND]</kbd></p>
+
+                    <p>To (re)install Omnilint's git hooks:</p>
+                    <p><kbd class="p-2">$ npx omnilint install</kbd></p>
+                  </div>
+                  <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
+                    <p>Install with <strong>NPM</strong> (global):</p>
+                    <div class="mb-4">
+                      <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
+                    </div>
+                    <p>You can then run Omnilint commands anywhere:</p>
+                    <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                    <p><kbd class="p-2">$ omnilint [COMMAND]</kbd></p>
+                    <p>To (re)install Omnilint's git hooks:</p>
+                    <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                    <p><kbd class="p-2">$ omnilint install</kbd></p>
+                  </div>
+                  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        <% end %>
+
+
+
+      </div>
+
+
+
+      <div class="col-12 col-md-4" style="font-size: 14px; color: #333;">
+
+        <p class="mb-1" id="git_address_info">Repository address:</p>
+        <div class="input-group mb-4">
+          <!-- <div class="input-group-prepend">
+            <span class="input-group-text text-muted" id="basic-addon3">GIT</span>
+          </div> -->
+          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_address %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
+          <div class="input-group-append">
+            <span class="input-group-text" onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;"><i class="fa fa-copy"></i></span>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-cog mr-1"></i>
+            REPOSITORY SETTINGS
+          </div>
+          <div class="card-body bg-white">
+            <ul class="list-unstyled mb-2">
+              <!-- <li>UUID: <strong><%= repository.uuid %></strong></li> -->
+
+
+              <% if repository.status.downcase == 'private' %>
+                <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
+              <% else %>
+                <li>Visibility: <strong><%= repository.status %></strong> </li>
+              <% end %>
+
+              <% if repository.platform.present? %>
+                <li>Platform: <strong><%= repository.platform %></strong> </li>
+                <% if repository.platform.language.present? && repository.platform.language.name != repository.platform.name %>
+                  <li>Language: <strong><%= repository.platform.language %></strong> </li>
+                <% end %>
+                <% if repository.platform.framework.present? && repository.platform.framework.name != repository.platform.name && repository.platform.framework.name != repository.platform.language.name  %>
+                  <li>Framework: <strong><%= repository.platform.framework %></strong> </li>
+                <% end %>
+              <% end %>
+            </ul>
+            <p class="mb-0"><%= link_to 'Edit settings', edit_user_repository_path(@repository.user, @repository.slug),  class: "btn btn-sm btn-outline-info" %></p>
+
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header text-muted">
+            <i class="fa fa-desktop mr-1"></i>
+            DEPLOYMENT
+          </div>
+          <div class="card-body bg-white">
+            <ul class="list-unstyled mb-0">
+
+
+              <% if repository.deploy_to.present? %>
+                <li>Deployment: <strong><%= repository.deploy_to.titleize %></strong></li>
+                <%# if repository.deploy_to == "omnilint_cloud" %>
+                <% if repository.hosting_plan.present? %>
+                  <li>Memory: <strong><%= repository.hosting_plan.memory / 1000%> MB</strong></li>
+                  <li>vCPUs: <strong><%= repository.hosting_plan.vcpus %> vCPUs</strong></li>
+                  <li>Storage: <strong><%= repository.hosting_plan.storage / 1000 %> MB</strong></li>
+                  <li>Transfer: <strong><%= repository.hosting_plan.transfer / 1000 %> GB</strong></li>
+                  <% if repository.geo_zone.present? %>
+                  <li>Zone: <strong><%= repository.geo_zone.titleize  %></strong></li>
+                  <% end %>
+                  <li>Price: <strong>$<%= repository.hosting_plan.transfer / 1000 %>/mo</strong></li>
+                <% end %>
+              <% else %>
+                <li>Deployment: <strong>None</strong></li>
+              <% end %>
+
+
+
+
+              <!--
+              <% if repository.has_deployment %>
+                <li>Deployment: <i class="fa fa-desktop text-muted"></i> <strong>Yes</strong></li>
+              <% else %>
+                <li>Deployment: <strong>No</strong></li>
+              <% end %> -->
+
+
+              <!-- <li><i class="fa fa-eye text-muted"></i> Visibility: <strong><%= repository.status %></strong></li>
+              <li><i class="fa fa-lock text-muted"></i> End-to-end encryption: <strong><%= repository.has_encryption ? 'Yes' : 'No' %></strong></li>
+              <li><i class="fa fa-shield text-muted"></i> Two-step authentication: <strong><%= repository.requires_two_step_authentication ? 'Yes' : 'No' %></strong></li>
+              <li><i class="fa fa-desktop text-muted"></i> Deployment: <strong><%= repository.has_deployment ? 'Yes' : 'No' %></strong></li> -->
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
   </div>
 </section>
 
