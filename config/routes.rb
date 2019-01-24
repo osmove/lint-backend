@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   resources :changes
   resources :commits
 
-  resources :users, except: [:destroy, :show, :create]
+  resources :users, except: [:destroy, :show]
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     # get '/edit' => 'devise/registrations#edit'
   end
 
-  resources :users, only: [:destroy, :show, :create]
+  resources :users, only: [:destroy, :show]
 
 
   # devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
