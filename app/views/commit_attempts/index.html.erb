@@ -9,125 +9,125 @@
 
       <p><%= link_to "Back to repository", user_repository_path(@repository.user, @repository) %></p>
 
+      <% if @commit_attempts.length > 0 %>
 
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect">User</label>
+              </div>
 
-
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect">User</label>
-            </div>
-
-            <select class="custom-select" id="inputGroupSelect">
-              <% if !params[:author].present? %>
-                <option selected value="">All</option>
-              <% else %>
-                <option value="">All</option>
-              <% end %>
-
-              <% @authors.each do |author| %>
-                <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
-                  <option selected value="<%= author.id %>"><%= author %></option>
+              <select class="custom-select" id="inputGroupSelect">
+                <% if !params[:author].present? %>
+                  <option selected value="">All</option>
                 <% else %>
-                  <option value="<%= author.id %>"><%= author %></option>
+                  <option value="">All</option>
                 <% end %>
-              <% end %>
-            </select>
-          </div>
-        </div>
 
-        <script type="text/javascript">
-          $('#inputGroupSelect').on('change', function() {
-            if (this.value ) {
-              var params = '?author=' + this.value + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
-
-            } else {
-              var params = '?author=' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
-            }
-            window.location = params
-
-          });
-        </script>
-
-        <div class="col-12 col-md-4">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+                <% @authors.each do |author| %>
+                  <% if params[:author].present? && params[:author].to_i == author.id.to_i %>
+                    <option selected value="<%= author.id %>"><%= author %></option>
+                  <% else %>
+                    <option value="<%= author.id %>"><%= author %></option>
+                  <% end %>
+                <% end %>
+              </select>
             </div>
-            <select class="custom-select" id="inputGroupSelectBranch">
-              <% if !params[:branch].present? %>
-                <option selected value="">All</option>
-              <% else %>
-                <option value="">All</option>
-              <% end %>
+          </div>
 
-              <% @branches.each do |branch| %>
-                <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
-                  <option selected value="<%= branch %>"><%= branch %></option>
+          <script type="text/javascript">
+            $('#inputGroupSelect').on('change', function() {
+              if (this.value ) {
+                var params = '?author=' + this.value + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+
+              } else {
+                var params = '?author=' + '&branch=' + '<%= params[:branch] %>' + '&status=' + '<%= params[:status] %>';
+              }
+              window.location = params
+
+            });
+          </script>
+
+          <div class="col-12 col-md-4">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelectBranch">Branch</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelectBranch">
+                <% if !params[:branch].present? %>
+                  <option selected value="">All</option>
                 <% else %>
-                  <option value="<%= branch %>"><%= branch %></option>
+                  <option value="">All</option>
                 <% end %>
-              <% end %>
 
-            </select>
-          </div>
-        </div>
+                <% @branches.each do |branch| %>
+                  <% if params[:branch].present? && params[:branch].gsub(/[^a-zA-Z0-9\-]/,"") == branch.gsub(/[^a-zA-Z0-9\-]/,"") %>
+                    <option selected value="<%= branch %>"><%= branch %></option>
+                  <% else %>
+                    <option value="<%= branch %>"><%= branch %></option>
+                  <% end %>
+                <% end %>
 
-        <script type="text/javascript">
-          $('#inputGroupSelectBranch').on('change', function() {
-            if (this.value) {
-              var params = '?branch=' + this.value + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
-            } else {
-              var params = '?branch=' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
-            }
-            window.location = params
-          });
-        </script>
-
-
-
-        <div class="col-12 col-md-4">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+              </select>
             </div>
-            <select class="custom-select" id="inputGroupSelectStatus">
-              <% if !params[:status].present? %>
-                <option selected value="">All</option>
-              <% else %>
-                <option value="">All</option>
-              <% end %>
-
-              <% if params[:status].present? && params[:status] == "passed" %>
-                <option selected value="passed">Passed</option>
-              <% else %>
-                <option value="passed">Passed</option>
-              <% end %>
-              <% if params[:status].present? && params[:status] == "failed" %>
-                <option selected value="failed">Failed</option>
-              <% else %>
-                <option value="failed">Failed</option>
-              <% end %>
-            </select>
           </div>
+
+          <script type="text/javascript">
+            $('#inputGroupSelectBranch').on('change', function() {
+              if (this.value) {
+                var params = '?branch=' + this.value + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+              } else {
+                var params = '?branch=' + '&author=' + '<%= params[:author] %>' + '&status=' + '<%= params[:status] %>';
+              }
+              window.location = params
+            });
+          </script>
+
+
+
+          <div class="col-12 col-md-4">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelectStatus">Status</label>
+              </div>
+              <select class="custom-select" id="inputGroupSelectStatus">
+                <% if !params[:status].present? %>
+                  <option selected value="">All</option>
+                <% else %>
+                  <option value="">All</option>
+                <% end %>
+
+                <% if params[:status].present? && params[:status] == "passed" %>
+                  <option selected value="passed">Passed</option>
+                <% else %>
+                  <option value="passed">Passed</option>
+                <% end %>
+                <% if params[:status].present? && params[:status] == "failed" %>
+                  <option selected value="failed">Failed</option>
+                <% else %>
+                  <option value="failed">Failed</option>
+                <% end %>
+              </select>
+            </div>
+          </div>
+
+          <script type="text/javascript">
+            $('#inputGroupSelectStatus').on('change', function() {
+              if (this.value ) {
+                var params = '?status=' + this.value + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+
+              } else {
+                var params = '?status=' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
+              }
+              window.location = params
+
+            });
+          </script>
+
         </div>
 
-        <script type="text/javascript">
-          $('#inputGroupSelectStatus').on('change', function() {
-            if (this.value ) {
-              var params = '?status=' + this.value + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
-
-            } else {
-              var params = '?status=' + '&author=' + '<%= params[:author] %>' + '&branch=' + '<%= params[:branch] %>';
-            }
-            window.location = params
-
-          });
-        </script>
-
-      </div>
-
+      <% end %>
 
 
 
@@ -157,7 +157,50 @@
         <%= paginate @commit_attempts %>
 
       <% else %>
-        <%= render 'repositories/tabs/empty', repository: @repository %>
+        <%#= render 'repositories/tabs/empty', repository: @repository %>
+        <div class="card mb-3 text-center">
+          <div class="card-body pt-5 pb-5">
+            <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
+            <h1 class="mb-4 text-muted">Waiting for commits...</h1>
+
+            <div class="text-center" style="text-align: center !important;">
+              <ul class="nav nav-pills text-center mx-auto mb-4" id="myTab" role="tablist" style="max-width: 150px;">
+                <li class="nav-item">
+                  <a class="nav-link active" id="local-tab" data-toggle="tab" href="#local" role="tab" aria-controls="local" aria-selected="true">Local</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="global-tab" data-toggle="tab" href="#global" role="tab" aria-controls="global" aria-selected="false">Global</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="local-tab" id="local">
+                  <p>Install with <strong>NPM</strong> (local):</p>
+                  <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                  <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
+                  <p>You can then use NPX to run Omnilint <br> commands from inside your repository:</p>
+                  <p><kbd class="p-2">$ npx omnilint [COMMAND]</kbd></p>
+
+                  <p>To (re)install Omnilint's git hooks:</p>
+                  <p><kbd class="p-2">$ npx omnilint install</kbd></p>
+                </div>
+                <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
+                  <p>Install with <strong>NPM</strong> (global):</p>
+                  <div class="mb-4">
+                    <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
+                  </div>
+                  <p>You can then run Omnilint commands anywhere:</p>
+                  <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                  <p><kbd class="p-2">$ omnilint [COMMAND]</kbd></p>
+                  <p>To (re)install Omnilint's git hooks:</p>
+                  <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
+                  <p><kbd class="p-2">$ omnilint install</kbd></p>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       <% end %>
 
 
