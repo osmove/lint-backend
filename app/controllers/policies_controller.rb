@@ -25,7 +25,7 @@ class PoliciesController < ApplicationController
     @rules = @policy_rules.build_rule
     @linters = Linter.all
     @present_rules = @policy.rules
-    @all_rules = Rule.all
+    @all_rules = Rule.all.includes([{rule_options: :rule_option_options}, :linter])
     @form_rules = @all_rules - @present_rules
   end
 

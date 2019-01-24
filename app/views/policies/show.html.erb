@@ -20,14 +20,19 @@
     </div>
     <% if @policy.present? %>
 
-      <% @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}.each do |linter, policy_rules| %>
-        <h4> <%= linter.name %></h4>
-        <% policy_rules.each_with_index do |policy_rule, index| %>
-          <div id="accordion" class="mb-2">
-            <%= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index %>
-          </div>
-        <% end %>
+
+
+      <% @linters.each_with_index do |linter, index| %>
+        <div class="tab-pane fade show <% if index == 0 %> active<% end %>" id="linter-<%= linter.id %>" role="tabpanel" aria-labelledby="<%= linter.id %>-tab">
+          <% @policy.policy_rules.order(name: :asc).select{|x| x.linter_id == linter.id}.each_with_index do |policy_rule, index2| %>
+            <div class="mb-2" id="accordion_<%= policy_rule.id %>">
+              <%= render 'repositories/policy_rule_card', policy_rule: policy_rule, i: index2, cached: true %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
+
+
       <!--
         <%# @linters.each do |linter| %>
           <h4> <%#= linter.name %></h4>

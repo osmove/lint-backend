@@ -210,10 +210,16 @@
               <!-- <li>UUID: <strong><%= repository.uuid %></strong></li> -->
 
 
-              <% if repository.status.downcase == 'private' %>
+              <% if repository.status == 'private' %>
                 <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
               <% else %>
                 <li>Visibility: <strong><%= repository.status %></strong> </li>
+              <% end %>
+
+              <% if repository.policy.present? %>
+                <li>Policy: <i class="fa fa-shield text-success"></i> <strong class="text-success"><%= repository.policy %></strong> </li>
+              <% else %>
+                <li>Policy: <strong>None</strong> </li>
               <% end %>
 
               <% if repository.platform.present? %>
