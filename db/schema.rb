@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190123185610) do
+ActiveRecord::Schema.define(version: 20190124101137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -425,6 +425,8 @@ ActiveRecord::Schema.define(version: 20190123185610) do
     t.datetime "updated_at", null: false
     t.string "stripe_subscription_id"
     t.string "stripe_product_id"
+    t.string "stripe_monthly_plan_id"
+    t.string "stripe_yearly_plan_id"
   end
 
   create_table "platforms", force: :cascade do |t|
@@ -789,6 +791,7 @@ ActiveRecord::Schema.define(version: 20190123185610) do
     t.datetime "token_expires_at"
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
+    t.integer "number_of_seats"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
