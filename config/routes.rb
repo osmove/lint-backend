@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   resources :changes
   resources :commits
 
-  resources :users, except: [:destroy, :show]
+  resources :users, except: [:destroy, :show, :create]
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     # get '/edit' => 'devise/registrations#edit'
   end
 
-  resources :users, only: [:destroy, :show]
+  resources :users, only: [:destroy, :show, :create]
 
 
   # devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
@@ -194,7 +194,7 @@ Rails.application.routes.draw do
     get '/repositories' => 'repositories#index', :as => :user_repositories
     resources :repository_accesses
     resources :teams
-    resources :organizations
+    # resources :organizations
     # get '/teams' => 'teams#index', :as => :user_teams
 
     resources :organizations
