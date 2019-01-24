@@ -74,7 +74,9 @@
 
                       <% if user_signed_in? && current_user.plan.present? && current_user.plan.slug == plan.slug %>
                       <!-- <button class="btn btn-block btn-dark">Current plan</button> -->
-                        <p class="text-muted"><strong>Current plan: <%= current_user.number_of_seats %> seats</strong></p>
+                        <!-- <p class="text-muted"><strong>Current plan: <%#= current_user.number_of_seats %> seats</strong></p> -->
+                        <p class="text-muted"><strong>Current plan: <%= pluralize(current_user.number_of_seats.to_i, 'seat') %> </strong></p>
+
                       <% else %>
                         <!-- <button class="btn btn-block btn-primary">Upgrade</button> -->
 
