@@ -75,6 +75,37 @@
     <% end %>
 
 
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["omnilint_version"].present? %>
+      <p>
+        <%= "Omnilint version: #{@policy_check.report["omnilint_version"]}" %>
+      </p>
+    <% end %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["source_shell_command"].present? %>
+      <p>
+        <%= "Source: #{@policy_check.report["source_shell_command"]}" %>
+      </p>
+    <% end %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["node_version"].present? %>
+      <p>
+        <%= "Node version: #{@policy_check.report["node_version"]}" %>
+      </p>
+    <% end %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["npm_version"].present? %>
+      <p>
+        <%= "NPM version: #{@policy_check.report["npm_version"]}" %>
+      </p>
+    <% end %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["ruby_version"].present? %>
+      <p>
+        <%= "Ruby version: #{@policy_check.report["ruby_version"]}" %>
+      </p>
+    <% end %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["python_version"].present? %>
+      <p>
+        <%= "Python version: #{@policy_check.report["python_version"]}" %>
+      </p>
+    <% end %>
+
     <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["staged_files"].present? %>
 
       <div class="row text-center">
