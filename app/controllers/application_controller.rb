@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
   # impressionist unless: :json_request?
 
+  before_action :set_repository
+
 
   before_action :set_raven_context
 
@@ -81,5 +83,18 @@ class ApplicationController < ActionController::Base
       # country = JSON.parse(response)["country"] rescue nil
 
     end
+
+
+
+    def set_repository
+      unless @repository.present?
+        repository_slug = params[:repository_id] || params[:id]
+        user_slug = params[:user_id]
+        if repository_slug.present? && user_slug.present?
+          @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
+        end
+      end
+    end
+
 
 end
