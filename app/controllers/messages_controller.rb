@@ -17,6 +17,8 @@ class MessagesController < ApplicationController
   # GET /messages/:id
   def show
     @message = Message.find(params[:id])
+    @message.read = true
+    @message.save
   end
 
 

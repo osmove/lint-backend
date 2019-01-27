@@ -15,10 +15,10 @@
           </thead>
           <tbody>
             <% @messages.each do |message| %>
-              <tr style="cursor:pointer;" onclick="window.location = '<%= message_path(message) %>'">
-                <td><%= message.name %> <%= message.email.present? ? "<#{truncate(message.email, length: 20)}>" : '' %></td>
+              <tr style="cursor:pointer; <%= message.read.present? && message.read ? "font-weight: bold;" : '' %>" onclick="window.location = '<%= message_path(message) %>'">
+                <td><%= message.name %> <%= message.email.present? ? "<#{truncate(message.email, length: 25)}>" : '' %></td>
                 <td><%= truncate(message.to_email, length: 20) %></td>
-                <td><%= link_to "<strong>#{truncate(message.subject, length: 20)}</strong> #{truncate(message.text_body, length: 30)}".html_safe, message_path(message) %></td>
+                <td><%= "#{truncate(message.subject, length: 20)} #{truncate(message.text_body, length: 30)}".html_safe %></td>
                 <td><%= "#{time_ago_in_words(message.created_at)} ago" %></td>
               </tr>
             <% end %>
