@@ -4,26 +4,28 @@
     <h1>Messages</h1>
     <div class="card">
       <div class="card-body">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>From</th>
-              <th>To</th>
-              <th>Message</th>
-              <th width="200">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @messages.each do |message| %>
-              <tr style="cursor:pointer; <%= message.read.present? && message.read ? "font-weight: normal;" : 'font-weight: bold;' %>" onclick="window.location = '<%= message_path(message) %>'">
-                <td><%= message.name %> <%= message.email.present? ? "<#{truncate(message.email, length: 25)}>" : '' %></td>
-                <td><%= truncate(message.to_email, length: 20) %></td>
-                <td><%= "#{truncate(message.subject, length: 20)} #{truncate(message.text_body, length: 30)}".html_safe %></td>
-                <td><%= "#{time_ago_in_words(message.created_at)} ago" %></td>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Message</th>
+                <th width="200">Date</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @messages.each do |message| %>
+                <tr style="cursor:pointer; <%= message.read.present? && message.read ? "font-weight: normal;" : 'font-weight: bold;' %>" onclick="window.location = '<%= message_path(message) %>'">
+                  <td><%= message.name.present? ? "#{message.name} <#{truncate(message.email, length: 25)}>" : "#{truncate(message.email, length: 25)}" %></td>
+                  <td><%= truncate(message.to_email, length: 20) %></td>
+                  <td><%= "#{truncate(message.subject, length: 20)} #{truncate(message.text_body, length: 30)}".html_safe %></td>
+                  <td><%= "#{time_ago_in_words(message.created_at)} ago" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
