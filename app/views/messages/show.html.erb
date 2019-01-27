@@ -8,12 +8,18 @@
   <h1><%= @message.subject %></h1>
   <% if @message.html_body.present? %>
     <div class="card mb-4">
+      <div class="card-header">
+        HTML Body
+      </div>
       <div class="card-body">
         <%= raw @message.html_body %>
       </div>
     </div>
   <% elsif @message.text_body.present? %>
     <div class="card mb-4">
+      <div class="card-header">
+        Text Body
+      </div>
       <div class="card-body">
         <%= raw @message.text_body %>
       </div>
@@ -21,13 +27,13 @@
   <% else %>
     <div class="card mb-4">
       <div class="card-body text-center">
-        <p class="my-4">No Body</p>
+        <p class="my-4 text-muted">No Content</p>
       </div>
     </div>
   <% end %>
   <div class="card">
     <div class="card-header">
-      Raw post
+      Raw Post
     </div>
     <div class="card-body">
       <p><%= @message.raw_post %></p>

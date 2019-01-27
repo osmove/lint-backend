@@ -1,0 +1,16 @@
+Hi, you have a new message:
+
+From: <strong><%= @message.name %> <%= @message.email.present? ? "<#{@message.email}>" : '' %></strong>
+<% if @message.to_email.present? %>
+  To: <strong><%= @message.to_email %></strong>
+<% end %>
+
+
+<h1><%= @message.subject %></h1>
+<% if @message.html_body.present? %>
+  <%= raw @message.html_body %>
+<% elsif @message.text_body.present? %>
+  <%= raw @message.text_body %>
+<% else %>
+  <p>No Content</p>
+<% end %>
