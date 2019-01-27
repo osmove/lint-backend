@@ -189,16 +189,28 @@
 
       <div class="col-12 col-md-4" style="font-size: 14px; color: #333;">
 
+        <% if repository.git_url.present? %>
         <p class="mb-1" id="git_address_info">Repository address:</p>
         <div class="input-group mb-4">
           <!-- <div class="input-group-prepend">
             <span class="input-group-text text-muted" id="basic-addon3">GIT</span>
           </div> -->
-          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_address %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
+          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_url %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
           <div class="input-group-append">
             <span class="input-group-text" onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;"><i class="fa fa-copy"></i></span>
           </div>
         </div>
+        <% end %>
+
+        <%# if repository.git_address.present? %>
+        <!-- <p class="mb-1" id="git_address_info">Repository address:</p>
+        <div class="input-group mb-4">
+          <input type="text" class="form-control bg-white" id="git_adress" aria-describedby="basic-addon3" value="<%= repository.git_address %>" onmouseup="return false" readonly onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;">
+          <div class="input-group-append">
+            <span class="input-group-text" onclick="copyGitAdressToClipboard('git_adress', 'git_address_info')" style="cursor: pointer;"><i class="fa fa-copy"></i></span>
+          </div>
+        </div> -->
+        <%# end %>
 
         <div class="card mb-4">
           <div class="card-header text-muted">
@@ -211,15 +223,15 @@
 
 
               <% if repository.status == 'private' %>
-                <li>Visibility: <i class="fa fa-eye-slash text-success"></i> <strong class="text-success"><%= repository.status %></strong> </li>
+                <li><i class="fa fa-eye-slash text-success"></i> Visibility: <strong class="text-success"><%= repository.status %></strong> </li>
               <% else %>
-                <li>Visibility: <strong><%= repository.status %></strong> </li>
+                <li><i class="fa fa-eye-slash text-success"></i> Visibility: <strong><%= repository.status %></strong> </li>
               <% end %>
 
               <% if repository.policy.present? %>
-                <li>Policy: <i class="fa fa-shield text-success"></i> <strong class="text-success"><%= repository.policy %></strong> </li>
+                <li><i class="fa fa-shield"></i> Policy: <strong><%= link_to repository.policy.name, policy_user_repository_path(repository.user, repository) %></strong> </li>
               <% else %>
-                <li>Policy: <strong>None</strong> </li>
+                <li><i class="fa fa-shield"></i> Policy: <strong>None</strong> </li>
               <% end %>
 
               <% if repository.platform.present? %>
@@ -237,50 +249,6 @@
           </div>
         </div>
 
-        <div class="card mb-4">
-          <div class="card-header text-muted">
-            <i class="fa fa-desktop mr-1"></i>
-            DEPLOYMENT
-          </div>
-          <div class="card-body bg-white">
-            <ul class="list-unstyled mb-0">
-
-
-              <% if repository.deploy_to.present? %>
-                <li>Deployment: <strong><%= repository.deploy_to.titleize %></strong></li>
-                <%# if repository.deploy_to == "omnilint_cloud" %>
-                <% if repository.hosting_plan.present? %>
-                  <li>Memory: <strong><%= repository.hosting_plan.memory / 1000%> MB</strong></li>
-                  <li>vCPUs: <strong><%= repository.hosting_plan.vcpus %> vCPUs</strong></li>
-                  <li>Storage: <strong><%= repository.hosting_plan.storage / 1000 %> MB</strong></li>
-                  <li>Transfer: <strong><%= repository.hosting_plan.transfer / 1000 %> GB</strong></li>
-                  <% if repository.geo_zone.present? %>
-                  <li>Zone: <strong><%= repository.geo_zone.titleize  %></strong></li>
-                  <% end %>
-                  <li>Price: <strong>$<%= repository.hosting_plan.transfer / 1000 %>/mo</strong></li>
-                <% end %>
-              <% else %>
-                <li>Deployment: <strong>None</strong></li>
-              <% end %>
-
-
-
-
-              <!--
-              <% if repository.has_deployment %>
-                <li>Deployment: <i class="fa fa-desktop text-muted"></i> <strong>Yes</strong></li>
-              <% else %>
-                <li>Deployment: <strong>No</strong></li>
-              <% end %> -->
-
-
-              <!-- <li><i class="fa fa-eye text-muted"></i> Visibility: <strong><%= repository.status %></strong></li>
-              <li><i class="fa fa-lock text-muted"></i> End-to-end encryption: <strong><%= repository.has_encryption ? 'Yes' : 'No' %></strong></li>
-              <li><i class="fa fa-shield text-muted"></i> Two-step authentication: <strong><%= repository.requires_two_step_authentication ? 'Yes' : 'No' %></strong></li>
-              <li><i class="fa fa-desktop text-muted"></i> Deployment: <strong><%= repository.has_deployment ? 'Yes' : 'No' %></strong></li> -->
-            </ul>
-          </div>
-        </div>
 
       </div>
 
