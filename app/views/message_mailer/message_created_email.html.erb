@@ -24,7 +24,7 @@
   <h1><%= @message.subject %></h1>
 
   <% if @message.html_body.present? %>
-    <%= raw @message.html_body %>2
+    <%= raw @message.html_body %>
   <% elsif @message.text_body.present? %>
     <%= raw @message.text_body %>
   <% else %>
