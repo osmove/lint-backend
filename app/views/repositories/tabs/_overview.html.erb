@@ -225,13 +225,13 @@
               <% if repository.status == 'private' %>
                 <li><i class="fa fa-eye-slash text-success"></i> Visibility: <strong class="text-success"><%= repository.status %></strong> </li>
               <% else %>
-                <li><i class="fa fa-eye-slash text-success"></i> Visibility: <strong><%= repository.status %></strong> </li>
+                <li><i class="fa fa-eye text-muted"></i> Visibility: <strong><%= repository.status %></strong> </li>
               <% end %>
 
               <% if repository.policy.present? %>
-                <li><i class="fa fa-shield"></i> Policy: <strong><%= link_to repository.policy.name, policy_user_repository_path(repository.user, repository) %></strong> </li>
+                <li><i class="fa fa-shield text-success"></i> Policy: <strong><%= link_to repository.policy.name, policy_user_repository_path(repository.user, repository) %></strong> </li>
               <% else %>
-                <li><i class="fa fa-shield"></i> Policy: <strong>None</strong> </li>
+                <li><i class="fa fa-shield text-muted"></i> Policy: <strong>None</strong> </li>
               <% end %>
 
               <% if repository.platform.present? %>
