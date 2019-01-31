@@ -39,7 +39,7 @@
           <div class="card mb-3">
             <div class="card-body">
               <h5>Rules By Status</h5>
-              <%= pie_chart @policy.policy_rules.order(:status).group(:status).count, colors: ["#ff000f", "#404040", "#ffc107", "green"], donut: true %>
+              <%= pie_chart @policy.policy_rules.order(:status).group(:status).count, colors: ["#ff000f", "#cccccc", "#28a745", "#f7a000"], donut: true %>
             </div>
           </div>
           <div class="card mb-3">
