@@ -27,7 +27,7 @@
             <a href="<%= user_path(@commit_attempt.user) %>">
             <% if @commit_attempt.user.avatar_url.present? %>
               <img src="<%= @commit_attempt.user.avatar_url %>" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
-            <% elsif @commit_attempt.user.present? && commit_attempt.user.is_organization? %>
+            <% elsif @commit_attempt.user.present? && @commit_attempt.user.is_organization? %>
               <img src="/images/organization-blank.jpg" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
             <% else %>
               <img src="/images/user-blank.png" alt="<%= @commit_attempt.user %>" class="mr-2" style="width: 20px; height: 20px; border-radius: 80px;">
