@@ -135,6 +135,18 @@
 
     <% if Rails.env.production? %>
 
+
+      <!-- Global site tag (gtag.js) - Google Ads: 1041457492 -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1041457492"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'AW-1041457492');
+      </script>
+
+
+
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8071166-23"></script>
       <script>
@@ -143,6 +155,7 @@
         gtag('js', new Date());
         gtag('config', 'UA-8071166-23');
       </script>
+
 
       <!-- Facebook Pixel Code -->
       <script>
@@ -163,6 +176,7 @@
       <!-- End Facebook Pixel Code -->
 
 
+
       <!-- Load Facebook SDK for JavaScript -->
       <div id="fb-root"></div>
       <script>(function(d, s, id) {
@@ -181,9 +195,8 @@
         theme_color="#0084ff">
       </div>
 
-
-
     <% end %>
+
 
 
 
