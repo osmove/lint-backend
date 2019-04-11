@@ -7,32 +7,36 @@
     <%= link_to '+ New Organization', new_user_organization_path(current_user), class: 'btn btn-success' %>
   </p>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Owner</th>
-        <th>Members</th>
-        <th>Created</th>
-        <!-- <th colspan="3"></th> -->
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @organizations.each do |organization| %>
+  <% if @organizations.present? %>
+    <table class="table">
+      <thead>
         <tr>
-          <td><strong><%= link_to organization.name, organization_path(organization) %></strong></td>
-          <td><%= link_to organization.user, user_path(organization.user)  %></td>
-          <!-- <td><%#= organization.created_at %></td> -->
-          <td><% if organization.memberships.present? %><%= organization.memberships.count %><% else %>0<% end %></td>
-          <td><%= "#{time_ago_in_words(organization.created_at)} ago" %></td>
-          <!-- <td><%#= link_to 'Show', organization %></td>
-          <td><%#= link_to 'Edit', edit_organization_path(organization) %></td>
-          <td><%#= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          <th>Name</th>
+          <th>Owner</th>
+          <th>Members</th>
+          <th>Created</th>
+          <!-- <th colspan="3"></th> -->
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
+      <tbody>
+        <% @organizations.each do |organization| %>
+          <tr>
+            <td><strong><%= link_to organization.name, organization_path(organization) %></strong></td>
+            <td><%= link_to organization.user, user_path(organization.user)  %></td>
+            <!-- <td><%#= organization.created_at %></td> -->
+            <td><% if organization.memberships.present? %><%= organization.memberships.count %><% else %>0<% end %></td>
+            <td><%= "#{time_ago_in_words(organization.created_at)} ago" %></td>
+            <!-- <td><%#= link_to 'Show', organization %></td>
+            <td><%#= link_to 'Edit', edit_organization_path(organization) %></td>
+            <td><%#= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
+    <p>No organization.</p>
+  <% end %>
 
 </div>
