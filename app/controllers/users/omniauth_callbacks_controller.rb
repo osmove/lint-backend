@@ -74,40 +74,41 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
               if !@repository.save!
                 puts(@repository.errors.full_messages)
               else
-                commits_json = open(repo["commits_url"].slice(/.*commits/)).read rescue nil
-                if commits_json != nil
-                  commits = JSON.parse(commits_json)
-                  commits.each do |commit|
-                    if !Commit.where(sha: commit["sha"]).present?
-                      @contributor = Contributor.where(email: commit["commit"]["author"]["email"], repository: @repository).first
-                      if !@contributor.present?
-                        @contributor = Contributor.new(name: commit["commit"]["author"]["name"], email: commit["commit"]["author"]["email"], repository: @repository)
-                        if !@contributor.save!
-                          puts(@contributor.errors.full_messages)
-                        end
-                      end
-                      @commiter_user = User.where(email: commit["commit"]["author"]["email"]).first
-                      if @commiter_user.present?
-                        @contributor.user = @commiter_user
-                      end
-
-                      @commit = @repository.commits.new(
-                        message: commit["commit"]["message"],
-                        date: commit["commit"]["author"]["date"],
-                        date_raw: commit["commit"]["author"]["date"],
-                        contributor_raw: @contributor,
-                        contributor_name: @contributor.name_or_username,
-                        contributor_email: @contributor.email,
-                        contributor: @contributor,
-                        user: @commiter_user,
-                        sha: commit["sha"]
-                      )
-                      if !@commit.save!
-                        puts(@commit.errors.full_messages)
-                      end
-                    end
-                  end
-                end
+                # Save commit data
+                # commits_json = open(repo["commits_url"].slice(/.*commits/)).read rescue nil
+                # if commits_json != nil
+                #   commits = JSON.parse(commits_json)
+                #   commits.each do |commit|
+                #     if !Commit.where(sha: commit["sha"]).present?
+                #       @contributor = Contributor.where(email: commit["commit"]["author"]["email"], repository: @repository).first
+                #       if !@contributor.present?
+                #         @contributor = Contributor.new(name: commit["commit"]["author"]["name"], email: commit["commit"]["author"]["email"], repository: @repository)
+                #         if !@contributor.save!
+                #           puts(@contributor.errors.full_messages)
+                #         end
+                #       end
+                #       @commiter_user = User.where(email: commit["commit"]["author"]["email"]).first
+                #       if @commiter_user.present?
+                #         @contributor.user = @commiter_user
+                #       end
+                #
+                #       @commit = @repository.commits.new(
+                #         message: commit["commit"]["message"],
+                #         date: commit["commit"]["author"]["date"],
+                #         date_raw: commit["commit"]["author"]["date"],
+                #         contributor_raw: @contributor,
+                #         contributor_name: @contributor.name_or_username,
+                #         contributor_email: @contributor.email,
+                #         contributor: @contributor,
+                #         user: @commiter_user,
+                #         sha: commit["sha"]
+                #       )
+                #       if !@commit.save!
+                #         puts(@commit.errors.full_messages)
+                #       end
+                #     end
+                #   end
+                # end
               end
             end
           end
@@ -122,7 +123,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
         organizations = JSON.parse(organizations_json)
 
-        puts(organizations)
+        # puts(organizations)
 
         if organizations.count > 0
           organizations.each do |org|
@@ -186,29 +187,30 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                   if !@repository.save!
                     puts(@repository.errors.full_messages)
                   else
-                    commits_json = open(repo["commits_url"].slice(/.*commits/)).read rescue nil
-                    if commits_json != nil
-                      commits = JSON.parse(commits_json)
-                      commits.each do |commit|
-                        if Commit.where(sha: commit["sha"]).blank?
-
-                          @commit = @repository.commits.new(
-                            message: commit["commit"]["message"],
-                            date: commit["commit"]["author"]["date"],
-                            date_raw: commit["commit"]["author"]["date"],
-                            contributor_raw: commit["commit"]["author"]["login"],
-                            contributor_name: commit["commit"]["author"]["name"],
-                            contributor_email: commit["commit"]["author"]["email"],
-                            user: @user,
-                            sha: commit["sha"]
-                          )
-                          if !@commit.save!
-                            puts(@commit.errors.full_messages)
-                          end
-                        end
-                        # @repository.commits.push(@commit)
-                      end
-                    end
+                    # Save commit data
+                    # commits_json = open(repo["commits_url"].slice(/.*commits/)).read rescue nil
+                    # if commits_json != nil
+                    #   commits = JSON.parse(commits_json)
+                    #   commits.each do |commit|
+                    #     if Commit.where(sha: commit["sha"]).blank?
+                    #
+                    #       @commit = @repository.commits.new(
+                    #         message: commit["commit"]["message"],
+                    #         date: commit["commit"]["author"]["date"],
+                    #         date_raw: commit["commit"]["author"]["date"],
+                    #         contributor_raw: commit["commit"]["author"]["login"],
+                    #         contributor_name: commit["commit"]["author"]["name"],
+                    #         contributor_email: commit["commit"]["author"]["email"],
+                    #         user: @user,
+                    #         sha: commit["sha"]
+                    #       )
+                    #       if !@commit.save!
+                    #         puts(@commit.errors.full_messages)
+                    #       end
+                    #     end
+                    #     # @repository.commits.push(@commit)
+                    #   end
+                    # end
                   end
                 end
               end
