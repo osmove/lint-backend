@@ -8,9 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = 'bd6be8d8d250977ee3d353148353b8a89f74731f5f6329cb3d3bf6ae15cf0b4da0e9bf023435bb9cea530f9ce1da2b7489ca5670a71045ccac0c85e0868c2027'
   config.secret_key = 'd26567f230ea302302a4fa379a96dbc4794c32943b830950f18a4f9ee3c2c11235ecc5ea0a63db5a119eed42ea2ea5b157b3cfbb42c61e09f504adb0f1a4b7e2'
-  # config.secret_key = 'c79567f230ea302302a4fa379a99dbc4794c32943a830950f18a4f9ee3c2c74635ecc7ea0a63db5a119eed42ea2ea5b157b3cfbb28f61e09f504adb0f1a4b7e2'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -23,7 +21,7 @@ Devise.setup do |config|
   config.mailer_sender = 'support@omnilint.com'
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'Devise::Mailer'
+  # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -167,7 +165,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 8..128
+  config.password_length = 6..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly

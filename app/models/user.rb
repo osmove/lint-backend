@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :validatable, :registerable,
+  devise :database_authenticatable, :validatable, :registerable, :confirmable,
   :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: %i[github],
   authentication_keys: [:login]
 
@@ -23,8 +23,8 @@ class User < ApplicationRecord
 
   # validates :password_confirmation, presence: :true
 
-  # has_many :repositories, :dependent => :destroy
-  has_many :repositories
+  has_many :repositories, :dependent => :destroy
+  # has_many :repositories
   has_many :messages
 
   has_many :repository_accesses
@@ -190,12 +190,12 @@ class User < ApplicationRecord
   #   end
   # end
 
-  after_create :send_welcome_email
-  def send_welcome_email
-    unless self.is_organization == true
-      UserMailer.welcome_email(self).deliver_now
-    end
-  end
+  # after_create :send_welcome_email
+  # def send_welcome_email
+  #   unless self.is_organization == true
+  #     UserMailer.welcome_email(self).deliver_now
+  #   end
+  # end
 
   def name
     @name = ""
@@ -273,7 +273,11 @@ class User < ApplicationRecord
 
     # Remove confirmation required
     def confirmation_required?
-      false
+      if from_omniauth?
+        false
+      else
+        true
+      end
     end
 
   private

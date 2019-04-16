@@ -260,7 +260,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
               if teams_json != nil
                 teams = JSON.parse(teams_json)
-                puts(teams)
+                # puts(teams)
                 teams.each do |team|
                   if Team.where(name: team["name"], user: @organization).blank?
 
@@ -268,7 +268,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                       name: team["name"],
                       user: @organization
                     )
-                    puts(@team)
+                    # puts(@team)
                     if !@team.save!
                       puts(@team.errors.full_messages)
                     else
@@ -286,7 +286,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                             @membership = @team.memberships.push(@team_membership)
                           else
                             @membership = @team.memberships.new(username: member["login"], origin:"github", origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @team_member, organization: @organization)
-                            puts(@membership.username)
+                            # puts(@membership.username)
 
 
                             if !@membership.save!
