@@ -15,11 +15,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if @user.oauth_token != omniauth.credentials.token || @user.token_expires_at.present? && @user.token_expires_at.datetime < DateTime.now
         @user.oauth_token = omniauth.credentials.token
         @user.token_expires_at = omniauth.credentials.expires_at
-        puts(omniauth.credentials.token)
+        # puts(omniauth.credentials.token)
         @user.github_username = omniauth.extra.raw_info.login
-        puts(omniauth.extra.raw_info.login)
+        # puts(omniauth.extra.raw_info.login)
         @user.github_id = omniauth.extra.raw_info.id
-        puts(omniauth.extra.raw_info.id)
+        # puts(omniauth.extra.raw_info.id)
       end
 
       if @user.avatar_url.blank?
