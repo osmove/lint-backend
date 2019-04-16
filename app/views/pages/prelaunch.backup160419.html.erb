@@ -97,7 +97,7 @@
 
 
 
-<section class="pt-5 pb-3 bg-white text-center" id="what_is_omnilint">
+<section class="pt-5 pb-3 bg-light text-center" id="what_is_omnilint">
   <div class="container">
     <h1 class="h1-responsive">What is Omnilint</h1>
     <!-- <p class="lead mx-auto">Not every rule has the same importance. <br /> -->
@@ -105,6 +105,110 @@
     <p class="lead mx-auto mt-4 mb-4" style="max-width: 580px;">Omnilint allows development teams to enforce, monitor and improve code quality within their teams.</p>
 
 
+
+    <div class="text-center" style="text-align: center !important;">
+      <ul class="nav nav-pills text-center mx-auto mb-4" id="exampleTabs" role="tablist" style="max-width: 350px;">
+        <li class="nav-item">
+          <a class="nav-link active" id="example-tabs-html" data-toggle="tab" href="#example_tabs_html" role="tab" aria-controls="example_tabs_html" aria-selected="true">HTML</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="example-tabs-css" data-toggle="tab" href="#example_tabs_css" role="tab" aria-controls="example_tabs_css" aria-selected="false">CSS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="example-tabs-javascript" data-toggle="tab" href="#example_tabs_javascript" role="tab" aria-controls="example_tabs_javascript" aria-selected="false">JS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="example-tabs-ruby" data-toggle="tab" href="#example_tabs_ruby" role="tab" aria-controls="example_tabs_ruby" aria-selected="false">Ruby</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="example-tabs-python" data-toggle="tab" href="#example_tabs_python" role="tab" aria-controls="example_tabs_python" aria-selected="false">Python</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="exampleTabsContent">
+
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="example-tabs-html" id="example_tabs_html">
+          <div class="row">
+            <div class="col-12 col-md-6 mb-4">
+              <p class="lead">HTML Error example</p>
+              <%= render "pages/offenses/html/error" %>
+            </div>
+            <div class="col-12 col-md-6 mb-4">
+              <p class="lead">HTML Warning example</p>
+              <%= render "pages/offenses/html/warning" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="example_tabs_css" role="tabpanel" aria-labelledby="example-tabs-css">
+          <div class="row">
+            <div class="col-12 col-md-6 mb-4">
+              <p class="lead">CSS Error example</p>
+              <%= render "pages/offenses/css/error" %>
+            </div>
+            <div class="col-12 col-md-6 mb-4">
+              <p class="lead">CSS Warning example</p>
+              <%= render "pages/offenses/css/warning" %>
+            </div>
+          </div>
+      </div>
+
+      <div class="tab-pane fade" id="example_tabs_javascript" role="tabpanel" aria-labelledby="example-tabs-javascript">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Javascript Error example</p>
+            <%= render "pages/offenses/javascript/error" %>
+          </div>
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Javascript Warning example</p>
+            <%= render "pages/offenses/javascript/warning" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="example_tabs_ruby" role="tabpanel" aria-labelledby="example-tabs-ruby">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Ruby Error example</p>
+            <%= render "pages/offenses/ruby/error" %>
+          </div>
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Ruby Warning example</p>
+            <%= render "pages/offenses/ruby/warning" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="example_tabs_python" role="tabpanel" aria-labelledby="example-tabs-python">
+        <div class="row">
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Python Error example</p>
+            <%= render "pages/offenses/python/error" %>
+          </div>
+          <div class="col-12 col-md-6 mb-4">
+            <p class="lead">Python Warning example</p>
+            <%= render "pages/offenses/python/warning" %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+  </div>
+</section>
+
+
+<section class="py-4 py-md-5 bg-white mx-auto text-center" id="features">
+  <h1 class="h1-responsive">Features</h1>
+  <p class="lead mx-auto mb-5" style="max-width: 650px;">Some of Omnilint's features.</p>
+
+
+
+  <div class="container">
     <div class="row">
       <div class="col-6 col-md-4 mb-4">
         <!-- <img src="/images/features/tags.png" alt="ERBLint" height="100" width="100" class="mb-3"> -->
