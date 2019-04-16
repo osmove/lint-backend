@@ -3,10 +3,42 @@
   <div style="background: url('/images/bg-white.png');">
     <div class="container text-center">
       <div class="row">
-        <div class="col-12 col-md-7 py-3 py-md-5 my-auto">
+        <div class="col-12 col-md-7 py-3 pt-md-4 pb-md-5 my-auto">
           <div class="pt-3 pb-0 text-md-left">
             <h1 class="mt-4 mb-4 h1-responsive" style="line-height: 1em; font-weight: bold;">Pre-commit <br />multi-language <br />code linter.</h1>
             <p class="lead text-white" style="opacity: 0.6; max-width: 580px;">Omnilint helps developers discover and fix performance, security and formatting offenses in their code as well as teams to enforce and maintain consistent code policies accross their repositories.</p>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-light mb-3" data-toggle="modal" data-target="#videoModal">
+              Watch the video
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade text-dark" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content pt-2">
+                  <!-- <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Introducing Omnilint</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div> -->
+                  <div class="">
+                    <script type="text/javascript">
+                      $('#videoModal').on('hide.bs.modal', function(e) {
+                        var $if = $(e.delegateTarget).find('iframe');
+                        var src = $if.attr("src");
+                        $if.attr("src", '/empty.html');
+                        $if.attr("src", src);
+                      });
+                    </script>
+                    <iframe width="799" height="450" src="https://www.youtube.com/embed/ZB33_S8WtMQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
         <div class="col-12 col-md-5 my-0 mt-md-3 text-dark">
@@ -20,7 +52,7 @@
                 </p>
                 <p>
                   <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
-                    <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Github Login</span>
+                    <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Login with Github</span>
                   </a>
                 </p>
                 <p class="mb-3">or</p>
