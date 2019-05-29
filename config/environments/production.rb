@@ -102,7 +102,8 @@ end
 Devise.setup do |config|
   # Scopes available:
   # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-  config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://lint.dev/users/auth/github'
+  config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org'
+  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://lint.dev/users/auth/github'
   # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://lint.dev/users/auth/github'
   # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://lint.dev/users/auth/github'
 end
