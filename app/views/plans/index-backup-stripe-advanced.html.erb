@@ -12,7 +12,7 @@
   <script>
     var handler = StripeCheckout.configure({
       key: '<%= Rails.configuration.stripe[:publishable_key] %>',
-      image: 'https://www.omnilint.com/images/omnilint-logo-circled@2x.png',
+      image: 'https://lint.dev/images/omnilint-logo-circled@2x.png',
       locale: 'auto',
       token: function(token) {
         // You can access the token ID with `token.id`.
@@ -121,7 +121,7 @@
                         <!-- <div class="monthly">
                           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-image="https://www.omnilint.com/images/omnilint-logo-circled@2x.png"
+                            data-image="https://lint.dev/images/omnilint-logo-circled@2x.png"
                             data-name="Lint.dev"
                             data-description="<%= plan.name %>"
                             data-amount="<%= (plan.price_per_month.to_i * 100).to_s %>"
@@ -136,7 +136,7 @@
                         <div class="yearly" style="display:none;">
                           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                             data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                            data-image="https://www.omnilint.com/images/omnilint-logo-circled@2x.png"
+                            data-image="https://lint.dev/images/omnilint-logo-circled@2x.png"
                             data-name="Lint.dev"
                             data-description="<%= plan.name %>"
                             data-amount="<%= (plan.price_per_year.to_i * 100).to_s %>"

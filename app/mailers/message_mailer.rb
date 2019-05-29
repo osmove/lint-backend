@@ -4,8 +4,8 @@ class MessageMailer < ApplicationMailer
 
   def message_created_email(message)
     @message = message
-    @site_url  = 'https://www.omnilint.com'
-    @login_url  = 'https://www.omnilint.com/login'
+    @site_url  = 'https://lint.dev'
+    @login_url  = 'https://lint.dev/login'
 
     # Send email to client
     # mail(from: "Omnilint <support@omnilint.com>", to: "<#{message.to_email}>", subject: "New message: '#{message.subject}'")
