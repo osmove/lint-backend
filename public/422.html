@@ -24,7 +24,6 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
     <style media="screen">
       body {
         background-color: #eee;
@@ -51,69 +50,93 @@
       <p><a href="/"> Go to homepage </a></p>
     </div>
 
+    <!-- Global site tag (gtag.js) - Google Ads: 1041457492 -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-1041457492"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-1041457492");
+    </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-8071166-23"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-8071166-23");
+    </script>
 
-
-
-
-      <!-- Global site tag (gtag.js) - Google Ads: 1041457492 -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1041457492"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'AW-1041457492');
-      </script>
-
-
-
-      <!-- Global site tag (gtag.js) - Google Analytics -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-8071166-23"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-8071166-23');
-      </script>
-
-
-      <!-- Facebook Pixel Code -->
-      <script>
-        !function(f,b,e,v,n,t,s)
-        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-        n.queue=[];t=b.createElement(e);t.async=!0;
-        t.src=v;s=b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t,s)}(window, document,'script',
-        'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '1705227696356899');
-        fbq('track', 'PageView');
-      </script>
-      <noscript><img height="1" width="1" style="display:none"
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function(f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function() {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "1705227696356899");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display:none"
         src="https://www.facebook.com/tr?id=1705227696356899&ev=PageView&noscript=1"
-      /></noscript>
-      <!-- End Facebook Pixel Code -->
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
 
-
-
-      <!-- Load Facebook SDK for JavaScript -->
-      <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
+        js = d.createElement(s);
+        js.id = id;
         // js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v3.2&autoLogAppEvents=1';
+        js.src =
+          "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js#xfbml=1&version=v3.2&autoLogAppEvents=1";
         fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
+      })(document, "script", "facebook-jssdk");
+    </script>
 
-      <!-- Your customer chat code -->
-      <div class="fb-customerchat"
-        attribution=install_email
-        page_id="595034137620067"
-        theme_color="#0084ff">
-      </div>
-
+    <!-- Your customer chat code -->
+    <div
+      class="fb-customerchat"
+      attribution="install_email"
+      page_id="595034137620067"
+      theme_color="#0084ff"
+    ></div>
   </body>
 </html>
