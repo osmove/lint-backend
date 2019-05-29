@@ -59,7 +59,7 @@ Repositories                         Language      Branch              Status   
 --------------------------------------------------------------------------------------------------------------------------
 📁  .Trash                            -             master              ✓           D .gitattributes
                                                                                   D .gitignore
-                                                                                  D Omnilint.app/Contents/Frameworks/libswiftAppKit.dylib
+                                                                                  D Lint.dev.app/Contents/Frameworks/libswiftAppKit.dylib
                                                                                   + 134 other(s) file(s)
 --------------------------------------------------------------------------------------------------------------------------
 📁  Arduino                           -             master              ✓           D ChatServer/ChatServer.ino
@@ -154,8 +154,8 @@ Repositories                         Language      Branch              Status   
 --------------------------------------------------------------------------------------------------------------------------
 📁  omnilint-cli-export                 -             master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  omnilint-mac                        xcode         master              ✓           M Omnilint.xcodeproj/project.pbxproj
-                                                                                  ? Omnilint.xcodeproj/project.xcworkspace/xcshareddata/
+📁  omnilint-mac                        xcode         master              ✓           M Lint.dev.xcodeproj/project.pbxproj
+                                                                                  ? Lint.dev.xcodeproj/project.xcworkspace/xcshareddata/
 --------------------------------------------------------------------------------------------------------------------------
 📁  gdax-streamer                     js            master              ✓           M src/App.js
 --------------------------------------------------------------------------------------------------------------------------

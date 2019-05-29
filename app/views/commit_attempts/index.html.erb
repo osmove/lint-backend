@@ -160,7 +160,7 @@
         <%#= render 'repositories/tabs/empty', repository: @repository %>
         <div class="card mb-3 text-center">
           <div class="card-body pt-5 pb-5">
-            <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Omnilint Logo" style="opacity: 0.5;"> -->
+            <!-- <img src="/images/logo/logo-shield-circle-only-simple.svg" width="110" height="110" class="d-inline-block align-top my-3" alt="Lint.dev Logo" style="opacity: 0.5;"> -->
             <h1 class="mb-4 text-muted">Waiting for commits...</h1>
 
             <div class="text-center" style="text-align: center !important;">
@@ -177,10 +177,10 @@
                   <p>Install with <strong>NPM</strong> (local):</p>
                   <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
                   <p><kbd class="p-2">$ npm install -D omnilint</kbd></p>
-                  <p>You can then use NPX to run Omnilint <br> commands from inside your repository:</p>
+                  <p>You can then use NPX to run Lint.dev <br> commands from inside your repository:</p>
                   <p><kbd class="p-2">$ npx omnilint [COMMAND]</kbd></p>
 
-                  <p>To (re)install Omnilint's git hooks:</p>
+                  <p>To (re)install Lint.dev's git hooks:</p>
                   <p><kbd class="p-2">$ npx omnilint install</kbd></p>
                 </div>
                 <div class="tab-pane fade" id="global" role="tabpanel" aria-labelledby="global-tab">
@@ -188,10 +188,10 @@
                   <div class="mb-4">
                     <p><kbd class="p-2">$ npm install -g omnilint</kbd></p>
                   </div>
-                  <p>You can then run Omnilint commands anywhere:</p>
+                  <p>You can then run Lint.dev commands anywhere:</p>
                   <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
                   <p><kbd class="p-2">$ omnilint [COMMAND]</kbd></p>
-                  <p>To (re)install Omnilint's git hooks:</p>
+                  <p>To (re)install Lint.dev's git hooks:</p>
                   <p><kbd class="p-2">$ cd path/to/<%= @repository.slug %></kbd></p>
                   <p><kbd class="p-2">$ omnilint install</kbd></p>
                 </div>

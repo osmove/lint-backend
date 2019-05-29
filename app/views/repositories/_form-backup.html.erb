@@ -369,7 +369,7 @@
         </div>
         <div class="card mb-2">
           <div class="card-body py-2">
-            <%= form.radio_button :deploy_to, "omnilint_cloud", label: "Omnilint Cloud", onclick: "selectDeployTo('omnilint_cloud');" %>
+            <%= form.radio_button :deploy_to, "omnilint_cloud", label: "Lint.dev Cloud", onclick: "selectDeployTo('omnilint_cloud');" %>
           </div>
         </div>
         <div class="card mb-2">
@@ -402,7 +402,7 @@
 
     <div class="mb-3">
       <div class="pb-2">
-        <%= form.form_group :hosting_plan, label: { text: "Omnilint Cloud" }, help: "The hosting plan of your repository." do %>
+        <%= form.form_group :hosting_plan, label: { text: "Lint.dev Cloud" }, help: "The hosting plan of your repository." do %>
           <p class="mb-1"><small class="text-muted" style="font-size: 12px;">MEMORY | VCPUS | SSD DISK | TRANSFER | PRICE</small></p>
 
           <% HostingPlan.all.order(price_per_month: :asc).each do |plan| %>
@@ -484,7 +484,7 @@
 
     <!-- <div class="card mb-3">
       <div class="card-body pb-2">
-        <%= form.form_group :geo_zone, label: { text: "Omnilint Cloud" }, help: "Where the code will be hosted." do %>
+        <%= form.form_group :geo_zone, label: { text: "Lint.dev Cloud" }, help: "Where the code will be hosted." do %>
           <%= form.radio_button :geo_zone, "america", label: "America", checked: true  %>
           <%= form.radio_button :geo_zone, "europe", label: "Europe" %>
           <%= form.radio_button :geo_zone, "asia", label: "Asia" %>
