@@ -54,13 +54,13 @@
 
   <h3 class="mb-4"><%= "Log In" %></h3>
 
-  <p>
+  <!-- <p>
     <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
       <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Sign in with Github</span>
     </a>
   </p>
 
-  <p class="mb-3">or</p>
+  <p class="mb-3">or</p> -->
 
   <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.text_field :login, autofocus: false, autocomplete: "email", autocorrect: "off", autocapitalize: "none", hide_label: true, placeholder: "Username or email", wrapper: { class: 'mb-0' }  %>
@@ -74,7 +74,7 @@
 
 
     <div class="actions mb-3">
-      <%= f.submit "Sign in", class:'btn btn-lg btn-dark btn-block' %>
+      <%= f.submit "Sign in", class:'btn btn-lg btn-primary btn-block' %>
     </div>
 
     <%= render "devise/shared/links" %>
