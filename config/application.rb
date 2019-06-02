@@ -19,6 +19,9 @@ module Omnilint
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { :api_token => "b478ccd7-dcde-4e1b-8ffc-9dcc025d4686" }
 
+    # Fix problem with login error HTTP Origin header (https://lint.dev) didn't match request.base_url (http://lint.dev)
+    # https://github.com/rails/rails/issues/22965
+    config.action_controller.forgery_protection_origin_check = false
   end
 end
 
