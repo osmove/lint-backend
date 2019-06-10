@@ -8,7 +8,7 @@
           <!-- <div class="card-header"> -->
             <!-- <h4 class="my-0 font-weight-normal">Free</h4> -->
             <!-- <h5 class="card-title my-0">
-              <%= repository.user.slug.downcase %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
+              <%= repository.user.slug %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
 
                 <% if repository.status == 'Private' %>
                   <i class="fa fa-eye-slash text-muted"></i>
@@ -38,7 +38,7 @@
             <% end %>
 
             <h6 class="" style="margin-top: 6px; margin-bottom: 3px; ">
-              <%= repository.user.slug.downcase %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
+              <%= repository.user.slug %> <span class="text-muted">/</span> <strong><%= repository.slug %></strong>
 
               <% if repository.status == 'Private' %>
                 <i class="fa fa-eye-slash text-muted"></i>
