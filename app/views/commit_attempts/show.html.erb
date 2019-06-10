@@ -75,9 +75,9 @@
     <% end %>
 
 
-    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["omnilint_version"].present? %>
+    <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["cli_version"].present? %>
       <p>
-        <%= "Lint.dev version: #{@policy_check.report["omnilint_version"]}" %>
+        <%= "Lint.dev version: #{@policy_check.report["cli_version"]}" %>
       </p>
     <% end %>
     <% if @policy_check.present? && @policy_check.report.present? && @policy_check.report["source_shell_command"].present? %>
