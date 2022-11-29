@@ -8,11 +8,11 @@ class MessageMailer < ApplicationMailer
     @login_url  = 'https://www.omnilint.com/login'
 
     # Send email to client
-    # mail(from: "Lint.dev <support@omnilint.com>", to: "<#{message.to_email}>", subject: "New message: '#{message.subject}'")
-    mail(from: "Lint.dev <support@omnilint.com>", to: "jimmydouieb@gmail.com", subject: "New message: '#{message.subject}'")
+    # mail(from: "Omnilint <support@omnilint.com>", to: "<#{message.to_email}>", subject: "New message: '#{message.subject}'")
+    mail(from: "Omnilint <support@omnilint.com>", to: "jimmydouieb@gmail.com", subject: "New message: '#{message.subject}'")
 
     # Send copy
-    # mail(from: "Lint.dev <support@omnilint.com>", to: "Jimmy Douieb <jimmydouieb@gmail.com>", subject: "Repository '#{@repository.user.username}/#{@repository.name}' was created successfully.")
+    # mail(from: "Omnilint <support@omnilint.com>", to: "Jimmy Douieb <jimmydouieb@gmail.com>", subject: "Repository '#{@repository.user.username}/#{@repository.name}' was created successfully.")
 
   end
 

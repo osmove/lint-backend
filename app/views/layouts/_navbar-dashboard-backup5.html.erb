@@ -3,11 +3,11 @@
 
   <% if current_page?(root_path) || current_page?(dashboard_path) %>
     <a class="navbar-brand mr-0 mr-md-3" href="<%= prelaunch_path %>">
-      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Lint.dev Logo">
+      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
     </a>
   <% else %>
     <a class="navbar-brand mr-0 mr-md-3" href="<%= root_path %>">
-      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Lint.dev Logo">
+      <img src="/images/logo/omnilint-logo.svg" width="32" height="32" class="d-inline-block align-top" alt="Omnilint Logo">
     </a>
   <% end %>
 <!-- style="position: absolute; top: 0 !important; left: 100px !important; right: 100px !important; width: auto !important; margin-left: auto !important; margin-right: auto !important;" -->
@@ -75,7 +75,7 @@
             <%= link_to('SSH Keys', current_user, class: 'dropdown-item') %>
             <!-- <div class="d-none d-md-block"> -->
               <div class="dropdown-divider"></div>
-              <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure you want to sign out of Lint.dev?' }) %>
+              <%= link_to("Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item', data: { confirm: 'Are you sure you want to sign out of Omnilint?' }) %>
             <!-- </div> -->
           </div>
         </li>
