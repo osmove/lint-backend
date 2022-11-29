@@ -12,7 +12,8 @@ class Message < ApplicationRecord
     puts "TO"
     puts self.to_email
     # if self.to_email.present?
-      MessageMailer.message_created_email(self).deliver_now
+      # TODO: Add email back
+      # MessageMailer.message_created_email(self).deliver_now
     # end
   end
 
