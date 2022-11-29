@@ -4,10 +4,10 @@ class UserMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
-    # @site_url  = 'https://lint.dev'
-    # @login_url  = 'https://lint.dev/login'
-    @site_url  = 'https://lint.dev'
-    @login_url  = 'https://lint.dev/login'
+    # @site_url  = 'https://www.omnilint.com'
+    # @login_url  = 'https://www.omnilint.com/login'
+    @site_url  = 'https://www.omnilint.com'
+    @login_url  = 'https://www.omnilint.com/login'
     mail(from: "Lint.dev <support@lint.dev>", to: "#{@user.username} <#{@user.email}>", subject: "Welcome to Omnilint, #{@user.username}")
   end
 
@@ -34,8 +34,8 @@ class UserMailer < ApplicationMailer
       else
         @policy_check = nil
       end
-      @site_url  = 'https://lint.dev'
-      @login_url  = 'https://lint.dev/login'
+      @site_url  = 'https://www.omnilint.com'
+      @login_url  = 'https://www.omnilint.com/login'
 
       if @repository_access.enable_email_notifications
         mail(from: "Lint.dev <support@lint.dev>", to: "#{@user.username} <#{@user.email}>", subject: "[#{@repository.uuid}] #{@commit_attempt.name}")

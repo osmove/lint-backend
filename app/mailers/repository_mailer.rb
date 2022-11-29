@@ -4,8 +4,8 @@ class RepositoryMailer < ApplicationMailer
 
   def repository_created_email(repository)
     @repository = repository
-    @site_url  = 'https://lint.dev'
-    @login_url  = 'https://lint.dev/login'
+    @site_url  = 'https://www.omnilint.com'
+    @login_url  = 'https://www.omnilint.com/login'
 
     # Send email to client
     mail(from: "Lint.dev <support@lint.dev>", to: "#{@repository.user.username} <#{@repository.user.email}>", subject: "Your repository '#{@repository.name}' was created successfully")
