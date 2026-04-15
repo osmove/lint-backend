@@ -186,7 +186,7 @@ Rails.application.routes.draw do
 
   authenticated :user do
     get '/dashboard'            => 'pages#dashboard'
-    root :to => "pages#dashboard"
+    root to: "pages#dashboard", as: :authenticated_root
   end
 
   # get '/users' => 'users#index', :as => :users
