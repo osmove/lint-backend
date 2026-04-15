@@ -36,7 +36,7 @@
     <ul class="nav nav-tabs mb-3 border-bottom" id="myTab" role="tablist">
       <% @linters.each_with_index do |linter, index| %>
         <li class="nav-item">
-          <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-toggle="tab" href="#<%= linter.name %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
+          <a class="nav-link <% if index == 0 %>active<% end %>" id="<%= linter.id %>-tab" data-bs-toggle="tab" href="#<%= linter.name %>" role="tab" aria-controls="<%= linter.id %>" aria-selected="<% if index == 0 %>true<% end %>"><%= linter.name %></a>
         </li>
       <% end %>
       <li class="nav-item ml-auto pt-2">

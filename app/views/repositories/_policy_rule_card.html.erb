@@ -1,7 +1,7 @@
 <% cache policy_rule do %>
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center bg-white"  id="heading_<%= policy_rule.id %>">
-      <a href="#" class="" data-toggle="collapse" data-target="#collapse_<%= policy_rule.id %>" aria-expanded="<% if (i == 0) %>false<% else %>true<% end %>" aria-controls="collapse_collapse_<%= policy_rule.id %>">
+      <a href="#" class="" data-bs-toggle="collapse" data-bs-target="#collapse_<%= policy_rule.id %>" aria-expanded="<% if (i == 0) %>false<% else %>true<% end %>" aria-controls="collapse_collapse_<%= policy_rule.id %>">
         <%= policy_rule.name %>
         <% if policy_rule.fixable? && policy_rule.linter.command != "prettier"%>
           <i class='fa fa-wrench text-muted'></i>
@@ -27,7 +27,7 @@
 
     </div>
 
-    <div id="collapse_<%= policy_rule.id %>" class="collapse" aria-labelledby="heading_<%= policy_rule.id %>" data-parent="#accordion_<%= policy_rule.id %>">
+    <div id="collapse_<%= policy_rule.id %>" class="collapse" aria-labelledby="heading_<%= policy_rule.id %>" data-bs-parent="#accordion_<%= policy_rule.id %>">
       <div class="card-body bg-light">
         <span class="text-muted"><%= policy_rule.description %></span>
       </div>
