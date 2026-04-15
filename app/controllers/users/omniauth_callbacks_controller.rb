@@ -27,7 +27,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
 
       # Fetch repositories
-      repositories_json = open(omniauth.extra.raw_info.repos_url,
+      repositories_json = URI.open(omniauth.extra.raw_info.repos_url,
         "Accept" => "application/vnd.github.v3+json",
         "Authorization" => "token #{omniauth.credentials.token}"
       ).read
@@ -116,7 +116,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         end
 
         # Fetch organizations
-        organizations_json = open(omniauth.extra.raw_info.organizations_url,
+        organizations_json = URI.open(omniauth.extra.raw_info.organizations_url,
           "Accept" => "application/vnd.github.inertia-preview+json",
           "Authorization" => "token #{omniauth.credentials.token}"
         ).read
@@ -138,7 +138,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
             #fetch organization repositories
 
-            repositories_json = open(org["repos_url"]).read
+            repositories_json = URI.open(org["repos_url"]).read
 
             repositories = JSON.parse(repositories_json)
 
@@ -227,7 +227,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             else
 
 
-              members_json = open(org["members_url"].slice(/.*members/),
+              members_json = URI.open(org["members_url"].slice(/.*members/),
               "Accept" => "application/vnd.github.v3+json",
               "Authorization" => "token #{@user.oauth_token}"
               ).read
@@ -253,7 +253,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                 end
               end
 
-              teams_json = open("https://api.github.com/orgs/#{@organization.username}/teams",
+              teams_json = URI.open("https://api.github.com/orgs/#{@organization.username}/teams",
                 "Accept" => "application/vnd.github.v3+json",
                 "Authorization" => "token #{@user.oauth_token}"
               ).read
@@ -272,7 +272,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                     if !@team.save!
                       puts(@team.errors.full_messages)
                     else
-                      members_json = open(team["members_url"].slice(/.*members/),
+                      members_json = URI.open(team["members_url"].slice(/.*members/),
                       "Accept" => "application/vnd.github.v3+json",
                       "Authorization" => "token #{@user.oauth_token}"
                       ).read
