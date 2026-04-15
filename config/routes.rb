@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
 
-
+  # API v1 (JSON, token auth)
+  namespace :api do
+    namespace :v1 do
+      post 'lint', to: 'lint#create'
+      post 'review', to: 'review#create'
+      post 'repositories/:repository_uuid/recommend', to: 'recommend#create'
+      post 'policies/generate', to: 'policies#generate'
+    end
+  end
 
   post 'postmark/inbound'
 
