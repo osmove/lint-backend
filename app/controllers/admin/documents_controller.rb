@@ -1,5 +1,6 @@
 # class DocumentsController < ProtectedController
 class Admin::DocumentsController < Admin::BaseController
+  require "open-uri"
 
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
@@ -157,7 +158,7 @@ class Admin::DocumentsController < Admin::BaseController
     if @repository.git_host == "github"
       @url = "https://api.github.com/repos/#{@repository.uuid}/contents/"
       puts(@url)
-      files_json = open(@url,
+      files_json = URI.open(@url,
         "Accept" => "application/vnd.github.v3+json",
         "Authorization" => "token #{current_user.oauth_token}"
       ).read
@@ -214,7 +215,7 @@ class Admin::DocumentsController < Admin::BaseController
     @document = Document.find(params[:id])
 
     if @document.is_folder?
-      file_content_json = open("https://api.github.com/repos/#{@repository.uuid}/contents/#{@document.path}",
+      file_content_json = URI.open("https://api.github.com/repos/#{@repository.uuid}/contents/#{@document.path}",
         "Accept" => "application/vnd.github.v3+json",
         "Authorization" => "token #{@user.oauth_token}"
       ).read

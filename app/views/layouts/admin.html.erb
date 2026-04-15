@@ -25,8 +25,8 @@
 
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
     <!-- <link href="https://fonts.googleapis.com/css?family=Lora|Montserrat" rel="stylesheet"> -->
 
@@ -193,7 +193,7 @@
 
       <ul class="navbar-nav px-2">
         <li class="nav-item text-nowrap">
-          <button class="btn btn-dark" style="border: none; background-color: inherit; opacity: 0.5" type="button" data-toggle="collapse" data-target="#left_menu" aria-expanded="false" aria-controls="#left_menu">
+          <button class="btn btn-dark" style="border: none; background-color: inherit; opacity: 0.5" type="button" data-bs-toggle="collapse" data-bs-target="#left_menu" aria-expanded="false" aria-controls="#left_menu">
             <i class="fa fa-caret-square-o-left text-white fa-lg" style="cursor: pointer;"></i>
           </button>
         </li>
@@ -221,7 +221,7 @@
 
       <ul class="navbar-nav px-2">
         <li class="nav-item text-nowrap">
-          <button class="btn btn-dark" style="border: none; background-color: inherit; opacity: 0.5" type="button" data-toggle="collapse" data-target="#left_menu" aria-expanded="false" aria-controls="#left_menu">
+          <button class="btn btn-dark" style="border: none; background-color: inherit; opacity: 0.5" type="button" data-bs-toggle="collapse" data-bs-target="#left_menu" aria-expanded="false" aria-controls="#left_menu">
             <i class="fa fa-caret-square-o-left text-white fa-lg" style="cursor: pointer;"></i>
           </button>
         </li>
@@ -255,7 +255,7 @@
           <% if notice.present? %>
             <div class="alert alert-info">
               <%= notice %>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -264,7 +264,7 @@
           <% if alert.present? %>
             <div class="alert alert-info">
               <%= alert %>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>

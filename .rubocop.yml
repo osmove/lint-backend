@@ -1,15 +1,33 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+
 AllCops:
-  DisabledByDefault: true
-Lint/InheritException:
-  Enabled: true
-  EnforcedStyle: runtime_error
+  TargetRubyVersion: 3.3
+  NewCops: enable
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - '_permanent/**/*'
+
+Layout/LineLength:
+  Max: 120
   Severity: warning
-Metrics/LineLength:
-  Enabled: true
-  AllowHeredoc: false
-  Severity: warning
-  Max: 80
+
 Layout/AccessModifierIndentation:
   Enabled: true
   EnforcedStyle: outdent
   Severity: warning
+
+Lint/InheritException:
+  Enabled: true
+  EnforcedStyle: runtime_error
+  Severity: warning
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
