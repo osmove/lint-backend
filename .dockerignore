@@ -1,0 +1,11 @@
+.git
+.github
+_permanent
+node_modules
+tmp
+log
+public/assets
+.DS_Store
+*.md
+.env
+.env.*
