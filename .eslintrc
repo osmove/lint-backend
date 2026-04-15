@@ -1,1 +1,24 @@
-{"parserOptions":{"ecmaVersion":2018,"ecmaFeatures":{"jsx":true}},"env":{"es6":true,"node":true},"plugins":[],"globals":{"document":false,"navigator":false,"window":false},"rules":{"semi":["warn","always"],"max-lines":["warn",{"skipBlankLines":false,"skipComments":false,"max":100}],"no-console":"warn"}}
+{
+  "parserOptions": {
+    "ecmaVersion": 2024,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "plugins": [],
+  "globals": {
+    "document": false,
+    "navigator": false,
+    "window": false
+  },
+  "rules": {
+    "semi": ["warn", "always"],
+    "max-lines": ["warn", { "skipBlankLines": true, "skipComments": true, "max": 200 }],
+    "no-console": "warn"
+  }
+}

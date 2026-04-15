@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  respond_to :html, :json
-
   skip_before_action :verify_authenticity_token, if: :json_request?
 
 
@@ -19,9 +17,6 @@ class ApplicationController < ActionController::Base
   # impressionist unless: :json_request?
 
   before_action :set_repository
-
-
-  before_action :set_raven_context
 
   protected
 
@@ -59,11 +54,6 @@ class ApplicationController < ActionController::Base
 
     def determine_layout
       current_user ? "dashboard" : "application"
-    end
-
-    def set_raven_context
-      Raven.user_context(id: session[:current_user_id]) # or anything else in session
-      Raven.extra_context(params: params.to_unsafe_h, url: request.url)
     end
 
     def set_smart_ip

@@ -59,9 +59,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 
-  # Omniauth github api
-  # config.omniauth :github, 'c6970dc8ce50f48bbd7e', '49947ed386d02c5ce282eb3baaf978d92325598b', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
-
 end
 
 
