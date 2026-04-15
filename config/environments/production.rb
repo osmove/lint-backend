@@ -45,7 +45,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -102,18 +102,14 @@ end
 Devise.setup do |config|
   # Scopes available:
   # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-  config.omniauth :github, 'dd33fc5fa2ff10074d2a', '4b49afbb83ca036facbf81d316d7e368ac8175fb', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
+  config.omniauth :github,
+    ENV.fetch("GITHUB_CLIENT_ID", ""),
+    ENV.fetch("GITHUB_CLIENT_SECRET", ""),
+    scope: 'read:user, public_repo, read:org',
+    redirect_uri: ENV.fetch("GITHUB_OAUTH_REDIRECT_URI", "https://www.omnilint.com/users/auth/github")
 end
 
 Rails.configuration.stripe = {
-  :publishable_key => 'pk_test_eBB6xUuMesZwAGiVN1f09kox',
-  :secret_key      => 'STRIPE_TEST_KEY_REDACTED'
+  :publishable_key => ENV.fetch("STRIPE_PUBLISHABLE_KEY", ""),
+  :secret_key      => ENV.fetch("STRIPE_SECRET_KEY", "")
 }
-
-# Rails.configuration.stripe = {
-#   :publishable_key => 'pk_live_i1fRSbizSAr8LM9WrJ2fXi3T',
-#   :secret_key      => 'STRIPE_LIVE_KEY_REDACTED'
-# }
