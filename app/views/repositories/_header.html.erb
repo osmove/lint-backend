@@ -8,7 +8,7 @@
 
       <li class="nav-item dropdown active">
         <% if repository.present? && repository.name.present? %>
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <% if repository.platform.present? %>
               <img src="<%= repository.platform.image_url %>" width="30" height="30" class="d-inline-block align-top mr-1" alt="Omnilint Logo" style="border-radius: 5px; margin-top: -2px; margin-bottom: -3px;">
             <% else %>
@@ -18,7 +18,7 @@
             <%= raw repository.pretty_uuid_html %>
           </a>
         <% else %>
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Select repository
           </a>
         <% end %>

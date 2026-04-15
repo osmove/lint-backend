@@ -29,7 +29,7 @@
     </ul>
 
 
-    <button class="navbar-toggler p-1" type="button" data-toggle="collapse" data-target=".collapse" aria-controls="navbarSupportedContent search" aria-expanded="false" aria-label="Toggle navigation" style="border: none; opacity: 0.5;">
+    <button class="navbar-toggler p-1" type="button" data-bs-toggle="collapse" data-bs-target=".collapse" aria-controls="navbarSupportedContent search" aria-expanded="false" aria-label="Toggle navigation" style="border: none; opacity: 0.5;">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -53,7 +53,7 @@
           <% end %>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <!-- <strong><%= current_user.slug %></strong> -->
               <% if current_user.avatar_url.present? %>
                 <img src="<%= current_user.avatar_url %>" alt="<%= current_user %>" style="width: 24px; height: 24px; float: left; border-radius: 15px;">
