@@ -17,7 +17,7 @@ module Omnilint
 
     # Postmark
     config.action_mailer.delivery_method = :postmark
-    config.action_mailer.postmark_settings = { :api_token => "b478ccd7-dcde-4e1b-8ffc-9dcc025d4686" }
+    config.action_mailer.postmark_settings = { :api_token => ENV.fetch("POSTMARK_API_TOKEN", "") }
 
     # Fix problem with login error HTTP Origin header (https://lint.dev) didn't match request.base_url (http://lint.dev)
     # https://github.com/rails/rails/issues/22965
@@ -27,5 +27,5 @@ end
 
 # Sentry
 Raven.configure do |config|
-  config.dsn = 'https://4ec3c1a9ed22428f845dc691801695be:b4ba860f40da429ebad3d9ab9c27ddad@sentry.io/1371911'
+  config.dsn = ENV.fetch("SENTRY_DSN", "")
 end

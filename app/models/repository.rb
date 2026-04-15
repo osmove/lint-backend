@@ -170,7 +170,11 @@ class Repository < ApplicationRecord
     if self.git_host == "omnilint"
       # Create git repository
       puts 'Connecting to SSH...'
-      Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+      Net::SSH.start(
+        ENV.fetch("GIT_SERVER_HOST", "git.omnilint.com"),
+        ENV.fetch("GIT_SERVER_USER", "root"),
+        password: ENV.fetch("GIT_SERVER_PASSWORD", "")
+      ) do |ssh|
         puts 'Connected to SSH.'
         # Creat user directory if needed
         # puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}")
@@ -240,20 +244,8 @@ class Repository < ApplicationRecord
   end
 
   def generate_secret_key
-    # loop do
-    #   secret_key = rand(100000...999999)
-    #   break secret_key unless Device.where(secret_key: secret_key).first
-    # end
-    # secret_key = rand(100000...999999)
-
-    # require 'SecureRandom'
     require 'securerandom'
-    # secret_key = SecureRandom.hex()
-    secret_key = SecureRandom.hex(30)
-
-    return
-
-    puts 'Hello'
+    SecureRandom.hex(30)
   end
 
 

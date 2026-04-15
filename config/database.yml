@@ -87,8 +87,8 @@ production:
 
 
   # Digital Ocean
-  database: omnilint_production
-  username: omnilint_production
-  password: AIVEN_PASSWORD_REDACTED
-  host: db-lejustepro-do-user-1572537-0.b.db.ondigitalocean.com
-  port: 25060
+  database: <%= ENV.fetch("DATABASE_NAME", "omnilint_production") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "omnilint_production") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", "5432") %>
