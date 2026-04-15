@@ -33,6 +33,7 @@ gem 'bootstrap_form', '~> 5.4'
 gem 'friendly_id', '~> 5.5'
 
 # Infrastructure
+gem 'faraday', '~> 2.9'
 gem 'net-ssh', '~> 7.2'
 gem 'postmark-rails', '~> 0.22'
 gem 'rqrcode', '~> 2.2'
