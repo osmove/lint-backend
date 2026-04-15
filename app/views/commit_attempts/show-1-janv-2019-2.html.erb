@@ -173,7 +173,7 @@
         <div id="accordion">
           <% @policy_check.report["rule_checks_attributes"].group_by{ |h| [h['file_path']] }.each do |file, rule_checks| %>
             <div class="card card-file mb-2">
-              <div class="card-header bg-white d-flex justify-content-between align-items-center" id="headingOne" data-toggle="collapse" data-target="#collapse<%= (rule_checks[0]["line"]) %>" aria-expanded="true" aria-controls="collapseOne" style="cursor:pointer;">
+              <div class="card-header bg-white d-flex justify-content-between align-items-center" id="headingOne" data-bs-toggle="collapse" data-bs-target="#collapse<%= (rule_checks[0]["line"]) %>" aria-expanded="true" aria-controls="collapseOne" style="cursor:pointer;">
                 <% if @policy_check.report["javascript_files"].include? file[0] %>
                   <!-- <strong><img src="<%= @javascript_logo_url %>" class="img-fluid mb-1 mx-2 d-none d-md-block"  style="width: 15px" alt=""><%=file[0]%></strong> -->
                 <% elsif @policy_check.report["ruby_files"].include? file[0] %>
@@ -196,7 +196,7 @@
 
 
               </div>
-              <div id="collapse<%= (rule_checks[0]["line"]) %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div id="collapse<%= (rule_checks[0]["line"]) %>" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
                 <div class="card-body" style="margin:0; padding:0">
                   <table class="table border" style="margin:0; padding:0">
                     <% rule_checks.sort_by { |h, v| [h["severity_level"]]}.reverse!.group_by{ |h| [h['rule_id']] }.each do |rule_id, rule_checks| %>

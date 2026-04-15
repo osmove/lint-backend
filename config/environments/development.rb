@@ -51,16 +51,12 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # Use file watcher to detect changes in source code, routes, locales, etc.
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Letter Opener
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
-
-  # Omniauth github api
-  # config.omniauth :github, 'c6970dc8ce50f48bbd7e', '49947ed386d02c5ce282eb3baaf978d92325598b', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
 
 end
 
@@ -68,13 +64,14 @@ end
 
 
 Devise.setup do |config|
-  config.omniauth :github, 'aae25e7b1428bbec9be7', '33c19ebca07374476393ee83d6d2cecc18c1fa2d', scope: 'read:user, public_repo, read:org', :redirect_uri => 'http://localhost:3000/users/auth/github'
-  # config.omniauth :github, 'aae25e7b1428bbec9be7', '33c19ebca07374476393ee83d6d2cecc18c1fa2d', scope: 'read:user, public_repo, read:org', :redirect_uri => 'http://localhost:3000/users/auth/github'
-  # config.omniauth :github, 'aae25e7b1428bbec9be7', '33c19ebca07374476393ee83d6d2cecc18c1fa2d', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
+  config.omniauth :github,
+    ENV.fetch("GITHUB_CLIENT_ID", ""),
+    ENV.fetch("GITHUB_CLIENT_SECRET", ""),
+    scope: 'read:user, public_repo, read:org',
+    redirect_uri: ENV.fetch("GITHUB_OAUTH_REDIRECT_URI", "http://localhost:3000/users/auth/github")
 end
 
-
 Rails.configuration.stripe = {
-  :publishable_key => 'pk_test_eBB6xUuMesZwAGiVN1f09kox',
-  :secret_key      => 'STRIPE_TEST_KEY_REDACTED'
+  :publishable_key => ENV.fetch("STRIPE_PUBLISHABLE_KEY", ""),
+  :secret_key      => ENV.fetch("STRIPE_SECRET_KEY", "")
 }

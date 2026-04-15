@@ -23,7 +23,7 @@ class PolicyCheck < ApplicationRecord
   end
 
   after_create :set_offense_count, :set_fixable_offense_count
-  serialize :report, JSON
+  serialize :report, coder: JSON
 
   def set_offense_count
     self.offense_count = 0

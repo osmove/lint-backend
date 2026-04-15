@@ -14,18 +14,12 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
-  # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
-  # `config/secrets.yml.key`.
-  config.read_encrypted_secrets = true
-
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.js_compressor = :terser
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -45,7 +39,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -90,9 +84,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'https://www.omnilint.com'
 
-  # Omniauth github api
-  # config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'http://localhost:3000/users/auth/github'
-
 end
 
 
@@ -102,18 +93,14 @@ end
 Devise.setup do |config|
   # Scopes available:
   # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-  config.omniauth :github, 'dd33fc5fa2ff10074d2a', '4b49afbb83ca036facbf81d316d7e368ac8175fb', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'read:user, public_repo, read:org', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
-  # config.omniauth :github, 'dd33fc5fa2ff10074d2a', '5ea62b7c84855bff8a55aa46aa172f6738bd5b7c', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://www.omnilint.com/users/auth/github'
+  config.omniauth :github,
+    ENV.fetch("GITHUB_CLIENT_ID", ""),
+    ENV.fetch("GITHUB_CLIENT_SECRET", ""),
+    scope: 'read:user, public_repo, read:org',
+    redirect_uri: ENV.fetch("GITHUB_OAUTH_REDIRECT_URI", "https://www.omnilint.com/users/auth/github")
 end
 
 Rails.configuration.stripe = {
-  :publishable_key => 'pk_test_eBB6xUuMesZwAGiVN1f09kox',
-  :secret_key      => 'STRIPE_TEST_KEY_REDACTED'
+  :publishable_key => ENV.fetch("STRIPE_PUBLISHABLE_KEY", ""),
+  :secret_key      => ENV.fetch("STRIPE_SECRET_KEY", "")
 }
-
-# Rails.configuration.stripe = {
-#   :publishable_key => 'pk_live_i1fRSbizSAr8LM9WrJ2fXi3T',
-#   :secret_key      => 'STRIPE_LIVE_KEY_REDACTED'
-# }

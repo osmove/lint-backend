@@ -57,7 +57,11 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: omnilint_test
+  database: <%= ENV.fetch("DATABASE_NAME", "omnilint_test") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", "5432") %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -87,8 +91,8 @@ production:
 
 
   # Digital Ocean
-  database: omnilint_production
-  username: omnilint_production
-  password: AIVEN_PASSWORD_REDACTED
-  host: db-lejustepro-do-user-1572537-0.b.db.ondigitalocean.com
-  port: 25060
+  database: <%= ENV.fetch("DATABASE_NAME", "omnilint_production") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "omnilint_production") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
+  host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
+  port: <%= ENV.fetch("DATABASE_PORT", "5432") %>

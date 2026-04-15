@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
 
-
+  # API v1 (JSON, token auth)
+  namespace :api do
+    namespace :v1 do
+      post 'lint', to: 'lint#create'
+      post 'review', to: 'review#create'
+      post 'repositories/:repository_uuid/recommend', to: 'recommend#create'
+      post 'policies/generate', to: 'policies#generate'
+    end
+  end
 
   post 'postmark/inbound'
 
@@ -178,7 +186,7 @@ Rails.application.routes.draw do
 
   authenticated :user do
     get '/dashboard'            => 'pages#dashboard'
-    root :to => "pages#dashboard"
+    root to: "pages#dashboard", as: :authenticated_root
   end
 
   # get '/users' => 'users#index', :as => :users

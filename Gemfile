@@ -1,90 +1,77 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
+ruby '3.3.6'
 
-ruby '2.5.3'
+# Core
+gem 'rails', '~> 7.2'
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'pg', '~> 1.5'
+gem 'puma', '~> 6.4'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.5'
-# Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'puma', '~> 3.7'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# Asset Pipeline
+gem 'sprockets-rails'
+gem 'dartsass-rails', '~> 0.5'
+gem 'terser'
+gem 'jbuilder', '~> 2.12'
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# Hotwire (replaces Turbolinks + jQuery)
+gem 'turbo-rails'
+gem 'stimulus-rails'
+gem 'importmap-rails'
 
-gem 'jquery-rails'
-gem 'bootstrap', '~> 4.1.3'
-gem 'font-awesome-rails'
-gem "animate-rails"
-gem 'devise'
-gem 'omniauth-github'
-gem "bootstrap_form", ">= 4.0.0.alpha1"
-gem 'friendly_id', '~> 5.2.0'
+# UI
+gem 'bootstrap', '~> 5.3'
+gem 'font-awesome-sass', '~> 6.5'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Authentication
+gem 'devise', '~> 4.9'
+gem 'omniauth-github', '~> 2.0'
+gem 'omniauth-rails_csrf_protection'
 
-gem 'net-ssh'
-gem 'postmark-rails'
-gem "rqrcode"
-gem 'stripe'
+# Forms & URLs
+gem 'bootstrap_form', '~> 5.4'
+gem 'friendly_id', '~> 5.5'
+
+# Infrastructure
+gem 'faraday', '~> 2.9'
+gem 'net-ssh', '~> 7.2'
+gem 'postmark-rails', '~> 0.22'
+gem 'rqrcode', '~> 2.2'
+gem 'stripe', '~> 12.0'
 gem 'git'
-gem 'browser'
-gem 'redcarpet'
-# gem 'twitter-typeahead-rails'
-gem 'twitter-typeahead-rails', :git => "git://github.com/pitops/twitter-typeahead-rails.git" , :branch => "bump_version_to_1.0.1"
+gem 'browser', '~> 6.0'
+gem 'redcarpet', '~> 3.6'
 
+# Monitoring
+gem 'sentry-ruby', '~> 5.17'
+gem 'sentry-rails', '~> 5.17'
+
+# Analytics & Tracking
 gem 'impressionist'
+gem 'kaminari', '~> 1.2'
+gem 'chartkick', '~> 5.1'
+gem 'groupdate', '~> 6.4'
+gem 'hightop', '~> 0.3'
+gem 'blazer', '~> 3.0'
 
-gem "sentry-raven"
+# Notifications
 gem 'exponent-server-sdk'
 
+# Utilities
 gem 'colorize'
 
-gem 'kaminari'
-
-gem "chartkick"
-gem 'groupdate'
-gem 'hightop'
-gem 'blazer'
-gem "cocoon"
-
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-  gem "letter_opener"
+  gem 'debug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara', '~> 3.40'
+  gem 'selenium-webdriver', '~> 4.16'
+  gem 'letter_opener'
+  gem 'factory_bot_rails'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '~> 4.2'
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
