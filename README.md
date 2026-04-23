@@ -46,6 +46,7 @@ Clone and boot locally:
 git clone https://github.com/osmove/lint-backend.git
 cd lint-backend
 npm install
+npm run bundler:ensure
 npm run setup
 ```
 
@@ -62,6 +63,7 @@ docker compose run web npm run db:prepare
 
 ```bash
 npm run setup
+npm run bundler:ensure
 npm run server
 npm run db:setup
 npm run db:prepare
@@ -73,6 +75,8 @@ npm run verify
 ```
 
 These npm scripts are the preferred maintainer entry points for the backend workflow.
+
+If your local Ruby installation is missing the Bundler version pinned in `Gemfile.lock`, run `npm run bundler:ensure`.
 
 ## API Surface
 

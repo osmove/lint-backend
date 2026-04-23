@@ -15,14 +15,18 @@ Bootstrap a local environment:
 ```bash
 cp .env.example .env
 npm install
+npm run bundler:ensure
 npm run setup
 ```
 
 ## Common Commands
 
 ```bash
+npm run bundler:ensure
 npm run server
 npm run db:setup
+npm run db:prepare
+npm run console
 npm test
 npm run lint
 npm run security
@@ -34,6 +38,8 @@ npm run verify
 - RuboCop
 - Rails tests
 - Brakeman
+
+If your local Ruby installation does not already have the Bundler version pinned in `Gemfile.lock`, run `npm run bundler:ensure`.
 
 ## Repository Notes
 
