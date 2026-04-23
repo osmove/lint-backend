@@ -68,7 +68,7 @@
   $('.navbar .typeahead').typeahead({
     highlight: true,
     minLength: 1,
-    <% if user_signed_in? && current_user.slug == 'jimdou' %>
+    <% if user_signed_in? && current_user.admin? %>
   }, {
     display: 'uuid',
     // source: myRepositories,
