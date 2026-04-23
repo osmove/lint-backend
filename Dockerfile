@@ -16,7 +16,7 @@ RUN bundle install --jobs 4 --retry 3
 
 COPY . .
 
-RUN bundle exec rails assets:precompile RAILS_ENV=production SECRET_KEY_BASE=placeholder || true
+RUN SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bundle exec rails assets:precompile || true
 
 EXPOSE 3000
 

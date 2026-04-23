@@ -61,21 +61,24 @@ test/                # MiniTest
 ```bash
 # Docker (recommended)
 docker compose up              # starts web + PostgreSQL
-docker compose run web rails db:schema:load
+docker compose run web npm run db:prepare
 
 # Local development
-bundle install
-bin/rails db:create db:schema:load db:seed
-bin/rails server               # http://localhost:3000
+npm run setup
+npm run server                 # http://localhost:3000
 
 # Tests
-bin/rails test
+npm test
 
 # Linting
-bundle exec rubocop
+npm run lint
+npm run security
+
+# Full maintainer check
+npm run verify
 
 # Console
-bin/rails console
+npm run console
 ```
 
 ## API v1 Endpoints

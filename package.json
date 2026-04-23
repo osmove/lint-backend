@@ -13,8 +13,11 @@
     "lint": "file:../lint-cli"
   },
   "scripts": {
+    "setup": "bin/setup",
     "server": "bin/rails server",
     "db:setup": "bin/rails db:create db:migrate db:seed",
+    "db:prepare": "bin/rails db:prepare",
+    "console": "bin/rails console",
     "test": "bin/rails test",
     "lint": "bundle exec rubocop",
     "security": "bundle exec brakeman",
