@@ -28,7 +28,7 @@ class Admin::CommitsController < Admin::BaseController
     # require 'pp'
     require 'colorize'
 
-    Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
       output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git log --date=iso --max-count=30")
       logs = output.split("commit ")
       logs.shift
@@ -234,7 +234,7 @@ class Admin::CommitsController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commit_params
-     params.require(:omnilint_commit).permit(:message,
+     params.require(:lint_commit).permit(:message,
      :date, :date_raw, :contributor_raw, :contributor_name, :contributor_email,
      :push_id, :contributor,
       data_set_users_attributes: [:user_id],

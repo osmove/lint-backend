@@ -1,5 +1,5 @@
 <pre class="text-left"><samp>
-Jimmys-iMac:dev jimmy$ omnilint
+Jimmys-iMac:dev jimmy$ lint
 
 Repositories             Language          Branch      Status     Diff
 ----------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Total: 10 repositories.
 
 
 <pre class="text-left text-muted">
-Jimmys-iMac:dev jimmy$ omnilint
+Jimmys-iMac:dev jimmy$ lint
 
   •••••••••             •••••               •••
  •••·····•••           ··•••               ···
@@ -59,7 +59,7 @@ Repositories                         Language      Branch              Status   
 --------------------------------------------------------------------------------------------------------------------------
 📁  .Trash                            -             master              ✓           D .gitattributes
                                                                                   D .gitignore
-                                                                                  D Omnilint.app/Contents/Frameworks/libswiftAppKit.dylib
+                                                                                  D Lint.app/Contents/Frameworks/libswiftAppKit.dylib
                                                                                   + 134 other(s) file(s)
 --------------------------------------------------------------------------------------------------------------------------
 📁  Arduino                           -             master              ✓           D ChatServer/ChatServer.ino
@@ -98,7 +98,7 @@ Repositories                         Language      Branch              Status   
 --------------------------------------------------------------------------------------------------------------------------
 📁  ShabbatWatch                      js            master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  WeatherBar                        xcode         omnilint              ✓           M WeatherBar/AppDelegate.swift
+📁  WeatherBar                        xcode         lint                  ✓           M WeatherBar/AppDelegate.swift
                                                                                   M WeatherBar/PreferencesWindow.swift
                                                                                   M WeatherBar/StatusMenuController.swift
                                                                                   + 5 other(s) file(s)
@@ -147,21 +147,21 @@ Repositories                         Language      Branch              Status   
 📁  crowdraising                      ruby/rails    master              ✓           M public/js/server.js
                                                                                   ? yarn.lock
 --------------------------------------------------------------------------------------------------------------------------
-📁  omnilint                            ruby/rails    master              ✓           M app/views/pages/home.html.erb
+📁  lint                                ruby/rails    master              ✓           M app/views/pages/home.html.erb
                                                                                   ? app/views/pages/home2.html.erb
 --------------------------------------------------------------------------------------------------------------------------
-📁  omnilint-cli                        xcode         master              ✓           ✓
+📁  lint-cli                        xcode         master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  omnilint-cli-export                 -             master              ✓           ✓
+📁  lint-cli-export                 -             master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  omnilint-mac                        xcode         master              ✓           M Omnilint.xcodeproj/project.pbxproj
-                                                                                  ? Omnilint.xcodeproj/project.xcworkspace/xcshareddata/
+📁  lint-mac                            xcode         master              ✓           M Lint.xcodeproj/project.pbxproj
+                                                                                  ? Lint.xcodeproj/project.xcworkspace/xcshareddata/
 --------------------------------------------------------------------------------------------------------------------------
 📁  gdax-streamer                     js            master              ✓           M src/App.js
 --------------------------------------------------------------------------------------------------------------------------
 📁  gdax-tt                           js            master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
-📁  homebrew-omnilint                   ruby          master              ✓           ✓
+📁  homebrew-lint                   ruby          master              ✓           ✓
 --------------------------------------------------------------------------------------------------------------------------
 📁  macos-launch-at-login-app         xcode         master              ✓           MMainApplication.xcodeproj/project.pbxproj
                                                                                   MMainApplication/Base.lproj/Main.storyboard

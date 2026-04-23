@@ -5,7 +5,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Omnilint
+module Lint
   class Application < Rails::Application
     # Initialize configuration defaults for Rails 7.2
     config.load_defaults 7.2

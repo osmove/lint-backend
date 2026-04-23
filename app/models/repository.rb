@@ -1,4 +1,6 @@
 class Repository < ApplicationRecord
+  LINT_CLOUD_DEPLOY_TARGET = "lint_cloud".freeze
+  LINT_GIT_HOST = "lint".freeze
 
   require 'net/ssh'
 
@@ -38,11 +40,11 @@ class Repository < ApplicationRecord
   extend FriendlyId
   friendly_id :name, :use => :scoped, :scope => :user
 
-  # validates :domain_slug, presence: true, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.blank? }
+  # validates :domain_slug, presence: true, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'lint_cloud' && domain_slug.blank? }
 
-  validates :domain_slug, presence: true, if: -> { deploy_to == 'omnilint_cloud' }
-  # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.present? }
-  validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'omnilint_cloud' && domain_slug.present? }
+  validates :domain_slug, presence: true, if: -> { deploy_to == LINT_CLOUD_DEPLOY_TARGET }
+  # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'lint_cloud' && domain_slug.present? }
+  validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == LINT_CLOUD_DEPLOY_TARGET && domain_slug.present? }
 
   # TODO: validates_uniqueness_of :repository_id, :scope => :user_id
 
@@ -119,7 +121,7 @@ class Repository < ApplicationRecord
 
   def git_address
     if self.git_host != "github"
-      @git_address = "git@git.omnilint.com:#{self.user.slug}/#{self.slug}.git"
+      @git_address = "git@git.lint.to:#{self.user.slug}/#{self.slug}.git"
     else
       @git_address = self.git_url
     end
@@ -153,7 +155,7 @@ class Repository < ApplicationRecord
   #   @output5 = ""
   #   @output6 = ""
   #   @output7 = ""
-  #   Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+  #   Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
   #     @output1 << ssh.exec!("ls /var/git")
   #     @output2 << ssh.exec!("mkdir /var/git/#{self.user.slug}")
   #     @output3 << ssh.exec!("ls /var/git")
@@ -167,11 +169,11 @@ class Repository < ApplicationRecord
 
   # before_create :deploy
   def deploy
-    if self.git_host == "omnilint"
+    if self.git_host == LINT_GIT_HOST
       # Create git repository
       puts 'Connecting to SSH...'
       Net::SSH.start(
-        ENV.fetch("GIT_SERVER_HOST", "git.omnilint.com"),
+        ENV.fetch("GIT_SERVER_HOST", "git.lint.to"),
         ENV.fetch("GIT_SERVER_USER", "root"),
         password: ENV.fetch("GIT_SERVER_PASSWORD", "")
       ) do |ssh|

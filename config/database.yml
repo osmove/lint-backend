@@ -23,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: omnilint_development
+  database: lint_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: omnilint
+  #username: lint
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_NAME", "omnilint_test") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "lint_test") %>
   username: <%= ENV.fetch("DATABASE_USERNAME", "") %>
   password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
   host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
@@ -85,14 +85,14 @@ test:
 #
 production:
   <<: *default
-  # database: omnilint_production
-  # username: omnilint
-  # password: <%= ENV["OMNILINT_DATABASE_PASSWORD"] %>
+  # database: lint_production
+  # username: lint
+  # password: <%= ENV["LINT_DATABASE_PASSWORD"] %>
 
 
   # Digital Ocean
-  database: <%= ENV.fetch("DATABASE_NAME", "omnilint_production") %>
-  username: <%= ENV.fetch("DATABASE_USERNAME", "omnilint_production") %>
+  database: <%= ENV.fetch("DATABASE_NAME", "lint_production") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "lint_production") %>
   password: <%= ENV.fetch("DATABASE_PASSWORD", "") %>
   host: <%= ENV.fetch("DATABASE_HOST", "localhost") %>
   port: <%= ENV.fetch("DATABASE_PORT", "5432") %>

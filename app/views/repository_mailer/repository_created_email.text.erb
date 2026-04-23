@@ -1,7 +1,7 @@
 Hi, <%= @repository.user.username %>
 
 Your repository <%= @repository.slug %> was created successfully.
-It is available at: https://www.omnilint.com/<%= @repository.user.username %>/<%= @repository.slug %>
+It is available at: https://lint.to/<%= @repository.user.username %>/<%= @repository.slug %>
 
 Your repository git address is:
 <%= @repository.git_address %>.
@@ -10,8 +10,8 @@ Starting with a 'new' repository:
 git clone <%= @repository.git_address %>
 
 Starting with an <strong>existing</strong> repository:
-git remote add omnilint <%= @repository.git_address %>
-git push omnilint master
+git remote add lint <%= @repository.git_address %>
+git push lint master
 
 Thank you,
-The Omnilint team
+The Lint team

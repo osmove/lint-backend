@@ -138,7 +138,7 @@ class RepositoriesController < ProtectedController
 
 
     # require 'rqrcode'
-    # qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{@repository.uuid}")
+    # qrcode = RQRCode::QRCode.new("https://lint.to/#{@repository.uuid}")
     # @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 3)
 
 
@@ -148,7 +148,7 @@ class RepositoriesController < ProtectedController
 
     # List files in bare repository
     # require 'net/ssh'
-    # Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    # Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #   # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
     #   @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
     #   @output.split("\n").each do |line|
@@ -211,7 +211,7 @@ class RepositoriesController < ProtectedController
     #   @readme.name = 'README.md'
     #   @readme.path = 'README.md'
     #   @readme.extension = 'md'
-    #   Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    #   Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #     @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
     #     @content2 = ssh.exec!(@request2)
     #     @readme.raw_content = @content2
@@ -359,7 +359,7 @@ class RepositoriesController < ProtectedController
         format.json { render json: user_repository_path(@repository.user, @repository), status: :unprocessable_entity }
       else
         if @repository.git_host != "github"
-          @repository.git_address = "git@git.omnilint.com:#{@repository.user.slug}/#{@repository.slug}.git"
+          @repository.git_address = "git@git.lint.to:#{@repository.user.slug}/#{@repository.slug}.git"
         else
           @repository.git_address = self.git_url
         end

@@ -4,11 +4,11 @@ class UserMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
-    # @site_url  = 'https://www.omnilint.com'
-    # @login_url  = 'https://www.omnilint.com/login'
-    @site_url  = 'https://www.omnilint.com'
-    @login_url  = 'https://www.omnilint.com/login'
-    mail(from: "Omnilint <support@omnilint.com>", to: "#{@user.username} <#{@user.email}>", subject: "Welcome to Omnilint, #{@user.username}")
+    # @site_url  = 'https://lint.to'
+    # @login_url  = 'https://lint.to/login'
+    @site_url  = 'https://lint.to'
+    @login_url  = 'https://lint.to/login'
+    mail(from: "Lint <support@lint.to>", to: "#{@user.username} <#{@user.email}>", subject: "Welcome to Lint, #{@user.username}")
   end
 
   def commit_attempt_report(commit_attempt)
@@ -34,17 +34,17 @@ class UserMailer < ApplicationMailer
       else
         @policy_check = nil
       end
-      @site_url  = 'https://www.omnilint.com'
-      @login_url  = 'https://www.omnilint.com/login'
+      @site_url  = 'https://lint.to'
+      @login_url  = 'https://lint.to/login'
 
       if @repository_access.enable_email_notifications
-        mail(from: "Omnilint <support@omnilint.com>", to: "#{@user.username} <#{@user.email}>", subject: "[#{@repository.uuid}] #{@commit_attempt.name}")
+        mail(from: "Lint <support@lint.to>", to: "#{@user.username} <#{@user.email}>", subject: "[#{@repository.uuid}] #{@commit_attempt.name}")
       end
 
       if @repository_access.enable_admin_email_notifications
         @repository.repository_accesses.each do |access|
           if access.role == 'admin' && access.user.username != @user.username
-            mail(from: "Omnilint <support@omnilint.com>", to: "#{access.user.username} <#{access.user.email}>", subject: "[#{@repository.uuid}] #{@commit_attempt.name}")
+            mail(from: "Lint <support@lint.to>", to: "#{access.user.username} <#{access.user.email}>", subject: "[#{@repository.uuid}] #{@commit_attempt.name}")
           end
         end
       end
@@ -57,7 +57,7 @@ class UserMailer < ApplicationMailer
         @policy_check = nil
         @report = nil
       end
-      mail(from: "Omnilint <support@omnilint.com>", to: "#{@user.username} <#{@user.email}>", subject: "#{@repository.uuid} - #{@commit_attempt.name}")
+      mail(from: "Lint <support@lint.to>", to: "#{@user.username} <#{@user.email}>", subject: "#{@repository.uuid} - #{@commit_attempt.name}")
     end
 
 

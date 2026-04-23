@@ -1,7 +1,7 @@
 module Ai
   class CodeReviewer
     SYSTEM_PROMPT = <<~PROMPT
-      You are an expert code reviewer for Omnilint, a code quality platform.
+      You are an expert code reviewer for Lint, a code quality platform.
       When given a linting violation with code context, provide:
       1. A clear, concise explanation of why this is a problem
       2. A suggested fix with the corrected code

@@ -31,7 +31,7 @@ class Admin::DocumentsController < Admin::BaseController
 
     # Lists files in bare git repository
     require 'net/ssh'
-    Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
       # @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree --full-tree -r HEAD")
       @output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git ls-tree HEAD")
       @output.split("\n").each do |line|
@@ -80,7 +80,7 @@ class Admin::DocumentsController < Admin::BaseController
 
     # Read file content
     require 'net/ssh'
-    Net::SSH.start('git.omnilint.com', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
       @request = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@document.name}'"
       @content = ssh.exec!(@request)
       @document.raw_content = @content

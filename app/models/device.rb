@@ -4,6 +4,9 @@ class Device < ApplicationRecord
   has_many :policy_checks
   has_many :rules_checks
 
+  alias_attribute :has_lint_desktop, :has_gatrix_desktop
+  alias_attribute :has_lint_connect, :has_gatrix_connect
+
   is_impressionable
   self.inheritance_column = :_type_disabled
 

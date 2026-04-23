@@ -1,10 +1,10 @@
-# Omnilint Backend
+# Lint Backend
 
 ## Project Overview
 
-Omnilint is a cloud-based code linting and quality management platform with AI-powered features. This repository contains the **web backend** (Rails application) that powers the platform at omnilint.com.
+Lint is a cloud-based code linting and quality management platform with AI-powered features. This repository contains the **web backend** (Rails application) that powers the platform at lint.to.
 
-The companion CLI tool is published as the npm package [`lint`](https://www.npmjs.com/package/lint) from the [omnilint/lint](https://github.com/omnilint/lint) repository.
+The companion CLI tool is published as the npm package [`lint`](https://www.npmjs.com/package/lint) from the [osmove/lint](https://github.com/osmove/lint) repository.
 
 ## Architecture
 
@@ -104,5 +104,5 @@ All secrets are managed via environment variables (see `.env.example`):
 
 ## Related Repositories
 
-- **CLI tool**: [omnilint/lint](https://github.com/omnilint/lint) - npm package `lint`
+- **CLI tool**: [osmove/lint](https://github.com/osmove/lint) - npm package `lint`
 - **npm package**: https://www.npmjs.com/package/lint
