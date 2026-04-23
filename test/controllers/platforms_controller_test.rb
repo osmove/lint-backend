@@ -17,10 +17,10 @@ class PlatformsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create platform" do
     assert_difference('Platform.count') do
-      post platforms_url, params: { platform: { framework_id: @platform.framework_id, image: @platform.image, language_id: @platform.language_id, name: @platform.name } }
+      post platforms_url, params: { platform: { framework_id: @platform.framework_id, image: @platform.image, language_id: @platform.language_id, name: "New Platform", slug: "new-platform" } }
     end
 
-    assert_redirected_to platform_url(Platform.last)
+    assert_redirected_to platforms_url
   end
 
   test "should show platform" do
@@ -34,13 +34,15 @@ class PlatformsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update platform" do
-    patch platform_url(@platform), params: { platform: { framework_id: @platform.framework_id, image: @platform.image, language_id: @platform.language_id, name: @platform.name } }
-    assert_redirected_to platform_url(@platform)
+    patch platform_url(@platform), params: { platform: { framework_id: @platform.framework_id, image: @platform.image, language_id: @platform.language_id, name: "Updated Platform", slug: "updated-platform" } }
+    assert_redirected_to platforms_url
   end
 
   test "should destroy platform" do
+    platform = Platform.create!(name: "Disposable Platform", slug: "disposable-platform")
+
     assert_difference('Platform.count', -1) do
-      delete platform_url(@platform)
+      delete platform_url(platform)
     end
 
     assert_redirected_to platforms_url

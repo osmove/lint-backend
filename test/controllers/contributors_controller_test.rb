@@ -17,7 +17,7 @@ class ContributorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contributor" do
     assert_difference('Contributor.count') do
-      post contributors_url, params: { contributor: { email: @contributor.email, name: @contributor.name, repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
+      post contributors_url, params: { contributor: { email: "new-contributor@example.com", name: "New Contributor", repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
     end
 
     assert_redirected_to contributor_url(Contributor.last)
@@ -39,8 +39,15 @@ class ContributorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy contributor" do
+    contributor = Contributor.create!(
+      name: "Disposable Contributor",
+      email: "disposable-contributor@example.com",
+      repository: repositories(:one),
+      user: users(:one)
+    )
+
     assert_difference('Contributor.count', -1) do
-      delete contributor_url(@contributor)
+      delete contributor_url(contributor)
     end
 
     assert_redirected_to contributors_url

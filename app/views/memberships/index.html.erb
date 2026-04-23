@@ -24,7 +24,11 @@
         <td><%= membership.origin_url %></td>
         <td><img src="<%= membership.avatar_url %>" style="width: 50px; height: 50px; float: left; border-radius: 25px;" alt=""> </td>
         <td><%= membership.role %></td>
-        <td><%= link_to membership.organization.username, user_path(membership.organization) %></td>
+        <td>
+          <% if membership.organization.present? %>
+            <%= link_to membership.organization.username, user_path(membership.organization) %>
+          <% end %>
+        </td>
         <td>
           <% if membership.team.present? %>
             <% if membership.team.team_id.present? %>
@@ -43,4 +47,4 @@
 
 <br>
 
-<%= link_to 'New Membership', new_user_team_membership_path %>
+<%= link_to 'New Membership', new_user_team_membership_path(@user, @team) %>

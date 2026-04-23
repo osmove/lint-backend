@@ -39,8 +39,10 @@ class LintersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy linter" do
+    linter = Linter.create!(name: "Disposable Linter", command: "disposable")
+
     assert_difference('Linter.count', -1) do
-      delete linter_url(@linter)
+      delete linter_url(linter)
     end
 
     assert_redirected_to linters_url

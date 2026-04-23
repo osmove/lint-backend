@@ -66,6 +66,7 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 4.16'
   gem 'letter_opener'
   gem 'factory_bot_rails'
+  gem 'minitest', '< 6'
 end
 
 group :development do

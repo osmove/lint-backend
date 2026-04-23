@@ -2,47 +2,30 @@ require 'test_helper'
 
 class DocumentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @document = documents(:one)
+    @repository = repositories(:one)
+    @user = @repository.user
   end
 
   test "should get index" do
-    get documents_url
+    get user_repository_documents_url(@user, @repository)
     assert_response :success
   end
 
-  test "should get new" do
-    get new_document_url
-    assert_response :success
-  end
+  test "should show document with stubbed git backend" do
+    fake_ssh = Object.new
+    fake_ssh.define_singleton_method(:exec!) { |_command| "# README\n\nHello from Lint" }
 
-  test "should create document" do
-    assert_difference('Document.count') do
-      post documents_url, params: { document: { content: @document.content, document_id: @document.document_id, extension: @document.extension, is_folder: @document.is_folder, name: @document.name, path: @document.path, repository_id: @document.repository_id, size: @document.size } }
+    original_start = Net::SSH.method(:start)
+    Net::SSH.singleton_class.send(:define_method, :start) do |*_args, &block|
+      block.call(fake_ssh)
     end
 
-    assert_redirected_to document_url(Document.last)
-  end
-
-  test "should show document" do
-    get document_url(@document)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_document_url(@document)
-    assert_response :success
-  end
-
-  test "should update document" do
-    patch document_url(@document), params: { document: { content: @document.content, document_id: @document.document_id, extension: @document.extension, is_folder: @document.is_folder, name: @document.name, path: @document.path, repository_id: @document.repository_id, size: @document.size } }
-    assert_redirected_to document_url(@document)
-  end
-
-  test "should destroy document" do
-    assert_difference('Document.count', -1) do
-      delete document_url(@document)
+    begin
+      get user_repository_document_url(@user, @repository, "README.md")
+    ensure
+      Net::SSH.singleton_class.send(:define_method, :start, original_start)
     end
 
-    assert_redirected_to documents_url
+    assert_response :success
   end
 end

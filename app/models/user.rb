@@ -171,7 +171,7 @@ class User < ApplicationRecord
   before_create :set_defaults
   def set_defaults
     self.number_of_seats ||= 1
-    self.plan_id ||= 1
+    self.plan ||= Plan.order(:id).first
   end
 
 

@@ -21,9 +21,9 @@ class TeamsController < ApplicationController
   def new
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
 
-    @team = @user.teams.new
+    @team = Team.new(user: @user)
 
-    @form_url = user_teams_path
+    @form_url = user_teams_path(@user)
   end
 
   # GET /teams/1/edit
@@ -37,8 +37,7 @@ class TeamsController < ApplicationController
   def create
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
 
-    @team = @user.teams.new(team_params)
-    @team.user = @user
+    @team = Team.new(team_params.merge(user: @user))
 
 
     if !@user.present?

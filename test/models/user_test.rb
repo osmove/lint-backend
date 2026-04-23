@@ -12,13 +12,13 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "username should be unique" do
-    user1 = User.create!(username: "uniqueuser", email: "one@example.com", password: "password123")
-    user2 = User.new(username: "uniqueuser", email: "two@example.com", password: "password123")
+    User.create!(username: "uniqueuser", email: "uniqueuser@example.com", password: "password123")
+    user2 = User.new(username: "uniqueuser", email: "another@example.com", password: "password123")
     assert_not user2.valid?, "Duplicate username should not be valid"
   end
 
   test "email should be unique" do
-    user1 = User.create!(username: "user1", email: "same@example.com", password: "password123")
+    User.create!(username: "user1", email: "same@example.com", password: "password123")
     user2 = User.new(username: "user2", email: "same@example.com", password: "password123")
     assert_not user2.valid?, "Duplicate email should not be valid"
   end

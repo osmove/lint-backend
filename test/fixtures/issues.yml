@@ -4,6 +4,8 @@ one:
   title: MyString
   slug: MyString
   origin: MyString
+  body: MyText
+  status: open
   repository: one
   user: one
   language: one
@@ -13,6 +15,8 @@ two:
   title: MyString
   slug: MyString
   origin: MyString
+  body: MyText
+  status: closed
   repository: two
   user: two
   language: two

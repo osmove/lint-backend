@@ -3,11 +3,7 @@
 one:
   name: MyString
   slug: MyString
-  repository: one
-  user: one
 
 two:
   name: MyString
   slug: MyString
-  repository: two
-  user: two

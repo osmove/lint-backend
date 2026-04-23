@@ -1,8 +1,8 @@
 class Team < ApplicationRecord
-  belongs_to :parent, class_name: 'Team', optional: true
-  has_many :children, class_name: 'Team', foreign_key: "parent_id"
+  belongs_to :parent, class_name: 'Team', foreign_key: 'team_id', optional: true
+  has_many :children, class_name: 'Team', foreign_key: 'team_id'
   belongs_to :user
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :users, :through => :memberships
   validates :name, presence: true
 

@@ -63,13 +63,8 @@ class CommitAttemptsController < ProtectedController
     @repository = @commit_attempt.repository
     if @commit_attempt.policy_checks.first.present?
       @policy_check = @commit_attempt.policy_checks.first
-      # @report = @policy_check.report["rule_checks_attributes"].sort_by{|h| [h["security_level"], h['line']]}.group_by{ |h| [h['file_path']] }
-      # @report = @policy_check.report["rule_checks_attributes"].sort_by! { |h| [h['security_level'] ? h['line'] ? h['security_level'] + -h['line'] : -h['security_level'] : 0] }.group_by{ |h| [h['file_path']] }
-          # [h['security_level'] ? 0 : 1, h['security_level']],
-          # [h['line'] ? 0 : 1, h['line']],
-          # h['line'] ? h['line'] : 0
-        # }
-      @report = @policy_check.report["rule_checks_attributes"].sort_by!{|h| [h["security_level"] ? h["security_level"] : 0]}.group_by{ |h| [h['file_path']] }
+      rule_checks_attributes = @policy_check.report&.[]("rule_checks_attributes") || []
+      @report = rule_checks_attributes.sort_by { |h| [h["security_level"] ? h["security_level"] : 0] }.group_by { |h| [h['file_path']] }
 
       # @report_sorted = @report_grouped
     else
