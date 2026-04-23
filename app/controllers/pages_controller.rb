@@ -128,7 +128,7 @@ class PagesController < ApplicationController
     @github_repos = @passed_param
 
     require 'rqrcode'
-    qrcode = RQRCode::QRCode.new("https://www.omnilint.com/#{current_user.slug}")
+    qrcode = RQRCode::QRCode.new("https://lint.to/#{current_user.slug}")
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 4, width: '100%')
     # @qrcode_html = qrcode.as_html
     @all_repos =  current_user.repositories_with_access
@@ -213,7 +213,7 @@ class PagesController < ApplicationController
     #     push_message = {
     #       to: device.push_token,
     #       sound: "default",
-    #       body: "Welcome to Omnilint, #{current_user.username}."
+    #       body: "Welcome to Lint, #{current_user.username}."
     #     }
     #     push_messages << push_message
     #   end
@@ -246,14 +246,14 @@ class PagesController < ApplicationController
     if current_user.country.present? && current_user.country != country_code
       current_user.send_push_notification(
         "Connection from #{country}",
-        "Hi, #{current_user.username}. New connection detected to your Omnilint Dashboard with IP #{@smart_ip}."
+        "Hi, #{current_user.username}. New connection detected to your Lint Dashboard with IP #{@smart_ip}."
       )
     end
 
 
     current_user.send_push_notification(
       "Connection from #{country}",
-      "Hi, #{current_user.username}. New connection detected to your Omnilint Dashboard with IP #{@smart_ip}."
+      "Hi, #{current_user.username}. New connection detected to your Lint Dashboard with IP #{@smart_ip}."
     )
 
 
@@ -265,7 +265,7 @@ class PagesController < ApplicationController
     #     push_message = {
     #       to: device.push_token,
     #       sound: "default",
-    #       body: "Hi, #{current_user.username}. A new connection to your Omnilint dashboard was detected from #{country} - IP #{@smart_ip}."
+    #       body: "Hi, #{current_user.username}. A new connection to your Lint dashboard was detected from #{country} - IP #{@smart_ip}."
     #     }
     #     push_messages << push_message
     #   end

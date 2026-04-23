@@ -1,7 +1,7 @@
 module Ai
   class PolicyGenerator
     SYSTEM_PROMPT = <<~PROMPT
-      You are a linting policy generator for Omnilint.
+      You are a linting policy generator for Lint.
       Given a natural language description of code quality requirements,
       generate a structured policy configuration.
       Return a JSON object with:

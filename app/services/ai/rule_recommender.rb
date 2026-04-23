@@ -1,7 +1,7 @@
 module Ai
   class RuleRecommender
     SYSTEM_PROMPT = <<~PROMPT
-      You are a linting configuration expert for Omnilint.
+      You are a linting configuration expert for Lint.
       Given a repository's languages, frameworks, and file structure,
       recommend the most important linting rules to enable.
       Return a JSON array of objects with: linter, rule_name, severity (warn/error), reason.

@@ -13,7 +13,7 @@
     <div class="pricing-header mx-auto text-center">
       <h1 class="display-4 mx-auto pb-2" style="line-height: 0.9em;">Billing</h1>
       <p class="lead mx-auto" style="max-width: 600px;">Choose your plan.</p>
-      <!-- <p class="lead mx-auto" style="max-width: 600px;">Omnilint is free to use for public and open source projects. For  private projects, Omnilint provides a plan for the needs of every workflow.</p> -->
+      <!-- <p class="lead mx-auto" style="max-width: 600px;">Lint is free to use for public and open source projects. For  private projects, Lint provides a plan for the needs of every workflow.</p> -->
     </div>
 
     <nav class="text-center" style="text-align: center !important;">
@@ -102,8 +102,8 @@
 
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                               data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                              data-image="https://www.omnilint.com/images/omnilint-logo-circled@2x.png"
-                              data-name="Omnilint"
+                              data-image="https://lint.to/images/lint-logo-circled@2x.png"
+                              data-name="Lint"
                               data-description="<%= plan.name %>"
                               data-amount="<%= (plan.price_per_month.to_i * 100).to_s %>"
                               data-email="<%= current_user.email %>"
@@ -124,8 +124,8 @@
                             <input type="hidden" name="stripe_plan_id" value="<%= plan.stripe_yearly_plan_id %>">
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                               data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                              data-image="https://www.omnilint.com/images/omnilint-logo-circled@2x.png"
-                              data-name="Omnilint"
+                              data-image="https://lint.to/images/lint-logo-circled@2x.png"
+                              data-name="Lint"
                               data-description="<%= plan.name %>"
                               data-amount="<%= (plan.price_per_year.to_i * 100).to_s %>"
                               data-email="<%= current_user.email %>"

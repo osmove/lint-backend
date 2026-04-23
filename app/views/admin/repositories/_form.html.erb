@@ -213,38 +213,38 @@
 
     <script type="text/javascript">
       function selectDeployTo(deployTo) {
-        if (deployTo == 'omnilint_cloud') {
-          document.getElementById('omnilint_cloud').style.display = "block";
+        if (deployTo == 'lint_cloud') {
+          document.getElementById('lint_cloud').style.display = "block";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'aws') {
-          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('lint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "block";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'gcp') {
-          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('lint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "block";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'azure') {
-          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('lint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "block";
           document.getElementById('own_server').style.display = "none";
         } else if (deployTo == 'own_server') {
-          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('lint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
           document.getElementById('own_server').style.display = "block";
         } else {
-          document.getElementById('omnilint_cloud').style.display = "none";
+          document.getElementById('lint_cloud').style.display = "none";
           document.getElementById('aws').style.display = "none";
           document.getElementById('gcp').style.display = "none";
           document.getElementById('azure').style.display = "none";
@@ -259,11 +259,11 @@
 
       // $("form#new_repository").click((event) => {
       //   console.log(event)
-      //   if ($("#repository_deploy_to_omnilint").prop("checked")) {
+      //   if ($("#repository_deploy_to_lint").prop("checked")) {
       //     // do something
-      //     alert('repository_deploy_to_omnilint checked')
+      //     alert('repository_deploy_to_lint checked')
       //   } else {
-      //     alert('repository_deploy_to_omnilint not checked')
+      //     alert('repository_deploy_to_lint not checked')
       //   }
       //     event.stopPropagation();
       //     event.preventDefault();
@@ -282,7 +282,7 @@
         </div>
         <div class="card mb-2">
           <div class="card-body py-2">
-            <%= form.radio_button :deploy_to, "omnilint_cloud", label: "Omnilint Cloud", onclick: "selectDeployTo('omnilint_cloud');" %>
+            <%= form.radio_button :deploy_to, "lint_cloud", label: "Lint Cloud", onclick: "selectDeployTo('lint_cloud');" %>
           </div>
         </div>
         <div class="card mb-2">
@@ -309,12 +309,12 @@
     </div>
   </div>
 
-  <section id="omnilint_cloud" style="display:none;">
+  <section id="lint_cloud" style="display:none;">
 
 
     <div class="mb-3">
       <div class="pb-2">
-        <%= form.form_group :hosting_plan, label: { text: "Omnilint Cloud" }, help: "The hosting plan of your repository." do %>
+        <%= form.form_group :hosting_plan, label: { text: "Lint Cloud" }, help: "The hosting plan of your repository." do %>
           <p class="mb-1"><small class="text-muted" style="font-size: 12px;">MEMORY | VCPUS | SSD DISK | TRANSFER | PRICE</small></p>
 
           <% HostingPlan.all.order(price_per_month: :asc).each do |plan| %>
@@ -387,16 +387,16 @@
     //
     // })
     //
-    const hostingSent = $("#repository_deploy_to_omnilint_cloud").prop('checked')
+    const hostingSent = $("#repository_deploy_to_lint_cloud").prop('checked')
     if (hostingSent) {
-      selectDeployTo('omnilint_cloud');
+      selectDeployTo('lint_cloud');
     }
 
     </script>
 
     <!-- <div class="card mb-3">
       <div class="card-body pb-2">
-        <%= form.form_group :geo_zone, label: { text: "Omnilint Cloud" }, help: "Where the code will be hosted." do %>
+        <%= form.form_group :geo_zone, label: { text: "Lint Cloud" }, help: "Where the code will be hosted." do %>
           <%= form.radio_button :geo_zone, "america", label: "America", checked: true  %>
           <%= form.radio_button :geo_zone, "europe", label: "Europe" %>
           <%= form.radio_button :geo_zone, "asia", label: "Asia" %>
@@ -407,7 +407,7 @@
 
     <div class="mb-3">
       <div class="pb-2">
-        <%= form.text_field :domain_slug, id: :domain_slug, label: { text: "Domain slug" }, help: "The domain slug of your repository.", append: ".omnilintapp.com", input_group_class: "input-group-md mb-0", value: "", placeholder: "Enter a domain slug", onkeyup: "updateSelfDomainSlug(this.value);" %>
+        <%= form.text_field :domain_slug, id: :domain_slug, label: { text: "Domain slug" }, help: "The domain slug of your repository.", append: ".lint.to", input_group_class: "input-group-md mb-0", value: "", placeholder: "Enter a domain slug", onkeyup: "updateSelfDomainSlug(this.value);" %>
       </div>
     </div>
 

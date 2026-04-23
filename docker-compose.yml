@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_USER: omnilint
-      POSTGRES_PASSWORD: omnilint_dev
-      POSTGRES_DB: omnilint_development
+      POSTGRES_USER: lint
+      POSTGRES_PASSWORD: lint_dev
+      POSTGRES_DB: lint_development
     ports:
       - "5432:5432"
     volumes:
@@ -19,9 +19,9 @@ services:
       - db
     environment:
       DATABASE_HOST: db
-      DATABASE_USERNAME: omnilint
-      DATABASE_PASSWORD: omnilint_dev
-      DATABASE_NAME: omnilint_development
+      DATABASE_USERNAME: lint
+      DATABASE_PASSWORD: lint_dev
+      DATABASE_NAME: lint_development
       DATABASE_PORT: "5432"
       RAILS_ENV: development
       SECRET_KEY_BASE: dev_secret_key_base_change_me_in_production

@@ -20,7 +20,7 @@ class ChargesController < ProtectedController
     # charge = Stripe::Charge.create(
     #   :customer    => @customer.id,
     #   :amount      => @amount,
-    #   :description => 'Omnilint Customer',
+    #   :description => 'Lint Customer',
     #   :currency    => 'usd'
     # )
 
@@ -142,7 +142,7 @@ class ChargesController < ProtectedController
     # Stripe.api_key = "STRIPE_TEST_KEY_REDACTED"
     #
     # plan = Stripe::Plan.create(
-    #   nickname: 'Omnilint Monthly Subscription',
+    #   nickname: 'Lint Monthly Subscription',
     #   product: 'prod_DOsWq3UXM1BWXh',
     #   amount: 1000,
     #   currency: 'usd',

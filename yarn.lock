@@ -2,7 +2,15 @@
 # yarn lockfile v1
 
 
-omnilint@^0.5.23:
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/omnilint/-/omnilint-0.5.23.tgz#2c0cd658a58eb1c5a509d50cb243b822b0ec7d9f"
-  integrity sha512-G6Utsjt3Z4hfL3gEPa/z2Kx3i17IRZ68SUW/i1Nh/9W8DfwhR73NwMjRN6XnCFlHXQb94uifbJL9n5sUOoilNQ==
+"lint@file:../lint-cli":
+  version "1.0.0"
+  resolved "file:../lint-cli"
+  dependencies:
+    "@anthropic-ai/sdk" "^0.39.0"
+    "@inquirer/prompts" "^7.2.0"
+    chalk "^5.4.1"
+    cli-table3 "^0.6.5"
+    commander "^13.1.0"
+    js-yaml "^4.1.1"
+    nanospinner "^1.2.2"
+    prettier "^3.5.3"

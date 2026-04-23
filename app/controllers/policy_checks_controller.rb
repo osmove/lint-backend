@@ -74,7 +74,7 @@ class PolicyChecksController < ApplicationController
         :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
         rule_checks_attributes:[:id, :name, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
           :file_name, :file_path,
-          :severity, :severity_level, :message, :line, :column, :line_end, :column_end, :source], report:[:omnilint_version, :cli_version, :source_shell_command, :node_version, :npm_version, :ruby_version, :python_version, :lint_execution_time, :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
+          :severity, :severity_level, :message, :line, :column, :line_end, :column_end, :source], report:[:lint_version, :cli_version, :source_shell_command, :node_version, :npm_version, :ruby_version, :python_version, :lint_execution_time, :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
           rule_checks_attributes:[:id, :name, :linter, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
             :file_name, :file_path,
             :severity, :severity_level, :message, :line, :column, :line_end, :column_end, source:[:line, :code]], :staged_files => [], :javascript_files => [], :ruby_files => [], :formatted_files => [], :inspected_files => [], :not_inspected_files => []])

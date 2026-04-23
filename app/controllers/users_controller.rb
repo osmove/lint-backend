@@ -70,7 +70,7 @@ class UsersController < ApplicationController
     end
     if @user.email.blank?
       # @user.email = current_user.email
-      @user.email = "#{@user.username}@omnilint.com"
+      @user.email = "#{@user.username}@lint.to"
     end
     if @user.password.blank?
       # @user.email = current_user.email

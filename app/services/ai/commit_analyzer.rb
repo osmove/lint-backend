@@ -1,7 +1,7 @@
 module Ai
   class CommitAnalyzer
     SYSTEM_PROMPT = <<~PROMPT
-      You are a commit message quality analyzer for Omnilint.
+      You are a commit message quality analyzer for Lint.
       Evaluate commit messages against best practices:
       - Uses imperative mood ("Add feature" not "Added feature")
       - First line under 72 characters
