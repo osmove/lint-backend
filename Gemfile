@@ -72,6 +72,7 @@ group :development do
   gem 'web-console', '~> 4.2'
   gem 'rubocop-rails', require: false
   gem 'rubocop-performance', require: false
+  gem 'brakeman', require: false
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

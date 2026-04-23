@@ -101,7 +101,7 @@
                             <input type="hidden" name="stripe_plan_id" value="<%= plan.stripe_monthly_plan_id %>">
 
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                              data-key="<%= Rails.configuration.x.stripe[:publishable_key] %>"
                               data-image="https://lint.to/images/lint-logo-circled@2x.png"
                               data-name="Lint"
                               data-description="<%= plan.name %>"
@@ -123,7 +123,7 @@
                             <input type="hidden" name="stripe_product_id" value="<%= plan.stripe_product_id %>">
                             <input type="hidden" name="stripe_plan_id" value="<%= plan.stripe_yearly_plan_id %>">
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                              data-key="<%= Rails.configuration.x.stripe[:publishable_key] %>"
                               data-image="https://lint.to/images/lint-logo-circled@2x.png"
                               data-name="Lint"
                               data-description="<%= plan.name %>"

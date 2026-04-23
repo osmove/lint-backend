@@ -72,11 +72,21 @@ npm run db:prepare
 npm run console
 npm test
 npm run lint
+npm run lint:strict
 npm run security
+npm run security:strict
 npm run verify
 ```
 
 These npm scripts are the preferred maintainer entry points for the backend workflow.
+
+`npm run lint` treats configured RuboCop warnings as non-blocking, so maintainer verification can stay green while the repository gradually burns down its legacy style debt tracked in `.rubocop_todo.yml`.
+
+Use `npm run lint:strict` when you want warnings to fail the run as well.
+
+`npm run security` uses `config/brakeman.ignore` as the versioned baseline for known legacy warnings and fails on new warnings, missing notes, or obsolete ignore entries.
+
+Use `npm run security:strict` when you want the full raw Brakeman report without the baseline.
 
 The maintainer npm scripts now self-check the active Ruby version before invoking Rails or Bundler.
 

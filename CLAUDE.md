@@ -74,7 +74,9 @@ npm test
 
 # Linting
 npm run lint
+npm run lint:strict
 npm run security
+npm run security:strict
 
 # Full maintainer check
 npm run verify
@@ -106,6 +108,15 @@ All secrets are managed via environment variables (see `.env.example`):
 - GitHub OAuth, Stripe, Postmark, Sentry, Anthropic API key
 - Database credentials
 - Devise secret key
+
+## RuboCop Notes
+
+- `.rubocop_todo.yml` tracks the current legacy offense baseline for the backend.
+- `npm run lint` respects configured warning severities and does not fail on warning-only runs.
+- `npm run lint:strict` fails on warnings too when you want a tighter local pass.
+- `config/brakeman.ignore` tracks the current Brakeman baseline with notes.
+- `npm run security` uses that baseline and fails on new or obsolete entries.
+- `npm run security:strict` shows the full raw Brakeman warning set.
 
 ## Related Repositories
 

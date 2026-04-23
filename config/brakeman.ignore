@@ -1,0 +1,784 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "14b9bcefe69bfe22c1c4f24a94ee5897a6b4f456fd24c0fd3e5b594a848395e0",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/memberships_controller.rb",
+      "line": 102,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:membership).permit(:username, :origin, :origin_url, :avatar_url, :role, :user_id, :team_id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::MembershipsController",
+        "method": "membership_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "18ff8a69ffe070fabb4470c19058e51c4b19347c9047eab231dce06a87e63d7d",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/users_controller.rb",
+      "line": 120,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "2aa4d65c6f7d36e4cf824710f90e6092d880732b970d04b034a4a1e036317e33",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/users_controller.rb",
+      "line": 152,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::UsersController",
+        "method": "user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "2b26704b1160337a1e107ede8a45114c86538c9ff57eea0503f4709f8510bb41",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/frameworks/index.html.erb",
+      "line": 33,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::FrameworksController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/admin/frameworks_controller.rb",
+          "rendered": {
+            "name": "admin/frameworks/index",
+            "file": "app/views/admin/frameworks/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/frameworks/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "33bbcd8aafa0b9222d2add1620aee4af3deb92db55f40f9da5d2bbe59fd0cdd5",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/memberships_controller.rb",
+      "line": 102,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:membership).permit(:username, :origin, :origin_url, :avatar_url, :role, :user_id, :team_id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "MembershipsController",
+        "method": "membership_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "38d77a7a0ef5372a720c5a3df422c7fe5f3828613a4b321d1d399ab82da0bde6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/layouts/_repository_selector.html.erb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Repository.where(:uuid => (\"#{params[:user_id]}/#{(params[:repository_id] or params[:id])}\")).first rescue nil).pretty_uuid_html",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::BaseController",
+          "method": "dashboard",
+          "line": 13,
+          "file": "app/controllers/admin/base_controller.rb",
+          "rendered": {
+            "name": "layouts/application",
+            "file": "app/views/layouts/application.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "layouts/application",
+          "line": 125,
+          "file": "app/views/layouts/application.html.erb",
+          "rendered": {
+            "name": "layouts/_navbar-dashboard-light",
+            "file": "app/views/layouts/_navbar-dashboard-light.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "layouts/_navbar-dashboard-light",
+          "line": 28,
+          "file": "app/views/layouts/_navbar-dashboard-light.html.erb",
+          "rendered": {
+            "name": "layouts/_repository_selector",
+            "file": "app/views/layouts/_repository_selector.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "layouts/_repository_selector"
+      },
+      "user_input": "Repository.where(:uuid => (\"#{params[:user_id]}/#{(params[:repository_id] or params[:id])}\")).first",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "3e9f424215d8134e16a34de2cf8656b5daab5c973873109cfebca40a19023f06",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/messages/show.html.erb",
+      "line": 24,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Message.new(message_params).text_body",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "MessagesController",
+          "method": "create",
+          "line": 33,
+          "file": "app/controllers/messages_controller.rb",
+          "rendered": {
+            "name": "messages/show",
+            "file": "app/views/messages/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "messages/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "454d336aa860033db13e9f31e2b2e62dfaaadfb88133e87f444d8e3bf1ee1eb6",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/admin/repository_accesses_controller.rb",
+      "line": 165,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:repository_access).permit(:role, :status, :user_id, :repository_id)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Admin::RepositoryAccessesController",
+        "method": "repository_access_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "487f8f9e9a21800479aa4d880cf118ddb337535da25eef14819d8bff5523b93b",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/messages/show.html.erb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Message.new(message_params).html_body",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "MessagesController",
+          "method": "create",
+          "line": 33,
+          "file": "app/controllers/messages_controller.rb",
+          "rendered": {
+            "name": "messages/show",
+            "file": "app/views/messages/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "messages/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "51ef5ea19b5602706daf8b3b6950302af79fe43a741715de5ca43e852958925a",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/frameworks/show.html.erb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Framework.new(framework_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "FrameworksController",
+          "method": "create",
+          "line": 35,
+          "file": "app/controllers/frameworks_controller.rb",
+          "rendered": {
+            "name": "frameworks/show",
+            "file": "app/views/frameworks/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "frameworks/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "61d40082d866856e6ff96d7a730b2b9d7a4881de2415d46782c185ec58fa59f6",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/platforms/show.html.erb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Platform.new(platform_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::PlatformsController",
+          "method": "create",
+          "line": 34,
+          "file": "app/controllers/admin/platforms_controller.rb",
+          "rendered": {
+            "name": "admin/platforms/show",
+            "file": "app/views/admin/platforms/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/platforms/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "6794a2fabe9befd17703dea4d6b237ecfce164feab6e5e6b8e9042172eab5be6",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/repository_accesses_controller.rb",
+      "line": 180,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:repository_access).permit(:role, :status, :user_id, :repository_id, :enable_admin_email_notifications, :enable_email_notifications, :enable_admin_push_notifications, :enable_push_notifications)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "RepositoryAccessesController",
+        "method": "repository_access_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "6cd5c23893c369aee58a3ce209cc6f02a6dfe1bad4df40838f6a3ec629b96290",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/platforms/index.html.erb",
+      "line": 34,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PlatformsController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/platforms_controller.rb",
+          "rendered": {
+            "name": "platforms/index",
+            "file": "app/views/platforms/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "platforms/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "811a00124fa112d0f9cde76933bbc5eb465c499943b296416c4744b414d768aa",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/frameworks/show.html.erb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Framework.new(framework_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::FrameworksController",
+          "method": "create",
+          "line": 34,
+          "file": "app/controllers/admin/frameworks_controller.rb",
+          "rendered": {
+            "name": "admin/frameworks/show",
+            "file": "app/views/admin/frameworks/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/frameworks/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "87f6c8636010d344cdc79fefce805e9fbde4f4786b0fa6718c7842668d7bcd7d",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/languages/index.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Language.new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "LanguagesController",
+          "method": "index",
+          "line": 11,
+          "file": "app/controllers/languages_controller.rb",
+          "rendered": {
+            "name": "languages/index",
+            "file": "app/views/languages/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "languages/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "884ccd9c5cdddf566007d5425423a830420ee99ea78a3889da614043c9b07747",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/languages/show.html.erb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Language.new(language_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::LanguagesController",
+          "method": "create",
+          "line": 34,
+          "file": "app/controllers/admin/languages_controller.rb",
+          "rendered": {
+            "name": "admin/languages/show",
+            "file": "app/views/admin/languages/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/languages/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "8a7bd2e907015735872c5cab71b9c9096a0556e98aede986f3068db01cfc8d7c",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/admin/repositories/tabs/_overview.html.erb",
+      "line": 223,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"View on Github\", Repository.new(repository_params).web_url)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::RepositoriesController",
+          "method": "create",
+          "line": 209,
+          "file": "app/controllers/admin/repositories_controller.rb",
+          "rendered": {
+            "name": "admin/repositories/show",
+            "file": "app/views/admin/repositories/show.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/repositories/show",
+          "line": 6,
+          "file": "app/views/admin/repositories/show.html.erb",
+          "rendered": {
+            "name": "admin/repositories/tabs/_overview",
+            "file": "app/views/admin/repositories/tabs/_overview.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/repositories/tabs/_overview"
+      },
+      "user_input": "Repository.new(repository_params).web_url",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "8d4df5e706ed91cd72c3baef10c56fee29a46775e535bc739fef5baef9d26bd4",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/languages/index.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::LanguagesController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/admin/languages_controller.rb",
+          "rendered": {
+            "name": "admin/languages/index",
+            "file": "app/views/admin/languages/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/languages/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "9872f17eabd8b499f6d5331cc3d381abf3eada923de7dc92eca52c87a31f0513",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/platforms/index.html.erb",
+      "line": 36,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "(Unresolved Model).new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::PlatformsController",
+          "method": "index",
+          "line": 8,
+          "file": "app/controllers/admin/platforms_controller.rb",
+          "rendered": {
+            "name": "admin/platforms/index",
+            "file": "app/views/admin/platforms/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/platforms/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "b8914a8b5c846ded899e0a939e7f22ca163e278c68df1768affee1d4be23585e",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/organizations_controller.rb",
+      "line": 122,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OrganizationsController",
+        "method": "user_params"
+      },
+      "user_input": ":role",
+      "confidence": "Medium",
+      "cwe_id": [
+        915
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "bd86f2922a8c57e0f4a97a65f5a91a903b5a8d05ef4ca6257efacb70870ee9cd",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/admin/repositories/_header.html.erb",
+      "line": 17,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "((Repository.friendly.find((params[:repository_id] or params[:id])) or Repository.public.friendly.find((params[:repository_id] or params[:id]))) or nil).pretty_uuid_html",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::CommitsController",
+          "method": "index",
+          "line": 104,
+          "file": "app/controllers/admin/commits_controller.rb",
+          "rendered": {
+            "name": "admin/commits/index",
+            "file": "app/views/admin/commits/index.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "admin/commits/index",
+          "line": 2,
+          "file": "app/views/admin/commits/index.html.erb",
+          "rendered": {
+            "name": "admin/repositories/_header",
+            "file": "app/views/admin/repositories/_header.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/repositories/_header"
+      },
+      "user_input": "Repository.friendly.find((params[:repository_id] or params[:id]))",
+      "confidence": "Weak",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "cf9e8bc262c4f983a401dce01cbc2e68da45cb9a2cf20102f0c0411766dfaaf5",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/platforms/show.html.erb",
+      "line": 26,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Platform.new(platform_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "PlatformsController",
+          "method": "create",
+          "line": 32,
+          "file": "app/controllers/platforms_controller.rb",
+          "rendered": {
+            "name": "platforms/show",
+            "file": "app/views/platforms/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "platforms/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "d90a82d168555f1d26b44bb0e0d826e6711fb0b7fc7d52c4a66dd6f22b436b55",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/frameworks/index.html.erb",
+      "line": 33,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Framework.new.image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "FrameworksController",
+          "method": "index",
+          "line": 11,
+          "file": "app/controllers/frameworks_controller.rb",
+          "rendered": {
+            "name": "frameworks/index",
+            "file": "app/views/frameworks/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "frameworks/index"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "f6a7a97311a074d026673a08e383f5e1e7c0d625ae6b6d8d33c0833d2c58cb2f",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/languages/show.html.erb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Language.new(language_params).image",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "LanguagesController",
+          "method": "create",
+          "line": 35,
+          "file": "app/controllers/languages_controller.rb",
+          "rendered": {
+            "name": "languages/show",
+            "file": "app/views/languages/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "languages/show"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        79
+      ],
+      "note": "Legacy baseline warning captured during backend hardening; review and remove when fixed."
+    }
+  ],
+  "brakeman_version": "8.0.4"
+}

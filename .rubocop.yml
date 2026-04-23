@@ -1,10 +1,14 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-performance
+
+inherit_from:
+  - .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 3.3
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'db/migrate/**/*'
     - 'db/schema.rb'

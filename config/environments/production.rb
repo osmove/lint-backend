@@ -99,8 +99,3 @@ Devise.setup do |config|
     scope: 'read:user, public_repo, read:org',
     redirect_uri: ENV.fetch("GITHUB_OAUTH_REDIRECT_URI", "https://lint.to/users/auth/github")
 end
-
-Rails.configuration.stripe = {
-  :publishable_key => ENV.fetch("STRIPE_PUBLISHABLE_KEY", ""),
-  :secret_key      => ENV.fetch("STRIPE_SECRET_KEY", "")
-}
