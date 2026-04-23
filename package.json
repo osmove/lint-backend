@@ -13,6 +13,7 @@
     "lint": "file:../lint-cli"
   },
   "scripts": {
+    "bundler:ensure": "ruby script/ensure_bundler.rb",
     "setup": "bin/setup",
     "server": "bin/rails server",
     "db:setup": "bin/rails db:create db:migrate db:seed",
@@ -21,7 +22,7 @@
     "test": "bin/rails test",
     "lint": "bundle exec rubocop",
     "security": "bundle exec brakeman",
-    "verify": "npm run lint && npm test && npm run security"
+    "verify": "npm run bundler:ensure && npm run lint && npm test && npm run security"
   },
   "repository": {
     "type": "git",

@@ -64,6 +64,7 @@ docker compose up              # starts web + PostgreSQL
 docker compose run web npm run db:prepare
 
 # Local development
+npm run bundler:ensure
 npm run setup
 npm run server                 # http://localhost:3000
 
