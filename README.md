@@ -36,7 +36,7 @@ This repository powers the web app and API behind Lint: accounts, repositories, 
 
 Prerequisites:
 
-- Ruby 3.3+
+- Ruby 3.3.6
 - PostgreSQL 16
 - Node.js 22+
 
@@ -46,6 +46,7 @@ Clone and boot locally:
 git clone https://github.com/osmove/lint-backend.git
 cd lint-backend
 npm install
+npm run runtime:check
 npm run bundler:ensure
 npm run setup
 ```
@@ -63,6 +64,7 @@ docker compose run web npm run db:prepare
 
 ```bash
 npm run setup
+npm run runtime:check
 npm run bundler:ensure
 npm run server
 npm run db:setup
@@ -75,6 +77,10 @@ npm run verify
 ```
 
 These npm scripts are the preferred maintainer entry points for the backend workflow.
+
+The maintainer npm scripts now self-check the active Ruby version before invoking Rails or Bundler.
+
+If your shell is still using the wrong Ruby, run `npm run runtime:check` first.
 
 If your local Ruby installation is missing the Bundler version pinned in `Gemfile.lock`, run `npm run bundler:ensure`.
 

@@ -14,6 +14,9 @@ chdir APP_ROOT do
   # This script is a way to update your development environment automatically.
   # Add necessary update steps to this file.
 
+  puts '== Checking Ruby runtime =='
+  system! 'ruby', 'script/ensure_runtime.rb'
+
   puts '== Ensuring Bundler version =='
   system! 'ruby', 'script/ensure_bundler.rb'
 

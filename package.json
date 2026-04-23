@@ -13,15 +13,16 @@
     "lint": "file:../lint-cli"
   },
   "scripts": {
-    "bundler:ensure": "ruby script/ensure_bundler.rb",
-    "setup": "bin/setup",
-    "server": "bin/rails server",
-    "db:setup": "bin/rails db:create db:migrate db:seed",
-    "db:prepare": "bin/rails db:prepare",
-    "console": "bin/rails console",
-    "test": "bin/rails test",
-    "lint": "bundle exec rubocop",
-    "security": "bundle exec brakeman",
+    "runtime:check": "ruby script/ensure_runtime.rb",
+    "bundler:ensure": "npm run runtime:check && ruby script/ensure_bundler.rb",
+    "setup": "npm run runtime:check && bin/setup",
+    "server": "npm run runtime:check && bin/rails server",
+    "db:setup": "npm run runtime:check && bin/rails db:create db:migrate db:seed",
+    "db:prepare": "npm run runtime:check && bin/rails db:prepare",
+    "console": "npm run runtime:check && bin/rails console",
+    "test": "npm run runtime:check && bin/rails test",
+    "lint": "npm run runtime:check && bin/bundle exec rubocop",
+    "security": "npm run runtime:check && bin/bundle exec brakeman",
     "verify": "npm run bundler:ensure && npm run lint && npm test && npm run security"
   },
   "repository": {
