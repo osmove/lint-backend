@@ -1,93 +1,103 @@
-# Lint
+# Lint Backend
 
-**The omniscient, authoritative code linter.**
+Rails backend for [lint.to](https://lint.to).
 
-Lint is a cloud-based code quality platform that aggregates and orchestrates multiple linters (ESLint, RuboCop, Brakeman, StyleLint, Pylint, and more) under a unified policy engine. Define policies, enforce rules across repositories, and get actionable feedback on every commit.
+This repository powers the web app and API behind Lint: accounts, repositories, policies, billing, lint ingestion, AI-assisted recommendations, and the admin surface used to manage the platform.
 
-## Components
+## Repositories
 
-| Component | Description | Location |
-|-----------|-------------|----------|
-| **Backend** (this repo) | Rails web application & API | [osmove/lint-backend](https://github.com/osmove/lint-backend) |
-| **CLI** | `lint` npm package - CLI tool | [osmove/lint](https://github.com/osmove/lint) |
-| **npm** | Published as `lint` on npm | [npmjs.com/package/lint](https://www.npmjs.com/package/lint) |
+| Component | Role | Location |
+|-----------|------|----------|
+| `lint-backend` | Rails backend and web app | [osmove/lint-backend](https://github.com/osmove/lint-backend) |
+| `lint` | Repo-local CLI and quality gate | [osmove/lint](https://github.com/osmove/lint) |
 
-## Quick Start
+## Stack
 
-### CLI Installation
+- Ruby on Rails 7.2
+- PostgreSQL 16
+- Puma 6
+- Bootstrap 5 + Hotwire + Sprockets
+- Devise + GitHub OAuth
+- Stripe
+- Postmark
+- Sentry
+- Anthropic Claude API integrations
+
+## Main Areas
+
+- Authentication and user accounts
+- Repository onboarding and policy management
+- API endpoints consumed by the `lint` CLI
+- Commit attempts, policy checks, and rule checks
+- AI-powered review, explanation, and rule generation
+- Billing, plans, and admin tooling
+
+## Local Development
+
+Prerequisites:
+
+- Ruby 3.3+
+- PostgreSQL 16
+- Node.js 22+
+
+Clone and boot locally:
 
 ```bash
-# Install globally
-npm i -g lint
-
-# Or as a dev dependency
-npm i -D lint
-```
-
-### CLI Usage
-
-```bash
-lint setup init              # Initialize repository
-lint hooks install           # Install git hooks
-lint                         # Lint staged files
-lint pre-commit              # Run pre-commit checks
-lint format write ts         # Format code with Prettier
-lint auth login              # Authentication
-lint auth status             # Check auth status
-lint ci                      # Repo-local quality gate
-lint --help                  # All commands
-```
-
-### Backend Development
-
-**Prerequisites**: Ruby 3.3+, PostgreSQL, Node.js 22+
-
-```bash
-# Clone
 git clone https://github.com/osmove/lint-backend.git
 cd lint-backend
-
-# Install dependencies
 bundle install
-yarn install
-
-# Setup database
+npm install
 bin/rails db:create db:migrate db:seed
-
-# Start server
-bin/rails server    # http://localhost:3000
+bin/rails server
 ```
 
-## Architecture
+The app runs on `http://localhost:3000`.
 
-### Backend (Rails)
+## Docker
 
-- **Authentication**: Devise with GitHub OAuth
-- **Database**: PostgreSQL with 20+ tables
-- **Models**: User, Repository, Policy, Rule, Linter, CommitAttempt, etc.
-- **Admin panel**: Full CRUD at `/admin`
-- **API**: JSON endpoints for CLI communication
-- **Payments**: Stripe integration
-- **Email**: Postmark transactional emails
-- **Monitoring**: Sentry error tracking
+```bash
+docker compose up
+docker compose run web rails db:schema:load
+```
 
-### CLI (npm package `lint`)
+## Common Commands
 
-- Built with Commander.js, Inquirer, Chalk, Ora
-- Git hooks integration (pre-commit, post-commit)
-- Multi-linter orchestration
-- Prettier formatting
-- Cloud sync with Lint backend
+```bash
+npm run server
+npm run db:setup
+npm test
+npm run lint
+npm run security
+```
 
-## Supported Linters
+These npm scripts are thin wrappers around the Rails/Bundler commands used in day-to-day development.
 
-- **JavaScript/TypeScript**: ESLint, Prettier
-- **Ruby**: RuboCop, Brakeman, ERBLint
-- **CSS**: StyleLint
-- **Python**: Pylint
-- *More coming soon*
+## API Surface
 
-## License
+Current CLI-facing endpoints include:
 
-- Backend: ISC
-- CLI: Apache-2.0
+- `POST /api/v1/lint`
+- `POST /api/v1/review`
+- `POST /api/v1/repositories/:uuid/recommend`
+- `POST /api/v1/policies/generate`
+
+Auth is token-based via `Authorization: Bearer <token>` or `?user_token=<token>`.
+
+## Configuration
+
+Application secrets live in environment variables. The main groups are:
+
+- database credentials
+- GitHub OAuth
+- Stripe
+- Postmark
+- Sentry
+- Anthropic API credentials
+
+See the Rails config and deployment files in this repository for the current expected variables.
+
+## Notes
+
+- This repository is the backend service, not the published npm package.
+- The CLI lives in the sibling repo [`osmove/lint`](https://github.com/osmove/lint).
+- The current Heroku remote still uses the legacy app name and has not been renamed as part of the codebase cleanup.
