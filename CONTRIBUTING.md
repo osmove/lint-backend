@@ -31,7 +31,9 @@ npm run db:prepare
 npm run console
 npm test
 npm run lint
+npm run lint:strict
 npm run security
+npm run security:strict
 npm run verify
 ```
 
@@ -40,6 +42,14 @@ npm run verify
 - RuboCop
 - Rails tests
 - Brakeman
+
+`npm run lint` follows the repository RuboCop severities and does not fail on cops explicitly configured as warnings.
+
+Use `npm run lint:strict` when you want warnings to fail locally too.
+
+`npm run security` uses `config/brakeman.ignore` as the maintained baseline for known warnings and will fail if new warnings appear or if the ignore file becomes stale.
+
+Use `npm run security:strict` for the full unfiltered Brakeman report.
 
 The maintainer npm scripts check the active Ruby version before invoking Rails or Bundler.
 

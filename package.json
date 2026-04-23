@@ -21,8 +21,10 @@
     "db:prepare": "npm run runtime:check && bin/rails db:prepare",
     "console": "npm run runtime:check && bin/rails console",
     "test": "npm run runtime:check && bin/rails test",
-    "lint": "npm run runtime:check && bin/bundle exec rubocop",
-    "security": "npm run runtime:check && bin/bundle exec brakeman",
+    "lint": "npm run runtime:check && bin/bundle exec rubocop --fail-level error",
+    "lint:strict": "npm run runtime:check && bin/bundle exec rubocop",
+    "security": "npm run runtime:check && bin/bundle exec brakeman -i config/brakeman.ignore --ensure-ignore-notes --ensure-no-obsolete-ignore-entries",
+    "security:strict": "npm run runtime:check && bin/bundle exec brakeman -i config/brakeman.empty.ignore",
     "verify": "npm run bundler:ensure && npm run lint && npm test && npm run security"
   },
   "repository": {

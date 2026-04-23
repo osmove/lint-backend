@@ -16,5 +16,11 @@ module Lint
     # Postmark
     config.action_mailer.delivery_method = :postmark
     config.action_mailer.postmark_settings = { api_token: ENV.fetch("POSTMARK_API_TOKEN", "") }
+
+    # Payment providers
+    config.x.stripe = {
+      publishable_key: ENV.fetch("STRIPE_PUBLISHABLE_KEY", ""),
+      secret_key: ENV.fetch("STRIPE_SECRET_KEY", "")
+    }
   end
 end
