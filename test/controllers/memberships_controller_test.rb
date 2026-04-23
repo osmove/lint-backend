@@ -3,46 +3,68 @@ require 'test_helper'
 class MembershipsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @membership = memberships(:one)
+    @team = @membership.team
+    @user = @team.user
   end
 
   test "should get index" do
-    get memberships_url
+    get user_team_memberships_url(@user, @team)
     assert_response :success
   end
 
   test "should get new" do
-    get new_membership_url
+    get new_user_team_membership_url(@user, @team)
     assert_response :success
   end
 
   test "should create membership" do
-    assert_difference('Membership.count') do
-      post memberships_url, params: { membership: { avatar_url: @membership.avatar_url, origin: @membership.origin, origin_url: @membership.origin_url, role: @membership.role, team_id: @membership.team_id, user_id: @membership.user_id, username: @membership.username } }
+    assert_difference("Membership.count", 1) do
+      post user_team_memberships_url(@user, @team), params: {
+        membership: {
+          username: "teammate",
+          origin: "manual",
+          origin_url: "https://lint.to",
+          avatar_url: "https://lint.to/avatar.png",
+          role: "member"
+        }
+      }
     end
 
-    assert_redirected_to membership_url(Membership.last)
+    assert_redirected_to user_team_membership_url(@user, @team, Membership.last)
   end
 
   test "should show membership" do
-    get membership_url(@membership)
+    get user_team_membership_url(@user, @team, @membership)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_membership_url(@membership)
+    get edit_user_team_membership_url(@user, @team, @membership)
     assert_response :success
   end
 
   test "should update membership" do
-    patch membership_url(@membership), params: { membership: { avatar_url: @membership.avatar_url, origin: @membership.origin, origin_url: @membership.origin_url, role: @membership.role, team_id: @membership.team_id, user_id: @membership.user_id, username: @membership.username } }
-    assert_redirected_to membership_url(@membership)
+    patch user_team_membership_url(@user, @team, @membership), params: {
+      membership: {
+        username: @membership.username,
+        origin: @membership.origin,
+        origin_url: @membership.origin_url,
+        avatar_url: @membership.avatar_url,
+        role: "admin"
+      }
+    }
+
+    assert_redirected_to user_team_membership_url(@user, @team, @membership)
+    assert_equal "admin", @membership.reload.role
   end
 
   test "should destroy membership" do
-    assert_difference('Membership.count', -1) do
-      delete membership_url(@membership)
+    membership = Membership.create!(user: users(:two), team: @team, role: "member")
+
+    assert_difference("Membership.count", -1) do
+      delete user_team_membership_url(@user, @team, membership)
     end
 
-    assert_redirected_to memberships_url
+    assert_redirected_to user_team_memberships_url(@user, @team)
   end
 end

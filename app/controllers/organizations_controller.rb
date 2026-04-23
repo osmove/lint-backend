@@ -29,15 +29,12 @@ class OrganizationsController < ProtectedController
   end
 
   def show
-    @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     @repositories = Repository.all.where(user: @user).public.order(name: :asc)
 
     impressionist(@user, @user.slug)
   end
 
   def update
-    @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
-
     if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)

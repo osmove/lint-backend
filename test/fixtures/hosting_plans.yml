@@ -5,15 +5,17 @@ one:
   slug: MyString
   memory: 1
   vcpus: 1
-  storage: 
-  price_per_month: MyString
-  price_per_hour: MyString
+  storage: 10
+  transfer: 100
+  price_per_month: 10
+  price_per_hour: 0.01
 
 two:
   name: MyString
   slug: MyString
   memory: 1
   vcpus: 1
-  storage: 
-  price_per_month: MyString
-  price_per_hour: MyString
+  storage: 20
+  transfer: 200
+  price_per_month: 20
+  price_per_hour: 0.02

@@ -1,21 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   name: MyString
   slug: MyString
   description: MyText
-  price_per_month: MyString
-  price_per_year: MyString
+  price_per_month: 10
+  price_per_year: 100
   max_users: 1
   max_repositories: 1
   max_storage: 1
 
 two:
+  id: 2
   name: MyString
   slug: MyString
   description: MyText
-  price_per_month: MyString
-  price_per_year: MyString
+  price_per_month: 20
+  price_per_year: 200
   max_users: 1
   max_repositories: 1
   max_storage: 1

@@ -39,8 +39,10 @@ class PushesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy push" do
+    push = Push.create!(repository: repositories(:one), user: users(:one))
+
     assert_difference('Push.count', -1) do
-      delete push_url(@push)
+      delete push_url(push)
     end
 
     assert_redirected_to pushes_url

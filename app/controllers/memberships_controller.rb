@@ -4,7 +4,9 @@ class MembershipsController < ApplicationController
   # GET /memberships
   # GET /memberships.json
   def index
-    @memberships = Membership.all
+    @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
+    @team = Team.find(params[:team_id])
+    @memberships = @team.memberships.includes(:user, :organization, :team)
   end
 
   # GET /memberships/1
@@ -15,16 +17,19 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
+    @team = Team.find(params[:team_id])
     @member = Membership.new
-    @form_url =  user_team_members_path
+    @form_url =  user_team_memberships_path(@user, @team)
   end
 
   # GET /memberships/1/edit
   def edit
     @organization = @membership.user
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
+    @team = @membership.team
+    @member = @membership
     if @organization = @user
-      @form_url =  {:controller => "membership", :action => "update"}
+      @form_url = user_team_membership_path(@user, @team, @membership)
     end
   end
 
@@ -62,7 +67,7 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to @membership, notice: 'Membership was successfully updated.' }
+        format.html { redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), notice: 'Membership was successfully updated.' }
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -74,9 +79,11 @@ class MembershipsController < ApplicationController
   # DELETE /memberships/1
   # DELETE /memberships/1.json
   def destroy
+    team = @membership.team
+    user = team.user
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
+      format.html { redirect_to user_team_memberships_url(user, team), notice: 'Membership was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

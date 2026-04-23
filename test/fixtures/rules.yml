@@ -9,9 +9,10 @@ one:
   framework: one
   platform: one
   parent: 
+  linter: one
 
 two:
-  name: MyString
+  name: AnotherRule
   type: 
   description: MyString
   status: MyString
@@ -19,3 +20,4 @@ two:
   framework: two
   platform: two
   parent: 
+  linter: two

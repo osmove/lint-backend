@@ -3,13 +3,13 @@
 one:
   name: MyString
   avatar_url: MyString
-  parent: one
+  parent:
   description: MyString
-  organization: one
+  user: one
 
 two:
   name: MyString
   avatar_url: MyString
-  parent: two
+  parent: one
   description: MyString
-  organization: two
+  user: two

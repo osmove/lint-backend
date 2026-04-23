@@ -8,7 +8,7 @@ one:
   extension: MyString
   content: MyText
   repository: one
-  document: one
+  document:
 
 two:
   name: MyString
@@ -18,4 +18,4 @@ two:
   extension: MyString
   content: MyText
   repository: two
-  document: two
+  document: one

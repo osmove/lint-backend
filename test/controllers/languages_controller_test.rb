@@ -17,10 +17,10 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create language" do
     assert_difference('Language.count') do
-      post languages_url, params: { language: { name: @language.name, repository_id: @language.repository_id, slug: @language.slug, user_id: @language.user_id } }
+      post languages_url, params: { language: { name: "New Language", slug: "new-language" } }
     end
 
-    assert_redirected_to language_url(Language.last)
+    assert_redirected_to languages_url
   end
 
   test "should show language" do
@@ -34,13 +34,15 @@ class LanguagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update language" do
-    patch language_url(@language), params: { language: { name: @language.name, repository_id: @language.repository_id, slug: @language.slug, user_id: @language.user_id } }
-    assert_redirected_to language_url(@language)
+    patch language_url(@language), params: { language: { name: "Updated Language", slug: "updated-language" } }
+    assert_redirected_to languages_url
   end
 
   test "should destroy language" do
+    language = Language.create!(name: "Disposable Language", slug: "disposable-language")
+
     assert_difference('Language.count', -1) do
-      delete language_url(@language)
+      delete language_url(language)
     end
 
     assert_redirected_to languages_url

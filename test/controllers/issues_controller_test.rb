@@ -3,46 +3,76 @@ require 'test_helper'
 class IssuesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @issue = issues(:one)
+    @repository = @issue.repository
+    @user = @repository.user
   end
 
   test "should get index" do
-    get issues_url
+    get user_repository_issues_url(@user, @repository)
     assert_response :success
   end
 
   test "should get new" do
-    get new_issue_url
+    get new_user_repository_issue_url(@user, @repository)
     assert_response :success
   end
 
   test "should create issue" do
-    assert_difference('Issue.count') do
-      post issues_url, params: { issue: { framework_id: @issue.framework_id, language_id: @issue.language_id, origin: @issue.origin, repository_id: @issue.repository_id, slug: @issue.slug, title: @issue.title, user_id: @issue.user_id } }
+    assert_difference("Issue.count", 1) do
+      post user_repository_issues_url(@user, @repository), params: {
+        issue: {
+          title: "New Issue",
+          slug: "new-issue",
+          origin: "manual",
+          body: "Issue body",
+          language_id: @issue.language_id,
+          framework_id: @issue.framework_id
+        }
+      }
     end
 
-    assert_redirected_to issue_url(Issue.last)
+    assert_redirected_to user_repository_issue_url(@user, @repository, Issue.last)
   end
 
   test "should show issue" do
-    get issue_url(@issue)
+    get user_repository_issue_url(@user, @repository, @issue)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_issue_url(@issue)
+    get edit_user_repository_issue_url(@user, @repository, @issue)
     assert_response :success
   end
 
   test "should update issue" do
-    patch issue_url(@issue), params: { issue: { framework_id: @issue.framework_id, language_id: @issue.language_id, origin: @issue.origin, repository_id: @issue.repository_id, slug: @issue.slug, title: @issue.title, user_id: @issue.user_id } }
-    assert_redirected_to issue_url(@issue)
+    patch user_repository_issue_url(@user, @repository, @issue), params: {
+      issue: {
+        title: "Updated Issue",
+        slug: @issue.slug,
+        origin: @issue.origin,
+        body: "Updated body",
+        language_id: @issue.language_id,
+        framework_id: @issue.framework_id
+      }
+    }
+
+    assert_redirected_to user_repository_issue_url(@user, @repository, @issue)
+    assert_equal "Updated Issue", @issue.reload.title
   end
 
   test "should destroy issue" do
-    assert_difference('Issue.count', -1) do
-      delete issue_url(@issue)
+    issue = Issue.create!(
+      title: "Disposable Issue",
+      slug: "disposable-issue",
+      origin: "manual",
+      repository: @repository,
+      user: @user
+    )
+
+    assert_difference("Issue.count", -1) do
+      delete user_repository_issue_url(@user, @repository, issue)
     end
 
-    assert_redirected_to issues_url
+    assert_redirected_to user_repository_issues_url(@user, @repository)
   end
 end

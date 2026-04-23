@@ -1,4 +1,9 @@
-<%= bootstrap_form_with(model: organization, local: true) do |form| %>
+<%= bootstrap_form_with(
+  model: organization,
+  scope: :user,
+  url: organization.persisted? ? organization_url(organization) : organizations_url,
+  local: true
+) do |form| %>
   <% if organization.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(organization.errors.count, "error") %> prohibited this organization from being saved:</h2>
@@ -12,8 +17,15 @@
   <% end %>
 
   <div class="field">
-    <%# form.label :name %>
-    <%= form.text_field :name, id: :organization_name %>
+    <%= form.text_field :organization_name, id: :organization_name %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :username, id: :organization_username %>
+  </div>
+
+  <div class="field">
+    <%= form.email_field :email, id: :organization_email %>
   </div>
 
   <!-- <div class="field">

@@ -17,7 +17,7 @@ class FrameworksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create framework" do
     assert_difference('Framework.count') do
-      post frameworks_url, params: { framework: { name: @framework.name, repository_id: @framework.repository_id, slug: @framework.slug, user_id: @framework.user_id } }
+      post frameworks_url, params: { framework: { name: "New Framework", slug: "new-framework" } }
     end
 
     assert_redirected_to framework_url(Framework.last)
@@ -34,13 +34,15 @@ class FrameworksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update framework" do
-    patch framework_url(@framework), params: { framework: { name: @framework.name, repository_id: @framework.repository_id, slug: @framework.slug, user_id: @framework.user_id } }
+    patch framework_url(@framework), params: { framework: { name: "Updated Framework", slug: "updated-framework" } }
     assert_redirected_to framework_url(@framework)
   end
 
   test "should destroy framework" do
+    framework = Framework.create!(name: "Disposable Framework", slug: "disposable-framework")
+
     assert_difference('Framework.count', -1) do
-      delete framework_url(@framework)
+      delete framework_url(framework)
     end
 
     assert_redirected_to frameworks_url
