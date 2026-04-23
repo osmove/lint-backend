@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: omnilint
-          POSTGRES_PASSWORD: omnilint_test
-          POSTGRES_DB: omnilint_test
+          POSTGRES_USER: lint
+          POSTGRES_PASSWORD: lint_test
+          POSTGRES_DB: lint_test
         ports:
           - 5432:5432
         options: >-
@@ -28,9 +28,9 @@ jobs:
     env:
       RAILS_ENV: test
       DATABASE_HOST: localhost
-      DATABASE_USERNAME: omnilint
-      DATABASE_PASSWORD: omnilint_test
-      DATABASE_NAME: omnilint_test
+      DATABASE_USERNAME: lint
+      DATABASE_PASSWORD: lint_test
+      DATABASE_NAME: lint_test
       DATABASE_PORT: "5432"
       SECRET_KEY_BASE: test_secret_key_base
 
