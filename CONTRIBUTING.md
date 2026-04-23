@@ -14,10 +14,8 @@ Bootstrap a local environment:
 
 ```bash
 cp .env.example .env
-bundle install
 npm install
-bin/rails db:create db:migrate db:seed
-bin/rails server
+npm run setup
 ```
 
 ## Common Commands

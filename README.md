@@ -45,10 +45,8 @@ Clone and boot locally:
 ```bash
 git clone https://github.com/osmove/lint-backend.git
 cd lint-backend
-bundle install
 npm install
-bin/rails db:create db:migrate db:seed
-bin/rails server
+npm run setup
 ```
 
 The app runs on `http://localhost:3000`.
@@ -57,20 +55,24 @@ The app runs on `http://localhost:3000`.
 
 ```bash
 docker compose up
-docker compose run web rails db:schema:load
+docker compose run web npm run db:prepare
 ```
 
 ## Common Commands
 
 ```bash
+npm run setup
 npm run server
 npm run db:setup
+npm run db:prepare
+npm run console
 npm test
 npm run lint
 npm run security
+npm run verify
 ```
 
-These npm scripts are thin wrappers around the Rails/Bundler commands used in day-to-day development.
+These npm scripts are the preferred maintainer entry points for the backend workflow.
 
 ## API Surface
 

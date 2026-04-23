@@ -40,20 +40,19 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
 
       - name: Setup database
-        run: |
-          bin/rails db:schema:load
+        run: npm run db:prepare
 
       - name: Run tests
-        run: bin/rails test
+        run: npm test
 
   lint:
     runs-on: ubuntu-latest
@@ -64,13 +63,11 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'
+          ruby-version: .ruby-version
           bundler-cache: true
 
       - name: Run RuboCop
-        run: bundle exec rubocop --parallel
+        run: npm run lint
 
       - name: Run Brakeman (security)
-        run: |
-          gem install brakeman
-          brakeman --no-pager -q
+        run: npm run security
