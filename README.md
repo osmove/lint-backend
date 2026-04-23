@@ -8,7 +8,7 @@ Lint is a cloud-based code quality platform that aggregates and orchestrates mul
 
 | Component | Description | Location |
 |-----------|-------------|----------|
-| **Backend** (this repo) | Rails web application & API | [jimdou/lint-backend](https://github.com/jimdou/lint-backend) |
+| **Backend** (this repo) | Rails web application & API | [osmove/lint-backend](https://github.com/osmove/lint-backend) |
 | **CLI** | `lint` npm package - CLI tool | [osmove/lint](https://github.com/osmove/lint) |
 | **npm** | Published as `lint` on npm | [npmjs.com/package/lint](https://www.npmjs.com/package/lint) |
 
@@ -44,7 +44,7 @@ lint --help                  # All commands
 
 ```bash
 # Clone
-git clone https://github.com/jimdou/lint-backend.git
+git clone https://github.com/osmove/lint-backend.git
 cd lint-backend
 
 # Install dependencies
