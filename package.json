@@ -17,7 +17,8 @@
     "db:setup": "bin/rails db:create db:migrate db:seed",
     "test": "bin/rails test",
     "lint": "bundle exec rubocop",
-    "security": "bundle exec brakeman"
+    "security": "bundle exec brakeman",
+    "verify": "npm run lint && npm test && npm run security"
   },
   "repository": {
     "type": "git",
