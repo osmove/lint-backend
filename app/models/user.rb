@@ -163,6 +163,10 @@ class User < ApplicationRecord
     @login || self.username || self.email
   end
 
+  def admin?
+    self.role == 'admin'
+  end
+
 
   before_create :set_defaults
   def set_defaults
