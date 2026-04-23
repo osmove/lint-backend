@@ -1,7 +1,8 @@
 {
   "name": "lint-backend",
+  "private": true,
   "version": "1.0.0",
-  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "description": "Rails backend for lint.to and the Lint platform APIs.",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -12,11 +13,19 @@
     "lint": "file:../lint-cli"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "bin/rails server",
+    "db:setup": "bin/rails db:create db:migrate db:seed",
+    "test": "bin/rails test",
+    "lint": "bundle exec rubocop",
+    "security": "bundle exec brakeman"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/osmove/lint-backend.git"
+  },
+  "homepage": "https://github.com/osmove/lint-backend#readme",
+  "bugs": {
+    "url": "https://github.com/osmove/lint-backend/issues"
   },
   "author": "",
   "license": "ISC"
