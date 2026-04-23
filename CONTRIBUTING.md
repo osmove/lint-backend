@@ -15,6 +15,7 @@ Bootstrap a local environment:
 ```bash
 cp .env.example .env
 npm install
+npm run runtime:check
 npm run bundler:ensure
 npm run setup
 ```
@@ -22,6 +23,7 @@ npm run setup
 ## Common Commands
 
 ```bash
+npm run runtime:check
 npm run bundler:ensure
 npm run server
 npm run db:setup
@@ -38,6 +40,10 @@ npm run verify
 - RuboCop
 - Rails tests
 - Brakeman
+
+The maintainer npm scripts check the active Ruby version before invoking Rails or Bundler.
+
+If your shell is still using the wrong Ruby version, run `npm run runtime:check` first.
 
 If your local Ruby installation does not already have the Bundler version pinned in `Gemfile.lock`, run `npm run bundler:ensure`.
 
