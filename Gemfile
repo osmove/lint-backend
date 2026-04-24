@@ -24,7 +24,7 @@ gem 'bootstrap', '~> 5.3'
 gem 'font-awesome-sass', '~> 6.5'
 
 # Authentication
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 gem 'omniauth-github', '~> 2.0'
 gem 'omniauth-rails_csrf_protection'
 
