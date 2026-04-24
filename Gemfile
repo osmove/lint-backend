@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.4.9'
 
 # Core
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.1'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', '~> 1.5'
 gem 'puma', '~> 6.4'
@@ -70,7 +70,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 4.2'
+  gem 'web-console', '~> 4.3'
   gem 'rubocop-rails', require: false
   gem 'rubocop-performance', require: false
   gem 'brakeman', require: false
