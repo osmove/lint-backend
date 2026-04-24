@@ -6,7 +6,7 @@ ruby '3.4.9'
 gem 'rails', '~> 7.2'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', '~> 1.5'
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 8.0'
 
 # Asset Pipeline
 gem 'sprockets-rails'
