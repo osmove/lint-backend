@@ -1,2 +1,4 @@
-module Admin::DecryptionsHelper
+module Admin
+  module DecryptionsHelper
+  end
 end

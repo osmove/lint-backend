@@ -1,7 +1,9 @@
 require 'test_helper'
 
-class Admin::MembershipsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+module Admin
+  class MembershipsControllerTest < ActionDispatch::IntegrationTest
+    # test "the truth" do
+    #   assert true
+    # end
+  end
 end

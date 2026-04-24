@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def command_params
-    params.require(:command).permit(:command, :path, :port, :repository_id, :user_id)
+    params.expect(command: %i[command path port repository_id user_id])
   end
 end

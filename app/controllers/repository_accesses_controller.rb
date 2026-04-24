@@ -18,7 +18,7 @@ class RepositoryAccessesController < ProtectedController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     # @repository_accesses = RepositoryAccess.all
@@ -40,7 +40,7 @@ class RepositoryAccessesController < ProtectedController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
   end
 
@@ -55,7 +55,7 @@ class RepositoryAccessesController < ProtectedController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @repository_access = @repository.repository_accesses.new
@@ -83,7 +83,7 @@ class RepositoryAccessesController < ProtectedController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @repository_access.status = 'active'
@@ -121,7 +121,7 @@ class RepositoryAccessesController < ProtectedController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @repository_access = @repository.repository_accesses.find(params[:id])
@@ -169,7 +169,7 @@ private
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @repository_access = @repository.repository_accesses.find(params[:id])
@@ -178,7 +178,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def repository_access_params
-    params.require(:repository_access).permit(:role, :status, :user_id, :repository_id,
-                                              :enable_admin_email_notifications, :enable_email_notifications, :enable_admin_push_notifications, :enable_push_notifications)
+    params.expect(repository_access: %i[role status user_id repository_id
+                                        enable_admin_email_notifications enable_email_notifications enable_admin_push_notifications enable_push_notifications])
   end
 end

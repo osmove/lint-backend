@@ -4,7 +4,7 @@ class PlatformsController < ApplicationController
   # GET /platforms
   # GET /platforms.json
   def index
-    @platforms = Platform.all.order(slug: :asc)
+    @platforms = Platform.order(slug: :asc)
   end
 
   # GET /platforms/1
@@ -68,7 +68,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def platform_params
-    params.require(:platform).permit(:name, :slug, :image, :image_url, :language_id, :framework_id, :visible,
-                                     :is_popular)
+    params.expect(platform: %i[name slug image image_url language_id framework_id visible
+                               is_popular])
   end
 end

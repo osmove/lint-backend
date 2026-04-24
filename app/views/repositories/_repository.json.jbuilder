@@ -2,7 +2,7 @@ json.extract! repository, :id, :name, :slug, :status, :user_id, :created_at, :up
               :ssh_url, :uuid, :git_address, :has_encryption, :is_encrypted, :has_deployment, :secret_key
 
 json.policy do
-  if repository.policy.present? && repository.policy.policy_rules.count > 0
+  if repository.policy.present? && repository.policy.policy_rules.any?
     json.policy_rules repository.policy.policy_rules do |policy_rule|
       if policy_rule.rule.present?
         json.rules  do

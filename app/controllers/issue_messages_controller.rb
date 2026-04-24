@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_message_params
-    params.require(:issue_message).permit(:title, :slug, :body, :username, :issue_id, :repository_id, :user_id)
+    params.expect(issue_message: %i[title slug body username issue_id repository_id user_id])
   end
 end

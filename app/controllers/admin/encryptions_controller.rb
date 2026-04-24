@@ -1,76 +1,82 @@
-class Admin::EncryptionsController < Admin::BaseController
-  before_action :set_encryption, only: %i[show edit update destroy]
+module Admin
+  class EncryptionsController < Admin::BaseController
+    before_action :set_encryption, only: %i[show edit update destroy]
 
-  # GET /encryptions
-  # GET /encryptions.json
-  def index
-    @encryptions = Encryption.all.order(created_at: :desc).page(params[:page]).per(15)
-  end
+    # GET /encryptions
+    # GET /encryptions.json
+    def index
+      @encryptions = Encryption.order(created_at: :desc).page(params[:page]).per(15)
+    end
 
-  # GET /encryptions/1
-  # GET /encryptions/1.json
-  def show; end
+    # GET /encryptions/1
+    # GET /encryptions/1.json
+    def show; end
 
-  # GET /encryptions/new
-  def new
-    @encryption = Encryption.new
-    @form_url = admin_encryptions_path
-  end
+    # GET /encryptions/new
+    def new
+      @encryption = Encryption.new
+      @form_url = admin_encryptions_path
+    end
 
-  # GET /encryptions/1/edit
-  def edit
-    @form_url = admin_encryption_path(@encryption)
-  end
+    # GET /encryptions/1/edit
+    def edit
+      @form_url = admin_encryption_path(@encryption)
+    end
 
-  # POST /encryptions
-  # POST /encryptions.json
-  def create
-    @encryption = Encryption.new(encryption_params)
+    # POST /encryptions
+    # POST /encryptions.json
+    def create
+      @encryption = Encryption.new(encryption_params)
 
-    respond_to do |format|
-      if @encryption.save
-        format.html { redirect_to admin_encryptions_path(@encryption), notice: 'Encryption was successfully created.' }
-        format.json { render :show, status: :created, location: admin_encryptions_path(@encryption) }
-      else
-        format.html { render :new }
-        format.json { render json: @encryption.errors, status: :unprocessable_content }
+      respond_to do |format|
+        if @encryption.save
+          format.html do
+            redirect_to admin_encryptions_path(@encryption), notice: 'Encryption was successfully created.'
+          end
+          format.json { render :show, status: :created, location: admin_encryptions_path(@encryption) }
+        else
+          format.html { render :new }
+          format.json { render json: @encryption.errors, status: :unprocessable_content }
+        end
       end
     end
-  end
 
-  # PATCH/PUT /encryptions/1
-  # PATCH/PUT /encryptions/1.json
-  def update
-    respond_to do |format|
-      if @encryption.update(encryption_params)
-        format.html { redirect_to admin_encryptions_path(@encryption), notice: 'Encryption was successfully updated.' }
-        format.json { render :show, status: :ok, location: admin_encryptions_path(@encryption) }
-      else
-        format.html { render :edit }
-        format.json { render json: @encryption.errors, status: :unprocessable_content }
+    # PATCH/PUT /encryptions/1
+    # PATCH/PUT /encryptions/1.json
+    def update
+      respond_to do |format|
+        if @encryption.update(encryption_params)
+          format.html do
+            redirect_to admin_encryptions_path(@encryption), notice: 'Encryption was successfully updated.'
+          end
+          format.json { render :show, status: :ok, location: admin_encryptions_path(@encryption) }
+        else
+          format.html { render :edit }
+          format.json { render json: @encryption.errors, status: :unprocessable_content }
+        end
       end
     end
-  end
 
-  # DELETE /encryptions/1
-  # DELETE /encryptions/1.json
-  def destroy
-    @encryption.destroy
-    respond_to do |format|
-      format.html { redirect_to encryptions_url, notice: 'Encryption was successfully destroyed.' }
-      format.json { head :no_content }
+    # DELETE /encryptions/1
+    # DELETE /encryptions/1.json
+    def destroy
+      @encryption.destroy
+      respond_to do |format|
+        format.html { redirect_to encryptions_url, notice: 'Encryption was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
-  end
 
-private
+  private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_encryption
-    @encryption = Encryption.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_encryption
+      @encryption = Encryption.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def encryption_params
-    params.require(:encryption).permit(:status, :cypher_name, :document_id, :repository_id, :user_id)
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def encryption_params
+      params.expect(encryption: %i[status cypher_name document_id repository_id user_id])
+    end
   end
 end

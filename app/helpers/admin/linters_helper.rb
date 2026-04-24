@@ -1,2 +1,4 @@
-module Admin::LintersHelper
+module Admin
+  module LintersHelper
+  end
 end

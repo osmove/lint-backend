@@ -22,7 +22,7 @@ pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 workers ENV.fetch('WEB_CONCURRENCY', 0)
 
 # Use the `preload_app!` method when specifying a `workers` number.
-preload_app! if ENV.fetch('WEB_CONCURRENCY', 0).to_i > 0
+preload_app! if ENV.fetch('WEB_CONCURRENCY', 0).to_i.positive?
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart

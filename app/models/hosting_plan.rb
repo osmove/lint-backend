@@ -10,7 +10,7 @@ class HostingPlan < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   def smart_price_per_month
-    @smart_price_per_month = if price_per_month.present? && price_per_month > 0
+    @smart_price_per_month = if price_per_month.present? && price_per_month.positive?
                                "$#{price_per_month.to_i}/mo"
                              else
                                'Free'
@@ -18,25 +18,25 @@ class HostingPlan < ApplicationRecord
   end
 
   def smart_memory
-    return unless memory.present?
+    return if memory.blank?
 
     number_to_human(memory, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
 
   def smart_storage
-    return unless storage.present?
+    return if storage.blank?
 
     number_to_human(storage, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
 
   def smart_vcpus
-    return unless vcpus.present?
+    return if vcpus.blank?
 
     "#{vcpus} vCPUs"
   end
 
   def smart_transfer
-    return unless transfer.present?
+    return if transfer.blank?
 
     number_to_human(transfer, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
@@ -48,7 +48,7 @@ class HostingPlan < ApplicationRecord
 
   def description
     @description = ''
-    @description << "#{smart_memory}" if memory.present?
+    @description << smart_memory.to_s if memory.present?
     @description << " | #{smart_vcpus}" if vcpus.present?
     @description << " | #{smart_storage}" if storage.present?
     @description << " | #{smart_transfer}" if transfer.present?

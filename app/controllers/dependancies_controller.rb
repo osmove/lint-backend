@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def dependancy_params
-    params.require(:dependancy).permit(:name, :slug, :repository_id, :user_id)
+    params.expect(dependancy: %i[name slug repository_id user_id])
   end
 end

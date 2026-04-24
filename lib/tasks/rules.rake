@@ -21,11 +21,11 @@ namespace :rules do
     rubocop = Linter.where(name: 'Rubocop', command: 'rubocop').first
     prettier = Linter.where(name: 'Prettier', command: 'prettier').first
 
-    eslint = Linter.create(name: 'ESlint', command: 'eslint') unless eslint.present?
+    eslint = Linter.create(name: 'ESlint', command: 'eslint') if eslint.blank?
 
-    rubocop = Linter.create(name: 'Rubocop', command: 'rubocop') unless rubocop.present?
+    rubocop = Linter.create(name: 'Rubocop', command: 'rubocop') if rubocop.blank?
 
-    prettier = Linter.create(name: 'Prettier', command: 'prettier') unless prettier.present?
+    prettier = Linter.create(name: 'Prettier', command: 'prettier') if prettier.blank?
     # Prettier rules
     printWidth = Rule.create(name: 'Print Width', slug: 'printWidth',
                              description: 'Specify the line length that the printer will wrap on.', options: '80', type: 'Formatting', linter: prettier)

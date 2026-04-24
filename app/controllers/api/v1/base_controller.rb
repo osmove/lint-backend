@@ -1,6 +1,6 @@
 module Api
   module V1
-    class BaseController < ActionController::Base
+    class BaseController < ApplicationController
       protect_from_forgery with: :null_session
       before_action :authenticate_api_user!
 
@@ -18,7 +18,7 @@ module Api
       def extract_token
         # Support both header and param-based auth
         if request.headers['Authorization'].present?
-          request.headers['Authorization'].split(' ').last
+          request.headers['Authorization'].split.last
         else
           params[:user_token]
         end

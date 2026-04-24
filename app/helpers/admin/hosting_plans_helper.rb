@@ -1,2 +1,4 @@
-module Admin::HostingPlansHelper
+module Admin
+  module HostingPlansHelper
+  end
 end

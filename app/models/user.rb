@@ -11,12 +11,12 @@ class User < ApplicationRecord
   # validates :email, presence: :true, unless: -> { from_omniauth? }, if: :check_if_user
   # validates :password, presence: :true, :on => :create, unless: -> { from_omniauth? }, if: :check_if_user
 
-  validates :organization_name, presence: :true, if: :check_if_organization
+  validates :organization_name, presence: true, if: :check_if_organization
 
   # validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }, unless: :check_if_organization
-  validates :username, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
-  validates :email, presence: :true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
-  validates :password, presence: :true, on: :create, unless: -> { from_omniauth? }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, unless: -> { from_omniauth? }
+  validates :password, presence: true, on: :create, unless: -> { from_omniauth? }
 
   # validates :password_confirmation, presence: :true
 
@@ -112,7 +112,7 @@ class User < ApplicationRecord
       push_messages << push_message
     end
 
-    if push_messages.length > 0
+    if push_messages.length.positive?
       expo_push_client = Exponent::Push::Client.new
       expo_push_client.publish(push_messages)
     end
@@ -193,7 +193,7 @@ class User < ApplicationRecord
 
   validate :validate_username
   def validate_username
-    return unless User.where(email: username).exists?
+    return unless User.exists?(email: username)
 
     errors.add(:username, :invalid)
   end
@@ -241,11 +241,7 @@ protected
 
   # Remove confirmation required
   def confirmation_required?
-    if from_omniauth?
-      false
-    else
-      true
-    end
+    !from_omniauth?
   end
 
 private
@@ -275,7 +271,7 @@ private
   # To be able to request new password with username instead of email
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
+    if (login = conditions.delete(:login))
       where(conditions).where(['username = :value OR lower(email) = lower(:value)', { value: login }]).first
     elsif conditions[:username].nil?
       where(conditions).first

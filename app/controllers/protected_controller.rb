@@ -31,7 +31,7 @@ private
 
   def authenticate_user_from_token!
     user_token = params[:user_token].presence
-    user       = user_token && User.find_by_authentication_token(user_token.to_s)
+    user       = user_token && User.find_by(authentication_token: user_token.to_s)
 
     if user
       sign_in user, store: false

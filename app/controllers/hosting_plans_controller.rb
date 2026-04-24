@@ -4,7 +4,7 @@ class HostingPlansController < ApplicationController
   # GET /hosting_plans
   # GET /hosting_plans.json
   def index
-    @hosting_plans = HostingPlan.all.order(price_per_month: :asc)
+    @hosting_plans = HostingPlan.order(price_per_month: :asc)
   end
 
   # GET /hosting_plans/1
@@ -68,7 +68,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def hosting_plan_params
-    params.require(:hosting_plan).permit(:name, :slug, :memory, :vcpus, :storage, :transfer, :price_per_month,
-                                         :price_per_hour)
+    params.expect(hosting_plan: %i[name slug memory vcpus storage transfer price_per_month
+                                   price_per_hour])
   end
 end

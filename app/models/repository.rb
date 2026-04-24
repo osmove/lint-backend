@@ -206,7 +206,7 @@ class Repository < ApplicationRecord
   before_validation :ensure_uuid
   after_create :create_repository_access
   def create_repository_access
-    return unless user.present?
+    return if user.blank?
 
     RepositoryAccess.create!({
                                repository: self,

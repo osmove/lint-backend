@@ -1,7 +1,9 @@
 require 'test_helper'
 
-class Admin::FrameworksControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+module Admin
+  class FrameworksControllerTest < ActionDispatch::IntegrationTest
+    # test "the truth" do
+    #   assert true
+    # end
+  end
 end

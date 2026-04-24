@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def pull_params
-    params.require(:pull).permit(:repository_id, :user_id)
+    params.expect(pull: %i[repository_id user_id])
   end
 end

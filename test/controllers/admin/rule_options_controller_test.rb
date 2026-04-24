@@ -1,7 +1,9 @@
 require 'test_helper'
 
-class Admin::RuleOptionsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+module Admin
+  class RuleOptionsControllerTest < ActionDispatch::IntegrationTest
+    # test "the truth" do
+    #   assert true
+    # end
+  end
 end

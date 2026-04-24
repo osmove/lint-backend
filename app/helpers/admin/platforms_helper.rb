@@ -1,2 +1,4 @@
-module Admin::PlatformsHelper
+module Admin
+  module PlatformsHelper
+  end
 end

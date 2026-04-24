@@ -18,9 +18,7 @@ class CommitsController < ApplicationController
 
     Rails.logger.info ''
 
-    unless repository_slug.present? && user_slug.present?
-      raise ActionController::RoutingError.new('Repository Not Found')
-    end
+    raise ActionController::RoutingError, 'Repository Not Found' unless repository_slug.present? && user_slug.present?
 
     @repository = begin
       Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
@@ -105,9 +103,7 @@ class CommitsController < ApplicationController
 
     Rails.logger.info ''
 
-    unless repository_slug.present? && user_slug.present?
-      raise ActionController::RoutingError.new('Repository Not Found')
-    end
+    raise ActionController::RoutingError, 'Repository Not Found' unless repository_slug.present? && user_slug.present?
 
     @repository = begin
       Repository.where(uuid: "#{user_slug}/#{repository_slug}").first

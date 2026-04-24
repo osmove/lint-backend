@@ -1,2 +1,4 @@
-module Admin::EncryptionsHelper
+module Admin
+  module EncryptionsHelper
+  end
 end

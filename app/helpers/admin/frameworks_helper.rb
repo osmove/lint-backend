@@ -1,2 +1,4 @@
-module Admin::FrameworksHelper
+module Admin
+  module FrameworksHelper
+  end
 end

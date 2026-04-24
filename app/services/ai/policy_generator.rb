@@ -1,6 +1,6 @@
 module Ai
   class PolicyGenerator
-    SYSTEM_PROMPT = <<~PROMPT
+    SYSTEM_PROMPT = <<~PROMPT.freeze
       You are a linting policy generator for Lint.
       Given a natural language description of code quality requirements,
       generate a structured policy configuration.

@@ -1,2 +1,4 @@
-module Admin::PolicyChecksHelper
+module Admin
+  module PolicyChecksHelper
+  end
 end

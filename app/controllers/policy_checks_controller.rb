@@ -68,15 +68,17 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def policy_check_params
-    params.require(:policy_check).permit(:name, :passed, :commit_attempt_id, :policy_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
-                                         :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
-                                         rule_checks_attributes: %i[id name passed language_id rule_id policy_check_id repository_id user_id contributor_id push_id device_id
-                                                                    file_name file_path
-                                                                    severity severity_level message line column line_end column_end source], report: [:lint_version, :cli_version, :source_shell_command, :node_version, :npm_version, :ruby_version, :python_version, :lint_execution_time, :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
-                                                                                                                                                      {
-                                                                                                                                                        rule_checks_attributes: [:id, :name, :linter, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
-                                                                                                                                                                                 :file_name, :file_path,
-                                                                                                                                                                                 :severity, :severity_level, :message, :line, :column, :line_end, :column_end, { source: %i[line code] }], staged_files: [], javascript_files: [], ruby_files: [], formatted_files: [], inspected_files: [], not_inspected_files: []
-                                                                                                                                                      }])
+    params.expect(policy_check: [:name, :passed, :commit_attempt_id, :policy_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
+                                 :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
+                                 {
+                                   rule_checks_attributes: %i[id name passed language_id rule_id policy_check_id repository_id user_id contributor_id push_id device_id
+                                                              file_name file_path
+                                                              severity severity_level message line column line_end column_end source], report: [:lint_version, :cli_version, :source_shell_command, :node_version, :npm_version, :ruby_version, :python_version, :lint_execution_time, :error_count, :warning_count, :offense_count, :fixable_warning_count, :fixable_error_count, :fixable_offense_count,
+                                                                                                                                                {
+                                                                                                                                                  rule_checks_attributes: [:id, :name, :linter, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id,
+                                                                                                                                                                           :file_name, :file_path,
+                                                                                                                                                                           :severity, :severity_level, :message, :line, :column, :line_end, :column_end, { source: %i[line code] }], staged_files: [], javascript_files: [], ruby_files: [], formatted_files: [], inspected_files: [], not_inspected_files: []
+                                                                                                                                                }]
+                                 }])
   end
 end

@@ -4,7 +4,7 @@ class PoliciesController < ApplicationController
   # GET /policies
   # GET /policies.json
   def index
-    return unless params[:user_id].present?
+    return if params[:user_id].blank?
 
     @policies = current_user.policies
   end
@@ -24,7 +24,7 @@ class PoliciesController < ApplicationController
     @rules = @policy_rules.build_rule
     @linters = Linter.all
     @present_rules = @policy.rules
-    @all_rules = Rule.all.includes([{ rule_options: :rule_option_options }, :linter])
+    @all_rules = Rule.includes([{ rule_options: :rule_option_options }, :linter])
     @form_rules = @all_rules - @present_rules
   end
 
@@ -100,8 +100,10 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def policy_params
-    params.require(:policy).permit(:name, :description, :autofix, :user_id, :prevent_commits_on_errors,
-                                   policy_rules_attributes: [:id, :options, :autofix, :position, :status, :rule_id, :_destroy,
-                                                             { policy_rule_options_attributes: [:id, :policy_rule, :rule_option, :rule_option_id, :value, :_destroy, { rule_option_option_ids: [] }] }])
+    params.expect(policy: [:name, :description, :autofix, :user_id, :prevent_commits_on_errors,
+                           {
+                             policy_rules_attributes: [:id, :options, :autofix, :position, :status, :rule_id, :_destroy,
+                                                       { policy_rule_options_attributes: [:id, :policy_rule, :rule_option, :rule_option_id, :value, :_destroy, { rule_option_option_ids: [] }] }]
+                           }])
   end
 end

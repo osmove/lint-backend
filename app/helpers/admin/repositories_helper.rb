@@ -1,2 +1,4 @@
-module Admin::RepositoriesHelper
+module Admin
+  module RepositoriesHelper
+  end
 end

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @my_repositories = []
     if params['q'].present? && params['q'] != '' && params['q'] != 'undefined'
       @query = params['q']
-      @users = User.all.where('slug LIKE ?', "%#{@query.downcase}%")
+      @users = User.where('slug LIKE ?', "%#{@query.downcase}%")
     else
       @users = User.all
     end
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 
   def show
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
-    @repositories = Repository.all.where(user: @user).public.order(name: :asc)
+    @repositories = Repository.where(user: @user).public.order(name: :asc)
   end
 
   # GET /users/new
@@ -106,12 +106,12 @@ private
     end
     return if @user.present?
 
-    raise ActionController::RoutingError.new('Account Not Found')
+    raise ActionController::RoutingError, 'Account Not Found'
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email,
-                                 :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+    params.expect(user: %i[organization_name username login slug first_name last_name email
+                           password password_confirmation birthday phone_country_code phone_number gender address address_2 city zip_code state country is_organization has_newsletter terms_acceptance_date locale language time_zone accepted_terms_and_conditions role])
   end
 end

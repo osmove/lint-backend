@@ -16,7 +16,7 @@ if required_version.empty?
   exit 1
 end
 
-if RUBY_VERSION == required_version
+if required_version == RUBY_VERSION
   puts "Ruby #{required_version} already active."
   exit 0
 end

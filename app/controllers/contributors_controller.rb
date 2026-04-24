@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def contributor_params
-    params.require(:contributor).permit(:name, :email, :repository_id, :user_id)
+    params.expect(contributor: %i[name email repository_id user_id])
   end
 end

@@ -68,7 +68,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def rule_check_params
-    params.require(:rule_check).permit(:name, :passed, :language_id, :rule_id, :policy_check_id, :repository_id,
-                                       :user_id, :contributor_id, :push_id, :device_id)
+    params.expect(rule_check: %i[name passed language_id rule_id policy_check_id repository_id
+                                 user_id contributor_id push_id device_id])
   end
 end

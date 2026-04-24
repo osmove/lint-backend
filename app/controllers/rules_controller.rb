@@ -68,7 +68,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def rule_params
-    params.require(:rule).permit(:name, :type, :description, :options, :status, :language_id, :framework_id,
-                                 :platform_id, :parent_id, :linter_id)
+    params.expect(rule: %i[name type description options status language_id framework_id
+                           platform_id parent_id linter_id])
   end
 end

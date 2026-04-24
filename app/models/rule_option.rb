@@ -8,7 +8,7 @@ class RuleOption < ApplicationRecord
   accepts_nested_attributes_for :rule_option_options, allow_destroy: true, reject_if: :all_blank
 
   VALUE_TYPE_OPTIONS = [%w[Boolean boolean], %w[Integer integer], %w[String string],
-                        %w[Array-Single array-single], %w[Array-Multiple array-multiple]]
+                        %w[Array-Single array-single], %w[Array-Multiple array-multiple]].freeze
 
   validate :check_rule_option_is_unique, on: :create
 

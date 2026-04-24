@@ -1,2 +1,4 @@
-module Admin::LanguagesHelper
+module Admin
+  module LanguagesHelper
+  end
 end

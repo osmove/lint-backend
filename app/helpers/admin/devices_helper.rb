@@ -1,2 +1,4 @@
-module Admin::DevicesHelper
+module Admin
+  module DevicesHelper
+  end
 end

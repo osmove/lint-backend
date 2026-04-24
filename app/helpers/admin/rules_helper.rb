@@ -1,2 +1,4 @@
-module Admin::RulesHelper
+module Admin
+  module RulesHelper
+  end
 end

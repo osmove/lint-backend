@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def server_params
-    params.require(:server).permit(:name, :ip_address, :os, :ssh_host, :ssh_user, :ssh_password, :ssh_path, :user_id)
+    params.expect(server: %i[name ip_address os ssh_host ssh_user ssh_password ssh_path user_id])
   end
 end

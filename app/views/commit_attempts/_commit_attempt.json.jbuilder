@@ -51,7 +51,7 @@ if policy.present?
   json.policy do
     json.partial! 'policies/policy', policy: policy
     # json.content policy
-    if policy.policy_rules.count > 0
+    if policy.policy_rules.any?
       json.policy_rules policy.policy_rules do |policy_rule|
         # json.status policy_rule.status
         # policy_rule

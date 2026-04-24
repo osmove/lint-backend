@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def deploy_params
-    params.require(:deploy).permit(:repository_id, :user_id)
+    params.expect(deploy: %i[repository_id user_id])
   end
 end

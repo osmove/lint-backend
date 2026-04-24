@@ -13,16 +13,12 @@ class CommitAttempt < ApplicationRecord
   end
 
   def name
-    @name = if message.present?
-      self.message
-    else
-      "Commit Attempt ##{self.id}"
-            end
+    @name = message.presence || "Commit Attempt ##{id}"
     @name
   end
 
-
-  # Update Encryption From Repository
+  # Clean branch name
+  before_save :clean_branch_name # Update Encryption From Repository
   before_create :update_encryption_from_repository
 
   after_update :send_report
@@ -44,19 +40,15 @@ class CommitAttempt < ApplicationRecord
   #   end
   # end
 
-  # Clean branch name
-  before_save :clean_branch_name
   def update_encryption_from_repository
     self.has_encryption = repository.has_encryption
     self.has_autofix = repository.has_autofix
     self.has_lint = repository.policy.present?
   end
 
-
   def clean_branch_name
-    return unless self.branch_name.present?
-      self.branch_name = branch_name.gsub(/[^a-zA-Z0-9-]/, '')
-    
-  end
+    return if branch_name.blank?
 
+    self.branch_name = branch_name.gsub(/[^a-zA-Z0-9-]/, '')
+  end
 end

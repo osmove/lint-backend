@@ -18,7 +18,7 @@ class DocumentsController < ApplicationController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     # Lists files in bare git repository
@@ -59,7 +59,7 @@ class DocumentsController < ApplicationController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @document = Document.new

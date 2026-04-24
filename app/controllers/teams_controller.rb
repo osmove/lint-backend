@@ -41,7 +41,7 @@ class TeamsController < ApplicationController
 
     @team = Team.new(team_params.merge(user: @user))
 
-    raise ActionController::RoutingError.new('User Not Found') unless @user.present?
+    raise ActionController::RoutingError, 'User Not Found' if @user.blank?
 
     respond_to do |format|
       if @team.save
@@ -87,6 +87,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def team_params
-    params.require(:team).permit(:name, :avatar_url, :team_id, :description, :user_id)
+    params.expect(team: %i[name avatar_url team_id description user_id])
   end
 end

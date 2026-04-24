@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def sync_params
-    params.require(:sync).permit(:repository_id, :user_id)
+    params.expect(sync: %i[repository_id user_id])
   end
 end

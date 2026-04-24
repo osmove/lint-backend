@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def buildpack_params
-    params.require(:buildpack).permit(:name, :web_address, :git_address, :command_id, :repository_id, :user_id)
+    params.expect(buildpack: %i[name web_address git_address command_id repository_id user_id])
   end
 end

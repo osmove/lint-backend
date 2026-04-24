@@ -1,2 +1,4 @@
-module Admin::ContributorsHelper
+module Admin
+  module ContributorsHelper
+  end
 end

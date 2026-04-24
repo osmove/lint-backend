@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def framework_params
-    params.require(:framework).permit(:name, :slug, :image, :image_url, :visible, :language_id)
+    params.expect(framework: %i[name slug image image_url visible language_id])
   end
 end

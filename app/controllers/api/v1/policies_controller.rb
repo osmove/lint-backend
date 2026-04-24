@@ -6,9 +6,7 @@ module Api
       def generate
         description = params[:description]
 
-        unless description.present?
-          return render json: { error: 'description is required' }, status: :unprocessable_content
-        end
+        return render json: { error: 'description is required' }, status: :unprocessable_content if description.blank?
 
         generator = Ai::PolicyGenerator.new
         policy_config = generator.generate(description, language: params[:language])

@@ -1,6 +1,6 @@
 module Ai
   class RuleRecommender
-    SYSTEM_PROMPT = <<~PROMPT
+    SYSTEM_PROMPT = <<~PROMPT.freeze
       You are a linting configuration expert for Lint.
       Given a repository's languages, frameworks, and file structure,
       recommend the most important linting rules to enable.

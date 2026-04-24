@@ -17,7 +17,7 @@ class PolicyCheck < ApplicationRecord
   # Update parent commit attempt passed or failed status
   after_create :copy_status_to_commit_attempt
   def copy_status_to_commit_attempt
-    return unless commit_attempt.present?
+    return if commit_attempt.blank?
 
     commit_attempt.update(passed: passed)
   end
@@ -39,7 +39,7 @@ class PolicyCheck < ApplicationRecord
   end
 
   def to_s
-    return unless policy.present?
+    return if policy.blank?
 
     policy.name
   end

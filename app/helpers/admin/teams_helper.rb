@@ -1,2 +1,4 @@
-module Admin::TeamsHelper
+module Admin
+  module TeamsHelper
+  end
 end

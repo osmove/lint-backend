@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def button_params
-    params.require(:button).permit(:command_id, :repository_id, :user_id)
+    params.expect(button: %i[command_id repository_id user_id])
   end
 end

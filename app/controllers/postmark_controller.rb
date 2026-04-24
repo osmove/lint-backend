@@ -12,7 +12,7 @@ class PostmarkController < ApplicationController
         @message = Message.new
         @message.type = 'email'
         @message.provider = 'postmark'
-        @message.raw_post = "#{information}"
+        @message.raw_post = information.to_s
         @message.name = @result['FromName']
         @message.email = @result['From']
         # @message.to_name = @result['ToFull']['Name'] rescue nil

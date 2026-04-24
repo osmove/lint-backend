@@ -14,7 +14,7 @@ class PagesController < ApplicationController
   # before_action :authenticate_user!, except: [:prelaunch, :available_soon]
 
   def home
-    @resource ||= User.new
+    @home ||= User.new
   end
 
   def select_repositories
@@ -24,72 +24,72 @@ class PagesController < ApplicationController
   end
 
   def prelaunch
-    @resource ||= User.new
+    @prelaunch ||= User.new
     # render :home
   end
 
   def features
-    @resource ||= User.new
+    @features ||= User.new
   end
 
   def apps
-    @resource ||= User.new
+    @apps ||= User.new
   end
 
   def cloud
-    @resource ||= User.new
+    @cloud ||= User.new
   end
 
   def security
-    @resource ||= User.new
+    @security ||= User.new
   end
 
   def faq
-    @resource ||= User.new
+    @faq ||= User.new
   end
 
   def pricing
-    @resource ||= User.new
+    @pricing ||= User.new
   end
 
   def downloads
-    @resource ||= User.new
+    @downloads ||= User.new
   end
 
   def desktop
-    @resource ||= User.new
+    @desktop ||= User.new
   end
 
   def web
-    @resource ||= User.new
+    @web ||= User.new
   end
 
   def connect
-    @resource ||= User.new
+    @connect ||= User.new
   end
 
   def cli
-    @resource ||= User.new
+    @cli ||= User.new
   end
 
   def deploy
-    @resource ||= User.new
+    @deploy ||= User.new
   end
 
   def terms
-    @resource ||= User.new
+    @terms ||= User.new
   end
 
   def privacy
-    @resource ||= User.new
+    @privacy ||= User.new
   end
 
   def security
-    @resource ||= User.new
+    @security ||= User.new
   end
 
   def about
-    @resource ||= User.new
+    @about ||= User.new
   end
 
   def contact
@@ -140,8 +140,8 @@ class PagesController < ApplicationController
 
     # @commit_attempts = @last_commit_attempts
 
-    @authors = @commit_attempts.map(&:user).compact.uniq
-    @branches = @commit_attempts.map(&:branch_name).compact.uniq
+    @authors = @commit_attempts.filter_map(&:user).uniq
+    @branches = @commit_attempts.filter_map(&:branch_name).uniq
 
     if params[:repository].present?
       @repository = current_user.repositories_with_access.where(uuid: params[:repository]).last

@@ -96,7 +96,7 @@ FriendlyId.defaults do |config|
 
   def should_generate_new_friendly_id?
     regenerated_keys = %w[name username]
-    slug.blank? || (changes.keys & regenerated_keys).present?
+    slug.blank? || changes.keys.intersect?(regenerated_keys)
   end
   # FriendlyId uses Rails's `parameterize` method to generate slugs, but for
   # languages that don't use the Roman alphabet, that's not usually sufficient.

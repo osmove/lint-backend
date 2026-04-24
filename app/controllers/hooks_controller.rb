@@ -9,7 +9,7 @@ class HooksController < ApplicationController
         @repository = @repositories.first
 
         # Send security alert push notification
-        @nb_messages = @repository.user.send_push_notification("#{@repository.uuid}",
+        @nb_messages = @repository.user.send_push_notification(@repository.uuid.to_s,
                                                                "New push received for repository '#{@repository.uuid}' on branch master.")
 
         return respond_to do |format|

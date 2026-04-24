@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def encryption_params
-    params.require(:encryption).permit(:status, :cypher_name, :document_id, :repository_id, :user_id)
+    params.expect(encryption: %i[status cypher_name document_id repository_id user_id])
   end
 end

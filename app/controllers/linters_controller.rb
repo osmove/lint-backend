@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def linter_params
-    params.require(:linter).permit(:name, :command)
+    params.expect(linter: %i[name command])
   end
 end

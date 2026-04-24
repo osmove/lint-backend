@@ -1,6 +1,6 @@
 module Ai
   class CodeReviewer
-    SYSTEM_PROMPT = <<~PROMPT
+    SYSTEM_PROMPT = <<~PROMPT.freeze
       You are an expert code reviewer for Lint, a code quality platform.
       When given a linting violation with code context, provide:
       1. A clear, concise explanation of why this is a problem

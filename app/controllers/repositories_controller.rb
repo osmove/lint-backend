@@ -17,12 +17,12 @@ class RepositoriesController < ProtectedController
     if params['q'].present? && params['q'] != '' && params['q'] != 'undefined'
       @query = params['q']
       @repositories = if params[:user_id].present? && params[:user_id] != ''
-                        Repository.all.where(user: @owner).where('uuid LIKE ?', "%#{@query.downcase}%")
+                        Repository.where(user: @owner).where('uuid LIKE ?', "%#{@query.downcase}%")
                       else
                         Repository.all.public.where(user: !@owner).where('uuid LIKE ?', "%#{@query.downcase}%")
                       end
     elsif params[:user_id].present?
-      @repositories = Repository.all.where(user: @owner)
+      @repositories = Repository.where(user: @owner)
     else
       @repositories = Repository.all
     end
@@ -30,13 +30,13 @@ class RepositoriesController < ProtectedController
     if params['git_url'].present? && params['git_url'] != '' && params['git_url'] != 'undefined'
       @query = params['git_url']
       @repositories = if params[:user_id].present? && params[:user_id] != ''
-                        Repository.all.where(user: @owner).where('lower(git_address) LIKE ?', "%#{@query.downcase}%")
+                        Repository.where(user: @owner).where('lower(git_address) LIKE ?', "%#{@query.downcase}%")
                       else
                         Repository.all.public.where(user: @owner).where('lower(git_address) LIKE ?',
                                                                         "%#{@query.downcase}%")
                       end
     elsif params[:user_id].present?
-      @repositories = Repository.all.where(user: @owner)
+      @repositories = Repository.where(user: @owner)
     else
       @repositories = Repository.all
     end
@@ -44,12 +44,12 @@ class RepositoriesController < ProtectedController
     if params['slug'].present? && params['slug'] != '' && params['slug'] != 'undefined'
       @query = params['slug']
       @repositories = if params[:user_id].present? && params[:user_id] != ''
-                        Repository.all.where(user: @owner).where('lower(slug) = ?', "#{@query.downcase}")
+                        Repository.where(user: @owner).where('lower(slug) = ?', @query.downcase.to_s)
                       else
-                        Repository.all.public.where(user: @owner).where('lower(slug) = ?', "#{@query.downcase}")
+                        Repository.all.public.where(user: @owner).where('lower(slug) = ?', @query.downcase.to_s)
                       end
     elsif params[:user_id].present?
-      @repositories = Repository.all.where(user: @owner)
+      @repositories = Repository.where(user: @owner)
     else
       @repositories = Repository.all
     end
@@ -119,7 +119,7 @@ class RepositoriesController < ProtectedController
     # @owner = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @owner = User.find_by(slug: params[:user_id])
-      @owner.to_s.downcase if @owner
+      @owner&.to_s&.downcase
     end
     # @commits = Commit.all.order(date: :desc).where(user: @owner).where(repository: @repository)
 
@@ -231,8 +231,8 @@ class RepositoriesController < ProtectedController
       @commit_attempts = @repository.commit_attempts.includes(:policy_checks)
       @commit_attempts_count = @repository.commit_attempts.order(created_at: :desc).count
 
-      @authors = @commit_attempts.map(&:user).compact.uniq
-      @branches = @commit_attempts.map(&:branch_name).compact.uniq
+      @authors = @commit_attempts.filter_map(&:user).uniq
+      @branches = @commit_attempts.filter_map(&:branch_name).uniq
 
       if params[:author].present?
         @author = params[:author]
@@ -254,7 +254,7 @@ class RepositoriesController < ProtectedController
         end
       end
     else
-      @commit_attempts = CommitAttempt.all.includes(:policy_checks)
+      @commit_attempts = CommitAttempt.includes(:policy_checks)
       @commit_attempts_count = @commit_attempts.count
     end
 
@@ -269,7 +269,7 @@ class RepositoriesController < ProtectedController
     # @owner = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @owner = User.find_by(slug: params[:user_id])
-      @owner.to_s.downcase if @owner
+      @owner&.to_s&.downcase
     end
     # @commits = Commit.all.order(date: :desc).where(user: @owner).where(repository: @repository)
     @owner
@@ -312,7 +312,7 @@ class RepositoriesController < ProtectedController
 
     respond_to do |format|
       if Repository.where(uuid: uuid).first.present?
-        @repository.errors[:uuid] << 'already exists'
+        @repository.errors.add(:uuid, 'already exists')
         format.html { render :new, alert: 'Repository already exists.' }
         format.json { render json: user_repository_path(@repository.user, @repository), status: :unprocessable_content }
       else
@@ -376,9 +376,7 @@ private
   def set_repository
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
-    unless repository_slug.present? && user_slug.present?
-      raise ActionController::RoutingError.new('Repository Not Found')
-    end
+    raise ActionController::RoutingError, 'Repository Not Found' unless repository_slug.present? && user_slug.present?
 
     @repository = begin
       Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
@@ -389,7 +387,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def repository_params
-    params.require(:repository).permit(:id, :name, :slug, :user_id, :status, :deploy_to, :server_size, :domain_slug, :geo_zone, :hosting_plan_id, :type, :platform_id, :has_encryption, :has_deployment, :requires_two_step_authentication, :policy_id, :git_host,
-                                       :git_address, :has_autofix, :web_url, :html_url, :git_url, :ssh_url)
+    params.expect(repository: %i[id name slug user_id status deploy_to server_size domain_slug geo_zone hosting_plan_id type platform_id has_encryption has_deployment requires_two_step_authentication policy_id git_host
+                                 git_address has_autofix web_url html_url git_url ssh_url])
   end
 end

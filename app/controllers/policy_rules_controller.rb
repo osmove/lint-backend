@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def policy_rule_params
-    params.require(:policy_rule).permit(:rule_id, :policy_id, :options, :position)
+    params.expect(policy_rule: %i[rule_id policy_id options position])
   end
 end

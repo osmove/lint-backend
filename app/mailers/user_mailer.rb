@@ -18,7 +18,7 @@ class UserMailer < ApplicationMailer
     # @repository_accesses = @user.repository_accesses.where(repository: repository)
     @repository_accesses = @repository.repository_accesses.where(user: @user)
 
-    if @repository_accesses.count > 0
+    if @repository_accesses.any?
       @repository_access = @repository_accesses.first
       @javascript_logo_url = '/images/platformicons/svg/javascript.svg'
       @ruby_logo_url = '/images/platformicons/svg/ruby.svg'

@@ -27,7 +27,7 @@ class MembershipsController < ApplicationController
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     @team = @membership.team
     @member = @membership
-    return unless @organization = @user
+    return unless (@organization = @user)
 
     @form_url = user_team_membership_path(@user, @team, @membership)
   end
@@ -98,7 +98,7 @@ private
     team_id = params[:team_id]
     team_id = params[:id] if params[:team_id].blank?
     @team = Team.find(team_id)
-    raise ActionController::RoutingError.new('Repository Not Found') unless @team.present?
+    raise ActionController::RoutingError, 'Repository Not Found' if @team.blank?
 
     @team = Team.find(team_id)
 
@@ -109,6 +109,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def membership_params
-    params.require(:membership).permit(:username, :origin, :origin_url, :avatar_url, :role, :user_id, :team_id)
+    params.expect(membership: %i[username origin origin_url avatar_url role user_id team_id])
   end
 end

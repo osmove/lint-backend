@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def branch_params
-    params.require(:branch).permit(:name, :slug, :default, :repository_id)
+    params.expect(branch: %i[name slug default repository_id])
   end
 end

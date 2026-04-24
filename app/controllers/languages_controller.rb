@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def language_params
-    params.require(:language).permit(:name, :slug, :image, :image_url, :visible)
+    params.expect(language: %i[name slug image image_url visible])
   end
 end

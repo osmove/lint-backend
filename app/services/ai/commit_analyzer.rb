@@ -1,6 +1,6 @@
 module Ai
   class CommitAnalyzer
-    SYSTEM_PROMPT = <<~PROMPT
+    SYSTEM_PROMPT = <<~PROMPT.freeze
       You are a commit message quality analyzer for Lint.
       Evaluate commit messages against best practices:
       - Uses imperative mood ("Add feature" not "Added feature")

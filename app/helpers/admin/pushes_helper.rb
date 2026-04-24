@@ -1,2 +1,4 @@
-module Admin::PushesHelper
+module Admin
+  module PushesHelper
+  end
 end

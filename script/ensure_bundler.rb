@@ -11,7 +11,7 @@ end
 
 lockfile_lines = File.readlines(lockfile_path, chomp: true)
 bundled_with_index = lockfile_lines.index('BUNDLED WITH')
-required_version = lockfile_lines[(bundled_with_index || -1) + 1..]&.find { |line| !line.strip.empty? }&.strip
+required_version = lockfile_lines[((bundled_with_index || -1) + 1)..]&.find { |line| !line.strip.empty? }&.strip
 
 unless required_version
   warn 'Could not determine the required Bundler version from Gemfile.lock.'

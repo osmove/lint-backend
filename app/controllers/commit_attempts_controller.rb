@@ -9,9 +9,7 @@ class CommitAttemptsController < ProtectedController
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
 
-    unless repository_slug.present? && user_slug.present?
-      raise ActionController::RoutingError.new('Repository Not Found')
-    end
+    raise ActionController::RoutingError, 'Repository Not Found' unless repository_slug.present? && user_slug.present?
 
     @repository = begin
       Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
@@ -24,8 +22,8 @@ class CommitAttemptsController < ProtectedController
       @commit_attempts = @repository.commit_attempts.includes(:policy_checks)
       @commit_attempts_count = @repository.commit_attempts.order(created_at: :desc).count
 
-      @authors = @commit_attempts.map(&:user).compact.uniq
-      @branches = @commit_attempts.map(&:branch_name).compact.uniq
+      @authors = @commit_attempts.filter_map(&:user).uniq
+      @branches = @commit_attempts.filter_map(&:branch_name).uniq
 
       if params[:author].present?
         @author = params[:author]
@@ -47,7 +45,7 @@ class CommitAttemptsController < ProtectedController
         end
       end
     else
-      @commit_attempts = CommitAttempt.all.includes(:policy_checks)
+      @commit_attempts = CommitAttempt.includes(:policy_checks)
       @commit_attempts_count = @commit_attempts.count
     end
 
@@ -84,7 +82,7 @@ class CommitAttemptsController < ProtectedController
         @commit_attempt = @repository.commit_attempts.new
       else
         @repository = nil
-        raise ActionController::RoutingError.new('Repository Not Found')
+        raise ActionController::RoutingError, 'Repository Not Found'
       end
 
     else
@@ -107,7 +105,7 @@ class CommitAttemptsController < ProtectedController
         @commit_attempt.user = current_user
       else
         @repository = nil
-        raise ActionController::RoutingError.new('Repository Not Found')
+        raise ActionController::RoutingError, 'Repository Not Found'
       end
     else
       @commit_attempt = CommitAttempt.new(commit_attempt_params)
@@ -169,7 +167,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def commit_attempt_params
-    params.require(:commit_attempt).permit(:message, :sha, :branch_name, :description, :commit_id, :user_id,
-                                           :contributor_id, :push_id, :device_id, :repository_id)
+    params.expect(commit_attempt: %i[message sha branch_name description commit_id user_id
+                                     contributor_id push_id device_id repository_id])
   end
 end

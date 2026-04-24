@@ -17,7 +17,7 @@ class Contributor < ApplicationRecord
     return if user_id.present?
 
     @user = User.where(email: email).first
-    return unless @user.present?
+    return if @user.blank?
 
     self.user = @user
   end

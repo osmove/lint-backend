@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def push_params
-    params.require(:push).permit(:repository_id, :user_id)
+    params.expect(push: %i[repository_id user_id])
   end
 end

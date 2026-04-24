@@ -1,2 +1,4 @@
-module Admin::CommitsHelper
+module Admin
+  module CommitsHelper
+  end
 end

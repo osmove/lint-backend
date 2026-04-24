@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def decryption_params
-    params.require(:decryption).permit(:status, :cypher_name, :document_id, :repository_id, :user_id)
+    params.expect(decryption: %i[status cypher_name document_id repository_id user_id])
   end
 end

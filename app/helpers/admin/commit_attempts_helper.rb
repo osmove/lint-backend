@@ -1,2 +1,4 @@
-module Admin::CommitAttemptsHelper
+module Admin
+  module CommitAttemptsHelper
+  end
 end

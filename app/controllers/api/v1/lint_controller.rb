@@ -24,17 +24,17 @@ module Api
     private
 
       def commit_attempt_params
-        params.require(:commit_attempt).permit(
-          :message, :sha, :branch_name, :description, :passed,
-          :has_lint, :has_prettier, :has_eslint, :has_rubocop
+        params.expect(
+          commit_attempt: %i[message sha branch_name description passed
+                             has_lint has_prettier has_eslint has_rubocop]
         )
       end
 
       def policy_check_params
-        params.require(:policy_check).permit(
-          :passed, :error_count, :warning_count,
-          :fixable_error_count, :fixable_warning_count,
-          :report
+        params.expect(
+          policy_check: %i[passed error_count warning_count
+                           fixable_error_count fixable_warning_count
+                           report]
         )
       end
     end

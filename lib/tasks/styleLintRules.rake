@@ -3,7 +3,7 @@ namespace :styleLint do
 
   task generate: :environment do
     styleLint = Linter.where(name: 'StyleLint', command: 'stylelint').first
-    styleLint = Linter.create(name: 'StyleLint', command: 'stylelint') unless styleLint.present?
+    styleLint = Linter.create(name: 'StyleLint', command: 'stylelint') if styleLint.blank?
 
     Rule.create(name: 'No invalid hex colors', slug: 'color-no-invalid-hex',
                 description: 'Longhand hex colors can be either 6 or 8 (with alpha channel) hexadecimal characters. And their shorthand variants are 3 and 4 characters respectively.', type: 'Possible errors', linter: styleLint)

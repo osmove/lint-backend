@@ -16,7 +16,7 @@ class IssuesController < ApplicationController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @issues = @repository.issues.all
@@ -39,7 +39,7 @@ class IssuesController < ApplicationController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @issue = Issue.new
@@ -65,7 +65,7 @@ class IssuesController < ApplicationController
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @issue.status = 'open'
@@ -133,7 +133,7 @@ private
                     end
     else
       @repository = nil
-      raise ActionController::RoutingError.new('Repository Not Found')
+      raise ActionController::RoutingError, 'Repository Not Found'
     end
 
     @issue = Issue.find(params[:id])
@@ -141,7 +141,7 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def issue_params
-    params.require(:issue).permit(:title, :slug, :origin, :body, :status, :repository_id, :user_id, :language_id,
-                                  :framework_id)
+    params.expect(issue: %i[title slug origin body status repository_id user_id language_id
+                            framework_id])
   end
 end

@@ -12,7 +12,7 @@ class PolicyRule < ApplicationRecord
 
   self.inheritance_column = :_type_disabled
 
-  STATUS_OPTIONS = [%w[Off off], %w[Warn warn], %w[Error error]]
+  STATUS_OPTIONS = [%w[Off off], %w[Warn warn], %w[Error error]].freeze
 
   after_initialize do
     self.status ||= 'off'
@@ -25,7 +25,7 @@ class PolicyRule < ApplicationRecord
 
   before_save :copy_info_from_rule
   def copy_info_from_rule
-    return unless rule.present?
+    return if rule.blank?
 
     self.name = rule.name
     self.slug = rule.slug

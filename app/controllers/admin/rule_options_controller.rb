@@ -1,2 +1,4 @@
-class Admin::RuleOptionsController < Admin::BaseController
+module Admin
+  class RuleOptionsController < Admin::BaseController
+  end
 end

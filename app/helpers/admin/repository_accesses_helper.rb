@@ -1,2 +1,4 @@
-module Admin::RepositoryAccessesHelper
+module Admin
+  module RepositoryAccessesHelper
+  end
 end

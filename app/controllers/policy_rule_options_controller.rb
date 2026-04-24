@@ -25,7 +25,7 @@ class PolicyRuleOptionsController < ApplicationController
     @policy_rule_option = PolicyRuleOption.new(policy_rule_option_params)
     if params[:value].present?
       @value = params[:value]
-      @policy_rule_option.value = @value.reject { |c| c.empty? }.join(',') if @value.kind_of(Array)
+      @policy_rule_option.value = @value.reject(&:empty?).join(',') if @value.kind_of(Array)
     end
 
     respond_to do |format|
@@ -44,7 +44,7 @@ class PolicyRuleOptionsController < ApplicationController
   def update
     if params[:value].present?
       @value = params[:value]
-      @policy_rule_option.value = @value.reject { |c| c.empty? }.join(',') if @value.kind_of(Array)
+      @policy_rule_option.value = @value.reject(&:empty?).join(',') if @value.kind_of(Array)
     end
     respond_to do |format|
       if @policy_rule_option.update(policy_rule_option_params)
@@ -76,6 +76,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def policy_rule_option_params
-    params.require(:policy_rule_option).permit(:policy_rule_id, :rule_option_id, :value)
+    params.expect(policy_rule_option: %i[policy_rule_id rule_option_id value])
   end
 end

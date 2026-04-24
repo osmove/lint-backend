@@ -1,2 +1,4 @@
-module Admin::PlanHelper
+module Admin
+  module PlanHelper
+  end
 end

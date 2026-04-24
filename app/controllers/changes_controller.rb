@@ -68,6 +68,6 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def change_params
-    params.require(:change).permit(:operation, :document_id, :commit_id)
+    params.expect(change: %i[operation document_id commit_id])
   end
 end
