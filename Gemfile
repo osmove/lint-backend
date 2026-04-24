@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.3.6'
 
 # Core
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.1'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', '~> 1.5'
 gem 'puma', '~> 6.4'
@@ -52,7 +52,7 @@ gem 'kaminari', '~> 1.2'
 gem 'chartkick', '~> 5.1'
 gem 'groupdate', '~> 6.4'
 gem 'hightop', '~> 0.3'
-gem 'blazer', '~> 3.0'
+gem 'blazer', '~> 3.4'
 
 # Notifications
 gem 'exponent-server-sdk'
@@ -70,7 +70,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 4.2'
+  gem 'web-console', '~> 4.3'
   gem 'rubocop-rails', require: false
   gem 'rubocop-performance', require: false
   gem 'brakeman', require: false
