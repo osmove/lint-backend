@@ -25,9 +25,9 @@ module Users
         @user.avatar_url = omniauth.extra.raw_info.avatar_url if @user.avatar_url.blank?
 
         # Fetch repositories
-        repositories_json = URI.open(omniauth.extra.raw_info.repos_url,
-                                     'Accept' => 'application/vnd.github.v3+json',
-                                     'Authorization' => "token #{omniauth.credentials.token}").read
+        repositories_json = Faraday.get(omniauth.extra.raw_info.repos_url, {},
+                                        'Accept' => 'application/vnd.github.v3+json',
+                                        'Authorization' => "token #{omniauth.credentials.token}").body
 
         repositories = JSON.parse(repositories_json)
         if repositories.any?
@@ -120,9 +120,9 @@ module Users
           end
 
           # Fetch organizations
-          organizations_json = URI.open(omniauth.extra.raw_info.organizations_url,
-                                        'Accept' => 'application/vnd.github.inertia-preview+json',
-                                        'Authorization' => "token #{omniauth.credentials.token}").read
+          organizations_json = Faraday.get(omniauth.extra.raw_info.organizations_url, {},
+                                           'Accept' => 'application/vnd.github.inertia-preview+json',
+                                           'Authorization' => "token #{omniauth.credentials.token}").body
 
           organizations = JSON.parse(organizations_json)
 
@@ -140,7 +140,7 @@ module Users
 
               # fetch organization repositories
 
-              repositories_json = URI.open(org['repos_url']).read
+              repositories_json = Faraday.get(org['repos_url']).body
 
               repositories = JSON.parse(repositories_json)
 
@@ -230,9 +230,9 @@ module Users
 
               if @organization.save!
 
-                members_json = URI.open(org['members_url'].slice(/.*members/),
-                                        'Accept' => 'application/vnd.github.v3+json',
-                                        'Authorization' => "token #{@user.oauth_token}").read
+                members_json = Faraday.get(org['members_url'].slice(/.*members/), {},
+                                           'Accept' => 'application/vnd.github.v3+json',
+                                           'Authorization' => "token #{@user.oauth_token}").body
 
                 members = JSON.parse(members_json)
                 if members.any?
@@ -255,9 +255,9 @@ module Users
                   end
                 end
 
-                teams_json = URI.open("https://api.github.com/orgs/#{@organization.username}/teams",
-                                      'Accept' => 'application/vnd.github.v3+json',
-                                      'Authorization' => "token #{@user.oauth_token}").read
+                teams_json = Faraday.get("https://api.github.com/orgs/#{@organization.username}/teams", {},
+                                         'Accept' => 'application/vnd.github.v3+json',
+                                         'Authorization' => "token #{@user.oauth_token}").body
 
                 unless teams_json.nil?
                   teams = JSON.parse(teams_json)
@@ -271,9 +271,9 @@ module Users
                     )
                     # puts(@team)
                     if @team.save!
-                      members_json = URI.open(team['members_url'].slice(/.*members/),
-                                              'Accept' => 'application/vnd.github.v3+json',
-                                              'Authorization' => "token #{@user.oauth_token}").read
+                      members_json = Faraday.get(team['members_url'].slice(/.*members/), {},
+                                                 'Accept' => 'application/vnd.github.v3+json',
+                                                 'Authorization' => "token #{@user.oauth_token}").body
 
                       members = JSON.parse(members_json)
                       if members.any?

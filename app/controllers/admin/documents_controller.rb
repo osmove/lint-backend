@@ -144,9 +144,9 @@ module Admin
       if @repository.git_host == 'github'
         @url = "https://api.github.com/repos/#{@repository.uuid}/contents/"
         Rails.logger.debug(@url)
-        files_json = URI.open(@url,
-                              'Accept' => 'application/vnd.github.v3+json',
-                              'Authorization' => "token #{current_user.oauth_token}").read
+        files_json = Faraday.get(@url, {},
+                                 'Accept' => 'application/vnd.github.v3+json',
+                                 'Authorization' => "token #{current_user.oauth_token}").body
 
         unless files_json.nil?
           files = JSON.parse(files_json)
@@ -198,9 +198,9 @@ module Admin
       @document = Document.find(params[:id])
 
       if @document.is_folder?
-        file_content_json = URI.open("https://api.github.com/repos/#{@repository.uuid}/contents/#{@document.path}",
-                                     'Accept' => 'application/vnd.github.v3+json',
-                                     'Authorization' => "token #{@user.oauth_token}").read
+        file_content_json = Faraday.get("https://api.github.com/repos/#{@repository.uuid}/contents/#{@document.path}", {},
+                                        'Accept' => 'application/vnd.github.v3+json',
+                                        'Authorization' => "token #{@user.oauth_token}").body
         files_content = JSON.parse(file_content_json)
 
         Rails.logger.debug(file_content_json)

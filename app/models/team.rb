@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :parent, class_name: 'Team', foreign_key: 'team_id', optional: true
-  has_many :children, class_name: 'Team'
+  has_many :children, class_name: 'Team', dependent: :nullify
   belongs_to :user
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships

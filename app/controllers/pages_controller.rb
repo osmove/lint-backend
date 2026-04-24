@@ -84,10 +84,6 @@ class PagesController < ApplicationController
     @privacy ||= User.new
   end
 
-  def security
-    @security ||= User.new
-  end
-
   def about
     @about ||= User.new
   end

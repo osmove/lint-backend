@@ -39,12 +39,5 @@ class HooksController < ApplicationController
       end
 
     end
-
-    respond_to do |format|
-      format.html { "Error. #{@nb_messages} sent." }
-      format.json do
-        render json: { message: "Error. #{@nb_messages} message(s) sent." }, status: :unprocessable_content
-      end
-    end
   end
 end

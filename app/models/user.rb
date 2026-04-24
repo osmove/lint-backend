@@ -30,16 +30,16 @@ class User < ApplicationRecord
   # has_many :memberships
   # has_many :memberships
 
-  has_many :memberships_as_organization, foreign_key: :organization_id, class_name: 'Membership'
+  has_many :memberships_as_organization, foreign_key: :organization_id, class_name: 'Membership', dependent: :destroy
   # has_many :memberships_as_user, foreign_key: :user_id, class_name: 'Membership'
-  has_many :memberships, class_name: 'Membership'
+  has_many :memberships, class_name: 'Membership', dependent: :destroy
 
   has_many :members, through: :memberships_as_organization, source: :user
 
   has_many :organizations, through: :memberships
 
   # has_many :teams
-  has_many :teams_created, class_name: 'Team'
+  has_many :teams_created, class_name: 'Team', dependent: :destroy
 
   has_many :teams, through: :memberships
 

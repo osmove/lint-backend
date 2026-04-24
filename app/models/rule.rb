@@ -5,7 +5,7 @@ class Rule < ApplicationRecord
 
   belongs_to :linter, optional: true
 
-  has_many :policy_rules, inverse_of: :rule
+  has_many :policy_rules, inverse_of: :rule, dependent: :destroy
   has_many :policies, through: :policy_rules
 
   has_many :rule_options, dependent: :destroy
@@ -18,7 +18,7 @@ class Rule < ApplicationRecord
 
   accepts_nested_attributes_for :rule_option_options
 
-  has_many :children, class_name: 'Rule', foreign_key: 'parent_id'
+  has_many :children, class_name: 'Rule', foreign_key: 'parent_id', dependent: :nullify
   belongs_to :parent, class_name: 'Rule', optional: true
 
   self.inheritance_column = :_type_disabled
