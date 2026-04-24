@@ -200,14 +200,10 @@ class User < ApplicationRecord
   # end
 
   def name
-    @name = ""
-    if self.first_name.present?
-      @name << self.first_name
-    end
-    if self.last_name.present?
-      @name << " #{self.last_name}"
-    end
-    @name
+    parts = []
+    parts << self.first_name if self.first_name.present?
+    parts << self.last_name if self.last_name.present?
+    @name = parts.join(" ")
   end
 
   def name_or_username

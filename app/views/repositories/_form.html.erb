@@ -27,9 +27,9 @@
   <div class="mb-3">
     <div class="pt-3">
       <% if @repository.id.present? %>
-        <%= form.text_field :name, id: :repository_name, label: { text: "Name" }, help: "The name of your repository.", prepend: "#{@repository.user.slug}/", input_group_class: "input-group-lg mb-0", id: "name_field", placeholder: "My Great Repo", autofocus: true, disabled: true %>
+        <%= form.text_field :name, id: "name_field", label: { text: "Name" }, help: "The name of your repository.", prepend: "#{@repository.user.slug}/", input_group_class: "input-group-lg mb-0", placeholder: "My Great Repo", autofocus: true, disabled: true %>
       <% else %>
-        <%= form.text_field :name, id: :repository_name, label: { text: "Name" }, help: "The name of your repository.", prepend: "#{current_user.slug}/", input_group_class: "input-group-lg mb-0", id: "name_field", placeholder: "my-great-repo", autofocus: true %>
+        <%= form.text_field :name, id: "name_field", label: { text: "Name" }, help: "The name of your repository.", prepend: "#{current_user.slug}/", input_group_class: "input-group-lg mb-0", placeholder: "my-great-repo", autofocus: true %>
       <% end %>
     </div>
   </div>
