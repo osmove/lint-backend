@@ -6,7 +6,7 @@ class CommitAttempt < ApplicationRecord
   belongs_to :push, optional: true
   belongs_to :device, optional: true
   belongs_to :repository, optional: true
-  has_many :policy_checks
+  has_many :policy_checks, dependent: :destroy
 
   def to_s
     name

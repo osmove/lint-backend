@@ -1,5 +1,5 @@
 class HostingPlan < ApplicationRecord
-  has_many :repositories
+  has_many :repositories, dependent: :nullify
 
   validates :memory, presence: true
   validates :storage, presence: true

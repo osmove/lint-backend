@@ -4,7 +4,7 @@ class Policy < ApplicationRecord
 
   has_many :rules, through: :policy_rules
 
-  has_many :repositories
+  has_many :repositories, dependent: :nullify
   belongs_to :user, optional: true
 
   validates :name, presence: true

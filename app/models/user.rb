@@ -22,9 +22,9 @@ class User < ApplicationRecord
 
   has_many :repositories, dependent: :destroy
   # has_many :repositories
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
-  has_many :repository_accesses
+  has_many :repository_accesses, dependent: :destroy
   has_many :repositories_with_access, through: :repository_accesses, source: :repository
 
   # has_many :memberships
@@ -43,16 +43,15 @@ class User < ApplicationRecord
 
   has_many :teams, through: :memberships
 
-  has_many :commit_attempts
-  has_many :policies
+  has_many :commit_attempts, dependent: :destroy
+  has_many :policies, dependent: :destroy
 
-  has_many :policy_checks
-  has_many :rules_checks
+  has_many :policy_checks, dependent: :destroy
 
-  has_many :commands
-  has_many :buildpacks
-  has_many :commits
-  has_many :devices
+  has_many :commands, dependent: :destroy
+  has_many :buildpacks, dependent: :destroy
+  has_many :commits, dependent: :destroy
+  has_many :devices, dependent: :destroy
 
   belongs_to :plan, optional: true
 

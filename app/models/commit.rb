@@ -4,7 +4,7 @@ class Commit < ApplicationRecord
   belongs_to :contributor, optional: true
   belongs_to :push, optional: true
   # has_many :changes, :dependent => :destroy
-  has_many :commit_attempts
+  has_many :commit_attempts, dependent: :destroy
 
   # Update Encryption From Repository
   before_create :update_encryption_from_repository

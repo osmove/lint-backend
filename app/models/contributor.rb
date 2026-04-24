@@ -1,10 +1,9 @@
 class Contributor < ApplicationRecord
   belongs_to :repository
   belongs_to :user, optional: true
-  has_many :commits
-  has_many :commit_attempts
-  has_many :policy_checks
-  has_many :rules_checks
+  has_many :commits, dependent: :destroy
+  has_many :commit_attempts, dependent: :destroy
+  has_many :policy_checks, dependent: :destroy
 
   def name_or_username
     @name_or_username = name

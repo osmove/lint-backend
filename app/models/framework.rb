@@ -4,5 +4,5 @@ class Framework < ApplicationRecord
   end
 
   belongs_to :language, optional: true
-  has_many :platforms
+  has_many :platforms, dependent: :destroy
 end

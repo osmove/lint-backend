@@ -29,10 +29,8 @@ class Repository < ApplicationRecord
   has_many :repository_accesses, dependent: :destroy
   has_many :commit_attempts, dependent: :destroy
 
-  has_many :policy_checks
-  has_many :rules_checks
+  has_many :policy_checks, dependent: :destroy
 
-  has_many :users
   # has_many :users_with_access, :through => :repository_accesses
   has_many :users_with_access, through: :repository_accesses, source: :user
   # has_many :repositories, :through => :repository_accesses
