@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.3.6'
 
 # Core
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.1'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', '~> 1.5'
 gem 'puma', '~> 6.4'
