@@ -451,12 +451,13 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sentry-rails (5.28.1)
-      railties (>= 5.0)
-      sentry-ruby (~> 5.28.1)
-    sentry-ruby (5.28.1)
+    sentry-rails (6.5.0)
+      railties (>= 5.2.0)
+      sentry-ruby (~> 6.5.0)
+    sentry-ruby (6.5.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      logger
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
@@ -559,8 +560,8 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   selenium-webdriver (~> 4.16)
-  sentry-rails (~> 5.17)
-  sentry-ruby (~> 5.17)
+  sentry-rails (~> 6.5)
+  sentry-ruby (~> 6.5)
   sprockets-rails
   stimulus-rails
   stripe (~> 12.0)
@@ -745,8 +746,8 @@ CHECKSUMS
   sassc (2.4.0) sha256=4c60a2b0a3b36685c83b80d5789401c2f678c1652e3288315a1551d811d9f83e
   securerandom (0.4.1) sha256=cc5193d414a4341b6e225f0cb4446aceca8e50d5e1888743fac16987638ea0b1
   selenium-webdriver (4.43.0) sha256=a634377b964b701c6ac0a009ce3a08fa34ec1e1e7fe9a6d57e3088d14529a65c
-  sentry-rails (5.28.1) sha256=43a5f884622c60fa459ba05dc8bd22fbd5f28daaced1d00dbcfc4669eaf93807
-  sentry-ruby (5.28.1) sha256=1162d474271e8b82202c984b1116db234007a084c5b73293e921468898d07e99
+  sentry-rails (6.5.0) sha256=ebf9d4d82c740c3e0e4a0840f11f7bbd0cf648a30afd9c67e5b50bb07018a0e4
+  sentry-ruby (6.5.0) sha256=3c57ae0d6a017aafcd9ac37114e38149a58534679dec5d4e9e8fc010b85f3a6b
   snaky_hash (2.0.3) sha256=25a3d299566e8153fb02fa23fd9a9358845950f7a523ddbbe1fa1e0d79a6d456
   sprockets (4.2.2) sha256=761e5a49f1c288704763f73139763564c845a8f856d52fba013458f8af1b59b1
   sprockets-rails (3.5.2) sha256=a9e88e6ce9f8c912d349aa5401509165ec42326baf9e942a85de4b76dbc4119e
