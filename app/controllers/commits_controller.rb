@@ -19,11 +19,11 @@ class CommitsController < ApplicationController
   def index
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
-    puts ''
-    puts repository_slug
-    puts user_slug
+    Rails.logger.info ''
+    Rails.logger.info repository_slug
+    Rails.logger.info user_slug
 
-    puts ''
+    Rails.logger.info ''
 
     if repository_slug.present? && user_slug.present?
       @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
@@ -105,11 +105,11 @@ class CommitsController < ApplicationController
 
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
-    puts ''
-    puts repository_slug
-    puts user_slug
+    Rails.logger.info ''
+    Rails.logger.info repository_slug
+    Rails.logger.info user_slug
 
-    puts ''
+    Rails.logger.info ''
 
     if repository_slug.present? && user_slug.present?
       @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil

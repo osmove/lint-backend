@@ -36,52 +36,52 @@ class ChargesController < ProtectedController
 
 
     # if @customer.present? && @customer.id.present? && @subscription.present? && @subscription.id.present?
-    puts "$$$ Stripe: Create charge 1"
+    Rails.logger.info "$$$ Stripe: Create charge 1"
     if params[:stripeEmail].present?
-      puts "$$$ Stripe: Create charge 2"
+      Rails.logger.info "$$$ Stripe: Create charge 2"
 
       # Find user by Stripe Customer Id
       @user = User.where(email: params[:stripeEmail]).first rescue nil
       if(@user.present?)
         @message = "User found: #{@user.username}"
-        puts @message
+        Rails.logger.info @message
         if @user.stripe_customer_id.present?
           @customer = Stripe::Customer.retrieve(@user.stripe_customer_id) rescue nil
           if @customer.blank?
-            puts "$$$ Stripe: Create charge 3"
+            Rails.logger.info "$$$ Stripe: Create charge 3"
             @customer = Stripe::Customer.create(
               :email => params[:stripeEmail],
               :source  => params[:stripeToken]
             )
             if @customer.id.present?
-              puts "$$$ Stripe: Create charge 3"
-              puts @customer.id
+              Rails.logger.info "$$$ Stripe: Create charge 3"
+              Rails.logger.info @customer.id
               @user.stripe_customer_id = @customer.id
               @user.save
             end
           end
         else
-          puts "$$$ Stripe: Create charge 4"
+          Rails.logger.info "$$$ Stripe: Create charge 4"
           @customer = Stripe::Customer.create(
             :email => params[:stripeEmail],
             :source  => params[:stripeToken]
           )
-          puts "$$$ Stripe: Create charge 5"
+          Rails.logger.info "$$$ Stripe: Create charge 5"
           if @customer.id.present?
-            puts "$$$ Stripe: Create charge 6"
-            puts @customer.id
+            Rails.logger.info "$$$ Stripe: Create charge 6"
+            Rails.logger.info @customer.id
             @user.stripe_customer_id = @customer.id
             @user.save
           end
         end
       else
-        puts "$$$ Stripe: Create charge 7"
+        Rails.logger.info "$$$ Stripe: Create charge 7"
         @message = "Error: Impossible to create Stripe Customer"
       end
 
-      puts "$$$ Stripe: Create charge 8"
+      Rails.logger.info "$$$ Stripe: Create charge 8"
       if(@user.present?)
-        puts "$$$ Stripe: Create charge 9"
+        Rails.logger.info "$$$ Stripe: Create charge 9"
         @current_plan = @user.plan
         @subscription = Stripe::Subscription.create(
           customer: @customer.id,
@@ -92,10 +92,10 @@ class ChargesController < ProtectedController
             }
           ]
         )
-        puts "$$$ Stripe: Create charge 10"
+        Rails.logger.info "$$$ Stripe: Create charge 10"
 
         if(@subscription.present?)
-          puts "$$$ Stripe: Create charge 11"
+          Rails.logger.info "$$$ Stripe: Create charge 11"
           # TODO: Cancel current subsription
           # @new_plan_nickname = @subscription.plan.nickname.downcase rescue nil
           @stripe_product_id = @subscription.plan.product
@@ -103,12 +103,12 @@ class ChargesController < ProtectedController
             @new_plan = Plan.where(stripe_product_id: @stripe_product_id).first rescue nil
             if @new_plan.present?
               # @message = "Plan successfully updated from: #{@current_plan} to #{@new_plan}"
-              puts "$$$ Stripe: Create charge 12"
+              Rails.logger.info "$$$ Stripe: Create charge 12"
               if @current_plan.id == @new_plan.id
-                puts "$$$ Stripe: Create charge 13"
+                Rails.logger.info "$$$ Stripe: Create charge 13"
                 redirect_to(plans_path, notice: "Plan was already: #{@new_plan.name}")
               else
-                puts "$$$ Stripe: Create charge 14"
+                Rails.logger.info "$$$ Stripe: Create charge 14"
                 @user.stripe_subscription_id = @subscription.id
                 @user.plan = @new_plan
                 @user.number_of_seats = params['number_of_seats']
@@ -117,7 +117,7 @@ class ChargesController < ProtectedController
                             notice: "Plan successfully updated from: #{@current_plan.name} to #{@new_plan.name} (#{params['number_of_seats']} seats)")
               end
             else
-              puts "$$$ Stripe: Create charge 15"
+              Rails.logger.info "$$$ Stripe: Create charge 15"
               redirect_to(plans_path, error: "Error: No Plan Found")
               # @message = "Error: No Plan Found"
             end

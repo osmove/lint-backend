@@ -27,8 +27,8 @@ class Admin::PolicyChecksController < Admin::BaseController
   # POST /policy_checks.json
   def create
 
-    puts 'policy_check_params'
-    puts policy_check_params
+    Rails.logger.info 'policy_check_params'
+    Rails.logger.info policy_check_params
 
     @policy_check = PolicyCheck.new(policy_check_params)
 
