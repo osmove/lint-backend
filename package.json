@@ -35,6 +35,9 @@
   "bugs": {
     "url": "https://github.com/osmove/lint-backend/issues"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Jimmy Douieb",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  }
 }
