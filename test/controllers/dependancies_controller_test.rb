@@ -17,7 +17,9 @@ class DependanciesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create dependancy" do
     assert_difference('Dependancy.count') do
-      post dependancies_url, params: { dependancy: { name: @dependancy.name, repository_id: @dependancy.repository_id, slug: @dependancy.slug, user_id: @dependancy.user_id } }
+      post dependancies_url, 
+           params: { dependancy: { name: @dependancy.name, repository_id: @dependancy.repository_id, slug: @dependancy.slug, 
+                                   user_id: @dependancy.user_id } }
     end
 
     assert_redirected_to dependancy_url(Dependancy.last)
@@ -34,7 +36,9 @@ class DependanciesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update dependancy" do
-    patch dependancy_url(@dependancy), params: { dependancy: { name: @dependancy.name, repository_id: @dependancy.repository_id, slug: @dependancy.slug, user_id: @dependancy.user_id } }
+    patch dependancy_url(@dependancy), 
+          params: { dependancy: { name: @dependancy.name, repository_id: @dependancy.repository_id, slug: @dependancy.slug, 
+                                  user_id: @dependancy.user_id } }
     assert_redirected_to dependancy_url(@dependancy)
   end
 

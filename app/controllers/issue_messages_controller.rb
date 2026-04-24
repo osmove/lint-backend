@@ -64,7 +64,7 @@ class IssueMessagesController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue_message
       @issue_message = IssueMessage.find(params[:id])

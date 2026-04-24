@@ -17,7 +17,9 @@ class EncryptionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create encryption" do
     assert_difference('Encryption.count') do
-      post encryptions_url, params: { encryption: { cypher_name: @encryption.cypher_name, document_id: @encryption.document_id, repository_id: @encryption.repository_id, status: @encryption.status, user_id: @encryption.user_id } }
+      post encryptions_url, 
+           params: { encryption: { cypher_name: @encryption.cypher_name, document_id: @encryption.document_id, 
+                                   repository_id: @encryption.repository_id, status: @encryption.status, user_id: @encryption.user_id } }
     end
 
     assert_redirected_to encryption_url(Encryption.last)
@@ -34,7 +36,9 @@ class EncryptionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update encryption" do
-    patch encryption_url(@encryption), params: { encryption: { cypher_name: @encryption.cypher_name, document_id: @encryption.document_id, repository_id: @encryption.repository_id, status: @encryption.status, user_id: @encryption.user_id } }
+    patch encryption_url(@encryption), 
+          params: { encryption: { cypher_name: @encryption.cypher_name, document_id: @encryption.document_id, 
+                                  repository_id: @encryption.repository_id, status: @encryption.status, user_id: @encryption.user_id } }
     assert_redirected_to encryption_url(@encryption)
   end
 

@@ -48,7 +48,10 @@ def create
   respond_to do |format|
     if @membership.save
 
-      format.html { redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), notice: 'Membership was successfully created.' }
+      format.html do
+ redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), 
+             notice: 'Membership was successfully created.'
+      end
       format.json { render :show, status: :created, location: @membership }
     else
       format.html { render :new }

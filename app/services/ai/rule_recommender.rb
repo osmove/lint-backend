@@ -32,7 +32,7 @@ module Ai
       parse_recommendations(response)
     end
 
-    private
+  private
 
     def detect_languages(repository)
       languages = []

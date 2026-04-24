@@ -17,7 +17,9 @@ class PolicyRulesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create policy_rule" do
     assert_difference('PolicyRule.count') do
-      post policy_rules_url, params: { policy_rule: { policy_id: @policy_rule.policy_id, position: @policy_rule.position, rule_id: @policy_rule.rule_id } }
+      post policy_rules_url, 
+           params: { policy_rule: { policy_id: @policy_rule.policy_id, position: @policy_rule.position, 
+                                    rule_id: @policy_rule.rule_id } }
     end
 
     assert_redirected_to policy_rule_url(PolicyRule.last)
@@ -34,7 +36,9 @@ class PolicyRulesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update policy_rule" do
-    patch policy_rule_url(@policy_rule), params: { policy_rule: { policy_id: @policy_rule.policy_id, position: @policy_rule.position, rule_id: @policy_rule.rule_id } }
+    patch policy_rule_url(@policy_rule), 
+          params: { policy_rule: { policy_id: @policy_rule.policy_id, position: @policy_rule.position, 
+                                   rule_id: @policy_rule.rule_id } }
     assert_redirected_to policy_rule_url(@policy_rule)
   end
 

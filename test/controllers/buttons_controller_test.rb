@@ -17,7 +17,9 @@ class ButtonsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create button" do
     assert_difference('Button.count') do
-      post buttons_url, params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, user_id: @button.user_id } }
+      post buttons_url, 
+           params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, 
+                               user_id: @button.user_id } }
     end
 
     assert_redirected_to button_url(Button.last)
@@ -34,7 +36,9 @@ class ButtonsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update button" do
-    patch button_url(@button), params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, user_id: @button.user_id } }
+    patch button_url(@button), 
+          params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, 
+                              user_id: @button.user_id } }
     assert_redirected_to button_url(@button)
   end
 

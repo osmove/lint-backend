@@ -1,5 +1,6 @@
 
-json.extract! user, :id, :created_at, :updated_at, :username, :login, :slug, :first_name, :last_name, :email, :country, :is_organization, :language, :role
+json.extract! user, :id, :created_at, :updated_at, :username, :login, :slug, :first_name, :last_name, :email, :country, 
+              :is_organization, :language, :role
 json.url user_url(user, format: :json)
 # 
 # json.repositories user.repositories do |repo|

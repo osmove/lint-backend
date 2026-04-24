@@ -32,7 +32,9 @@ class Admin::ContributorsController < Admin::BaseController
 
     respond_to do |format|
       if @contributor.save
-        format.html { redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully created.' }
+        format.html do
+ redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully created.'
+        end
         format.json { render :show, status: :created, location: admin_contributor_path(@contributor) }
       else
         format.html { render :new }
@@ -46,7 +48,9 @@ class Admin::ContributorsController < Admin::BaseController
   def update
     respond_to do |format|
       if @contributor.update(contributor_params)
-        format.html { redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully updated.' }
+        format.html do
+ redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: admin_contributor_path(@contributor) }
       else
         format.html { render :edit }
@@ -65,7 +69,7 @@ class Admin::ContributorsController < Admin::BaseController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_contributor
       @contributor = Contributor.find(params[:id])

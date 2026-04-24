@@ -17,7 +17,9 @@ class ChangesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create change" do
     assert_difference('Change.count') do
-      post changes_url, params: { change: { commit_id: @change.commit_id, document_id: @change.document_id, operation: @change.operation } }
+      post changes_url, 
+           params: { change: { commit_id: @change.commit_id, document_id: @change.document_id, 
+                               operation: @change.operation } }
     end
 
     assert_redirected_to change_url(Change.last)
@@ -34,7 +36,9 @@ class ChangesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update change" do
-    patch change_url(@change), params: { change: { commit_id: @change.commit_id, document_id: @change.document_id, operation: @change.operation } }
+    patch change_url(@change), 
+          params: { change: { commit_id: @change.commit_id, document_id: @change.document_id, 
+                              operation: @change.operation } }
     assert_redirected_to change_url(@change)
   end
 

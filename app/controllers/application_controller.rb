@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_repository
 
-  protected
+protected
 
     def configure_permitted_parameters
       added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     # end
   # end
 
-  private
+private
 
     def json_request?
       request.format.json?

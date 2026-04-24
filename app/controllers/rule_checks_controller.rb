@@ -61,7 +61,7 @@ class RuleChecksController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_rule_check
       @rule_check = RuleCheck.find(params[:id])
@@ -69,6 +69,7 @@ class RuleChecksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rule_check_params
-      params.require(:rule_check).permit(:name, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, :user_id, :contributor_id, :push_id, :device_id)
+      params.require(:rule_check).permit(:name, :passed, :language_id, :rule_id, :policy_check_id, :repository_id, 
+                                         :user_id, :contributor_id, :push_id, :device_id)
     end
 end

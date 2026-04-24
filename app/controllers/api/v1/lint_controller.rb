@@ -25,7 +25,7 @@ module Api
         }, status: :created
       end
 
-      private
+    private
 
       def commit_attempt_params
         params.require(:commit_attempt).permit(

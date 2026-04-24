@@ -168,7 +168,9 @@ class Admin::CommitsController < Admin::BaseController
 
    respond_to do |format|
      if @commit.save
-       format.html { redirect_to admin_repository_path(@repository, @commit), notice: 'Commit was successfully created.' }
+       format.html do
+ redirect_to admin_repository_path(@repository, @commit), notice: 'Commit was successfully created.'
+       end
        format.json { render :show, status: :created, location: admin_repository_path(@repository, @commit) }
      else
        format.html { render :new }
@@ -195,7 +197,9 @@ class Admin::CommitsController < Admin::BaseController
 
     respond_to do |format|
       if @commit.update(commit_params)
-        format.html { redirect_to user_repository_commit_path(@user, @repository, @commit), notice: 'Commit was successfully updated.' }
+        format.html do
+ redirect_to user_repository_commit_path(@user, @repository, @commit), notice: 'Commit was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: user_repository_commit_path(@user, @repository, @commit) }
       else
         format.html { render :edit }
@@ -226,7 +230,7 @@ class Admin::CommitsController < Admin::BaseController
    end
   end
 
-  private
+ private
     # Use callbacks to share common setup or constraints between actions.
     def set_commit
      @commit = Commit.find(params[:id])

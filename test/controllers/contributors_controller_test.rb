@@ -17,7 +17,9 @@ class ContributorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create contributor" do
     assert_difference('Contributor.count') do
-      post contributors_url, params: { contributor: { email: "new-contributor@example.com", name: "New Contributor", repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
+      post contributors_url, 
+           params: { contributor: { email: "new-contributor@example.com", name: "New Contributor", 
+                                    repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
     end
 
     assert_redirected_to contributor_url(Contributor.last)
@@ -34,7 +36,9 @@ class ContributorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update contributor" do
-    patch contributor_url(@contributor), params: { contributor: { email: @contributor.email, name: @contributor.name, repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
+    patch contributor_url(@contributor), 
+          params: { contributor: { email: @contributor.email, name: @contributor.name, repository_id: @contributor.repository_id, 
+                                   user_id: @contributor.user_id } }
     assert_redirected_to contributor_url(@contributor)
   end
 

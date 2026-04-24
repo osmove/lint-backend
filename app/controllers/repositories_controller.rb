@@ -36,7 +36,8 @@ class RepositoriesController < ProtectedController
       if params[:user_id].present? && params[:user_id] != ''
         @repositories = Repository.all.where(user: @owner).where("lower(git_address) LIKE ?", "%#{@query.downcase}%")
       else
-        @repositories = Repository.all.public.where(user: @owner).where("lower(git_address) LIKE ?", "%#{@query.downcase}%")
+        @repositories = Repository.all.public.where(user: @owner).where("lower(git_address) LIKE ?", 
+"%#{@query.downcase}%")
       end
     else
       if params[:user_id].present?
@@ -107,7 +108,8 @@ class RepositoriesController < ProtectedController
     # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
 
     if @repository.present?
-      @repository = Repository.includes( policy: { policy_rules: [:linter, :policy_rule_options] }).where(uuid: @repository.uuid).first rescue nil
+      @repository = Repository.includes( policy: { policy_rules: [:linter, 
+                                                                  :policy_rule_options] }).where(uuid: @repository.uuid).first rescue nil
     end
 
     @policy = @repository.policy
@@ -364,11 +366,15 @@ class RepositoriesController < ProtectedController
           @repository.git_address = self.git_url
         end
         if @repository.save
-          format.html { redirect_to user_repository_path(@repository.user, @repository), notice: 'Repository was successfully created.' }
+          format.html do
+ redirect_to user_repository_path(@repository.user, @repository), notice: 'Repository was successfully created.'
+          end
           format.json { render :show, status: :created, location: user_repository_path(@repository.user, @repository) }
         else
           format.html { render :new }
-          format.json { render json: user_repository_path(@repository.user, @repository), status: :unprocessable_entity }
+          format.json do
+ render json: user_repository_path(@repository.user, @repository), status: :unprocessable_entity
+          end
         end
       end
     end
@@ -386,7 +392,9 @@ class RepositoriesController < ProtectedController
         format.json { render :show, status: :ok, location: request.referrer}
       else
         format.html { render :edit }
-        format.json { render json: user_repositories_path(@repository.user, @repository).errors, status: :unprocessable_entity }
+        format.json do
+ render json: user_repositories_path(@repository.user, @repository).errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -407,7 +415,7 @@ class RepositoriesController < ProtectedController
   end
 
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_repository
       repository_slug = params[:repository_id] || params[:id]

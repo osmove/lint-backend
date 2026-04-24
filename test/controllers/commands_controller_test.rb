@@ -17,7 +17,9 @@ class CommandsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create command" do
     assert_difference('Command.count') do
-      post commands_url, params: { command: { command: @command.command, path: @command.path, port: @command.port, repository_id: @command.repository_id, user_id: @command.user_id } }
+      post commands_url, 
+           params: { command: { command: @command.command, path: @command.path, port: @command.port, 
+                                repository_id: @command.repository_id, user_id: @command.user_id } }
     end
 
     assert_redirected_to command_url(Command.last)
@@ -34,7 +36,9 @@ class CommandsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update command" do
-    patch command_url(@command), params: { command: { command: @command.command, path: @command.path, port: @command.port, repository_id: @command.repository_id, user_id: @command.user_id } }
+    patch command_url(@command), 
+          params: { command: { command: @command.command, path: @command.path, port: @command.port, 
+                               repository_id: @command.repository_id, user_id: @command.user_id } }
     assert_redirected_to command_url(@command)
   end
 

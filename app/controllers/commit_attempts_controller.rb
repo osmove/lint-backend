@@ -64,7 +64,9 @@ class CommitAttemptsController < ProtectedController
     if @commit_attempt.policy_checks.first.present?
       @policy_check = @commit_attempt.policy_checks.first
       rule_checks_attributes = @policy_check.report&.[]("rule_checks_attributes") || []
-      @report = rule_checks_attributes.sort_by { |h| [h["security_level"] ? h["security_level"] : 0] }.group_by { |h| [h['file_path']] }
+      @report = rule_checks_attributes.sort_by do |h|
+ [h["security_level"] ? h["security_level"] : 0]
+      end.group_by { |h| [h['file_path']] }
 
       # @report_sorted = @report_grouped
     else
@@ -119,7 +121,9 @@ class CommitAttemptsController < ProtectedController
         # @commit_attempt.joins( repository: { policy: { policy_rules: [:rule, { policy_rule_options: [:rule_option, :rule_option_options ] }] } })
         if @commit_attempt.present? && @commit_attempt.repository.present? && @commit_attempt.repository.policy.present?
           # @policy = @commit_attempt.repository.policy
-          @policy = Policy.includes( policy_rules: [:linter, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(@commit_attempt.repository.policy.id)
+          @policy = Policy.includes( policy_rules: [:linter, 
+                                                    { policy_rule_options: [:rule_option, 
+                                                                            :rule_option_options ] }]).find(@commit_attempt.repository.policy.id)
         end
         format.html { redirect_to @commit_attempt, notice: 'Commit attempt was successfully created.' }
         format.json { render :show, status: :created, location: @commit_attempt }
@@ -154,7 +158,7 @@ class CommitAttemptsController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_commit_attempt
       @commit_attempt = CommitAttempt.find(params[:id])
@@ -168,6 +172,7 @@ class CommitAttemptsController < ProtectedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def commit_attempt_params
-      params.require(:commit_attempt).permit(:message, :sha, :branch_name, :description, :commit_id, :user_id, :contributor_id, :push_id, :device_id, :repository_id)
+      params.require(:commit_attempt).permit(:message, :sha, :branch_name, :description, :commit_id, :user_id, 
+                                             :contributor_id, :push_id, :device_id, :repository_id)
     end
 end

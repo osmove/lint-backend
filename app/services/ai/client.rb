@@ -31,7 +31,7 @@ module Ai
       end
     end
 
-    private
+  private
 
     def connection
       @connection ||= Faraday.new(url: API_URL) do |f|

@@ -13,11 +13,11 @@ class PostmarkControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference("Message.count", 1) do
       post postmark_inbound_url,
-        params: payload.to_json,
-        headers: {
-          "CONTENT_TYPE" => "application/json",
-          "ACCEPT" => "application/json"
-        }
+           params: payload.to_json,
+           headers: {
+             "CONTENT_TYPE" => "application/json",
+             "ACCEPT" => "application/json"
+           }
     end
 
     assert_response :created

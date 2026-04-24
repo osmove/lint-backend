@@ -28,7 +28,7 @@ module Ai
       parse_policy(response)
     end
 
-    private
+  private
 
     def parse_policy(response)
       JSON.parse(response).with_indifferent_access

@@ -17,7 +17,9 @@ class DecryptionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create decryption" do
     assert_difference('Decryption.count') do
-      post decryptions_url, params: { decryption: { cypher_name: @decryption.cypher_name, document_id: @decryption.document_id, repository_id: @decryption.repository_id, status: @decryption.status, user_id: @decryption.user_id } }
+      post decryptions_url, 
+           params: { decryption: { cypher_name: @decryption.cypher_name, document_id: @decryption.document_id, 
+                                   repository_id: @decryption.repository_id, status: @decryption.status, user_id: @decryption.user_id } }
     end
 
     assert_redirected_to decryption_url(Decryption.last)
@@ -34,7 +36,9 @@ class DecryptionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update decryption" do
-    patch decryption_url(@decryption), params: { decryption: { cypher_name: @decryption.cypher_name, document_id: @decryption.document_id, repository_id: @decryption.repository_id, status: @decryption.status, user_id: @decryption.user_id } }
+    patch decryption_url(@decryption), 
+          params: { decryption: { cypher_name: @decryption.cypher_name, document_id: @decryption.document_id, 
+                                  repository_id: @decryption.repository_id, status: @decryption.status, user_id: @decryption.user_id } }
     assert_redirected_to decryption_url(@decryption)
   end
 

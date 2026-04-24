@@ -34,7 +34,9 @@ class Admin::PolicyChecksController < Admin::BaseController
 
     respond_to do |format|
       if @policy_check.save
-        format.html { redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully created.' }
+        format.html do
+ redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully created.'
+        end
         format.json { render :show, status: :created, location: admin_policy_check_path(@policy_check) }
       else
         format.html { render :new }
@@ -48,7 +50,9 @@ class Admin::PolicyChecksController < Admin::BaseController
   def update
     respond_to do |format|
       if @policy_check.update(policy_check_params)
-        format.html { redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully updated.' }
+        format.html do
+ redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: admin_policy_check_path(@policy_check) }
       else
         format.html { render :edit }
@@ -62,12 +66,14 @@ class Admin::PolicyChecksController < Admin::BaseController
   def destroy
     @policy_check.destroy
     respond_to do |format|
-      format.html { redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully destroyed.' }
+      format.html do
+ redirect_to admin_policy_check_path(@policy_check), notice: 'Policy check was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_policy_check
       @policy_check = PolicyCheck.find(params[:id])

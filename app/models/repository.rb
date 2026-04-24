@@ -44,7 +44,9 @@ class Repository < ApplicationRecord
 
   validates :domain_slug, presence: true, if: -> { deploy_to == LINT_CLOUD_DEPLOY_TARGET }
   # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'lint_cloud' && domain_slug.present? }
-  validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == LINT_CLOUD_DEPLOY_TARGET && domain_slug.present? }
+  validates :domain_slug, uniqueness: { case_sensitive: false }, if: lambda {
+ deploy_to == LINT_CLOUD_DEPLOY_TARGET && domain_slug.present?
+  }
 
   # TODO: validates_uniqueness_of :repository_id, :scope => :user_id
 
@@ -238,7 +240,7 @@ class Repository < ApplicationRecord
     end
   end
 
-  private
+private
 
   def generate_uuid
     # uuid = "12345-00000-00000-#{10000 + self.id}"

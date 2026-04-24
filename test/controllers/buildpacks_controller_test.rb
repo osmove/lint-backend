@@ -17,7 +17,9 @@ class BuildpacksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create buildpack" do
     assert_difference('Buildpack.count') do
-      post buildpacks_url, params: { buildpack: { command_id: @buildpack.command_id, git_address: @buildpack.git_address, name: @buildpack.name, repository_id: @buildpack.repository_id, user_id: @buildpack.user_id, web_address: @buildpack.web_address } }
+      post buildpacks_url, 
+           params: { buildpack: { command_id: @buildpack.command_id, git_address: @buildpack.git_address, name: @buildpack.name, 
+                                  repository_id: @buildpack.repository_id, user_id: @buildpack.user_id, web_address: @buildpack.web_address } }
     end
 
     assert_redirected_to buildpack_url(Buildpack.last)
@@ -34,7 +36,9 @@ class BuildpacksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update buildpack" do
-    patch buildpack_url(@buildpack), params: { buildpack: { command_id: @buildpack.command_id, git_address: @buildpack.git_address, name: @buildpack.name, repository_id: @buildpack.repository_id, user_id: @buildpack.user_id, web_address: @buildpack.web_address } }
+    patch buildpack_url(@buildpack), 
+          params: { buildpack: { command_id: @buildpack.command_id, git_address: @buildpack.git_address, name: @buildpack.name, 
+                                 repository_id: @buildpack.repository_id, user_id: @buildpack.user_id, web_address: @buildpack.web_address } }
     assert_redirected_to buildpack_url(@buildpack)
   end
 

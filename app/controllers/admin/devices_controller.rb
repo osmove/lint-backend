@@ -55,7 +55,7 @@ class Admin::DevicesController < Admin::BaseController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_device
       @device = Device.find(params[:id])
@@ -63,6 +63,7 @@ class Admin::DevicesController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
+      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, 
+                                     :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
     end
 end

@@ -55,7 +55,8 @@ class RepositoryAccessesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy repository access" do
-    repository_access = RepositoryAccess.create!(repository: @repository, user: users(:two), role: "viewer", status: "active")
+    repository_access = RepositoryAccess.create!(repository: @repository, user: users(:two), role: "viewer", 
+                                                 status: "active")
 
     assert_difference("RepositoryAccess.count", -1) do
       delete user_repository_repository_access_url(@user, @repository, repository_access)

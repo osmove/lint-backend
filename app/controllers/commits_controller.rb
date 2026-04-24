@@ -147,6 +147,6 @@ class CommitsController < ApplicationController
 
   end
 
-  private
+private
 
 end

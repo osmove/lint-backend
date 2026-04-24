@@ -63,7 +63,7 @@ class Admin::PlatformsController < Admin::BaseController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_platform
       @platform = Platform.find(params[:id])
@@ -71,6 +71,7 @@ class Admin::PlatformsController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def platform_params
-      params.require(:platform).permit(:name, :slug, :image, :image_url, :language_id, :framework_id, :visible, :is_popular)
+      params.require(:platform).permit(:name, :slug, :image, :image_url, :language_id, :framework_id, :visible, 
+                                       :is_popular)
     end
 end

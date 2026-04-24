@@ -64,7 +64,7 @@ class DeploysController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_deploy
       @deploy = Deploy.find(params[:id])

@@ -53,7 +53,10 @@ class MembershipsController < ApplicationController
     respond_to do |format|
       if @membership.save
 
-        format.html { redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), notice: 'Membership was successfully created.' }
+        format.html do
+ redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), 
+             notice: 'Membership was successfully created.'
+        end
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -67,7 +70,10 @@ class MembershipsController < ApplicationController
   def update
     respond_to do |format|
       if @membership.update(membership_params)
-        format.html { redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), notice: 'Membership was successfully updated.' }
+        format.html do
+ redirect_to user_team_membership_path(@membership.user, @membership.team, @membership), 
+             notice: 'Membership was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @membership }
       else
         format.html { render :edit }
@@ -83,12 +89,14 @@ class MembershipsController < ApplicationController
     user = team.user
     @membership.destroy
     respond_to do |format|
-      format.html { redirect_to user_team_memberships_url(user, team), notice: 'Membership was successfully destroyed.' }
+      format.html do
+ redirect_to user_team_memberships_url(user, team), notice: 'Membership was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_membership
       @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
