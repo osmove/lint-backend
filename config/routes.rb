@@ -99,9 +99,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :repository, only: [:index, :new]
     resources :repositories
-    resource :repository, path: "repositories/:repository_id", only: [:show, :destroy, :delete, :qr_code] do
+    resource :repository, path: "repositories/:repository_id", only: [:show, :destroy] do
+      get 'delete', to: 'repositories#delete'
+      get 'qr_code', to: 'repositories#qr_code'
       get '/commits/index_ssh', to: 'commits#index_ssh'
       resources :commit_attempts
       resources :commits
@@ -216,7 +217,7 @@ Rails.application.routes.draw do
     # resource :repository, path: "/:id", only: [:show, :destroy, :delete]
     # resource :repository, path: "/:repository_id", only: [:show, :destroy, :delete, :qr_code] do
     # resource :repository, path: "/:repository_id", only: [:show, :update, :create, :edit, :destroy, :delete, :qr_code] do
-    resource :repository, path: "/:repository_id", except: [:index, :new] do
+    resource :repository, path: "/:repository_id", except: [:new] do
 
       get :qr_code
       # get '/documents' => 'documents#index', :as => :user_repository_documents

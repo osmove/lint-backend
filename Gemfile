@@ -2,18 +2,8 @@ source 'https://rubygems.org'
 
 ruby '3.4.9'
 
-# Pin notes
-# -----------
-# rails ~> 7.2: Rails 8 is blocked by `impressionist` 2.0.0 which still calls
-#   the pre-8 autoloader constant (`Impressionist::Engine::ImpressionistController`).
-#   Upgrade once upstream ships Rails 8 support or we replace impressionist.
-# web-console ~> 4.2: web-console 4.3 requires Rails 8, pinned accordingly.
-# minitest < 6: Rails 7.2 railties test_unit/line_filtering.rb calls
-#   `run(suite, type, filter)` but minitest 6 expects 1..2 args. Revisit with
-#   the Rails 8 upgrade.
-
 # Core
-gem 'rails', '~> 7.2'
+gem 'rails', '~> 8.1'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'pg', '~> 1.5'
 gem 'puma', '~> 8.0'
@@ -75,11 +65,11 @@ group :development, :test do
   gem 'selenium-webdriver', '~> 4.16'
   gem 'letter_opener'
   gem 'factory_bot_rails'
-  gem 'minitest', '< 6'
+  gem 'minitest', '~> 6.0'
 end
 
 group :development do
-  gem 'web-console', '~> 4.2'
+  gem 'web-console', '~> 4.3'
   gem 'rubocop-rails', require: false
   gem 'rubocop-performance', require: false
   gem 'brakeman', require: false
