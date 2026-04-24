@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_24_213543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "slug"
     t.boolean "default"
     t.bigint "repository_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_branches_on_repository_id"
   end
 
@@ -31,8 +31,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "command_id"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["command_id"], name: "index_buildpacks_on_command_id"
     t.index ["repository_id"], name: "index_buildpacks_on_repository_id"
     t.index ["user_id"], name: "index_buildpacks_on_user_id"
@@ -42,8 +42,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "command_id"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["command_id"], name: "index_buttons_on_command_id"
     t.index ["repository_id"], name: "index_buttons_on_repository_id"
     t.index ["user_id"], name: "index_buttons_on_user_id"
@@ -53,8 +53,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "operation"
     t.bigint "document_id"
     t.bigint "commit_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["commit_id"], name: "index_changes_on_commit_id"
     t.index ["document_id"], name: "index_changes_on_document_id"
   end
@@ -65,8 +65,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.integer "port"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_commands_on_repository_id"
     t.index ["user_id"], name: "index_commands_on_user_id"
   end
@@ -80,8 +80,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "push_id"
     t.bigint "device_id"
     t.bigint "repository_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "sha"
     t.string "branch_name"
     t.boolean "has_encryption"
@@ -105,15 +105,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
 
   create_table "commits", force: :cascade do |t|
     t.string "message"
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.string "date_raw"
     t.string "contributor_raw"
     t.string "contributor_name"
     t.string "contributor_email"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "push_id"
     t.string "sha"
     t.bigint "contributor_id"
@@ -136,8 +136,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "email"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_contributors_on_repository_id"
     t.index ["user_id"], name: "index_contributors_on_user_id"
   end
@@ -148,8 +148,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "document_id"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["document_id"], name: "index_decryptions_on_document_id"
     t.index ["repository_id"], name: "index_decryptions_on_repository_id"
     t.index ["user_id"], name: "index_decryptions_on_user_id"
@@ -160,8 +160,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "slug"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_dependancies_on_repository_id"
     t.index ["user_id"], name: "index_dependancies_on_user_id"
   end
@@ -169,8 +169,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "deploys", force: :cascade do |t|
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_deploys_on_repository_id"
     t.index ["user_id"], name: "index_deploys_on_user_id"
   end
@@ -187,11 +187,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.boolean "has_notifications"
     t.boolean "has_gatrix_desktop"
     t.boolean "has_gatrix_connect"
-    t.datetime "last_seen"
+    t.datetime "last_seen", precision: nil
     t.string "browser"
     t.string "user_agent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "push_token"
     t.index ["user_id"], name: "index_devices_on_user_id"
   end
@@ -205,8 +205,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.text "content"
     t.bigint "repository_id"
     t.bigint "document_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.string "uuid"
     t.string "secret_key"
@@ -232,8 +232,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "document_id"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["document_id"], name: "index_encryptions_on_document_id"
     t.index ["repository_id"], name: "index_encryptions_on_repository_id"
     t.index ["user_id"], name: "index_encryptions_on_user_id"
@@ -242,8 +242,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "frameworks", force: :cascade do |t|
     t.string "name"
     t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "image"
     t.bigint "language_id"
     t.string "image_url"
@@ -256,7 +256,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -267,39 +267,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "name"
     t.string "slug"
     t.integer "vcpus"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.decimal "price_per_month", precision: 10, scale: 2
     t.decimal "price_per_hour", precision: 10, scale: 2
     t.bigint "memory"
     t.bigint "storage"
     t.bigint "transfer"
-  end
-
-  create_table "impressions", force: :cascade do |t|
-    t.string "impressionable_type"
-    t.integer "impressionable_id"
-    t.integer "user_id"
-    t.string "controller_name"
-    t.string "action_name"
-    t.string "view_name"
-    t.string "request_hash"
-    t.string "ip_address"
-    t.string "session_hash"
-    t.text "message"
-    t.text "referrer"
-    t.text "params"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["controller_name", "action_name", "ip_address"], name: "controlleraction_ip_index"
-    t.index ["controller_name", "action_name", "request_hash"], name: "controlleraction_request_index"
-    t.index ["controller_name", "action_name", "session_hash"], name: "controlleraction_session_index"
-    t.index ["impressionable_type", "impressionable_id", "ip_address"], name: "poly_ip_index"
-    t.index ["impressionable_type", "impressionable_id", "params"], name: "poly_params_request_index"
-    t.index ["impressionable_type", "impressionable_id", "request_hash"], name: "poly_request_index"
-    t.index ["impressionable_type", "impressionable_id", "session_hash"], name: "poly_session_index"
-    t.index ["impressionable_type", "message", "impressionable_id"], name: "impressionable_type_message_index"
-    t.index ["user_id"], name: "index_impressions_on_user_id"
   end
 
   create_table "issue_messages", force: :cascade do |t|
@@ -310,8 +284,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "issue_id"
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["issue_id"], name: "index_issue_messages_on_issue_id"
     t.index ["repository_id"], name: "index_issue_messages_on_repository_id"
     t.index ["user_id"], name: "index_issue_messages_on_user_id"
@@ -325,8 +299,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "user_id"
     t.bigint "language_id"
     t.bigint "framework_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "body"
     t.string "status"
     t.index ["framework_id"], name: "index_issues_on_framework_id"
@@ -338,8 +312,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "languages", force: :cascade do |t|
     t.string "name"
     t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "image"
     t.string "image_url"
     t.boolean "visible", default: true
@@ -353,14 +327,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.text "message"
     t.string "type"
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "linters", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "command"
   end
 
@@ -372,8 +346,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "role"
     t.bigint "user_id"
     t.bigint "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "organization_id"
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
@@ -391,8 +365,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.boolean "read"
     t.bigint "user_id"
     t.bigint "lead_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "to_name"
     t.string "to_email"
     t.string "subject"
@@ -407,8 +381,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
     t.index ["user_id"], name: "index_organizations_on_user_id"
@@ -423,8 +397,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.integer "max_users"
     t.integer "max_repositories"
     t.integer "max_storage"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "stripe_subscription_id"
     t.string "stripe_product_id"
     t.string "stripe_monthly_plan_id"
@@ -435,8 +409,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "name"
     t.bigint "language_id"
     t.bigint "framework_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "slug"
     t.text "image"
     t.string "image_url"
@@ -449,8 +423,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "policies", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.boolean "autofix", default: false
     t.boolean "prevent_commits_on_errors", default: true
@@ -467,8 +441,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "contributor_id"
     t.bigint "push_id"
     t.bigint "device_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "error_count"
     t.integer "warning_count"
     t.integer "offense_count"
@@ -488,8 +462,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "policy_rule_option_options", force: :cascade do |t|
     t.bigint "policy_rule_option_id"
     t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "rule_option_option_id"
     t.index ["policy_rule_option_id"], name: "index_policy_rule_option_options_on_policy_rule_option_id"
     t.index ["rule_option_option_id"], name: "index_policy_rule_option_options_on_rule_option_option_id"
@@ -499,8 +473,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "policy_rule_id"
     t.bigint "rule_option_id"
     t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["policy_rule_id"], name: "index_policy_rule_options_on_policy_rule_id"
     t.index ["rule_option_id"], name: "index_policy_rule_options_on_rule_option_id"
   end
@@ -509,8 +483,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "rule_id"
     t.bigint "policy_id"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "status"
     t.boolean "autofix", default: false
     t.string "options"
@@ -528,8 +502,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "pulls", force: :cascade do |t|
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_pulls_on_repository_id"
     t.index ["user_id"], name: "index_pulls_on_user_id"
   end
@@ -537,8 +511,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "pushes", force: :cascade do |t|
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_pushes_on_repository_id"
     t.index ["user_id"], name: "index_pushes_on_user_id"
   end
@@ -547,8 +521,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "name"
     t.string "slug"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "status"
     t.string "git_address"
     t.string "web_address"
@@ -564,7 +538,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "default_access_role"
     t.string "type"
     t.boolean "deleted", default: false
-    t.integer "counter_cache"
     t.bigint "language_id"
     t.bigint "framework_id"
     t.bigint "platform_id"
@@ -577,9 +550,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "html_url"
     t.string "git_url"
     t.string "ssh_url"
-    t.datetime "github_updated_at"
-    t.datetime "github_created_at"
-    t.datetime "imported_at"
+    t.datetime "github_updated_at", precision: nil
+    t.datetime "github_created_at", precision: nil
+    t.datetime "imported_at", precision: nil
     t.string "git_host"
     t.boolean "is_archived"
     t.integer "size"
@@ -604,8 +577,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "status"
     t.bigint "user_id"
     t.bigint "repository_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
     t.boolean "enable_admin_email_notifications", default: true
@@ -625,8 +598,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "contributor_id"
     t.bigint "push_id"
     t.bigint "device_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "file_name"
     t.string "file_path"
     t.bigint "linter_id"
@@ -654,8 +627,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
   create_table "rule_option_options", force: :cascade do |t|
     t.bigint "rule_option_id"
     t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["rule_option_id"], name: "index_rule_option_options_on_rule_option_id"
   end
 
@@ -667,8 +640,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "units"
     t.string "condition_value"
     t.bigint "rule_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.text "description"
     t.index ["rule_id"], name: "index_rule_options_on_rule_id"
   end
@@ -683,8 +656,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "platform_id"
     t.bigint "rule_id"
     t.bigint "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "linter_id"
     t.boolean "fixable", default: false
     t.string "options"
@@ -706,16 +679,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "ssh_password"
     t.string "ssh_path"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_servers_on_user_id"
   end
 
   create_table "syncs", force: :cascade do |t|
     t.bigint "repository_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["repository_id"], name: "index_syncs_on_repository_id"
     t.index ["user_id"], name: "index_syncs_on_user_id"
   end
@@ -726,8 +699,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.bigint "team_id"
     t.string "description"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
     t.index ["team_id"], name: "index_teams_on_team_id"
@@ -738,15 +711,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "username"
     t.string "slug"
     t.string "time_zone"
@@ -757,12 +730,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.boolean "two_step_authentication_method"
     t.string "status"
     t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
+    t.datetime "confirmed_at", precision: nil
+    t.datetime "confirmation_sent_at", precision: nil
     t.string "unconfirmed_email"
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
-    t.datetime "locked_at"
+    t.datetime "locked_at", precision: nil
     t.bigint "plan_id"
     t.string "role"
     t.string "address"
@@ -781,18 +754,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_15_000001) do
     t.string "stripe_product_id"
     t.string "type"
     t.boolean "has_installed_mobile_app", default: false
-    t.datetime "mobile_app_install_date"
+    t.datetime "mobile_app_install_date", precision: nil
     t.boolean "has_launched_mobile_app", default: false
-    t.datetime "mobile_app_launch_date"
+    t.datetime "mobile_app_launch_date", precision: nil
     t.boolean "deleted", default: false
-    t.integer "counter_cache"
     t.string "uid"
     t.string "provider"
     t.string "oauth_token"
     t.string "github_username"
     t.string "github_id"
     t.string "avatar_url"
-    t.datetime "token_expires_at"
+    t.datetime "token_expires_at", precision: nil
     t.boolean "enable_email_notifications", default: true
     t.boolean "enable_push_notifications", default: true
     t.integer "number_of_seats"
