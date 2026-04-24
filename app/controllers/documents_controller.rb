@@ -1,13 +1,9 @@
 # class DocumentsController < ProtectedController
 class DocumentsController < ApplicationController
-
-
-
   before_action :default_format_html, only: :show
   def default_format_html
-    request.format = "html"
+    request.format = 'html'
   end
-
 
   # GET /documents
   # GET /documents.json
@@ -15,11 +11,11 @@ class DocumentsController < ApplicationController
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
 
     if @user.present?
-      if @user == current_user
-        @repository = @user.repositories.friendly.find(params[:repository_id])
-      else
-        @repository = @user.repositories.public.friendly.find(params[:repository_id])
-      end
+      @repository = if @user == current_user
+                      @user.repositories.friendly.find(params[:repository_id])
+                    else
+                      @user.repositories.public.friendly.find(params[:repository_id])
+                    end
     else
       @repository = nil
       raise ActionController::RoutingError.new('Repository Not Found')
@@ -48,23 +44,19 @@ class DocumentsController < ApplicationController
     #   end
     # end
 
-    @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
-
+    @documents = @repository.documents.sort_by { |d| [(!d.is_folder).to_s, d.name.downcase] }
   end
-
-
 
   # GET /documents/1
   # GET /documents/1.json
   def show
-
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : nil
     if @user.present?
-      if @user == current_user
-        @repository = @user.repositories.friendly.find(params[:repository_id])
-      else
-        @repository = @user.repositories.public.friendly.find(params[:repository_id])
-      end
+      @repository = if @user == current_user
+                      @user.repositories.friendly.find(params[:repository_id])
+                    else
+                      @user.repositories.public.friendly.find(params[:repository_id])
+                    end
     else
       @repository = nil
       raise ActionController::RoutingError.new('Repository Not Found')
@@ -76,7 +68,7 @@ class DocumentsController < ApplicationController
 
     # Read file content
     require 'net/ssh'
-    Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
+    Net::SSH.start('git.lint.to', 'root', password: 'b806d995ce24bfe8b30a8625fa') do |ssh|
       @request = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@document.name}'"
       @content = ssh.exec!(@request)
       @document.raw_content = @content
@@ -86,40 +78,31 @@ class DocumentsController < ApplicationController
       @document.extension.slice!(0)
     end
 
-
     # Check file type
-    if @document.size > 2000000
+    if @document.size > 2_000_000
       @document.type = 'error'
       @document.content = 'File is too big.'
-    elsif @document.extension.present? && ['exe', 'bin', 'dmg', 'app'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && %w[exe bin dmg app].include?(@document.extension.downcase)
       @document.type = 'executable'
       @document.content = 'Executables are not supported.'
-    elsif @document.extension.present? && ['jpg', 'jpeg', 'png', 'gif'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && %w[jpg jpeg png gif].include?(@document.extension.downcase)
       @document.type = 'image'
       @document.base_64_content = Base64.strict_encode64(@document.raw_content)
-    elsif @document.extension.present? && ['md', 'markdown'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && %w[md markdown].include?(@document.extension.downcase)
       @document.type = 'markdown'
       require 'redcarpet'
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, 
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true,
                                                                   fenced_code_blocks: true)
       @document.content = markdown.render(@document.raw_content)
-    elsif @document.extension.present? && ['txt', 'html', 'xhtml', 'htm', 'rb', 'erb', 'php', 'php5', 'js', 'jsx',
-                                           'yml', 'xml'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && %w[txt html xhtml htm rb erb php php5 js jsx
+                                             yml xml].include?(@document.extension.downcase)
       @document.type = 'document'
       @document.content = @document.raw_content
     else
       @document.type = 'other'
       @document.content = @document.raw_content
     end
-
-
-
   end
 
-  def create
-
-  end
-
-private
-
+  def create; end
 end

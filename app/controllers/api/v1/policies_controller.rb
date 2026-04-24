@@ -7,7 +7,7 @@ module Api
         description = params[:description]
 
         unless description.present?
-          return render json: { error: "description is required" }, status: :unprocessable_entity
+          return render json: { error: 'description is required' }, status: :unprocessable_content
         end
 
         generator = Ai::PolicyGenerator.new

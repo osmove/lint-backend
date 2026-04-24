@@ -1,7 +1,5 @@
 class FrameworksController < ProtectedController
-
-
-  before_action :set_framework, only: [:show, :edit, :update, :destroy]
+  before_action :set_framework, only: %i[show edit update destroy]
 
   # GET /frameworks
   # GET /frameworks.json
@@ -11,8 +9,7 @@ class FrameworksController < ProtectedController
 
   # GET /frameworks/1
   # GET /frameworks/1.json
-  def show
-  end
+  def show; end
 
   # GET /frameworks/new
   def new
@@ -20,8 +17,7 @@ class FrameworksController < ProtectedController
   end
 
   # GET /frameworks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /frameworks
   # POST /frameworks.json
@@ -34,7 +30,7 @@ class FrameworksController < ProtectedController
         format.json { render :show, status: :created, location: @framework }
       else
         format.html { render :new }
-        format.json { render json: @framework.errors, status: :unprocessable_entity }
+        format.json { render json: @framework.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class FrameworksController < ProtectedController
         format.json { render :show, status: :ok, location: @framework }
       else
         format.html { render :edit }
-        format.json { render json: @framework.errors, status: :unprocessable_entity }
+        format.json { render json: @framework.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class FrameworksController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_framework
-      @framework = Framework.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def framework_params
-      params.require(:framework).permit(:name, :slug, :image, :image_url, :visible, :language_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_framework
+    @framework = Framework.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def framework_params
+    params.require(:framework).permit(:name, :slug, :image, :image_url, :visible, :language_id)
+  end
 end

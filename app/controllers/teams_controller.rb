@@ -1,21 +1,24 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: %i[show edit update destroy]
 
   # GET /teams
   # GET /teams.json
   def index
-    @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : nil rescue nil
-    if @user.present?
-      @teams = Team.where(user_id: @user)
-    else
-      @teams = Team.all
+    @user = begin
+      params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : nil
+    rescue StandardError
+      nil
     end
+    @teams = if @user.present?
+               Team.where(user_id: @user)
+             else
+               Team.all
+             end
   end
 
   # GET /teams/1
   # GET /teams/1.json
-  def show
-  end
+  def show; end
 
   # GET /teams/new
   def new
@@ -29,7 +32,6 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     @form_url = user_team_path(@team.user, @team)
-
   end
 
   # POST /teams
@@ -39,18 +41,15 @@ class TeamsController < ApplicationController
 
     @team = Team.new(team_params.merge(user: @user))
 
+    raise ActionController::RoutingError.new('User Not Found') unless @user.present?
 
-    if !@user.present?
-      raise ActionController::RoutingError.new('User Not Found')
-    else
-      respond_to do |format|
-        if @team.save
-          format.html { redirect_to user_team_path(@team.user, @team), notice: 'Team was successfully created.' }
-          format.json { render :show, status: :created, location: user_team_path(@team.user, @team) }
-        else
-          format.html { render :new }
-          format.json { render json: @team.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @team.save
+        format.html { redirect_to user_team_path(@team.user, @team), notice: 'Team was successfully created.' }
+        format.json { render :show, status: :created, location: user_team_path(@team.user, @team) }
+      else
+        format.html { render :new }
+        format.json { render json: @team.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,7 +63,7 @@ class TeamsController < ApplicationController
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit }
-        format.json { render json: @team.errors, status: :unprocessable_entity }
+        format.json { render json: @team.errors, status: :unprocessable_content }
       end
     end
   end
@@ -80,13 +79,14 @@ class TeamsController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_team
-      @team = Team.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def team_params
-      params.require(:team).permit(:name, :avatar_url, :team_id, :description, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_team
+    @team = Team.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def team_params
+    params.require(:team).permit(:name, :avatar_url, :team_id, :description, :user_id)
+  end
 end

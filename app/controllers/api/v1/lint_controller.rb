@@ -6,17 +6,13 @@ module Api
       def create
         repository = current_user.repositories.find_by(uuid: params[:repository_uuid])
 
-        unless repository
-          return render json: { error: "Repository not found" }, status: :not_found
-        end
+        return render json: { error: 'Repository not found' }, status: :not_found unless repository
 
         commit_attempt = repository.commit_attempts.create!(
           commit_attempt_params.merge(user: current_user)
         )
 
-        if params[:policy_check].present?
-          policy_check = commit_attempt.policy_checks.create!(policy_check_params)
-        end
+        policy_check = commit_attempt.policy_checks.create!(policy_check_params) if params[:policy_check].present?
 
         render json: {
           id: commit_attempt.id,

@@ -15,7 +15,7 @@ module Ai
     end
 
     def analyze(commit_message)
-      return { score: 0, feedback: "Empty commit message" } if commit_message.blank?
+      return { score: 0, feedback: 'Empty commit message' } if commit_message.blank?
 
       response = @client.chat(
         system_prompt: SYSTEM_PROMPT,
@@ -31,11 +31,11 @@ module Ai
     def parse_analysis(response)
       result = JSON.parse(response)
       {
-        score: result["score"].to_i.clamp(1, 10),
-        feedback: result["feedback"].to_s.truncate(500)
+        score: result['score'].to_i.clamp(1, 10),
+        feedback: result['feedback'].to_s.truncate(500)
       }
     rescue JSON::ParserError, TypeError
-      { score: 5, feedback: "Unable to analyze commit message" }
+      { score: 5, feedback: 'Unable to analyze commit message' }
     end
   end
 end

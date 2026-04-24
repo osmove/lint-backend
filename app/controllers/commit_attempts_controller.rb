@@ -1,6 +1,5 @@
 class CommitAttemptsController < ProtectedController
-  before_action :set_commit_attempt, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_commit_attempt, only: %i[show edit update destroy]
 
   # before_action :authenticate_user!
 
@@ -10,10 +9,14 @@ class CommitAttemptsController < ProtectedController
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
 
-    if repository_slug.present? && user_slug.present?
-      @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-    else
+    unless repository_slug.present? && user_slug.present?
       raise ActionController::RoutingError.new('Repository Not Found')
+    end
+
+    @repository = begin
+      Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
+    rescue StandardError
+      nil
     end
 
     if @repository.present?
@@ -24,23 +27,22 @@ class CommitAttemptsController < ProtectedController
       @authors = @commit_attempts.map(&:user).compact.uniq
       @branches = @commit_attempts.map(&:branch_name).compact.uniq
 
-
       if params[:author].present?
         @author = params[:author]
         @commit_attempts = @commit_attempts.where(user_id: @author).includes(:policy_checks)
       end
 
       if params[:branch].present?
-        @branch = params[:branch].gsub(/[^a-zA-Z0-9\-]/,"")
+        @branch = params[:branch].gsub(/[^a-zA-Z0-9-]/, '')
         @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks)
         # @commit_attempts = @commit_attempts.where("lower(name) = ?", name.downcase).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
       end
 
       if params[:status].present?
         # @status = params[:status]
-        if params[:status] == "passed"
+        if params[:status] == 'passed'
           @commit_attempts = @commit_attempts.where(passed: true)
-        elsif params[:status] == "failed"
+        elsif params[:status] == 'failed'
           @commit_attempts = @commit_attempts.where(passed: false)
         end
       end
@@ -51,7 +53,6 @@ class CommitAttemptsController < ProtectedController
 
     @commit_attempts = @commit_attempts.order(created_at: :desc).page(params[:page]).per(10)
     fresh_when etag: @commit_attempts
-
   end
 
   # GET /commit_attempts/1
@@ -63,9 +64,9 @@ class CommitAttemptsController < ProtectedController
     @repository = @commit_attempt.repository
     if @commit_attempt.policy_checks.first.present?
       @policy_check = @commit_attempt.policy_checks.first
-      rule_checks_attributes = @policy_check.report&.[]("rule_checks_attributes") || []
+      rule_checks_attributes = @policy_check.report&.[]('rule_checks_attributes') || []
       @report = rule_checks_attributes.sort_by do |h|
- [h["security_level"] ? h["security_level"] : 0]
+        [h['security_level'] || 0]
       end.group_by { |h| [h['file_path']] }
 
       # @report_sorted = @report_grouped
@@ -76,12 +77,11 @@ class CommitAttemptsController < ProtectedController
 
   # GET /commit_attempts/new
   def new
-
     if params[:user_id].present?
       @user = User.find_by(slug: params[:user_id].to_s.downcase)
       @repository = @user.repositories.friendly.find(params[:repository_id])
       if @repository.present?
-          @commit_attempt = @repository.commit_attempts.new
+        @commit_attempt = @repository.commit_attempts.new
       else
         @repository = nil
         raise ActionController::RoutingError.new('Repository Not Found')
@@ -91,17 +91,14 @@ class CommitAttemptsController < ProtectedController
       @commit_attempt = CommitAttempt.new
     end
     # @commit_attempt = CommitAttempt.new
-
   end
 
   # GET /commit_attempts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /commit_attempts
   # POST /commit_attempts.json
   def create
-
     if params[:user_id].present?
       @user = User.find_by(slug: params[:user_id].to_s.downcase)
       @repository = @user.repositories.friendly.find(params[:repository_id].downcase)
@@ -121,15 +118,15 @@ class CommitAttemptsController < ProtectedController
         # @commit_attempt.joins( repository: { policy: { policy_rules: [:rule, { policy_rule_options: [:rule_option, :rule_option_options ] }] } })
         if @commit_attempt.present? && @commit_attempt.repository.present? && @commit_attempt.repository.policy.present?
           # @policy = @commit_attempt.repository.policy
-          @policy = Policy.includes( policy_rules: [:linter, 
-                                                    { policy_rule_options: [:rule_option, 
-                                                                            :rule_option_options ] }]).find(@commit_attempt.repository.policy.id)
+          @policy = Policy.includes(policy_rules: [:linter,
+                                                   { policy_rule_options: %i[rule_option
+                                                                             rule_option_options] }]).find(@commit_attempt.repository.policy.id)
         end
         format.html { redirect_to @commit_attempt, notice: 'Commit attempt was successfully created.' }
         format.json { render :show, status: :created, location: @commit_attempt }
       else
         format.html { render :new }
-        format.json { render json: @commit_attempt.errors, status: :unprocessable_entity }
+        format.json { render json: @commit_attempt.errors, status: :unprocessable_content }
       end
     end
   end
@@ -143,7 +140,7 @@ class CommitAttemptsController < ProtectedController
         format.json { render :show, status: :ok, location: @commit_attempt }
       else
         format.html { render :edit }
-        format.json { render json: @commit_attempt.errors, status: :unprocessable_entity }
+        format.json { render json: @commit_attempt.errors, status: :unprocessable_content }
       end
     end
   end
@@ -159,20 +156,20 @@ class CommitAttemptsController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_commit_attempt
-      @commit_attempt = CommitAttempt.find(params[:id])
-      # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: [:rule, { policy_rule_options: [:rule_option, :rule_option_options ] }] } })
-      # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: [:rule, {policy_rule_options: [:rule_option, :rule_option_options]} ]}})
-      # @commit_attempt = CommitAttempt.find(params[:id]).joins(repository: { policy: { policy_rules: [:rule, :policy_rule_options: ]{ rule: {policy_rule_options: { rule_options: :policy_rule_option_options }}}}})
 
+  # Use callbacks to share common setup or constraints between actions.
+  def set_commit_attempt
+    @commit_attempt = CommitAttempt.find(params[:id])
+    # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: [:rule, { policy_rule_options: [:rule_option, :rule_option_options ] }] } })
+    # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: [:rule, {policy_rule_options: [:rule_option, :rule_option_options]} ]}})
+    # @commit_attempt = CommitAttempt.find(params[:id]).joins(repository: { policy: { policy_rules: [:rule, :policy_rule_options: ]{ rule: {policy_rule_options: { rule_options: :policy_rule_option_options }}}}})
 
-      # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: { policy_rule_options: { rule_options: :guest, policy_rule_option_options }}} })
-    end
+    # @commit_attempt = CommitAttempt.find(params[:id]).includes(repository: { policy: { policy_rules: { policy_rule_options: { rule_options: :guest, policy_rule_option_options }}} })
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def commit_attempt_params
-      params.require(:commit_attempt).permit(:message, :sha, :branch_name, :description, :commit_id, :user_id, 
-                                             :contributor_id, :push_id, :device_id, :repository_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def commit_attempt_params
+    params.require(:commit_attempt).permit(:message, :sha, :branch_name, :description, :commit_id, :user_id,
+                                           :contributor_id, :push_id, :device_id, :repository_id)
+  end
 end

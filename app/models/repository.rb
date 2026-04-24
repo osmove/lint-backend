@@ -1,6 +1,6 @@
 class Repository < ApplicationRecord
-  LINT_CLOUD_DEPLOY_TARGET = "lint_cloud".freeze
-  LINT_GIT_HOST = "lint".freeze
+  LINT_CLOUD_DEPLOY_TARGET = 'lint_cloud'.freeze
+  LINT_GIT_HOST = 'lint'.freeze
 
   require 'net/ssh'
 
@@ -12,40 +12,41 @@ class Repository < ApplicationRecord
   belongs_to :platform, optional: true
   belongs_to :hosting_plan, optional: true
 
-  has_many :buildpacks, :dependent => :destroy
-  has_many :branches, :dependent => :destroy
-  has_many :documents, :dependent => :destroy
-  has_many :commits, :dependent => :destroy
-  has_many :commands, :dependent => :destroy
+  has_many :buildpacks, dependent: :destroy
+  has_many :branches, dependent: :destroy
+  has_many :documents, dependent: :destroy
+  has_many :commits, dependent: :destroy
+  has_many :commands, dependent: :destroy
   # has_many :changes, :dependent => :destroy, :as => :changed_files
-  has_many :buttons, :dependent => :destroy
-  has_many :pulls, :dependent => :destroy
-  has_many :pushs, :dependent => :destroy
-  has_many :syncs, :dependent => :destroy
-  has_many :deploys, :dependent => :destroy
-  has_many :issues, :dependent => :destroy
-  has_many :encryptions, :dependent => :destroy
-  has_many :decryptions, :dependent => :destroy
-  has_many :repository_accesses, :dependent => :destroy
-  has_many :commit_attempts, :dependent => :destroy
+  has_many :buttons, dependent: :destroy
+  has_many :pulls, dependent: :destroy
+  has_many :pushs, dependent: :destroy
+  has_many :syncs, dependent: :destroy
+  has_many :deploys, dependent: :destroy
+  has_many :issues, dependent: :destroy
+  has_many :encryptions, dependent: :destroy
+  has_many :decryptions, dependent: :destroy
+  has_many :repository_accesses, dependent: :destroy
+  has_many :commit_attempts, dependent: :destroy
 
   has_many :policy_checks
   has_many :rules_checks
 
   has_many :users
   # has_many :users_with_access, :through => :repository_accesses
-  has_many :users_with_access, :through => :repository_accesses, :source => :user
+  has_many :users_with_access, through: :repository_accesses, source: :user
   # has_many :repositories, :through => :repository_accesses
 
   extend FriendlyId
-  friendly_id :name, :use => :scoped, :scope => :user
+
+  friendly_id :name, use: :scoped, scope: :user
 
   # validates :domain_slug, presence: true, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'lint_cloud' && domain_slug.blank? }
 
   validates :domain_slug, presence: true, if: -> { deploy_to == LINT_CLOUD_DEPLOY_TARGET }
   # validates :domain_slug, uniqueness: { case_sensitive: false }, if: -> { deploy_to == 'lint_cloud' && domain_slug.present? }
   validates :domain_slug, uniqueness: { case_sensitive: false }, if: lambda {
- deploy_to == LINT_CLOUD_DEPLOY_TARGET && domain_slug.present?
+    deploy_to == LINT_CLOUD_DEPLOY_TARGET && domain_slug.present?
   }
 
   # TODO: validates_uniqueness_of :repository_id, :scope => :user_id
@@ -70,30 +71,23 @@ class Repository < ApplicationRecord
 
   # validates :deploy_to, presence: true
 
-
   self.inheritance_column = :_type_disabled
 
-
-
-
   def to_s
-    self.name
+    name
   end
 
-
   def smart_created_at
-    if self.platform.present?
-      if self.git_host == "github"
-        "#{self.platform} app created #{time_ago_in_words(self.github_created_at)} ago."
+    if platform.present?
+      if git_host == 'github'
+        "#{platform} app created #{time_ago_in_words(github_created_at)} ago."
       else
-        "#{self.platform} app created #{time_ago_in_words(self.created_at)} ago."
+        "#{platform} app created #{time_ago_in_words(created_at)} ago."
       end
+    elsif git_host == 'github'
+      "Created #{time_ago_in_words(github_created_at)} ago."
     else
-      if self.git_host == "github"
-        "Created #{time_ago_in_words(self.github_created_at)} ago."
-      else
-        "Created #{time_ago_in_words(self.created_at)} ago."
-      end
+      "Created #{time_ago_in_words(created_at)} ago."
     end
   end
 
@@ -103,11 +97,11 @@ class Repository < ApplicationRecord
   # end
 
   def self.public
-    self.where(status: "Public")
+    where(status: 'Public')
   end
 
   def self.private
-    self.where(status: "Private")
+    where(status: 'Private')
   end
 
   def should_generate_new_friendly_id?
@@ -118,28 +112,26 @@ class Repository < ApplicationRecord
   #   value.to_s.parameterize(separator: "-", preserve_case: false)
   # end
 
-
   def git_address
-    if self.git_host != "github"
-      @git_address = "git@git.lint.to:#{self.user.slug}/#{self.slug}.git"
-    else
-      @git_address = self.git_url
-    end
+    @git_address = if git_host == 'github'
+                     git_url
+                   else
+                     "git@git.lint.to:#{user.slug}/#{slug}.git"
+                   end
   end
 
   def pretty_uuid
-    if self.uuid.present?
-      splitted_uuid = self.uuid.split("/")
+    if uuid.present?
+      splitted_uuid = uuid.split('/')
       @pretty_uuid = "#{splitted_uuid.first} / #{splitted_uuid.last}"
     else
       @pretty_uuid = '-'
     end
   end
 
-
   def pretty_uuid_html
-    if self.uuid.present?
-      splitted_uuid = self.uuid.split("/")
+    if uuid.present?
+      splitted_uuid = uuid.split('/')
       @pretty_uuid_html = "#{splitted_uuid.first} / <strong>#{splitted_uuid.last}</strong>"
     else
       @pretty_uuid_html = '-'
@@ -169,87 +161,78 @@ class Repository < ApplicationRecord
 
   # before_create :deploy
   def deploy
-    if self.git_host == LINT_GIT_HOST
-      # Create git repository
-      Rails.logger.info 'Connecting to SSH...'
-      Net::SSH.start(
-        ENV.fetch("GIT_SERVER_HOST", "git.lint.to"),
-        ENV.fetch("GIT_SERVER_USER", "root"),
-        password: ENV.fetch("GIT_SERVER_PASSWORD", "")
-      ) do |_ssh|
-        Rails.logger.info 'Connected to SSH.'
-        # Creat user directory if needed
-        # puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}")
-        # puts 'Creat user directory if needed'
-        # Create repo directory if needed
-        # puts ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}.git")
-        Rails.logger.info 'Creating repository directory...'
-        # puts ssh.exec!("mkdir /var/git/#{self.user.slug}/#{self.slug}.git")
-        Rails.logger.info ssh.exec!("mkdir -p /var/git/#{self.user.slug}/#{self.slug}.git")
-        # Create bare repo
-        Rails.logger.info 'Creating bare repository'
-        Rails.logger.info ssh.exec!("git --bare init /var/git/#{self.user.slug}/#{self.slug}.git")
-        Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}.git")
-        # Local deploy repo
-        Rails.logger.info 'Deploying repository...'
-        Rails.logger.info ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}")
-        Rails.logger.info ssh.exec!("git clone /var/git/#{self.user.slug}/#{self.slug}.git /var/git/#{self.user.slug}/#{self.slug}")
-        Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}")
+    return unless git_host == LINT_GIT_HOST
 
-        # Copy and replace post-receive hook
-        Rails.logger.info 'Adding post-receive hook...'
-        Rails.logger.info ssh.exec!("cp -f /var/git/_permanent/post-receive /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        Rails.logger.info ssh.exec!("sed -i 's/USER_SLUG/#{self.user.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        Rails.logger.info ssh.exec!("sed -i 's/REPOSITORY_SLUG/#{self.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        Rails.logger.info ssh.exec!("chmod +x /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
+    # Create git repository
+    Rails.logger.info 'Connecting to SSH...'
+    Net::SSH.start(
+      ENV.fetch('GIT_SERVER_HOST', 'git.lint.to'),
+      ENV.fetch('GIT_SERVER_USER', 'root'),
+      password: ENV.fetch('GIT_SERVER_PASSWORD', '')
+    ) do |_ssh|
+      Rails.logger.info 'Connected to SSH.'
+      # Creat user directory if needed
+      # puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}")
+      # puts 'Creat user directory if needed'
+      # Create repo directory if needed
+      # puts ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}.git")
+      Rails.logger.info 'Creating repository directory...'
+      # puts ssh.exec!("mkdir /var/git/#{self.user.slug}/#{self.slug}.git")
+      Rails.logger.info ssh.exec!("mkdir -p /var/git/#{user.slug}/#{slug}.git")
+      # Create bare repo
+      Rails.logger.info 'Creating bare repository'
+      Rails.logger.info ssh.exec!("git --bare init /var/git/#{user.slug}/#{slug}.git")
+      Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{user.slug}/#{slug}.git")
+      # Local deploy repo
+      Rails.logger.info 'Deploying repository...'
+      Rails.logger.info ssh.exec!("rm -rf /var/git/#{user.slug}/#{slug}")
+      Rails.logger.info ssh.exec!("git clone /var/git/#{user.slug}/#{slug}.git /var/git/#{user.slug}/#{slug}")
+      Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{user.slug}/#{slug}")
 
-        Rails.logger.info "Repository #{self.user.slug}/#{self.slug} deployed successfully."
+      # Copy and replace post-receive hook
+      Rails.logger.info 'Adding post-receive hook...'
+      Rails.logger.info ssh.exec!("cp -f /var/git/_permanent/post-receive /var/git/#{user.slug}/#{slug}.git/hooks/post-receive")
+      Rails.logger.info ssh.exec!("sed -i 's/USER_SLUG/#{user.slug}/g' /var/git/#{user.slug}/#{slug}.git/hooks/post-receive")
+      Rails.logger.info ssh.exec!("sed -i 's/REPOSITORY_SLUG/#{slug}/g' /var/git/#{user.slug}/#{slug}.git/hooks/post-receive")
+      Rails.logger.info ssh.exec!("chmod +x /var/git/#{user.slug}/#{slug}.git/hooks/post-receive")
 
-        # ssh.exec!("git --work-tree=/var/git/#{self.user.slug}/#{self.slug} --git-dir=/var/git/#{self.user.slug}/#{self.slug}.git checkout -f")
-      end
+      Rails.logger.info "Repository #{user.slug}/#{slug} deployed successfully."
+
+      # ssh.exec!("git --work-tree=/var/git/#{self.user.slug}/#{self.slug} --git-dir=/var/git/#{self.user.slug}/#{self.slug}.git checkout -f")
     end
   end
-
-
-
-  after_create :create_repository_access
-  def create_repository_access
-    if self.user.present?
-      RepositoryAccess.create!({
-        repository: self,
-        user: self.user,
-        role: 'admin',
-      })
-    end
-  end
-
-
 
   # You likely have this before callback set up for the token.
   before_validation :ensure_uuid
+  after_create :create_repository_access
+  def create_repository_access
+    return unless user.present?
+
+    RepositoryAccess.create!({
+                               repository: self,
+                               user: user,
+                               role: 'admin'
+                             })
+  end
+
   # before_validation :ensure_uuid
 
   def ensure_uuid
-    if self.uuid.blank?
-      self.uuid = generate_uuid
-    end
-    if self.secret_key.blank?
-      self.secret_key = generate_secret_key
-    end
+    self.uuid = generate_uuid if uuid.blank?
+    return if secret_key.present?
+
+    self.secret_key = generate_secret_key
   end
 
 private
 
   def generate_uuid
     # uuid = "12345-00000-00000-#{10000 + self.id}"
-    uuid = "#{self.user.slug}/#{self.slug}"
+    "#{user.slug}/#{slug}"
   end
 
   def generate_secret_key
     require 'securerandom'
     SecureRandom.hex(30)
   end
-
-
-
 end

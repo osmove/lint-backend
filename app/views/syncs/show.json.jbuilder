@@ -1,1 +1,1 @@
-json.partial! "syncs/sync", sync: @sync
+json.partial! 'syncs/sync', sync: @sync

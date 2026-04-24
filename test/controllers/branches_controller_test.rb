@@ -5,44 +5,44 @@ class BranchesControllerTest < ActionDispatch::IntegrationTest
     @branch = branches(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get branches_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_branch_url
     assert_response :success
   end
 
-  test "should create branch" do
+  test 'should create branch' do
     assert_difference('Branch.count') do
-      post branches_url, 
-           params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, 
+      post branches_url,
+           params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id,
                                slug: @branch.slug } }
     end
 
     assert_redirected_to branch_url(Branch.last)
   end
 
-  test "should show branch" do
+  test 'should show branch' do
     get branch_url(@branch)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_branch_url(@branch)
     assert_response :success
   end
 
-  test "should update branch" do
-    patch branch_url(@branch), 
-          params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, 
+  test 'should update branch' do
+    patch branch_url(@branch),
+          params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id,
                               slug: @branch.slug } }
     assert_redirected_to branch_url(@branch)
   end
 
-  test "should destroy branch" do
+  test 'should destroy branch' do
     assert_difference('Branch.count', -1) do
       delete branch_url(@branch)
     end

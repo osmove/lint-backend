@@ -32,52 +32,52 @@
 # end
 #
 # json.url commit_attempt_url(commit_attempt, format: :json)
-#lslslsl
+# lslslsl
 
 # json.cache! ['v1', policy], expires_in: 5.minutes do
 # json.cache! ['v1', policy] do
 
-  json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id, 
-                :device_id, :created_at, :updated_at
+json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id,
+              :device_id, :created_at, :updated_at
 
-  # json.content commit_attempt
-  json.url commit_attempt_url(commit_attempt, format: :json)
-  json.repository commit_attempt.repository
-  # json.repository do
-  #   json.content commit_attempt.repository
-  # end
+# json.content commit_attempt
+json.url commit_attempt_url(commit_attempt, format: :json)
+json.repository commit_attempt.repository
+# json.repository do
+#   json.content commit_attempt.repository
+# end
 
-  if policy.present?
-    json.policy do
-      json.partial! "policies/policy", policy: policy
-      # json.content policy
-      if policy.policy_rules.count > 0
-        json.policy_rules policy.policy_rules do |policy_rule|
-          # json.status policy_rule.status
-          # policy_rule
-          # json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id, :device_id, :created_at, :updated_at
-          json.partial! "policy_rules/policy_rule", policy_rule: policy_rule
-          # json.extract! policy_rule.linter, :id, :name, :command
+if policy.present?
+  json.policy do
+    json.partial! 'policies/policy', policy: policy
+    # json.content policy
+    if policy.policy_rules.count > 0
+      json.policy_rules policy.policy_rules do |policy_rule|
+        # json.status policy_rule.status
+        # policy_rule
+        # json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id, :device_id, :created_at, :updated_at
+        json.partial! 'policy_rules/policy_rule', policy_rule: policy_rule
+        # json.extract! policy_rule.linter, :id, :name, :command
 
-          # json.rule do
-          #   json.content policy_rule.rule
-          #   json.linter policy_rule.rule.linter
-          #     # json.selected_options option.policy_rule_option_options do |selected_option|
-          #     #  json.content selected_option
-          #     #  if selected_option.rule_option_option.present?
-          #     #    json.value option.value
-          #     #  end
-          #     # end
-          #   # end
-          # end
-          json.options policy_rule.policy_rule_options do |option|
-            json.selected option
-            json.rule_option option.rule_option
-            json.rule_option_options option.rule_option_options
-          end
+        # json.rule do
+        #   json.content policy_rule.rule
+        #   json.linter policy_rule.rule.linter
+        #     # json.selected_options option.policy_rule_option_options do |selected_option|
+        #     #  json.content selected_option
+        #     #  if selected_option.rule_option_option.present?
+        #     #    json.value option.value
+        #     #  end
+        #     # end
+        #   # end
+        # end
+        json.options policy_rule.policy_rule_options do |option|
+          json.selected option
+          json.rule_option option.rule_option
+          json.rule_option_options option.rule_option_options
         end
       end
     end
   end
+end
 
 # end

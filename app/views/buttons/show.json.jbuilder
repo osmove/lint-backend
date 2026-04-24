@@ -1,1 +1,1 @@
-json.partial! "buttons/button", button: @button
+json.partial! 'buttons/button', button: @button

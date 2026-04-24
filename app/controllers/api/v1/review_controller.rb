@@ -7,7 +7,7 @@ module Api
         violations = params[:violations]
 
         unless violations.is_a?(Array) && violations.any?
-          return render json: { error: "violations array is required" }, status: :unprocessable_entity
+          return render json: { error: 'violations array is required' }, status: :unprocessable_content
         end
 
         reviewer = Ai::CodeReviewer.new

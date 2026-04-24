@@ -1,16 +1,13 @@
 class Admin::BaseController < ApplicationController
-
   before_action :authenticate_user!
   before_action :restrict_user_by_role
-  
-  layout :layout_by_resource
 
+  layout :layout_by_resource
 
   # edit valid roles here
   VALID_ROLES = ['admin']
 
-  def dashboard
-  end
+  def dashboard; end
 
 protected
 
@@ -26,11 +23,12 @@ protected
   end
 
 private
-    def layout_by_resource
-      if devise_controller?
-        "application"
-      else
-        "admin"
-      end
-   end
+
+  def layout_by_resource
+    if devise_controller?
+      'application'
+    else
+      'admin'
+    end
+  end
 end

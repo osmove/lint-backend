@@ -1,8 +1,7 @@
 class Admin::UsersController < Admin::BaseController
-
-  before_action :set_user, 
-                only: [:show, :edit, :update, :destroy, :user_policies, :user_organizations, :organization_members, 
-                       :organization_teams]
+  before_action :set_user,
+                only: %i[show edit update destroy user_policies user_organizations organization_members
+                         organization_teams]
 
   def index
     @all_users = User.all.order(created_at: :desc)
@@ -28,9 +27,7 @@ class Admin::UsersController < Admin::BaseController
             org = User.find(membership.organization_id)
             @organizations_of_user |= [org]
           end
-          if membership.team.present?
-            @organizations_of_user |= [membership.team.user]
-          end
+          @organizations_of_user |= [membership.team.user] if membership.team.present?
         end
         if @organizations_of_user.count > 0
           @organizations_of_user.each do |org|
@@ -69,7 +66,7 @@ class Admin::UsersController < Admin::BaseController
       else
         @form_action = admin_users_path
         format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_content }
       end
     end
   end
@@ -81,17 +78,15 @@ class Admin::UsersController < Admin::BaseController
   def user_organizations
     @memberships = @user.memberships
 
-    if @memberships.count > 0
-      @organizations_of_user = []
-      @memberships.each do |membership|
-        if membership.organization_id.present?
-          org = User.find(membership.organization_id)
-          @organizations_of_user |= [org]
-        end
-        if membership.team.present?
-          @organizations_of_user |= [membership.team.user]
-        end
+    return unless @memberships.count > 0
+
+    @organizations_of_user = []
+    @memberships.each do |membership|
+      if membership.organization_id.present?
+        org = User.find(membership.organization_id)
+        @organizations_of_user |= [org]
       end
+      @organizations_of_user |= [membership.team.user] if membership.team.present?
     end
   end
 
@@ -101,7 +96,6 @@ class Admin::UsersController < Admin::BaseController
     @teams.each do |team|
       team.users.each do |team_member|
         @members |= [team_member]
-
       end
     end
   end
@@ -124,7 +118,7 @@ class Admin::UsersController < Admin::BaseController
       else
         @form_action = edit_admin_user_path(@user)
         format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @user.errors, status: :unprocessable_content }
       end
     end
   end
@@ -140,18 +134,18 @@ class Admin::UsersController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = params[:id] ? User.find_by(slug: params[:id].to_s.downcase) : nil
-      if !@user.present?
-        raise ActionController::RoutingError.new('User Not Found')
-      end
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password, 
-                                   :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = params[:id] ? User.find_by(slug: params[:id].to_s.downcase) : nil
+    return if @user.present?
 
-    end
+    raise ActionController::RoutingError.new('User Not Found')
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password,
+                                 :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+  end
 end

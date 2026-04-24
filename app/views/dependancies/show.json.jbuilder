@@ -1,1 +1,1 @@
-json.partial! "dependancies/dependancy", dependancy: @dependancy
+json.partial! 'dependancies/dependancy', dependancy: @dependancy

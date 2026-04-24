@@ -1,7 +1,5 @@
 class ContributorsController < ProtectedController
-
-    
-  before_action :set_contributor, only: [:show, :edit, :update, :destroy]
+  before_action :set_contributor, only: %i[show edit update destroy]
 
   # GET /contributors
   # GET /contributors.json
@@ -11,8 +9,7 @@ class ContributorsController < ProtectedController
 
   # GET /contributors/1
   # GET /contributors/1.json
-  def show
-  end
+  def show; end
 
   # GET /contributors/new
   def new
@@ -20,8 +17,7 @@ class ContributorsController < ProtectedController
   end
 
   # GET /contributors/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /contributors
   # POST /contributors.json
@@ -34,7 +30,7 @@ class ContributorsController < ProtectedController
         format.json { render :show, status: :created, location: @contributor }
       else
         format.html { render :new }
-        format.json { render json: @contributor.errors, status: :unprocessable_entity }
+        format.json { render json: @contributor.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class ContributorsController < ProtectedController
         format.json { render :show, status: :ok, location: @contributor }
       else
         format.html { render :edit }
-        format.json { render json: @contributor.errors, status: :unprocessable_entity }
+        format.json { render json: @contributor.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class ContributorsController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contributor
-      @contributor = Contributor.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def contributor_params
-      params.require(:contributor).permit(:name, :email, :repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contributor
+    @contributor = Contributor.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def contributor_params
+    params.require(:contributor).permit(:name, :email, :repository_id, :user_id)
+  end
 end

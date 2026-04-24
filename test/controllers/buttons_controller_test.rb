@@ -5,44 +5,44 @@ class ButtonsControllerTest < ActionDispatch::IntegrationTest
     @button = buttons(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get buttons_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_button_url
     assert_response :success
   end
 
-  test "should create button" do
+  test 'should create button' do
     assert_difference('Button.count') do
-      post buttons_url, 
-           params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, 
+      post buttons_url,
+           params: { button: { command_id: @button.command_id, repository_id: @button.repository_id,
                                user_id: @button.user_id } }
     end
 
     assert_redirected_to button_url(Button.last)
   end
 
-  test "should show button" do
+  test 'should show button' do
     get button_url(@button)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_button_url(@button)
     assert_response :success
   end
 
-  test "should update button" do
-    patch button_url(@button), 
-          params: { button: { command_id: @button.command_id, repository_id: @button.repository_id, 
+  test 'should update button' do
+    patch button_url(@button),
+          params: { button: { command_id: @button.command_id, repository_id: @button.repository_id,
                               user_id: @button.user_id } }
     assert_redirected_to button_url(@button)
   end
 
-  test "should destroy button" do
+  test 'should destroy button' do
     assert_difference('Button.count', -1) do
       delete button_url(@button)
     end

@@ -1,5 +1,5 @@
 class Admin::LintersController < Admin::BaseController
-  before_action :set_linter, only: [:show, :edit, :update, :destroy]
+  before_action :set_linter, only: %i[show edit update destroy]
 
   # GET /linters
   # GET /linters.json
@@ -9,8 +9,7 @@ class Admin::LintersController < Admin::BaseController
 
   # GET /linters/1
   # GET /linters/1.json
-  def show
-  end
+  def show; end
 
   # GET /linters/new
   def new
@@ -34,7 +33,7 @@ class Admin::LintersController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_linter_path(@linter) }
       else
         format.html { render :new }
-        format.json { render json: @linter.errors, status: :unprocessable_entity }
+        format.json { render json: @linter.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +47,7 @@ class Admin::LintersController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_linter_path(@linter) }
       else
         format.html { render :edit }
-        format.json { render json: @linter.errors, status: :unprocessable_entity }
+        format.json { render json: @linter.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +63,14 @@ class Admin::LintersController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_linter
-      @linter = Linter.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def linter_params
-      params.require(:linter).permit(:name, :command)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_linter
+    @linter = Linter.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def linter_params
+    params.require(:linter).permit(:name, :command)
+  end
 end

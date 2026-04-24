@@ -1,17 +1,11 @@
 # class CommitsController < ProtectedController
 class CommitsController < ApplicationController
-
-
-
-
-  before_action :authenticate_user!, except: [:index, :show]
-
+  before_action :authenticate_user!, except: %i[index show]
 
   before_action :default_format_html, only: :show
   def default_format_html
-    request.format = "html"
+    request.format = 'html'
   end
-
 
   # GET /commits
   # GET /commits.json
@@ -24,17 +18,21 @@ class CommitsController < ApplicationController
 
     Rails.logger.info ''
 
-    if repository_slug.present? && user_slug.present?
-      @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-    else
+    unless repository_slug.present? && user_slug.present?
       raise ActionController::RoutingError.new('Repository Not Found')
+    end
+
+    @repository = begin
+      Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
+    rescue StandardError
+      nil
     end
 
     # Read files
     require 'net/ssh'
     # require 'pp'
     require 'colorize'
-  # if @repository.git_host == "lint"
+    # if @repository.git_host == "lint"
     #
     #   Net::SSH.start('git.lint.to', 'root', password: "b806d995ce24bfe8b30a8625fa") do |ssh|
     #     output = ssh.exec!("git --git-dir=/var/git/#{@repository.user.slug}/#{@repository.slug}.git log --date=iso --max-count=30")
@@ -91,17 +89,14 @@ class CommitsController < ApplicationController
     #   #   end
     #   # end
     # else
-      @commits = @repository.commits.includes(:commit_attempts).order(created_at: :desc)
+    @commits = @repository.commits.includes(:commit_attempts).order(created_at: :desc)
     # end
     fresh_when etag: @commits
   end
 
-
-
   # GET /commits/1
   # GET /commits/1.json
   def show
-
     repository_slug = params[:repository_id] || params[:id]
     user_slug = params[:user_id]
     Rails.logger.info ''
@@ -110,10 +105,14 @@ class CommitsController < ApplicationController
 
     Rails.logger.info ''
 
-    if repository_slug.present? && user_slug.present?
-      @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-    else
+    unless repository_slug.present? && user_slug.present?
       raise ActionController::RoutingError.new('Repository Not Found')
+    end
+
+    @repository = begin
+      Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
+    rescue StandardError
+      nil
     end
 
     @commit = @repository.commits.find(params[:id])
@@ -142,10 +141,5 @@ class CommitsController < ApplicationController
     #   @commit.extension = File.extname(@commit.name)
     #   @commit.extension.slice!(0)
     # end
-
-
   end
-
-private
-
 end

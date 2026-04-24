@@ -1,7 +1,6 @@
 class Policy < ApplicationRecord
-
-  has_many :policy_rules, :dependent => :destroy
-  has_many :policy_checks, :dependent => :destroy
+  has_many :policy_rules, dependent: :destroy
+  has_many :policy_checks, dependent: :destroy
 
   has_many :rules, through: :policy_rules
 
@@ -10,7 +9,5 @@ class Policy < ApplicationRecord
 
   validates :name, presence: true
 
-  accepts_nested_attributes_for :policy_rules, allow_destroy: true, :reject_if => proc { |att| att[:rule_id].blank?}
-
-
+  accepts_nested_attributes_for :policy_rules, allow_destroy: true, reject_if: proc { |att| att[:rule_id].blank? }
 end

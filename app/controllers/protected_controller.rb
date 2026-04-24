@@ -1,7 +1,4 @@
 class ProtectedController < ApplicationController
-
-
-
   # API Authentication - comes before Devise's one
   before_action :authenticate_user_from_token!, if: :json_request?
   # before_action :check_access, if: :json_request?
@@ -17,36 +14,32 @@ class ProtectedController < ApplicationController
 
 private
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :provider, :uid])
-    end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name provider uid])
+  end
 
-    def set_timezone
-      Time.zone = "UTC"
-      if current_user && current_user.time_zone.present?
-        Time.zone = current_user.time_zone
+  def set_timezone
+    Time.zone = 'UTC'
+    return unless current_user && current_user.time_zone.present?
+
+    Time.zone = current_user.time_zone
+  end
+
+  def json_request?
+    request.format.json?
+  end
+
+  def authenticate_user_from_token!
+    user_token = params[:user_token].presence
+    user       = user_token && User.find_by_authentication_token(user_token.to_s)
+
+    if user
+      sign_in user, store: false
+    else
+      respond_to do |format|
+        format.html { redirect_to new_user_session_path, notice: 'Authentication required.' }
+        format.json { render json: { signed_in: false }, status: :unauthorized }
       end
     end
-
-    def json_request?
-      request.format.json?
-    end
-
-    def authenticate_user_from_token!
-      user_token = params[:user_token].presence
-      user       = user_token && User.find_by_authentication_token(user_token.to_s)
-
-      if user
-        sign_in user, store: false
-      else
-        respond_to do |format|
-          format.html { redirect_to new_user_session_path, notice: 'Authentication required.' }
-          format.json { render json: { signed_in: false }, status: :unauthorized }
-        end
-      end
-    end
-
-
-
-
+  end
 end

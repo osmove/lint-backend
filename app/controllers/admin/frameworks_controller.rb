@@ -1,5 +1,5 @@
 class Admin::FrameworksController < Admin::BaseController
-  before_action :set_framework, only: [:show, :edit, :update, :destroy]
+  before_action :set_framework, only: %i[show edit update destroy]
 
   # GET /frameworks
   # GET /frameworks.json
@@ -9,8 +9,7 @@ class Admin::FrameworksController < Admin::BaseController
 
   # GET /frameworks/1
   # GET /frameworks/1.json
-  def show
-  end
+  def show; end
 
   # GET /frameworks/new
   def new
@@ -34,7 +33,7 @@ class Admin::FrameworksController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_frameworks_path }
       else
         format.html { render :new }
-        format.json { render json: @framework.errors, status: :unprocessable_entity }
+        format.json { render json: @framework.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +47,7 @@ class Admin::FrameworksController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_frameworks_path }
       else
         format.html { render :edit }
-        format.json { render json: @framework.errors, status: :unprocessable_entity }
+        format.json { render json: @framework.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +63,14 @@ class Admin::FrameworksController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_framework
-      @framework = Framework.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def framework_params
-      params.require(:framework).permit(:name, :slug, :image, :image_url, :visible)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_framework
+    @framework = Framework.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def framework_params
+    params.require(:framework).permit(:name, :slug, :image, :image_url, :visible)
+  end
 end

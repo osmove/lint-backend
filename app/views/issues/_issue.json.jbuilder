@@ -1,3 +1,3 @@
-json.extract! issue, :id, :title, :slug, :origin, :repository_id, :user_id, :language_id, :framework_id, :created_at, 
+json.extract! issue, :id, :title, :slug, :origin, :repository_id, :user_id, :language_id, :framework_id, :created_at,
               :updated_at
 json.url issue_url(issue, format: :json)

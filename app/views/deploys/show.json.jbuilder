@@ -1,1 +1,1 @@
-json.partial! "deploys/deploy", deploy: @deploy
+json.partial! 'deploys/deploy', deploy: @deploy

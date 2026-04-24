@@ -1,6 +1,5 @@
 class Admin::DecryptionsController < Admin::BaseController
-
-  before_action :set_decryption, only: [:show, :edit, :update, :destroy]
+  before_action :set_decryption, only: %i[show edit update destroy]
 
   # GET /decryptions
   # GET /decryptions.json
@@ -10,8 +9,7 @@ class Admin::DecryptionsController < Admin::BaseController
 
   # GET /decryptions/1
   # GET /decryptions/1.json
-  def show
-  end
+  def show; end
 
   # GET /decryptions/new
   def new
@@ -35,7 +33,7 @@ class Admin::DecryptionsController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_decryption_path(@decryption) }
       else
         format.html { render :new }
-        format.json { render json: @decryption.errors, status: :unprocessable_entity }
+        format.json { render json: @decryption.errors, status: :unprocessable_content }
       end
     end
   end
@@ -49,7 +47,7 @@ class Admin::DecryptionsController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_decryption_path(@decryption) }
       else
         format.html { render :edit }
-        format.json { render json: @decryption.errors, status: :unprocessable_entity }
+        format.json { render json: @decryption.errors, status: :unprocessable_content }
       end
     end
   end
@@ -65,13 +63,14 @@ class Admin::DecryptionsController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_decryption
-      @decryption = Decryption.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def decryption_params
-      params.require(:decryption).permit(:status, :cypher_name, :document_id, :repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_decryption
+    @decryption = Decryption.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def decryption_params
+    params.require(:decryption).permit(:status, :cypher_name, :document_id, :repository_id, :user_id)
+  end
 end

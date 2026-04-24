@@ -8,5 +8,4 @@ class Device < ApplicationRecord
   alias_attribute :has_lint_connect, :has_gatrix_connect
 
   self.inheritance_column = :_type_disabled
-
 end

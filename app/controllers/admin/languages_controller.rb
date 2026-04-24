@@ -1,5 +1,5 @@
 class Admin::LanguagesController < Admin::BaseController
-  before_action :set_language, only: [:show, :edit, :update, :destroy]
+  before_action :set_language, only: %i[show edit update destroy]
 
   # GET /languages
   # GET /languages.json
@@ -9,8 +9,7 @@ class Admin::LanguagesController < Admin::BaseController
 
   # GET /languages/1
   # GET /languages/1.json
-  def show
-  end
+  def show; end
 
   # GET /languages/new
   def new
@@ -34,7 +33,7 @@ class Admin::LanguagesController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_languages_path }
       else
         format.html { render :new }
-        format.json { render json: @language.errors, status: :unprocessable_entity }
+        format.json { render json: @language.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +47,7 @@ class Admin::LanguagesController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_languages_path }
       else
         format.html { render :edit }
-        format.json { render json: @language.errors, status: :unprocessable_entity }
+        format.json { render json: @language.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +63,14 @@ class Admin::LanguagesController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_language
-      @language = Language.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def language_params
-      params.require(:language).permit(:name, :slug, :image, :image_url, :visible)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_language
+    @language = Language.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def language_params
+    params.require(:language).permit(:name, :slug, :image, :image_url, :visible)
+  end
 end

@@ -1,7 +1,5 @@
 class DependanciesController < ProtectedController
-
-
-  before_action :set_dependancy, only: [:show, :edit, :update, :destroy]
+  before_action :set_dependancy, only: %i[show edit update destroy]
 
   # GET /dependancies
   # GET /dependancies.json
@@ -11,8 +9,7 @@ class DependanciesController < ProtectedController
 
   # GET /dependancies/1
   # GET /dependancies/1.json
-  def show
-  end
+  def show; end
 
   # GET /dependancies/new
   def new
@@ -20,8 +17,7 @@ class DependanciesController < ProtectedController
   end
 
   # GET /dependancies/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /dependancies
   # POST /dependancies.json
@@ -34,7 +30,7 @@ class DependanciesController < ProtectedController
         format.json { render :show, status: :created, location: @dependancy }
       else
         format.html { render :new }
-        format.json { render json: @dependancy.errors, status: :unprocessable_entity }
+        format.json { render json: @dependancy.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class DependanciesController < ProtectedController
         format.json { render :show, status: :ok, location: @dependancy }
       else
         format.html { render :edit }
-        format.json { render json: @dependancy.errors, status: :unprocessable_entity }
+        format.json { render json: @dependancy.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class DependanciesController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_dependancy
-      @dependancy = Dependancy.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def dependancy_params
-      params.require(:dependancy).permit(:name, :slug, :repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_dependancy
+    @dependancy = Dependancy.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def dependancy_params
+    params.require(:dependancy).permit(:name, :slug, :repository_id, :user_id)
+  end
 end

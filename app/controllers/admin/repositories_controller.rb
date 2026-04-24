@@ -1,28 +1,21 @@
 class Admin::RepositoriesController < Admin::BaseController
-
-  before_action :set_repository, only: [:show, :edit, :update, :destroy, :qr_code, :settings]
+  before_action :set_repository, only: %i[show edit update destroy qr_code settings]
 
   # before_action :authenticate_user!, only: :settings
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
 
   # layout "bare", only: :qr_code
-
 
   # layout 'dashboard'
   # GET /repositories
   # GET /repositories.json
   def index
     @repositories = Repository.all.order(created_at: :desc).page(params[:page]).per(15)
-
   end
-
-
-
 
   # GET /:user_id/:slug/qr_code
   # GET /:user_id/:slug/qr_code.json
   def qr_code
-
     require 'net/ssh'
     # @device = Device.find(params[:id])
     require 'rqrcode'
@@ -35,26 +28,19 @@ class Admin::RepositoriesController < Admin::BaseController
     # end
   end
 
-
   # GET /:user_id/:slug
   # GET /:user_id/:slug.json
   def show
-
-
     @user = nil
     # @user = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @user = User.find_by(slug: params[:user_id])
-      if @user
-        @user.to_s.downcase
-      end
+      @user.to_s.downcase if @user
     else
       params[:user_id] = @repository.user.id
     end
     # @commits = Commit.all.order(date: :desc).where(user: @user).where(repository: @repository)
     # @user
-
-
 
     require 'rqrcode'
     qrcode = RQRCode::QRCode.new("https://lint.to/#{@repository.uuid}")
@@ -83,40 +69,40 @@ class Admin::RepositoriesController < Admin::BaseController
     #     end
     #   end
 
-  #   @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
-  #
-  #   if @documents.map(&:name).include?('README.md')
-  #     # Read README,md file
-  #     @readme = Document.new
-  #     @readme.name = 'README.md'
-  #     @readme.path = 'README.md'
-  #     @readme.extension = 'md'
-  #     @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
-  #     @content2 = ssh.exec!(@request2)
-  #     @readme.raw_content = @content2
-  #     # @readme.content = @content2
-  #     @readme.size = @content2.length
-  #
-  #     # Check file type
-  #     if @readme.size > 2000000
-  #       @readme.type = 'error'
-  #       @readme.content = 'File is too big.'
-  #     else
-  #       @readme.content = @readme.raw_content
-  #       @readme.type = 'markdown'
-  #       require 'redcarpet'
-  #       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
-  #       @readme.content = markdown.render(@readme.raw_content)
-  #     end
-  #   else
-  #     @readme = false
-  #   end
-  #
-  #
-  #
-  #
-  #
-  # end
+    #   @documents = @repository.documents.sort_by{ |d| [(!d.is_folder).to_s, d.name.downcase] }
+    #
+    #   if @documents.map(&:name).include?('README.md')
+    #     # Read README,md file
+    #     @readme = Document.new
+    #     @readme.name = 'README.md'
+    #     @readme.path = 'README.md'
+    #     @readme.extension = 'md'
+    #     @request2 = "git --git-dir=/var/git/#{@repository.uuid}.git show HEAD:'#{@readme.name}'"
+    #     @content2 = ssh.exec!(@request2)
+    #     @readme.raw_content = @content2
+    #     # @readme.content = @content2
+    #     @readme.size = @content2.length
+    #
+    #     # Check file type
+    #     if @readme.size > 2000000
+    #       @readme.type = 'error'
+    #       @readme.content = 'File is too big.'
+    #     else
+    #       @readme.content = @readme.raw_content
+    #       @readme.type = 'markdown'
+    #       require 'redcarpet'
+    #       markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+    #       @readme.content = markdown.render(@readme.raw_content)
+    #     end
+    #   else
+    #     @readme = false
+    #   end
+    #
+    #
+    #
+    #
+    #
+    # end
 
     #
     # if @repository.documents.map(&:name).include?('README.md')
@@ -147,17 +133,7 @@ class Admin::RepositoriesController < Admin::BaseController
     # else
     #   @readme = false
     # end
-
-
-
-
-
-
-
   end
-
-
-
 
   # GET /:user_id/:slug/settings
   # GET /:user_id/:slug/settings.json
@@ -166,15 +142,11 @@ class Admin::RepositoriesController < Admin::BaseController
     # @user = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @user = User.find_by(slug: params[:user_id])
-      if @user
-        @user.to_s.downcase
-      end
+      @user.to_s.downcase if @user
     end
     # @commits = Commit.all.order(date: :desc).where(user: @user).where(repository: @repository)
     @user
   end
-
-
 
   # GET /repositories/new
   def new
@@ -187,9 +159,9 @@ class Admin::RepositoriesController < Admin::BaseController
   def edit
     @author = @repository.user
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
-    if @author = @user
-      @form_url =  {:controller => "repositories", :action => "update"}
-    end
+    return unless @author = @user
+
+    @form_url = { controller: 'repositories', action: 'update' }
   end
 
   # POST /repositories
@@ -199,17 +171,17 @@ class Admin::RepositoriesController < Admin::BaseController
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     @repository = Repository.new(repository_params)
     @repository.user = @user
-    @repository.slug = @repository.name.to_s.parameterize(separator: "-", preserve_case: false)
+    @repository.slug = @repository.name.to_s.parameterize(separator: '-', preserve_case: false)
 
     respond_to do |format|
       if @repository.save
         format.html do
- redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully created.'
+          redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully created.'
         end
         format.json { render :show, status: :created, location: user_repository_path(@user, @repository) }
       else
         format.html { render :new }
-        format.json { render json: user_repository_path(@user, @repository), status: :unprocessable_entity }
+        format.json { render json: user_repository_path(@user, @repository), status: :unprocessable_content }
       end
     end
   end
@@ -217,28 +189,25 @@ class Admin::RepositoriesController < Admin::BaseController
   # PATCH/PUT /repositories/1
   # PATCH/PUT /repositories/1.json
   def update
-
     @repository.user = @user
-
 
     respond_to do |format|
       if @repository.update(repository_params)
 
-        @repository.slug = @repository.name.to_s.parameterize(separator: "-", preserve_case: false)
+        @repository.slug = @repository.name.to_s.parameterize(separator: '-', preserve_case: false)
         format.html do
- redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully updated.'
+          redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully updated.'
         end
         format.json { render :show, status: :ok, location: user_repository_path(@user) }
       else
         format.html { render :edit }
-        format.json { render json: user_repositories_path(@user).errors, status: :unprocessable_entity }
+        format.json { render json: user_repositories_path(@user).errors, status: :unprocessable_content }
       end
     end
   end
 
   # DELETE /repositories/1
   # DELETE /repositories/1.json
-
 
   def destroy
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
@@ -251,26 +220,24 @@ class Admin::RepositoriesController < Admin::BaseController
     end
   end
 
-
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_repository
-      @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
-      repository_id = params[:repository_id]
-      repository_id = params[:id] if params[:repository_id].blank?
-      @repository = Repository.friendly.find(repository_id)
-      if @repository.present?
-        @repository = Repository.public.friendly.find(repository_id)
-      else
-        # @repository = nil
-        raise ActionController::RoutingError.new('Repository Not Found')
-      end
 
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_repository
+    @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
+    repository_id = params[:repository_id]
+    repository_id = params[:id] if params[:repository_id].blank?
+    @repository = Repository.friendly.find(repository_id)
+    raise ActionController::RoutingError.new('Repository Not Found') unless @repository.present?
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def repository_params
-      params.require(:repository).permit(:name, :slug, :user_id, :status, :deploy_to, :server_size, :domain_slug, :geo_zone, :hosting_plan_id, :type, :platform_id, :has_encryption, :has_deployment, :requires_two_step_authentication, :policy_id, :git_host,
-        :git_address, :has_autofix, :web_url, :html_url, :git_url, :ssh_url)
-    end
+    @repository = Repository.public.friendly.find(repository_id)
+
+    # @repository = nil
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def repository_params
+    params.require(:repository).permit(:name, :slug, :user_id, :status, :deploy_to, :server_size, :domain_slug, :geo_zone, :hosting_plan_id, :type, :platform_id, :has_encryption, :has_deployment, :requires_two_step_authentication, :policy_id, :git_host,
+                                       :git_address, :has_autofix, :web_url, :html_url, :git_url, :ssh_url)
+  end
 end

@@ -1,6 +1,5 @@
 class Admin::DevicesController < Admin::BaseController
-
-  before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_device, only: %i[show edit update destroy]
 
   def index
     @devices = Device.all.order(created_at: :desc).page(params[:page]).per(15)
@@ -12,8 +11,7 @@ class Admin::DevicesController < Admin::BaseController
   end
 
   # GET /devices/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /devices
   # POST /devices.json
@@ -26,7 +24,7 @@ class Admin::DevicesController < Admin::BaseController
         format.json { render :show, status: :created, location: @device }
       else
         format.html { render :new }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
+        format.json { render json: @device.errors, status: :unprocessable_content }
       end
     end
   end
@@ -40,7 +38,7 @@ class Admin::DevicesController < Admin::BaseController
         format.json { render :show, status: :ok, location: @device }
       else
         format.html { render :edit }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
+        format.json { render json: @device.errors, status: :unprocessable_content }
       end
     end
   end
@@ -56,14 +54,15 @@ class Admin::DevicesController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_device
-      @device = Device.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def device_params
-      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, 
-                                     :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_device
+    @device = Device.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def device_params
+    params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version,
+                                   :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
+  end
 end

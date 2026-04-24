@@ -6,9 +6,7 @@ module Api
       def create
         repository = current_user.repositories.find_by(uuid: params[:repository_uuid])
 
-        unless repository
-          return render json: { error: "Repository not found" }, status: :not_found
-        end
+        return render json: { error: 'Repository not found' }, status: :not_found unless repository
 
         recommender = Ai::RuleRecommender.new
         recommendations = recommender.recommend(repository)

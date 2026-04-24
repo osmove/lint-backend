@@ -1,5 +1,5 @@
 class Admin::RulesController < Admin::BaseController
-  before_action :set_rule, only: [:show, :edit, :update, :destroy]
+  before_action :set_rule, only: %i[show edit update destroy]
 
   # GET /rules
   # GET /rules.json
@@ -9,8 +9,7 @@ class Admin::RulesController < Admin::BaseController
 
   # GET /rules/1
   # GET /rules/1.json
-  def show
-  end
+  def show; end
 
   # GET /rules/new
   def new
@@ -42,7 +41,7 @@ class Admin::RulesController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_rules_path }
       else
         format.html { render :new }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
+        format.json { render json: @rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -56,7 +55,7 @@ class Admin::RulesController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_rules_path }
       else
         format.html { render :edit }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
+        format.json { render json: @rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -72,15 +71,16 @@ class Admin::RulesController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rule
-      @rule = Rule.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rule_params
-      params.require(:rule).permit(:name, :slug, :type, :description, :options, :status, :language_id, :framework_id, :platform_id, :parent_id, :linter_id, :fixable,
-        rule_options_attributes: [:id, :name, :slug, :description, :value_type, :value, :units, :condition_value, :_destroy,
-        rule_option_options_attributes: [:id, :value, :rule_option, :_destroy, policy_rule_option_options_attributes:[:id, :value, :_destroy]]])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rule
+    @rule = Rule.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rule_params
+    params.require(:rule).permit(:name, :slug, :type, :description, :options, :status, :language_id, :framework_id, :platform_id, :parent_id, :linter_id, :fixable,
+                                 rule_options_attributes: [:id, :name, :slug, :description, :value_type, :value, :units, :condition_value, :_destroy,
+                                                           { rule_option_options_attributes: [:id, :value, :rule_option, :_destroy, { policy_rule_option_options_attributes: %i[id value _destroy] }] }])
+  end
 end

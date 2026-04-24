@@ -1,1 +1,1 @@
-json.partial! "pushes/push", push: @push
+json.partial! 'pushes/push', push: @push

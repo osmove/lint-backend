@@ -1,10 +1,13 @@
 class PostmarkController < ApplicationController
   def inbound
-
     @result = nil
     information = request.raw_post
     if information.present?
-      @result = JSON.parse(information) rescue nil
+      @result = begin
+        JSON.parse(information)
+      rescue StandardError
+        nil
+      end
       if @result.present?
         @message = Message.new
         @message.type = 'email'
@@ -23,13 +26,13 @@ class PostmarkController < ApplicationController
           if @message.save!
             format.json { render json: @message, status: :created }
           else
-            format.json { render json: @message.errors, status: :unprocessable_entity }
+            format.json { render json: @message.errors, status: :unprocessable_content }
           end
         end
       end
     else
       respond_to do |format|
-        format.json { render json: "Error", status: :unprocessable_entity }
+        format.json { render json: 'Error', status: :unprocessable_content }
       end
     end
 

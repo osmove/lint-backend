@@ -5,47 +5,47 @@ class ContributorsControllerTest < ActionDispatch::IntegrationTest
     @contributor = contributors(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get contributors_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_contributor_url
     assert_response :success
   end
 
-  test "should create contributor" do
+  test 'should create contributor' do
     assert_difference('Contributor.count') do
-      post contributors_url, 
-           params: { contributor: { email: "new-contributor@example.com", name: "New Contributor", 
+      post contributors_url,
+           params: { contributor: { email: 'new-contributor@example.com', name: 'New Contributor',
                                     repository_id: @contributor.repository_id, user_id: @contributor.user_id } }
     end
 
     assert_redirected_to contributor_url(Contributor.last)
   end
 
-  test "should show contributor" do
+  test 'should show contributor' do
     get contributor_url(@contributor)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_contributor_url(@contributor)
     assert_response :success
   end
 
-  test "should update contributor" do
-    patch contributor_url(@contributor), 
-          params: { contributor: { email: @contributor.email, name: @contributor.name, repository_id: @contributor.repository_id, 
+  test 'should update contributor' do
+    patch contributor_url(@contributor),
+          params: { contributor: { email: @contributor.email, name: @contributor.name, repository_id: @contributor.repository_id,
                                    user_id: @contributor.user_id } }
     assert_redirected_to contributor_url(@contributor)
   end
 
-  test "should destroy contributor" do
+  test 'should destroy contributor' do
     contributor = Contributor.create!(
-      name: "Disposable Contributor",
-      email: "disposable-contributor@example.com",
+      name: 'Disposable Contributor',
+      email: 'disposable-contributor@example.com',
       repository: repositories(:one),
       user: users(:one)
     )

@@ -1,12 +1,12 @@
 class PoliciesController < ApplicationController
-  before_action :set_policy, only: [:show, :edit, :update, :destroy]
+  before_action :set_policy, only: %i[show edit update destroy]
 
   # GET /policies
   # GET /policies.json
   def index
-    if params[:user_id].present?
-      @policies = current_user.policies
-    end
+    return unless params[:user_id].present?
+
+    @policies = current_user.policies
   end
 
   # GET /policies/1
@@ -15,7 +15,6 @@ class PoliciesController < ApplicationController
     @linters = Linter.all
     @policy_rules = @policy.policy_rules.order(name: :asc)
     # @policy_rules_grouped = @policy.policy_rules.order(name: :asc).group_by{|h| h.linter}
-
   end
 
   # GET /policies/new
@@ -25,7 +24,7 @@ class PoliciesController < ApplicationController
     @rules = @policy_rules.build_rule
     @linters = Linter.all
     @present_rules = @policy.rules
-    @all_rules = Rule.all.includes([{rule_options: :rule_option_options}, :linter])
+    @all_rules = Rule.all.includes([{ rule_options: :rule_option_options }, :linter])
     @form_rules = @all_rules - @present_rules
   end
 
@@ -40,7 +39,6 @@ class PoliciesController < ApplicationController
 
   def user_policies
     @policies = current_user.policies
-
   end
 
   # POST /policies
@@ -57,7 +55,7 @@ class PoliciesController < ApplicationController
         @all_rules = Rule.all
         @form_rules = @all_rules - @present_rules
         format.html { render :new }
-        format.json { render json: @policy.errors, status: :unprocessable_entity }
+        format.json { render json: @policy.errors, status: :unprocessable_content }
       end
     end
   end
@@ -65,7 +63,6 @@ class PoliciesController < ApplicationController
   # PATCH/PUT /policies/1
   # PATCH/PUT /policies/1.json
   def update
-
     respond_to do |format|
       if @policy.update(policy_params)
         format.html { redirect_to user_policy_path(@policy.user, @policy), notice: 'Policy was successfully updated.' }
@@ -73,11 +70,12 @@ class PoliciesController < ApplicationController
       else
         @linters = Linter.all
         format.html { render :edit }
-        format.json { render json: @policy.errors, status: :unprocessable_entity }
+        format.json { render json: @policy.errors, status: :unprocessable_content }
       end
     end
   end
-  #sss
+
+  # sss
   # DELETE /policies/1
   # DELETE /policies/1.json
   def destroy
@@ -89,23 +87,21 @@ class PoliciesController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_policy
-      # @policy = Policy.find(params[:id])
-      # @policy = Policy.includes( policy_rules: [{rule: [:linter, { rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
-      # @policy = Policy.includes( policy_rules: [{rule: [{ rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
-      @policy = Policy.includes( policy_rules: [:linter, 
-{ policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
 
+  # Use callbacks to share common setup or constraints between actions.
+  def set_policy
+    # @policy = Policy.find(params[:id])
+    # @policy = Policy.includes( policy_rules: [{rule: [:linter, { rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+    # @policy = Policy.includes( policy_rules: [{rule: [{ rule_options: [:rule_option_options ] }]}, { policy_rule_options: [:rule_option, :rule_option_options ] }]).find(params[:id])
+    @policy = Policy.includes(policy_rules: [:linter,
+                                             { policy_rule_options: %i[rule_option
+                                                                       rule_option_options] }]).find(params[:id])
+  end
 
-    end
-
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def policy_params
-      params.require(:policy).permit(:name, :description, :autofix, :user_id, :prevent_commits_on_errors,
-        policy_rules_attributes: [:id, :options, :autofix, :position, :status, :rule_id, :_destroy,
-          policy_rule_options_attributes: [:id, :policy_rule, :rule_option, :rule_option_id, :value, :_destroy, :rule_option_option_ids=> []]
-        ])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def policy_params
+    params.require(:policy).permit(:name, :description, :autofix, :user_id, :prevent_commits_on_errors,
+                                   policy_rules_attributes: [:id, :options, :autofix, :position, :status, :rule_id, :_destroy,
+                                                             { policy_rule_options_attributes: [:id, :policy_rule, :rule_option, :rule_option_id, :value, :_destroy, { rule_option_option_ids: [] }] }])
+  end
 end

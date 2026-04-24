@@ -1,12 +1,11 @@
 class RepositoriesController < ProtectedController
-# class RepositoriesController < ApplicationController
-  before_action :set_repository, only: [:show, :edit, :update, :destroy, :qr_code, :settings, :repository_policies]
+  # class RepositoriesController < ApplicationController
+  before_action :set_repository, only: %i[show edit update destroy qr_code settings repository_policies]
 
   # before_action :authenticate_user!, only: :settings
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
 
   # layout "bare", only: :qr_code
-
 
   # layout 'dashboard'
   # GET /repositories
@@ -17,64 +16,53 @@ class RepositoriesController < ProtectedController
     @my_repositories = []
     if params['q'].present? && params['q'] != '' && params['q'] != 'undefined'
       @query = params['q']
-      if params[:user_id].present? && params[:user_id] != ''
-        @repositories = Repository.all.where(user: @owner).where("uuid LIKE ?", "%#{@query.downcase}%")
-      else
-        @repositories = Repository.all.public.where(user: !@owner).where("uuid LIKE ?", "%#{@query.downcase}%")
-      end
+      @repositories = if params[:user_id].present? && params[:user_id] != ''
+                        Repository.all.where(user: @owner).where('uuid LIKE ?', "%#{@query.downcase}%")
+                      else
+                        Repository.all.public.where(user: !@owner).where('uuid LIKE ?', "%#{@query.downcase}%")
+                      end
+    elsif params[:user_id].present?
+      @repositories = Repository.all.where(user: @owner)
     else
-      if params[:user_id].present?
-        @repositories = Repository.all.where(user: @owner)
-      else
-        @repositories = Repository.all
-      end
+      @repositories = Repository.all
     end
 
     if params['git_url'].present? && params['git_url'] != '' && params['git_url'] != 'undefined'
       @query = params['git_url']
-      if params[:user_id].present? && params[:user_id] != ''
-        @repositories = Repository.all.where(user: @owner).where("lower(git_address) LIKE ?", "%#{@query.downcase}%")
-      else
-        @repositories = Repository.all.public.where(user: @owner).where("lower(git_address) LIKE ?", 
-"%#{@query.downcase}%")
-      end
+      @repositories = if params[:user_id].present? && params[:user_id] != ''
+                        Repository.all.where(user: @owner).where('lower(git_address) LIKE ?', "%#{@query.downcase}%")
+                      else
+                        Repository.all.public.where(user: @owner).where('lower(git_address) LIKE ?',
+                                                                        "%#{@query.downcase}%")
+                      end
+    elsif params[:user_id].present?
+      @repositories = Repository.all.where(user: @owner)
     else
-      if params[:user_id].present?
-        @repositories = Repository.all.where(user: @owner)
-      else
-        @repositories = Repository.all
-      end
+      @repositories = Repository.all
     end
 
     if params['slug'].present? && params['slug'] != '' && params['slug'] != 'undefined'
       @query = params['slug']
-      if params[:user_id].present? && params[:user_id] != ''
-        @repositories = Repository.all.where(user: @owner).where("lower(slug) = ?", "#{@query.downcase}")
-      else
-        @repositories = Repository.all.public.where(user: @owner).where("lower(slug) = ?", "#{@query.downcase}")
-      end
+      @repositories = if params[:user_id].present? && params[:user_id] != ''
+                        Repository.all.where(user: @owner).where('lower(slug) = ?', "#{@query.downcase}")
+                      else
+                        Repository.all.public.where(user: @owner).where('lower(slug) = ?', "#{@query.downcase}")
+                      end
+    elsif params[:user_id].present?
+      @repositories = Repository.all.where(user: @owner)
     else
-      if params[:user_id].present?
-        @repositories = Repository.all.where(user: @owner)
-      else
-        @repositories = Repository.all
-      end
+      @repositories = Repository.all
     end
 
     @repositories_count = @repositories.count
     @repositories = @repositories.order(created_at: :desc)
     # @repositories = @repositories.limit(5).order(updated_at: :desc)
     fresh_when etag: @repositories
-
   end
-
-
-
 
   # GET /:user_id/:slug/qr_code
   # GET /:user_id/:slug/qr_code.json
   def qr_code
-
     require 'net/ssh'
     # @device = Device.find(params[:id])
     require 'rqrcode'
@@ -107,8 +95,12 @@ class RepositoriesController < ProtectedController
     # @repository = Repository.includes( policy: { policy_rules: [{rule: :linter}, { policy_rule_options: :rule_option }]}).where(uuid: @repository.uuid).first rescue nil
 
     if @repository.present?
-      @repository = Repository.includes( policy: { policy_rules: [:linter, 
-                                                                  :policy_rule_options] }).where(uuid: @repository.uuid).first rescue nil
+      @repository = begin
+        Repository.includes(policy: { policy_rules: %i[linter
+                                                       policy_rule_options] }).where(uuid: @repository.uuid).first
+      rescue StandardError
+        nil
+      end
     end
 
     @policy = @repository.policy
@@ -123,27 +115,17 @@ class RepositoriesController < ProtectedController
   # GET /:user_id/:slug
   # GET /:user_id/:slug.json
   def show
-
-
     @owner = nil
     # @owner = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @owner = User.find_by(slug: params[:user_id])
-      if @owner
-        @owner.to_s.downcase
-      end
+      @owner.to_s.downcase if @owner
     end
     # @commits = Commit.all.order(date: :desc).where(user: @owner).where(repository: @repository)
-    @owner
-
-
 
     # require 'rqrcode'
     # qrcode = RQRCode::QRCode.new("https://lint.to/#{@repository.uuid}")
     # @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 3)
-
-
-
 
     # @qrcode_html = qrcode.as_html
 
@@ -234,13 +216,6 @@ class RepositoriesController < ProtectedController
     #   @readme = false
     # end
 
-
-
-
-
-
-
-
     #
     # repository_slug = params[:repository_id] || params[:id]
     # user_slug = params[:user_id]
@@ -259,23 +234,22 @@ class RepositoriesController < ProtectedController
       @authors = @commit_attempts.map(&:user).compact.uniq
       @branches = @commit_attempts.map(&:branch_name).compact.uniq
 
-
       if params[:author].present?
         @author = params[:author]
         @commit_attempts = @commit_attempts.where(user_id: @author).includes(:policy_checks)
       end
 
       if params[:branch].present?
-        @branch = params[:branch].gsub(/[^a-zA-Z0-9\-]/,"")
+        @branch = params[:branch].gsub(/[^a-zA-Z0-9-]/, '')
         @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks)
         # @commit_attempts = @commit_attempts.where("lower(name) = ?", name.downcase).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
       end
 
       if params[:status].present?
         # @status = params[:status]
-        if params[:status] == "passed"
+        if params[:status] == 'passed'
           @commit_attempts = @commit_attempts.where(passed: true)
-        elsif params[:status] == "failed"
+        elsif params[:status] == 'failed'
           @commit_attempts = @commit_attempts.where(passed: false)
         end
       end
@@ -286,17 +260,7 @@ class RepositoriesController < ProtectedController
 
     @commit_attempts = @commit_attempts.order(created_at: :desc).page(params[:page]).per(10)
     fresh_when etag: @commit_attempts
-
-
-
-
-
-
-
   end
-
-
-
 
   # GET /:user_id/:slug/settings
   # GET /:user_id/:slug/settings.json
@@ -305,15 +269,11 @@ class RepositoriesController < ProtectedController
     # @owner = params[:id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     if params[:user_id].present?
       @owner = User.find_by(slug: params[:user_id])
-      if @owner
-        @owner.to_s.downcase
-      end
+      @owner.to_s.downcase if @owner
     end
     # @commits = Commit.all.order(date: :desc).where(user: @owner).where(repository: @repository)
     @owner
   end
-
-
 
   # GET /repositories/new
   def new
@@ -330,7 +290,7 @@ class RepositoriesController < ProtectedController
     #   @form_url =  {:controller => "repositories", :action => "update"}
     # end
 
-      # @form_url =  {:controller => "repositories", :action => "update"}
+    # @form_url =  {:controller => "repositories", :action => "update"}
 
     @form_url = user_repository_path(@repository.user, @repository)
   end
@@ -348,30 +308,29 @@ class RepositoriesController < ProtectedController
     # uuid = "#{@repository.user.username.to_s.downcase}/#{@repository.name.to_s.downcase}"
     # uuid = @repository.uuid
 
-
-
     @repository.slug = @repository.name.to_s.downcase
 
     respond_to do |format|
       if Repository.where(uuid: uuid).first.present?
-        @repository.errors[:uuid] << "already exists"
+        @repository.errors[:uuid] << 'already exists'
         format.html { render :new, alert: 'Repository already exists.' }
-        format.json { render json: user_repository_path(@repository.user, @repository), status: :unprocessable_entity }
+        format.json { render json: user_repository_path(@repository.user, @repository), status: :unprocessable_content }
       else
-        if @repository.git_host != "github"
-          @repository.git_address = "git@git.lint.to:#{@repository.user.slug}/#{@repository.slug}.git"
-        else
-          @repository.git_address = self.git_url
-        end
+        @repository.git_address = if @repository.git_host == 'github'
+                                    git_url
+                                  else
+                                    "git@git.lint.to:#{@repository.user.slug}/#{@repository.slug}.git"
+                                  end
         if @repository.save
           format.html do
- redirect_to user_repository_path(@repository.user, @repository), notice: 'Repository was successfully created.'
+            redirect_to user_repository_path(@repository.user, @repository),
+                        notice: 'Repository was successfully created.'
           end
           format.json { render :show, status: :created, location: user_repository_path(@repository.user, @repository) }
         else
           format.html { render :new }
           format.json do
- render json: user_repository_path(@repository.user, @repository), status: :unprocessable_entity
+            render json: user_repository_path(@repository.user, @repository), status: :unprocessable_content
           end
         end
       end
@@ -386,12 +345,12 @@ class RepositoriesController < ProtectedController
       if @repository.update(repository_params)
         @repository.slug = @repository.name.to_s.downcase
 
-        format.html { redirect_to request.referrer, notice: 'Repository was successfully updated.' }
-        format.json { render :show, status: :ok, location: request.referrer}
+        format.html { redirect_to request.referer, notice: 'Repository was successfully updated.' }
+        format.json { render :show, status: :ok, location: request.referer }
       else
         format.html { render :edit }
         format.json do
- render json: user_repositories_path(@repository.user, @repository).errors, status: :unprocessable_entity
+          render json: user_repositories_path(@repository.user, @repository).errors, status: :unprocessable_content
         end
       end
     end
@@ -399,7 +358,6 @@ class RepositoriesController < ProtectedController
 
   # DELETE /repositories/1
   # DELETE /repositories/1.json
-
 
   def destroy
     @owner = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
@@ -412,22 +370,26 @@ class RepositoriesController < ProtectedController
     end
   end
 
-
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_repository
-      repository_slug = params[:repository_id] || params[:id]
-      user_slug = params[:user_id]
-      if repository_slug.present? && user_slug.present?
-        @repository = Repository.where(uuid: "#{user_slug}/#{repository_slug}").first rescue nil
-      else
-        raise ActionController::RoutingError.new('Repository Not Found')
-      end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_repository
+    repository_slug = params[:repository_id] || params[:id]
+    user_slug = params[:user_id]
+    unless repository_slug.present? && user_slug.present?
+      raise ActionController::RoutingError.new('Repository Not Found')
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def repository_params
-      params.require(:repository).permit(:id, :name, :slug, :user_id, :status, :deploy_to, :server_size, :domain_slug, :geo_zone, :hosting_plan_id, :type, :platform_id, :has_encryption, :has_deployment, :requires_two_step_authentication, :policy_id, :git_host,
-        :git_address, :has_autofix, :web_url, :html_url, :git_url, :ssh_url)
+    @repository = begin
+      Repository.where(uuid: "#{user_slug}/#{repository_slug}").first
+    rescue StandardError
+      nil
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def repository_params
+    params.require(:repository).permit(:id, :name, :slug, :user_id, :status, :deploy_to, :server_size, :domain_slug, :geo_zone, :hosting_plan_id, :type, :platform_id, :has_encryption, :has_deployment, :requires_two_step_authentication, :policy_id, :git_host,
+                                       :git_address, :has_autofix, :web_url, :html_url, :git_url, :ssh_url)
+  end
 end

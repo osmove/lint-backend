@@ -1,19 +1,16 @@
 class PagesController < ApplicationController
-# class PagesController < ProtectedController
+  # class PagesController < ProtectedController
 
-  require "open-uri"
-  require "json"
-  require "set"
+  require 'open-uri'
+  require 'json'
 
-
-
-  layout "dashboard", only: :dashboard
+  layout 'dashboard', only: :dashboard
   # layout "marketing", except: [:dashboard, :select_repositories]
   # layout "prelaunch", only: [:prelaunch, :available_soon]
-  layout "prelaunch", except: [:dashboard, :select_repositories]
+  layout 'prelaunch', except: %i[dashboard select_repositories]
 
   # before_action :authenticate_user!, except: :home
-  before_action :authenticate_user!, only: [:dashboard, :select_repositories]
+  before_action :authenticate_user!, only: %i[dashboard select_repositories]
   # before_action :authenticate_user!, except: [:prelaunch, :available_soon]
 
   def home
@@ -75,7 +72,6 @@ class PagesController < ApplicationController
     @resource ||= User.new
   end
 
-
   def deploy
     @resource ||= User.new
   end
@@ -101,9 +97,7 @@ class PagesController < ApplicationController
     @message = Message.new
   end
 
-  def available_soon
-
-  end
+  def available_soon; end
 
   def dashboard
     # @user = current_user
@@ -122,7 +116,7 @@ class PagesController < ApplicationController
       end
     end
 
-    #display repo
+    # display repo
     @passed_param = session[:passed_variable]
     @github_repos = @passed_param
 
@@ -131,9 +125,9 @@ class PagesController < ApplicationController
     @qrcode_svg = qrcode.as_svg(offset: 0, color: '333', shape_rendering: 'crispEdges', module_size: 4, width: '100%')
     # @qrcode_html = qrcode.as_html
     @all_repos =  current_user.repositories_with_access
-    @all_repos = @all_repos.sort_by{|a| a[:updated_at]}.reverse!.first(10)
+    @all_repos = @all_repos.sort_by { |a| a[:updated_at] }.reverse!.first(10)
 
-    @last_commits = @all_repos.flat_map(&:commits).sort_by{|a| a[:created_at]}.reverse!.first(10)
+    @last_commits = @all_repos.flat_map(&:commits).sort_by { |a| a[:created_at] }.reverse!.first(10)
 
     # @last_commits = @user.commits.order(created_at: :desc).first(10)
     # @last_commit_attempts = @user.repositories.commit_attempts.order(created_at: :desc).first(10)
@@ -144,15 +138,10 @@ class PagesController < ApplicationController
     # Else
     @commit_attempts = current_user.commit_attempts
 
-
-
-
     # @commit_attempts = @last_commit_attempts
-
 
     @authors = @commit_attempts.map(&:user).compact.uniq
     @branches = @commit_attempts.map(&:branch_name).compact.uniq
-
 
     if params[:repository].present?
       @repository = current_user.repositories_with_access.where(uuid: params[:repository]).last
@@ -165,24 +154,21 @@ class PagesController < ApplicationController
     end
 
     if params[:branch].present?
-      @branch = params[:branch].gsub(/[^a-zA-Z0-9\-]/,"")
+      @branch = params[:branch].gsub(/[^a-zA-Z0-9-]/, '')
       @commit_attempts = @commit_attempts.where(branch_name: @branch).includes(:policy_checks)
       # @commit_attempts = @commit_attempts.where("lower(name) = ?", name.downcase).includes(:policy_checks).order(created_at: :desc).page(params[:page]).per(10)
     end
 
     if params[:status].present?
       # @status = params[:status]
-      if params[:status] == "passed"
+      if params[:status] == 'passed'
         @commit_attempts = @commit_attempts.where(passed: true)
-      elsif params[:status] == "failed"
+      elsif params[:status] == 'failed'
         @commit_attempts = @commit_attempts.where(passed: false)
       end
     end
 
-
-
     @commit_attempts = @commit_attempts.order(created_at: :desc).page(params[:page]).per(10)
-
 
     #
     # expoPushClient = Exponent::Push::Client.new
@@ -202,9 +188,6 @@ class PagesController < ApplicationController
     #
     # expoPushClient.publish(messages)
 
-
-
-
     # Send welcome push notification
     # push_messages = []
     # current_user.devices.each do |device|
@@ -223,8 +206,6 @@ class PagesController < ApplicationController
     #   expo_push_client.publish(push_messages)
     # end
 
-
-
     # Calculate Smart IP
     # forwared_for_ip = request.env['HTTP_X_FORWARDED_FOR']
     # @smart_ip = ""
@@ -237,10 +218,22 @@ class PagesController < ApplicationController
     #   @smart_ip = request.remote_ip
     # end
 
-    response = Net::HTTP.get(URI.parse("https://www.iplocate.io/api/lookup/#{@smart_ip}")) rescue nil
+    response = begin
+      Net::HTTP.get(URI.parse("https://www.iplocate.io/api/lookup/#{@smart_ip}"))
+    rescue StandardError
+      nil
+    end
     result = JSON.parse(response)
-    country = result["country"] || "unknown country" rescue nil
-    country_code = result["country_code"] || "UNKNOWN" rescue nil
+    country = begin
+      result['country'] || 'unknown country'
+    rescue StandardError
+      nil
+    end
+    country_code = begin
+      result['country_code'] || 'UNKNOWN'
+    rescue StandardError
+      nil
+    end
 
     if current_user.country.present? && current_user.country != country_code
       current_user.send_push_notification(
@@ -249,12 +242,10 @@ class PagesController < ApplicationController
       )
     end
 
-
     current_user.send_push_notification(
       "Connection from #{country}",
       "Hi, #{current_user.username}. New connection detected to your Lint Dashboard with IP #{@smart_ip}."
     )
-
 
     #
     # # Send security alert push notification
@@ -274,31 +265,27 @@ class PagesController < ApplicationController
     #   expo_push_client = Exponent::Push::Client.new
     #   expo_push_client.publish(push_messages)
     # end
-
-
-
   end
 
 private
 
-    def resource_name
-      :user
-    end
-    helper_method :resource_name
+  def resource_name
+    :user
+  end
+  helper_method :resource_name
 
-    def resource
-      @resource ||= User.new
-    end
-    helper_method :resource
+  def resource
+    @resource ||= User.new
+  end
+  helper_method :resource
 
-    def devise_mapping
-      @devise_mapping ||= Devise.mappings[:user]
-    end
-    helper_method :devise_mapping
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+  helper_method :devise_mapping
 
-    def resource_class
-      User
-    end
-    helper_method :resource_class
-
+  def resource_class
+    User
+  end
+  helper_method :resource_class
 end

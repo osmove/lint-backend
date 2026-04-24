@@ -10,23 +10,21 @@ module Api
         token = extract_token
         @current_user = token && User.find_by(authentication_token: token)
 
-        unless @current_user
-          render json: { error: "Unauthorized" }, status: :unauthorized
-        end
+        return if @current_user
+
+        render json: { error: 'Unauthorized' }, status: :unauthorized
       end
 
       def extract_token
         # Support both header and param-based auth
-        if request.headers["Authorization"].present?
-          request.headers["Authorization"].split(" ").last
+        if request.headers['Authorization'].present?
+          request.headers['Authorization'].split(' ').last
         else
           params[:user_token]
         end
       end
 
-      def current_user
-        @current_user
-      end
+      attr_reader :current_user
     end
   end
 end

@@ -1,1 +1,1 @@
-json.partial! "commits/commit", commit: @commit
+json.partial! 'commits/commit', commit: @commit

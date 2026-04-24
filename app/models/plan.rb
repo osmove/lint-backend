@@ -1,10 +1,7 @@
 class Plan < ApplicationRecord
   has_many :users
 
-
-
   def to_s
-    self.name
+    name
   end
-  
 end

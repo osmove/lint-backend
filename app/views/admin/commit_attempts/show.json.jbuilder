@@ -1,1 +1,1 @@
-json.partial! "commit_attempts/commit_attempt", commit_attempt: @commit_attempt
+json.partial! 'commit_attempts/commit_attempt', commit_attempt: @commit_attempt

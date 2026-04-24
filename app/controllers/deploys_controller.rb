@@ -1,7 +1,5 @@
 class DeploysController < ProtectedController
-
-
-  before_action :set_deploy, only: [:show, :edit, :update, :destroy]
+  before_action :set_deploy, only: %i[show edit update destroy]
 
   # GET /deploys
   # GET /deploys.json
@@ -11,8 +9,7 @@ class DeploysController < ProtectedController
 
   # GET /deploys/1
   # GET /deploys/1.json
-  def show
-  end
+  def show; end
 
   # GET /deploys/new
   def new
@@ -20,8 +17,7 @@ class DeploysController < ProtectedController
   end
 
   # GET /deploys/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /deploys
   # POST /deploys.json
@@ -34,7 +30,7 @@ class DeploysController < ProtectedController
         format.json { render :show, status: :created, location: @deploy }
       else
         format.html { render :new }
-        format.json { render json: @deploy.errors, status: :unprocessable_entity }
+        format.json { render json: @deploy.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class DeploysController < ProtectedController
         format.json { render :show, status: :ok, location: @deploy }
       else
         format.html { render :edit }
-        format.json { render json: @deploy.errors, status: :unprocessable_entity }
+        format.json { render json: @deploy.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class DeploysController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_deploy
-      @deploy = Deploy.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def deploy_params
-      params.require(:deploy).permit(:repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_deploy
+    @deploy = Deploy.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def deploy_params
+    params.require(:deploy).permit(:repository_id, :user_id)
+  end
 end

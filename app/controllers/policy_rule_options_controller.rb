@@ -1,5 +1,5 @@
 class PolicyRuleOptionsController < ApplicationController
-  before_action :set_policy_rule_option, only: [:show, :edit, :update, :destroy]
+  before_action :set_policy_rule_option, only: %i[show edit update destroy]
 
   # GET /policy_rule_options
   # GET /policy_rule_options.json
@@ -9,8 +9,7 @@ class PolicyRuleOptionsController < ApplicationController
 
   # GET /policy_rule_options/1
   # GET /policy_rule_options/1.json
-  def show
-  end
+  def show; end
 
   # GET /policy_rule_options/new
   def new
@@ -18,8 +17,7 @@ class PolicyRuleOptionsController < ApplicationController
   end
 
   # GET /policy_rule_options/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /policy_rule_options
   # POST /policy_rule_options.json
@@ -27,9 +25,7 @@ class PolicyRuleOptionsController < ApplicationController
     @policy_rule_option = PolicyRuleOption.new(policy_rule_option_params)
     if params[:value].present?
       @value = params[:value]
-      if @value.kind_of(Array)
-        @policy_rule_option.value = @value.reject { |c| c.empty? }.join(",")
-      end
+      @policy_rule_option.value = @value.reject { |c| c.empty? }.join(',') if @value.kind_of(Array)
     end
 
     respond_to do |format|
@@ -38,7 +34,7 @@ class PolicyRuleOptionsController < ApplicationController
         format.json { render :show, status: :created, location: @policy_rule_option }
       else
         format.html { render :new }
-        format.json { render json: @policy_rule_option.errors, status: :unprocessable_entity }
+        format.json { render json: @policy_rule_option.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,9 +44,7 @@ class PolicyRuleOptionsController < ApplicationController
   def update
     if params[:value].present?
       @value = params[:value]
-      if @value.kind_of(Array)
-        @policy_rule_option.value = @value.reject { |c| c.empty? }.join(",")
-      end
+      @policy_rule_option.value = @value.reject { |c| c.empty? }.join(',') if @value.kind_of(Array)
     end
     respond_to do |format|
       if @policy_rule_option.update(policy_rule_option_params)
@@ -58,7 +52,7 @@ class PolicyRuleOptionsController < ApplicationController
         format.json { render :show, status: :ok, location: @policy_rule_option }
       else
         format.html { render :edit }
-        format.json { render json: @policy_rule_option.errors, status: :unprocessable_entity }
+        format.json { render json: @policy_rule_option.errors, status: :unprocessable_content }
       end
     end
   end
@@ -74,13 +68,14 @@ class PolicyRuleOptionsController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_policy_rule_option
-      @policy_rule_option = PolicyRuleOption.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def policy_rule_option_params
-      params.require(:policy_rule_option).permit(:policy_rule_id, :rule_option_id, :value)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_policy_rule_option
+    @policy_rule_option = PolicyRuleOption.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def policy_rule_option_params
+    params.require(:policy_rule_option).permit(:policy_rule_id, :rule_option_id, :value)
+  end
 end

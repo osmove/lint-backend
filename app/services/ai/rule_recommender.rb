@@ -37,7 +37,7 @@ module Ai
     def detect_languages(repository)
       languages = []
       languages << repository.platform&.name if repository.platform.present?
-      languages << "JavaScript" if languages.empty?
+      languages << 'JavaScript' if languages.empty?
       languages
     end
 

@@ -1,1 +1,1 @@
-json.partial! "pulls/pull", pull: @pull
+json.partial! 'pulls/pull', pull: @pull

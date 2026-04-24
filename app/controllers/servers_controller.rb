@@ -1,7 +1,5 @@
 class ServersController < ProtectedController
-
-
-  before_action :set_server, only: [:show, :edit, :update, :destroy]
+  before_action :set_server, only: %i[show edit update destroy]
 
   # GET /servers
   # GET /servers.json
@@ -11,8 +9,7 @@ class ServersController < ProtectedController
 
   # GET /servers/1
   # GET /servers/1.json
-  def show
-  end
+  def show; end
 
   # GET /servers/new
   def new
@@ -20,8 +17,7 @@ class ServersController < ProtectedController
   end
 
   # GET /servers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /servers
   # POST /servers.json
@@ -34,7 +30,7 @@ class ServersController < ProtectedController
         format.json { render :show, status: :created, location: @server }
       else
         format.html { render :new }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class ServersController < ProtectedController
         format.json { render :show, status: :ok, location: @server }
       else
         format.html { render :edit }
-        format.json { render json: @server.errors, status: :unprocessable_entity }
+        format.json { render json: @server.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class ServersController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_server
-      @server = Server.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def server_params
-      params.require(:server).permit(:name, :ip_address, :os, :ssh_host, :ssh_user, :ssh_password, :ssh_path, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_server
+    @server = Server.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def server_params
+    params.require(:server).permit(:name, :ip_address, :os, :ssh_host, :ssh_user, :ssh_password, :ssh_path, :user_id)
+  end
 end

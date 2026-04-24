@@ -1,5 +1,5 @@
 class PolicyRulesController < ApplicationController
-  before_action :set_policy_rule, only: [:show, :edit, :update, :destroy]
+  before_action :set_policy_rule, only: %i[show edit update destroy]
 
   # GET /policy_rules
   # GET /policy_rules.json
@@ -9,8 +9,7 @@ class PolicyRulesController < ApplicationController
 
   # GET /policy_rules/1
   # GET /policy_rules/1.json
-  def show
-  end
+  def show; end
 
   # GET /policy_rules/new
   def new
@@ -18,8 +17,7 @@ class PolicyRulesController < ApplicationController
   end
 
   # GET /policy_rules/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /policy_rules
   # POST /policy_rules.json
@@ -32,7 +30,7 @@ class PolicyRulesController < ApplicationController
         format.json { render :show, status: :created, location: @policy_rule }
       else
         format.html { render :new }
-        format.json { render json: @policy_rule.errors, status: :unprocessable_entity }
+        format.json { render json: @policy_rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -46,7 +44,7 @@ class PolicyRulesController < ApplicationController
         format.json { render :show, status: :ok, location: @policy_rule }
       else
         format.html { render :edit }
-        format.json { render json: @policy_rule.errors, status: :unprocessable_entity }
+        format.json { render json: @policy_rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -62,13 +60,14 @@ class PolicyRulesController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_policy_rule
-      @policy_rule = PolicyRule.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def policy_rule_params
-      params.require(:policy_rule).permit(:rule_id, :policy_id, :options, :position)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_policy_rule
+    @policy_rule = PolicyRule.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def policy_rule_params
+    params.require(:policy_rule).permit(:rule_id, :policy_id, :options, :position)
+  end
 end

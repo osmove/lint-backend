@@ -3,7 +3,6 @@ class Platform < ApplicationRecord
   belongs_to :framework, optional: true
 
   def to_s
-    self.name
+    name
   end
-  
 end

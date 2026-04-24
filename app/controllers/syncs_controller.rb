@@ -1,7 +1,5 @@
 class SyncsController < ProtectedController
-
-
-  before_action :set_sync, only: [:show, :edit, :update, :destroy]
+  before_action :set_sync, only: %i[show edit update destroy]
 
   # GET /syncs
   # GET /syncs.json
@@ -11,8 +9,7 @@ class SyncsController < ProtectedController
 
   # GET /syncs/1
   # GET /syncs/1.json
-  def show
-  end
+  def show; end
 
   # GET /syncs/new
   def new
@@ -20,8 +17,7 @@ class SyncsController < ProtectedController
   end
 
   # GET /syncs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /syncs
   # POST /syncs.json
@@ -34,7 +30,7 @@ class SyncsController < ProtectedController
         format.json { render :show, status: :created, location: @sync }
       else
         format.html { render :new }
-        format.json { render json: @sync.errors, status: :unprocessable_entity }
+        format.json { render json: @sync.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class SyncsController < ProtectedController
         format.json { render :show, status: :ok, location: @sync }
       else
         format.html { render :edit }
-        format.json { render json: @sync.errors, status: :unprocessable_entity }
+        format.json { render json: @sync.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class SyncsController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_sync
-      @sync = Sync.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def sync_params
-      params.require(:sync).permit(:repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_sync
+    @sync = Sync.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def sync_params
+    params.require(:sync).permit(:repository_id, :user_id)
+  end
 end

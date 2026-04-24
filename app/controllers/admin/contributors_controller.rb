@@ -1,6 +1,5 @@
 class Admin::ContributorsController < Admin::BaseController
-
-  before_action :set_contributor, only: [:show, :edit, :update, :destroy]
+  before_action :set_contributor, only: %i[show edit update destroy]
 
   # GET /contributors
   # GET /contributors.json
@@ -33,12 +32,12 @@ class Admin::ContributorsController < Admin::BaseController
     respond_to do |format|
       if @contributor.save
         format.html do
- redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully created.'
+          redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully created.'
         end
         format.json { render :show, status: :created, location: admin_contributor_path(@contributor) }
       else
         format.html { render :new }
-        format.json { render json: @contributor.errors, status: :unprocessable_entity }
+        format.json { render json: @contributor.errors, status: :unprocessable_content }
       end
     end
   end
@@ -49,12 +48,12 @@ class Admin::ContributorsController < Admin::BaseController
     respond_to do |format|
       if @contributor.update(contributor_params)
         format.html do
- redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully updated.'
+          redirect_to admin_contributor_path(@contributor), notice: 'Contributor was successfully updated.'
         end
         format.json { render :show, status: :ok, location: admin_contributor_path(@contributor) }
       else
         format.html { render :edit }
-        format.json { render json: @contributor.errors, status: :unprocessable_entity }
+        format.json { render json: @contributor.errors, status: :unprocessable_content }
       end
     end
   end
@@ -70,13 +69,14 @@ class Admin::ContributorsController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contributor
-      @contributor = Contributor.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def contributor_params
-      params.require(:contributor).permit(:name, :email, :repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contributor
+    @contributor = Contributor.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def contributor_params
+    params.require(:contributor).permit(:name, :email, :repository_id, :user_id)
+  end
 end

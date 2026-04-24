@@ -1,1 +1,1 @@
-json.partial! "policy_rules/policy_rule", policy_rule: @policy_rule
+json.partial! 'policy_rules/policy_rule', policy_rule: @policy_rule

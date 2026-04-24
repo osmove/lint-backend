@@ -7,15 +7,15 @@ module ApplicationHelper
     html_options.delete(:render_options)
     html_options.delete(:partial)
     label = block_given? ? capture(&) : name
-    classes = [html_options[:class], "add_fields"].compact.join(" ")
+    classes = [html_options[:class], 'add_fields'].compact.join(' ')
 
     link_to(
       label,
-      html_options.delete(:href) || "#",
+      html_options.delete(:href) || '#',
       html_options.merge(
         class: classes,
         'data-association': association,
-        'data-association-type': "add"
+        'data-association-type': 'add'
       )
     )
   end
@@ -23,7 +23,7 @@ module ApplicationHelper
   def link_to_remove_association(name = nil, form = nil, *args, &)
     html_options = args.extract_options!.dup
     label = block_given? ? capture(&) : name
-    classes = [html_options[:class], "remove_fields"].compact.join(" ")
+    classes = [html_options[:class], 'remove_fields'].compact.join(' ')
     destroy_field = form&.hidden_field(:_destroy, value: 0)
 
     safe_join(
@@ -31,8 +31,8 @@ module ApplicationHelper
         destroy_field,
         link_to(
           label,
-          html_options.delete(:href) || "#",
-          html_options.merge(class: classes, 'data-association-type': "remove")
+          html_options.delete(:href) || '#',
+          html_options.merge(class: classes, 'data-association-type': 'remove')
         )
       ].compact
     )

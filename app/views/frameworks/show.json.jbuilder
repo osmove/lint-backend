@@ -1,1 +1,1 @@
-json.partial! "frameworks/framework", framework: @framework
+json.partial! 'frameworks/framework', framework: @framework

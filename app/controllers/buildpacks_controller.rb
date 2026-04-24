@@ -1,7 +1,6 @@
 class BuildpacksController < ProtectedController
-  before_action :set_buildpack, only: [:show, :edit, :update, :destroy]
+  before_action :set_buildpack, only: %i[show edit update destroy]
 
-    
   # GET /buildpacks
   # GET /buildpacks.json
   def index
@@ -10,8 +9,7 @@ class BuildpacksController < ProtectedController
 
   # GET /buildpacks/1
   # GET /buildpacks/1.json
-  def show
-  end
+  def show; end
 
   # GET /buildpacks/new
   def new
@@ -19,8 +17,7 @@ class BuildpacksController < ProtectedController
   end
 
   # GET /buildpacks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /buildpacks
   # POST /buildpacks.json
@@ -33,7 +30,7 @@ class BuildpacksController < ProtectedController
         format.json { render :show, status: :created, location: @buildpack }
       else
         format.html { render :new }
-        format.json { render json: @buildpack.errors, status: :unprocessable_entity }
+        format.json { render json: @buildpack.errors, status: :unprocessable_content }
       end
     end
   end
@@ -47,7 +44,7 @@ class BuildpacksController < ProtectedController
         format.json { render :show, status: :ok, location: @buildpack }
       else
         format.html { render :edit }
-        format.json { render json: @buildpack.errors, status: :unprocessable_entity }
+        format.json { render json: @buildpack.errors, status: :unprocessable_content }
       end
     end
   end
@@ -63,13 +60,14 @@ class BuildpacksController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_buildpack
-      @buildpack = Buildpack.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def buildpack_params
-      params.require(:buildpack).permit(:name, :web_address, :git_address, :command_id, :repository_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_buildpack
+    @buildpack = Buildpack.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def buildpack_params
+    params.require(:buildpack).permit(:name, :web_address, :git_address, :command_id, :repository_id, :user_id)
+  end
 end

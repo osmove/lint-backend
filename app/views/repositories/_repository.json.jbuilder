@@ -1,5 +1,5 @@
 json.extract! repository, :id, :name, :slug, :status, :user_id, :created_at, :updated_at, :git_url,
-:ssh_url, :uuid, :git_address, :has_encryption, :is_encrypted, :has_deployment, :secret_key
+              :ssh_url, :uuid, :git_address, :has_encryption, :is_encrypted, :has_deployment, :secret_key
 
 json.policy do
   if repository.policy.present? && repository.policy.policy_rules.count > 0

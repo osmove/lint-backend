@@ -1,5 +1,5 @@
 class Admin::HostingPlansController < Admin::BaseController
-  before_action :set_hosting_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_hosting_plan, only: %i[show edit update destroy]
 
   # GET /hosting_plans
   # GET /hosting_plans.json
@@ -9,20 +9,17 @@ class Admin::HostingPlansController < Admin::BaseController
 
   # GET /hosting_plans/1
   # GET /hosting_plans/1.json
-  def show
-  end
+  def show; end
 
   # GET /hosting_plans/new
   def new
     @hosting_plan = HostingPlan.new
     @form_url = admin_hosting_plans_path
-
   end
 
   # GET /hosting_plans/1/edit
   def edit
     @form_url = admin_hosting_plan_path(@language)
-
   end
 
   # POST /hosting_plans
@@ -36,7 +33,7 @@ class Admin::HostingPlansController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_hosting_plans_path(@hosting_plan) }
       else
         format.html { render :new }
-        format.json { render json: @hosting_plan.errors, status: :unprocessable_entity }
+        format.json { render json: @hosting_plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -50,7 +47,7 @@ class Admin::HostingPlansController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_hosting_plans_path(@hosting_plan) }
       else
         format.html { render :edit }
-        format.json { render json: @hosting_plan.errors, status: :unprocessable_entity }
+        format.json { render json: @hosting_plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -66,14 +63,15 @@ class Admin::HostingPlansController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_hosting_plan
-      @hosting_plan = HostingPlan.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def hosting_plan_params
-      params.require(:hosting_plan).permit(:name, :slug, :memory, :vcpus, :storage, :transfer, :price_per_month, 
-                                           :price_per_hour)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_hosting_plan
+    @hosting_plan = HostingPlan.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def hosting_plan_params
+    params.require(:hosting_plan).permit(:name, :slug, :memory, :vcpus, :storage, :transfer, :price_per_month,
+                                         :price_per_hour)
+  end
 end

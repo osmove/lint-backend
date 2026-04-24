@@ -5,17 +5,17 @@ class SyncsControllerTest < ActionDispatch::IntegrationTest
     @sync = syncs(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get syncs_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_sync_url
     assert_response :success
   end
 
-  test "should create sync" do
+  test 'should create sync' do
     assert_difference('Sync.count') do
       post syncs_url, params: { sync: { repository_id: @sync.repository_id, user_id: @sync.user_id } }
     end
@@ -23,22 +23,22 @@ class SyncsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to sync_url(Sync.last)
   end
 
-  test "should show sync" do
+  test 'should show sync' do
     get sync_url(@sync)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_sync_url(@sync)
     assert_response :success
   end
 
-  test "should update sync" do
+  test 'should update sync' do
     patch sync_url(@sync), params: { sync: { repository_id: @sync.repository_id, user_id: @sync.user_id } }
     assert_redirected_to sync_url(@sync)
   end
 
-  test "should destroy sync" do
+  test 'should destroy sync' do
     assert_difference('Sync.count', -1) do
       delete sync_url(@sync)
     end

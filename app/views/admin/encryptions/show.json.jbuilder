@@ -1,1 +1,1 @@
-json.partial! "encryptions/encryption", encryption: @encryption
+json.partial! 'encryptions/encryption', encryption: @encryption

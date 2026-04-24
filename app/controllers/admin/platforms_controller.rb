@@ -1,5 +1,5 @@
 class Admin::PlatformsController < Admin::BaseController
-  before_action :set_platform, only: [:show, :edit, :update, :destroy]
+  before_action :set_platform, only: %i[show edit update destroy]
 
   # GET /platforms
   # GET /platforms.json
@@ -9,8 +9,7 @@ class Admin::PlatformsController < Admin::BaseController
 
   # GET /platforms/1
   # GET /platforms/1.json
-  def show
-  end
+  def show; end
 
   # GET /platforms/new
   def new
@@ -34,7 +33,7 @@ class Admin::PlatformsController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_platforms_path(@platform) }
       else
         format.html { render :new }
-        format.json { render json: @platform.errors, status: :unprocessable_entity }
+        format.json { render json: @platform.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +47,7 @@ class Admin::PlatformsController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_platforms_path(@platform) }
       else
         format.html { render :edit }
-        format.json { render json: @platform.errors, status: :unprocessable_entity }
+        format.json { render json: @platform.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,14 +63,15 @@ class Admin::PlatformsController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_platform
-      @platform = Platform.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def platform_params
-      params.require(:platform).permit(:name, :slug, :image, :image_url, :language_id, :framework_id, :visible, 
-                                       :is_popular)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_platform
+    @platform = Platform.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def platform_params
+    params.require(:platform).permit(:name, :slug, :image, :image_url, :language_id, :framework_id, :visible,
+                                     :is_popular)
+  end
 end

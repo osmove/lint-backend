@@ -1,4 +1,4 @@
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class PoliciesTest < ApplicationSystemTestCase
   # test "visiting the index" do

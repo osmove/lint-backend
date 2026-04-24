@@ -1,1 +1,1 @@
-json.partial! "buildpacks/buildpack", buildpack: @buildpack
+json.partial! 'buildpacks/buildpack', buildpack: @buildpack

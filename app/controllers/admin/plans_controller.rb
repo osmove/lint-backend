@@ -1,6 +1,5 @@
 class Admin::PlansController < Admin::BaseController
-
-  before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: %i[show edit update destroy]
 
   # GET /plans
   # GET /plans.json
@@ -18,7 +17,6 @@ class Admin::PlansController < Admin::BaseController
   def new
     @plan = Plan.new
     @form_url = admin_plans_path
-
   end
 
   # GET /plans/1/edit
@@ -37,7 +35,7 @@ class Admin::PlansController < Admin::BaseController
         format.json { render :show, status: :created, location: @plan }
       else
         format.html { render :new }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.json { render json: @plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -51,7 +49,7 @@ class Admin::PlansController < Admin::BaseController
         format.json { render :show, status: :ok, location: @plan }
       else
         format.html { render :edit }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.json { render json: @plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -67,14 +65,15 @@ class Admin::PlansController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_plan
-      @plan = Plan.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def plan_params
-      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, 
-                                   :max_repositories, :max_storage)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_plan
+    @plan = Plan.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def plan_params
+    params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users,
+                                 :max_repositories, :max_storage)
+  end
 end

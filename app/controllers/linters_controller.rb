@@ -1,5 +1,5 @@
 class LintersController < ApplicationController
-  before_action :set_linter, only: [:show, :edit, :update, :destroy]
+  before_action :set_linter, only: %i[show edit update destroy]
 
   # GET /linters
   # GET /linters.json
@@ -9,8 +9,7 @@ class LintersController < ApplicationController
 
   # GET /linters/1
   # GET /linters/1.json
-  def show
-  end
+  def show; end
 
   # GET /linters/new
   def new
@@ -18,8 +17,7 @@ class LintersController < ApplicationController
   end
 
   # GET /linters/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /linters
   # POST /linters.json
@@ -32,7 +30,7 @@ class LintersController < ApplicationController
         format.json { render :show, status: :created, location: @linter }
       else
         format.html { render :new }
-        format.json { render json: @linter.errors, status: :unprocessable_entity }
+        format.json { render json: @linter.errors, status: :unprocessable_content }
       end
     end
   end
@@ -46,7 +44,7 @@ class LintersController < ApplicationController
         format.json { render :show, status: :ok, location: @linter }
       else
         format.html { render :edit }
-        format.json { render json: @linter.errors, status: :unprocessable_entity }
+        format.json { render json: @linter.errors, status: :unprocessable_content }
       end
     end
   end
@@ -62,13 +60,14 @@ class LintersController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_linter
-      @linter = Linter.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def linter_params
-      params.require(:linter).permit(:name, :command)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_linter
+    @linter = Linter.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def linter_params
+    params.require(:linter).permit(:name, :command)
+  end
 end

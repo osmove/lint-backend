@@ -4,18 +4,13 @@ class Organization < ApplicationRecord
   has_many :users, through: :memberships
   validates :name, presence: true
 
-
-
   def to_s
-    self.name
+    name
   end
-
 
   before_create :add_creator_to_members
   def add_creator_to_members
-    membership = Membership.create({user: self.user, role: 'admin'})
-    self.memberships.push(membership)
+    membership = Membership.create({ user: user, role: 'admin' })
+    memberships.push(membership)
   end
-
-
 end

@@ -46,7 +46,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -68,13 +68,13 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
@@ -83,19 +83,14 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   Rails.application.routes.default_url_options[:host] = 'https://lint.to'
-
 end
-
-
-
-
 
 Devise.setup do |config|
   # Scopes available:
   # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
   config.omniauth :github,
-    ENV.fetch("GITHUB_CLIENT_ID", ""),
-    ENV.fetch("GITHUB_CLIENT_SECRET", ""),
-    scope: 'read:user, public_repo, read:org',
-    redirect_uri: ENV.fetch("GITHUB_OAUTH_REDIRECT_URI", "https://lint.to/users/auth/github")
+                  ENV.fetch('GITHUB_CLIENT_ID', ''),
+                  ENV.fetch('GITHUB_CLIENT_SECRET', ''),
+                  scope: 'read:user, public_repo, read:org',
+                  redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'https://lint.to/users/auth/github')
 end

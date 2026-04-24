@@ -1,17 +1,9 @@
 class MessagesController < ApplicationController
-
-
   # GET /contact
   # GET /messages/new
   def index
     @messages = Message.order(id: :desc).limit(20)
     # @messages = current_user.messages
-  end
-
-  # GET /contact
-  # GET /messages/new
-  def new
-    @message = Message.new()
   end
 
   # GET /messages/:id
@@ -21,6 +13,11 @@ class MessagesController < ApplicationController
     @message.save
   end
 
+  # GET /contact
+  # GET /messages/new
+  def new
+    @message = Message.new
+  end
 
   # POST /messages
   # POST /messages.json
@@ -33,16 +30,13 @@ class MessagesController < ApplicationController
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        format.json { render json: @message.errors, status: :unprocessable_content }
       end
     end
   end
 
-
   # GET /messages/thank-you
-  def thank_you
-  end
-
+  def thank_you; end
 
 private
 

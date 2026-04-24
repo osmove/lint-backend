@@ -1,1 +1,1 @@
-json.partial! "changes/change", change: @change
+json.partial! 'changes/change', change: @change

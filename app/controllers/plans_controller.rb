@@ -1,7 +1,5 @@
 class PlansController < ProtectedController
-
-
-  before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: %i[show edit update destroy]
 
   # GET /plans
   # GET /plans.json
@@ -11,8 +9,7 @@ class PlansController < ProtectedController
 
   # GET /plans/1
   # GET /plans/1.json
-  def show
-  end
+  def show; end
 
   # GET /plans/new
   def new
@@ -20,8 +17,7 @@ class PlansController < ProtectedController
   end
 
   # GET /plans/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /plans
   # POST /plans.json
@@ -34,7 +30,7 @@ class PlansController < ProtectedController
         format.json { render :show, status: :created, location: @plan }
       else
         format.html { render :new }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.json { render json: @plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class PlansController < ProtectedController
         format.json { render :show, status: :ok, location: @plan }
       else
         format.html { render :edit }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.json { render json: @plan.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,14 +60,15 @@ class PlansController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_plan
-      @plan = Plan.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def plan_params
-      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, 
-                                   :max_repositories, :max_storage, :stripe_product_id, :stripe_monthly_plan_id, :stripe_yearly_plan_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_plan
+    @plan = Plan.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def plan_params
+    params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users,
+                                 :max_repositories, :max_storage, :stripe_product_id, :stripe_monthly_plan_id, :stripe_yearly_plan_id)
+  end
 end

@@ -1,1 +1,1 @@
-json.partial! "rules/rule", rule: @rule
+json.partial! 'rules/rule', rule: @rule

@@ -33,7 +33,7 @@ module Ai
     def parse_policy(response)
       JSON.parse(response).with_indifferent_access
     rescue JSON::ParserError, TypeError
-      { name: "Custom Policy", description: "Generated policy", rules: [] }
+      { name: 'Custom Policy', description: 'Generated policy', rules: [] }
     end
   end
 end

@@ -1,1 +1,1 @@
-json.partial! "platforms/platform", platform: @platform
+json.partial! 'platforms/platform', platform: @platform

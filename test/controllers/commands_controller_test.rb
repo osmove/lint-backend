@@ -5,44 +5,44 @@ class CommandsControllerTest < ActionDispatch::IntegrationTest
     @command = commands(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get commands_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_command_url
     assert_response :success
   end
 
-  test "should create command" do
+  test 'should create command' do
     assert_difference('Command.count') do
-      post commands_url, 
-           params: { command: { command: @command.command, path: @command.path, port: @command.port, 
+      post commands_url,
+           params: { command: { command: @command.command, path: @command.path, port: @command.port,
                                 repository_id: @command.repository_id, user_id: @command.user_id } }
     end
 
     assert_redirected_to command_url(Command.last)
   end
 
-  test "should show command" do
+  test 'should show command' do
     get command_url(@command)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_command_url(@command)
     assert_response :success
   end
 
-  test "should update command" do
-    patch command_url(@command), 
-          params: { command: { command: @command.command, path: @command.path, port: @command.port, 
+  test 'should update command' do
+    patch command_url(@command),
+          params: { command: { command: @command.command, path: @command.path, port: @command.port,
                                repository_id: @command.repository_id, user_id: @command.user_id } }
     assert_redirected_to command_url(@command)
   end
 
-  test "should destroy command" do
+  test 'should destroy command' do
     assert_difference('Command.count', -1) do
       delete command_url(@command)
     end

@@ -1,1 +1,1 @@
-json.partial! "commands/command", command: @command
+json.partial! 'commands/command', command: @command

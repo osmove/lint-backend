@@ -1,6 +1,5 @@
 class ChangesController < ProtectedController
-  before_action :set_change, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_change, only: %i[show edit update destroy]
 
   # GET /changes
   # GET /changes.json
@@ -10,18 +9,15 @@ class ChangesController < ProtectedController
 
   # GET /changes/1
   # GET /changes/1.json
-  def show
-  end
+  def show; end
 
   # GET /changes/new
   def new
     @change = Change.new
   end
 
-
   # GET /changes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /changes
   # POST /changes.json
@@ -34,7 +30,7 @@ class ChangesController < ProtectedController
         format.json { render :show, status: :created, location: @change }
       else
         format.html { render :new }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
+        format.json { render json: @change.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +44,7 @@ class ChangesController < ProtectedController
         format.json { render :show, status: :ok, location: @change }
       else
         format.html { render :edit }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
+        format.json { render json: @change.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,13 +60,14 @@ class ChangesController < ProtectedController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_change
-      @change = Change.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def change_params
-      params.require(:change).permit(:operation, :document_id, :commit_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_change
+    @change = Change.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def change_params
+    params.require(:change).permit(:operation, :document_id, :commit_id)
+  end
 end

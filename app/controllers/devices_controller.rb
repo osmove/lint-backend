@@ -1,7 +1,5 @@
 class DevicesController < ApplicationController
-
-
-  before_action :set_device, only: [:show, :edit, :update, :destroy]
+  before_action :set_device, only: %i[show edit update destroy]
 
   # GET /devices
   # GET /devices.json
@@ -11,8 +9,7 @@ class DevicesController < ApplicationController
 
   # GET /devices/1
   # GET /devices/1.json
-  def show
-  end
+  def show; end
 
   # GET /devices/push-token
   def push_token
@@ -24,23 +21,20 @@ class DevicesController < ApplicationController
         @device = Device.find_by(push_token: @token)
         @user = User.find_by(slug: @username)
         if @device.present?
-          if user_signed_in? && @device.user != current_user
-            @device.update!(user: current_user)
-          end
+          @device.update!(user: current_user) if user_signed_in? && @device.user != current_user
         else
-          if user_signed_in?
-            @device = Device.create!(push_token: @token, user: current_user)
-          else
-            @device = Device.create!(push_token: @token)
-          end
+          @device = if user_signed_in?
+                      Device.create!(push_token: @token, user: current_user)
+                    else
+                      Device.create!(push_token: @token)
+                    end
         end
       end
       render json: @token, status: :created
     else
-      render json: {status: 'not_authorized'}, status: :unauthorized
+      render json: { status: 'not_authorized' }, status: :unauthorized
     end
   end
-
 
   # GET /devices/new
   def new
@@ -48,8 +42,7 @@ class DevicesController < ApplicationController
   end
 
   # GET /devices/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /devices
   # POST /devices.json
@@ -62,7 +55,7 @@ class DevicesController < ApplicationController
         format.json { render :show, status: :created, location: @device }
       else
         format.html { render :new }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
+        format.json { render json: @device.errors, status: :unprocessable_content }
       end
     end
   end
@@ -76,7 +69,7 @@ class DevicesController < ApplicationController
         format.json { render :show, status: :ok, location: @device }
       else
         format.html { render :edit }
-        format.json { render json: @device.errors, status: :unprocessable_entity }
+        format.json { render json: @device.errors, status: :unprocessable_content }
       end
     end
   end
@@ -92,14 +85,15 @@ class DevicesController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_device
-      @device = Device.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def device_params
-      params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version, 
-                                     :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_device
+    @device = Device.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def device_params
+    params.require(:device).permit(:user_id, :type, :brand, :model, :sub_model, :uuid, :os, :os_version,
+                                   :has_notifications, :has_lint_desktop, :has_lint_connect, :last_seen, :browser, :user_agent, :push_token)
+  end
 end

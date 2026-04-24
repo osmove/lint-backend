@@ -1,5 +1,5 @@
 class RulesController < ApplicationController
-  before_action :set_rule, only: [:show, :edit, :update, :destroy]
+  before_action :set_rule, only: %i[show edit update destroy]
 
   # GET /rules
   # GET /rules.json
@@ -9,8 +9,7 @@ class RulesController < ApplicationController
 
   # GET /rules/1
   # GET /rules/1.json
-  def show
-  end
+  def show; end
 
   # GET /rules/new
   def new
@@ -18,8 +17,7 @@ class RulesController < ApplicationController
   end
 
   # GET /rules/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /rules
   # POST /rules.json
@@ -32,7 +30,7 @@ class RulesController < ApplicationController
         format.json { render :show, status: :created, location: @rule }
       else
         format.html { render :new }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
+        format.json { render json: @rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -46,7 +44,7 @@ class RulesController < ApplicationController
         format.json { render :show, status: :ok, location: @rule }
       else
         format.html { render :edit }
-        format.json { render json: @rule.errors, status: :unprocessable_entity }
+        format.json { render json: @rule.errors, status: :unprocessable_content }
       end
     end
   end
@@ -62,14 +60,15 @@ class RulesController < ApplicationController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rule
-      @rule = Rule.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rule_params
-      params.require(:rule).permit(:name, :type, :description, :options, :status, :language_id, :framework_id, 
-                                   :platform_id, :parent_id, :linter_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rule
+    @rule = Rule.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rule_params
+    params.require(:rule).permit(:name, :type, :description, :options, :status, :language_id, :framework_id,
+                                 :platform_id, :parent_id, :linter_id)
+  end
 end

@@ -7,22 +7,22 @@ class CommitAttemptsControllerTest < ActionDispatch::IntegrationTest
     @user = @repository.user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get user_repository_commit_attempts_url(@user, @repository)
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_user_repository_commit_attempt_url(@user, @repository)
     assert_response :success
   end
 
-  test "should create commit attempt" do
-    assert_difference("CommitAttempt.count", 1) do
+  test 'should create commit attempt' do
+    assert_difference('CommitAttempt.count', 1) do
       post user_repository_commit_attempts_url(@user, @repository), params: {
         commit_attempt: {
-          message: "New commit attempt",
-          description: "Testing",
+          message: 'New commit attempt',
+          description: 'Testing',
           commit_id: @commit_attempt.commit_id,
           contributor_id: @commit_attempt.contributor_id,
           push_id: @commit_attempt.push_id,
@@ -35,7 +35,7 @@ class CommitAttemptsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to commit_attempt_url(CommitAttempt.last)
   end
 
-  test "should show commit attempt" do
+  test 'should show commit attempt' do
     get commit_attempt_url(@commit_attempt)
     assert_response :success
   end

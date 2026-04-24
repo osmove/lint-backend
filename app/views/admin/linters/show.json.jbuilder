@@ -1,1 +1,1 @@
-json.partial! "linters/linter", linter: @linter
+json.partial! 'linters/linter', linter: @linter

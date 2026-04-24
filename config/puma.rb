@@ -1,28 +1,28 @@
 # Puma configuration for Rails 7.2
 # See: https://github.com/puma/puma/blob/master/lib/puma/configuration.rb
 
-max_threads_count = ENV.fetch("RAILS_MAX_THREADS", 5)
-min_threads_count = ENV.fetch("RAILS_MIN_THREADS") { max_threads_count }
+max_threads_count = ENV.fetch('RAILS_MAX_THREADS', 5)
+min_threads_count = ENV.fetch('RAILS_MIN_THREADS') { max_threads_count }
 threads min_threads_count, max_threads_count
 
 # Specifies the `worker_timeout` threshold that Puma will use to wait before
 # temporarily stopping a worker in development.
-worker_timeout 3600 if ENV.fetch("RAILS_ENV", "development") == "development"
+worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port ENV.fetch("PORT", 3000)
+port ENV.fetch('PORT', 3000)
 
 # Specifies the `environment` that Puma will run in.
-environment ENV.fetch("RAILS_ENV", "development")
+environment ENV.fetch('RAILS_ENV', 'development')
 
 # Specifies the `pidfile` that Puma will use.
-pidfile ENV.fetch("PIDFILE", "tmp/pids/server.pid")
+pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 
 # Specifies the number of `workers` to boot in clustered mode.
-workers ENV.fetch("WEB_CONCURRENCY", 0)
+workers ENV.fetch('WEB_CONCURRENCY', 0)
 
 # Use the `preload_app!` method when specifying a `workers` number.
-preload_app! if ENV.fetch("WEB_CONCURRENCY", 0).to_i > 0
+preload_app! if ENV.fetch('WEB_CONCURRENCY', 0).to_i > 0
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart

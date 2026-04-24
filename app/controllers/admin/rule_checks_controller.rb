@@ -1,5 +1,5 @@
 class Admin::RuleChecksController < Admin::BaseController
-  before_action :set_rule_check, only: [:show, :edit, :update, :destroy]
+  before_action :set_rule_check, only: %i[show edit update destroy]
 
   # GET /rule_checks
   # GET /rule_checks.json
@@ -9,8 +9,7 @@ class Admin::RuleChecksController < Admin::BaseController
 
   # GET /rule_checks/1
   # GET /rule_checks/1.json
-  def show
-  end
+  def show; end
 
   # GET /rule_checks/new
   def new
@@ -34,7 +33,7 @@ class Admin::RuleChecksController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_rule_checks_path }
       else
         format.html { render :new }
-        format.json { render json: @rule_check.errors, status: :unprocessable_entity }
+        format.json { render json: @rule_check.errors, status: :unprocessable_content }
       end
     end
   end
@@ -48,7 +47,7 @@ class Admin::RuleChecksController < Admin::BaseController
         format.json { render :show, status: :ok, location: admin_rule_check_path(@rule_check) }
       else
         format.html { render :edit }
-        format.json { render json: @rule_check.errors, status: :unprocessable_entity }
+        format.json { render json: @rule_check.errors, status: :unprocessable_content }
       end
     end
   end
@@ -64,15 +63,16 @@ class Admin::RuleChecksController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rule_check
-      @rule_check = RuleCheck.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def rule_check_params
-      params.require(:rule_check).permit(:name, :passed, :commit_attempt_id, :policy_check_id, :file_name, :file_path, :rule_id, :repository_id, :linter_id, :user_id, :contributor_id, :push_id, :device_id,
-      :file_name, :file_path,
-      :severity, :severity_level, :message, :line, :column, :line_end, :column_end, :source)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rule_check
+    @rule_check = RuleCheck.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def rule_check_params
+    params.require(:rule_check).permit(:name, :passed, :commit_attempt_id, :policy_check_id, :file_name, :file_path, :rule_id, :repository_id, :linter_id, :user_id, :contributor_id, :push_id, :device_id,
+                                       :file_name, :file_path,
+                                       :severity, :severity_level, :message, :line, :column, :line_end, :column_end, :source)
+  end
 end

@@ -1,5 +1,4 @@
 class HostingPlan < ApplicationRecord
-
   has_many :repositories
 
   validates :memory, presence: true
@@ -11,57 +10,53 @@ class HostingPlan < ApplicationRecord
   include ActionView::Helpers::NumberHelper
 
   def smart_price_per_month
-    if self.price_per_month.present? && self.price_per_month > 0
-      @smart_price_per_month = "$#{self.price_per_month.to_i}/mo"
-    else
-      @smart_price_per_month = "Free"
-    end
+    @smart_price_per_month = if price_per_month.present? && price_per_month > 0
+                               "$#{price_per_month.to_i}/mo"
+                             else
+                               'Free'
+                             end
   end
 
   def smart_memory
-    if self.memory.present?
-      number_to_human(self.memory, units: {unit: "MB", thousand: "GB", million: "TB"})
-    end
+    return unless memory.present?
+
+    number_to_human(memory, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
 
   def smart_storage
-    if self.storage.present?
-      number_to_human(self.storage, units: {unit: "MB", thousand: "GB", million: "TB"})
-    end
+    return unless storage.present?
+
+    number_to_human(storage, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
 
   def smart_vcpus
-    if self.vcpus.present?
-      "#{vcpus} vCPUs"
-    end
+    return unless vcpus.present?
+
+    "#{vcpus} vCPUs"
   end
 
   def smart_transfer
-    if self.transfer.present?
-      number_to_human(self.transfer, units: {unit: "MB", thousand: "GB", million: "TB"})
-    end
+    return unless transfer.present?
+
+    number_to_human(transfer, units: { unit: 'MB', thousand: 'GB', million: 'TB' })
   end
 
   def price_per_hour
-    if self.price_per_month.present?
-      @price_per_hour = (self.price_per_month.to_i / 30.0 / 24.0).round(5)
-    end
+    @price_per_hour = (price_per_month.to_i / 30.0 / 24.0).round(5) if price_per_month.present?
     @price_per_hour
   end
 
   def description
-    @description = ""
-    @description << "#{self.smart_memory}" if self.memory.present?
-    @description << " | #{self.smart_vcpus}" if self.vcpus.present?
-    @description << " | #{self.smart_storage}" if self.storage.present?
-    @description << " | #{self.smart_transfer}" if self.transfer.present?
-    @description << " | #{self.smart_price_per_month}"
+    @description = ''
+    @description << "#{smart_memory}" if memory.present?
+    @description << " | #{smart_vcpus}" if vcpus.present?
+    @description << " | #{smart_storage}" if storage.present?
+    @description << " | #{smart_transfer}" if transfer.present?
+    @description << " | #{smart_price_per_month}"
     @description
   end
 
-
   def to_s
-    self.description
+    description
   end
-
 end

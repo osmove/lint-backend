@@ -16,8 +16,8 @@ FriendlyId.defaults do |config|
   # undesirable to allow as slugs. Edit this list as needed for your app.
   config.use :reserved
 
-  config.reserved_words = %w(new edit index session login logout users admin
-    stylesheets assets javascripts images)
+  config.reserved_words = %w[new edit index session login logout users admin
+                             stylesheets assets javascripts images]
 
   # This adds an option to to treat reserved words as conflicts rather than exceptions.
   # When there is no good candidate, a UUID will be appended, matching the existing
@@ -95,9 +95,9 @@ FriendlyId.defaults do |config|
   # }
 
   def should_generate_new_friendly_id?
-     regenerated_keys = %w( name username)
-     slug.blank? || (self.changes.keys & regenerated_keys).present?
-   end
+    regenerated_keys = %w[name username]
+    slug.blank? || (changes.keys & regenerated_keys).present?
+  end
   # FriendlyId uses Rails's `parameterize` method to generate slugs, but for
   # languages that don't use the Roman alphabet, that's not usually sufficient.
   # Here we use the Babosa library to transliterate Russian Cyrillic slugs to

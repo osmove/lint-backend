@@ -1,7 +1,5 @@
 class Admin::PushesController < Admin::BaseController
-
-
-  before_action :set_push, only: [:show, :edit, :update, :destroy]
+  before_action :set_push, only: %i[show edit update destroy]
 
   # GET /pushes
   # GET /pushes.json
@@ -11,8 +9,7 @@ class Admin::PushesController < Admin::BaseController
 
   # GET /pushes/1
   # GET /pushes/1.json
-  def show
-  end
+  def show; end
 
   # GET /pushes/new
   def new
@@ -35,7 +32,7 @@ class Admin::PushesController < Admin::BaseController
         format.json { render :show, status: :created, location: admin_push_path(@push) }
       else
         format.html { render :new }
-        format.json { render json: @push.errors, status: :unprocessable_entity }
+        format.json { render json: @push.errors, status: :unprocessable_content }
       end
     end
   end
@@ -46,10 +43,10 @@ class Admin::PushesController < Admin::BaseController
     respond_to do |format|
       if @push.update(push_params)
         format.html { redirect_to admin_push_path(@push), notice: 'Push was successfully updated.' }
-        format.json { render :show, status: :ok, location: admin_push_path(@push)}
+        format.json { render :show, status: :ok, location: admin_push_path(@push) }
       else
         format.html { render :edit }
-        format.json { render json: @push.errors, status: :unprocessable_entity }
+        format.json { render json: @push.errors, status: :unprocessable_content }
       end
     end
   end
@@ -65,13 +62,14 @@ class Admin::PushesController < Admin::BaseController
   end
 
 private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_push
-      @push = Push.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def push_params
-      params.require(:push).permit(:repository_id, :user_id, :commit_ids => [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_push
+    @push = Push.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def push_params
+    params.require(:push).permit(:repository_id, :user_id, commit_ids: [])
+  end
 end
