@@ -6,11 +6,11 @@ class Message < ApplicationRecord
 
   after_create :send_created_email
   def send_created_email
-    puts "%%%%%%"
-    puts "FROM"
-    puts self.email
-    puts "TO"
-    puts self.to_email
+    Rails.logger.info "%%%%%%"
+    Rails.logger.info "FROM"
+    Rails.logger.info self.email
+    Rails.logger.info "TO"
+    Rails.logger.info self.to_email
     # if self.to_email.present?
       # TODO: Add email back
       # MessageMailer.message_created_email(self).deliver_now

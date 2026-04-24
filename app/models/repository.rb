@@ -173,39 +173,39 @@ class Repository < ApplicationRecord
   def deploy
     if self.git_host == LINT_GIT_HOST
       # Create git repository
-      puts 'Connecting to SSH...'
+      Rails.logger.info 'Connecting to SSH...'
       Net::SSH.start(
         ENV.fetch("GIT_SERVER_HOST", "git.lint.to"),
         ENV.fetch("GIT_SERVER_USER", "root"),
         password: ENV.fetch("GIT_SERVER_PASSWORD", "")
-      ) do |ssh|
-        puts 'Connected to SSH.'
+      ) do |_ssh|
+        Rails.logger.info 'Connected to SSH.'
         # Creat user directory if needed
         # puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}")
         # puts 'Creat user directory if needed'
         # Create repo directory if needed
         # puts ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}.git")
-        puts 'Creating repository directory...'
+        Rails.logger.info 'Creating repository directory...'
         # puts ssh.exec!("mkdir /var/git/#{self.user.slug}/#{self.slug}.git")
-        puts ssh.exec!("mkdir -p /var/git/#{self.user.slug}/#{self.slug}.git")
+        Rails.logger.info ssh.exec!("mkdir -p /var/git/#{self.user.slug}/#{self.slug}.git")
         # Create bare repo
-        puts 'Creating bare repository'
-        puts ssh.exec!("git --bare init /var/git/#{self.user.slug}/#{self.slug}.git")
-        puts ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}.git")
+        Rails.logger.info 'Creating bare repository'
+        Rails.logger.info ssh.exec!("git --bare init /var/git/#{self.user.slug}/#{self.slug}.git")
+        Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}.git")
         # Local deploy repo
-        puts 'Deploying repository...'
-        puts ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}")
-        puts ssh.exec!("git clone /var/git/#{self.user.slug}/#{self.slug}.git /var/git/#{self.user.slug}/#{self.slug}")
-        puts ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}")
+        Rails.logger.info 'Deploying repository...'
+        Rails.logger.info ssh.exec!("rm -rf /var/git/#{self.user.slug}/#{self.slug}")
+        Rails.logger.info ssh.exec!("git clone /var/git/#{self.user.slug}/#{self.slug}.git /var/git/#{self.user.slug}/#{self.slug}")
+        Rails.logger.info ssh.exec!("chmod -R 777 /var/git/#{self.user.slug}/#{self.slug}")
 
         # Copy and replace post-receive hook
-        puts 'Adding post-receive hook...'
-        puts ssh.exec!("cp -f /var/git/_permanent/post-receive /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        puts ssh.exec!("sed -i 's/USER_SLUG/#{self.user.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        puts ssh.exec!("sed -i 's/REPOSITORY_SLUG/#{self.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
-        puts ssh.exec!("chmod +x /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
+        Rails.logger.info 'Adding post-receive hook...'
+        Rails.logger.info ssh.exec!("cp -f /var/git/_permanent/post-receive /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
+        Rails.logger.info ssh.exec!("sed -i 's/USER_SLUG/#{self.user.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
+        Rails.logger.info ssh.exec!("sed -i 's/REPOSITORY_SLUG/#{self.slug}/g' /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
+        Rails.logger.info ssh.exec!("chmod +x /var/git/#{self.user.slug}/#{self.slug}.git/hooks/post-receive")
 
-        puts "Repository #{self.user.slug}/#{self.slug} deployed successfully."
+        Rails.logger.info "Repository #{self.user.slug}/#{self.slug} deployed successfully."
 
         # ssh.exec!("git --work-tree=/var/git/#{self.user.slug}/#{self.slug} --git-dir=/var/git/#{self.user.slug}/#{self.slug}.git checkout -f")
       end
