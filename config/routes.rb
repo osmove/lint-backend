@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  # Redirect legacy omnilint.com domains to lint.to (301)
+  constraints host: /\Aomnilint\.com\z|\Aapi\.omnilint\.com\z|\Awww\.omnilint\.com\z/ do
+    match '/(*path)',
+          to: redirect { |params, _req| "https://lint.to/#{params[:path]}" },
+          via: :all
+  end
+
   # API v1 (JSON, token auth)
   namespace :api do
     namespace :v1 do
