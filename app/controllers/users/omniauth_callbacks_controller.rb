@@ -130,7 +130,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
             if !User.where(type: "organization", username: org["login"], is_organization: true).present?
               # @organization = Organization.new(name: org["login"], user: @user)
-              @organization = User.new(login: org["login"], type: "organization", username: org["login"], avatar_url: org["avatar_url"], is_organization: true, email: "#{org["login"]}@lint.to")
+              @organization = User.new(login: org["login"], type: "organization", username: org["login"], 
+avatar_url: org["avatar_url"], is_organization: true, email: "#{org["login"]}@lint.to")
             else
               @organization = User.where(type: "organization", username: org["login"], is_organization: true).first
             end
@@ -144,7 +145,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
             if repositories.count > 0
               repositories.each do |repo|
-                if Repository.where(user_id: @organization, slug: repo['name'], web_address: repo['html_url'], git_address: repo['git_url']).blank?
+                if Repository.where(user_id: @organization, slug: repo['name'], web_address: repo['html_url'], 
+git_address: repo['git_url']).blank?
                   #puts(repo)
                   if repo['language'].present?
                     @platform = Platform.where(slug: repo['language'].downcase).first rescue nil
@@ -236,13 +238,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
               if members.count > 0
                 members.each do |member|
                   if @organization.blank?
-                    @organization = User.where(type: "organization", username: org["login"], is_organization: true).first
+                    @organization = User.where(type: "organization", username: org["login"], 
+is_organization: true).first
                   end
-                  @organization_member = Membership.where(username: member["login"], origin:"github", origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"]).first
+                  @organization_member = Membership.where(username: member["login"], origin:"github", 
+origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"]).first
                   if @organization_member.present?
                     @member = @organization.memberships.push(@organization_member)
                   else
-                    @member = @organization.memberships.new(username: member["login"], origin:"github", origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @organization_member, organization_id: @organization.id)
+                    @member = @organization.memberships.new(username: member["login"], origin:"github", 
+origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @organization_member, organization_id: @organization.id)
                     puts(@member)
 
                     if !@member.save!
@@ -281,11 +286,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
                       if members.count > 0
                         members.each do |member|
                           @team_member = User.where(username: member["login"], github_id: member["id"]).first
-                          @team_membership = Membership.where(username: member["login"], origin:"github", origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @team_member, team: @team, organization: @organization).first
+                          @team_membership = Membership.where(username: member["login"], origin:"github", 
+origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @team_member, team: @team, organization: @organization).first
                           if @team_membership.present?
                             @membership = @team.memberships.push(@team_membership)
                           else
-                            @membership = @team.memberships.new(username: member["login"], origin:"github", origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @team_member, organization: @organization)
+                            @membership = @team.memberships.new(username: member["login"], origin:"github", 
+origin_url: member["url"], avatar_url: member["avatar_url"], role: member["type"], user: @team_member, organization: @organization)
                             # puts(@membership.username)
 
 

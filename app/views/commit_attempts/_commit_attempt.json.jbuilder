@@ -37,7 +37,8 @@
 # json.cache! ['v1', policy], expires_in: 5.minutes do
 # json.cache! ['v1', policy] do
 
-  json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id, :device_id, :created_at, :updated_at
+  json.extract! commit_attempt, :id, :message, :description, :commit_id, :user_id, :contributor_id, :push_id, 
+                :device_id, :created_at, :updated_at
 
   # json.content commit_attempt
   json.url commit_attempt_url(commit_attempt, format: :json)

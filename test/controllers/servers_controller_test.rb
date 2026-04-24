@@ -17,7 +17,9 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create server" do
     assert_difference('Server.count') do
-      post servers_url, params: { server: { ip_address: @server.ip_address, name: @server.name, os: @server.os, ssh_host: @server.ssh_host, ssh_password: @server.ssh_password, ssh_path: @server.ssh_path, ssh_user: @server.ssh_user, user_id: @server.user_id } }
+      post servers_url, 
+           params: { server: { ip_address: @server.ip_address, name: @server.name, os: @server.os, ssh_host: @server.ssh_host, 
+                               ssh_password: @server.ssh_password, ssh_path: @server.ssh_path, ssh_user: @server.ssh_user, user_id: @server.user_id } }
     end
 
     assert_redirected_to server_url(Server.last)
@@ -34,7 +36,9 @@ class ServersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update server" do
-    patch server_url(@server), params: { server: { ip_address: @server.ip_address, name: @server.name, os: @server.os, ssh_host: @server.ssh_host, ssh_password: @server.ssh_password, ssh_path: @server.ssh_path, ssh_user: @server.ssh_user, user_id: @server.user_id } }
+    patch server_url(@server), 
+          params: { server: { ip_address: @server.ip_address, name: @server.name, os: @server.os, ssh_host: @server.ssh_host, 
+                              ssh_password: @server.ssh_password, ssh_path: @server.ssh_path, ssh_user: @server.ssh_user, user_id: @server.user_id } }
     assert_redirected_to server_url(@server)
   end
 

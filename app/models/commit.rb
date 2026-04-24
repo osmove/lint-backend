@@ -16,7 +16,9 @@ class Commit < ApplicationRecord
     if self.user.present?
       last_user_commit = self.user.commits.order(id: :desc).limit(2).last
       if last_user_commit
-        previous_attempts = CommitAttempt.where(user_id: self.user).where(repository: self.repository).where(commit_id: nil).where("created_at > ?", last_user_commit.created_at)
+        previous_attempts = CommitAttempt.where(user_id: self.user).where(repository: self.repository).where(commit_id: nil).where(
+          "created_at > ?", last_user_commit.created_at
+        )
         self.commit_attempts = previous_attempts
       end
     end

@@ -62,7 +62,7 @@ class PolicyChecksController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_policy_check
       @policy_check = PolicyCheck.find(params[:id])

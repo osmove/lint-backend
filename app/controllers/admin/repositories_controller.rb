@@ -205,7 +205,9 @@ class Admin::RepositoriesController < Admin::BaseController
 
     respond_to do |format|
       if @repository.save
-        format.html { redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully created.' }
+        format.html do
+ redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully created.'
+        end
         format.json { render :show, status: :created, location: user_repository_path(@user, @repository) }
       else
         format.html { render :new }
@@ -225,7 +227,9 @@ class Admin::RepositoriesController < Admin::BaseController
       if @repository.update(repository_params)
 
         @repository.slug = @repository.name.to_s.parameterize(separator: "-", preserve_case: false)
-        format.html { redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully updated.' }
+        format.html do
+ redirect_to user_repository_path(@user, @repository), notice: 'Repository was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: user_repository_path(@user) }
       else
         format.html { render :edit }
@@ -250,7 +254,7 @@ class Admin::RepositoriesController < Admin::BaseController
   end
 
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_repository
       @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user

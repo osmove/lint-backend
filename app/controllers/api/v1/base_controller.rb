@@ -4,7 +4,7 @@ module Api
       protect_from_forgery with: :null_session
       before_action :authenticate_api_user!
 
-      private
+    private
 
       def authenticate_api_user!
         token = extract_token

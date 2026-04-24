@@ -101,9 +101,11 @@ class DocumentsController < ApplicationController
     elsif @document.extension.present? && ['md', 'markdown'].include?(@document.extension.downcase)
       @document.type = 'markdown'
       require 'redcarpet'
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, 
+                                                                  fenced_code_blocks: true)
       @document.content = markdown.render(@document.raw_content)
-    elsif @document.extension.present? && ['txt', 'html', 'xhtml', 'htm', 'rb', 'erb', 'php', 'php5', 'js', 'jsx','yml', 'xml'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && ['txt', 'html', 'xhtml', 'htm', 'rb', 'erb', 'php', 'php5', 'js', 'jsx',
+                                           'yml', 'xml'].include?(@document.extension.downcase)
       @document.type = 'document'
       @document.content = @document.raw_content
     else
@@ -119,6 +121,6 @@ class DocumentsController < ApplicationController
 
   end
 
-  private
+private
 
 end

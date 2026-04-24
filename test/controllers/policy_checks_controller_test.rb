@@ -17,7 +17,9 @@ class PolicyChecksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create policy_check" do
     assert_difference('PolicyCheck.count') do
-      post policy_checks_url, params: { policy_check: { commit_attempt_id: @policy_check.commit_attempt_id, contributor_id: @policy_check.contributor_id, device_id: @policy_check.device_id, name: @policy_check.name, passed: @policy_check.passed, policy_id: @policy_check.policy_id, push_id: @policy_check.push_id, repository_id: @policy_check.repository_id, user_id: @policy_check.user_id } }
+      post policy_checks_url, 
+           params: { policy_check: { commit_attempt_id: @policy_check.commit_attempt_id, 
+                                     contributor_id: @policy_check.contributor_id, device_id: @policy_check.device_id, name: @policy_check.name, passed: @policy_check.passed, policy_id: @policy_check.policy_id, push_id: @policy_check.push_id, repository_id: @policy_check.repository_id, user_id: @policy_check.user_id } }
     end
 
     assert_redirected_to policy_check_url(PolicyCheck.last)
@@ -34,7 +36,9 @@ class PolicyChecksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update policy_check" do
-    patch policy_check_url(@policy_check), params: { policy_check: { commit_attempt_id: @policy_check.commit_attempt_id, contributor_id: @policy_check.contributor_id, device_id: @policy_check.device_id, name: @policy_check.name, passed: @policy_check.passed, policy_id: @policy_check.policy_id, push_id: @policy_check.push_id, repository_id: @policy_check.repository_id, user_id: @policy_check.user_id } }
+    patch policy_check_url(@policy_check), 
+          params: { policy_check: { commit_attempt_id: @policy_check.commit_attempt_id, 
+                                    contributor_id: @policy_check.contributor_id, device_id: @policy_check.device_id, name: @policy_check.name, passed: @policy_check.passed, policy_id: @policy_check.policy_id, push_id: @policy_check.push_id, repository_id: @policy_check.repository_id, user_id: @policy_check.user_id } }
     assert_redirected_to policy_check_url(@policy_check)
   end
 

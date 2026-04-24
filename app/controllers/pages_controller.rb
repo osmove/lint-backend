@@ -280,7 +280,7 @@ class PagesController < ApplicationController
 
   end
 
-  private
+private
 
     def resource_name
       :user

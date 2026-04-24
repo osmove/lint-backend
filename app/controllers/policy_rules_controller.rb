@@ -61,7 +61,7 @@ class PolicyRulesController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_policy_rule
       @policy_rule = PolicyRule.find(params[:id])

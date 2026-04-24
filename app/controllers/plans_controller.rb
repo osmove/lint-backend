@@ -64,7 +64,7 @@ class PlansController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_plan
       @plan = Plan.find(params[:id])
@@ -72,6 +72,7 @@ class PlansController < ProtectedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
-      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, :max_repositories, :max_storage, :stripe_product_id, :stripe_monthly_plan_id, :stripe_yearly_plan_id)
+      params.require(:plan).permit(:name, :slug, :description, :price_per_month, :price_per_year, :max_users, 
+                                   :max_repositories, :max_storage, :stripe_product_id, :stripe_monthly_plan_id, :stripe_yearly_plan_id)
     end
 end

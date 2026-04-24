@@ -61,7 +61,7 @@ class HostingPlansController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_hosting_plan
       @hosting_plan = HostingPlan.find(params[:id])
@@ -69,6 +69,7 @@ class HostingPlansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hosting_plan_params
-      params.require(:hosting_plan).permit(:name, :slug, :memory, :vcpus, :storage, :transfer, :price_per_month, :price_per_hour)
+      params.require(:hosting_plan).permit(:name, :slug, :memory, :vcpus, :storage, :transfer, :price_per_month, 
+                                           :price_per_hour)
     end
 end

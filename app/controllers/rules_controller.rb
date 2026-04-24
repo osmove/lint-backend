@@ -61,7 +61,7 @@ class RulesController < ApplicationController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_rule
       @rule = Rule.find(params[:id])
@@ -69,6 +69,7 @@ class RulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rule_params
-      params.require(:rule).permit(:name, :type, :description, :options, :status, :language_id, :framework_id, :platform_id, :parent_id, :linter_id)
+      params.require(:rule).permit(:name, :type, :description, :options, :status, :language_id, :framework_id, 
+                                   :platform_id, :parent_id, :linter_id)
     end
 end

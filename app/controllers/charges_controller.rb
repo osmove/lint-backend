@@ -113,7 +113,8 @@ class ChargesController < ProtectedController
                 @user.plan = @new_plan
                 @user.number_of_seats = params['number_of_seats']
                 @user.save
-                redirect_to(plans_path, notice: "Plan successfully updated from: #{@current_plan.name} to #{@new_plan.name} (#{params['number_of_seats']} seats)")
+                redirect_to(plans_path, 
+                            notice: "Plan successfully updated from: #{@current_plan.name} to #{@new_plan.name} (#{params['number_of_seats']} seats)")
               end
             else
               puts "$$$ Stripe: Create charge 15"

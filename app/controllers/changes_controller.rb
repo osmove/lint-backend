@@ -64,7 +64,7 @@ class ChangesController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_change
       @change = Change.find(params[:id])

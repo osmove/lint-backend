@@ -17,7 +17,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
 
   test "should create plan" do
     assert_difference('Plan.count') do
-      post plans_url, params: { plan: { description: @plan.description, max_repositories: @plan.max_repositories, max_storage: @plan.max_storage, max_users: @plan.max_users, name: "New Plan", price_per_month: 30, price_per_year: 300, slug: "new-plan" } }
+      post plans_url, 
+           params: { plan: { description: @plan.description, max_repositories: @plan.max_repositories, 
+                             max_storage: @plan.max_storage, max_users: @plan.max_users, name: "New Plan", price_per_month: 30, price_per_year: 300, slug: "new-plan" } }
     end
 
     assert_redirected_to plans_url
@@ -34,7 +36,9 @@ class PlansControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update plan" do
-    patch plan_url(@plan), params: { plan: { description: @plan.description, max_repositories: @plan.max_repositories, max_storage: @plan.max_storage, max_users: @plan.max_users, name: "Updated Plan", price_per_month: 40, price_per_year: 400, slug: "updated-plan" } }
+    patch plan_url(@plan), 
+          params: { plan: { description: @plan.description, max_repositories: @plan.max_repositories, 
+                            max_storage: @plan.max_storage, max_users: @plan.max_users, name: "Updated Plan", price_per_month: 40, price_per_year: 400, slug: "updated-plan" } }
     assert_redirected_to plans_url
   end
 

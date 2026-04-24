@@ -43,14 +43,14 @@ class RepositoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update repository" do
     patch user_repository_url(@user, @repository),
-      params: {
-        repository: {
-          name: "Renamed Repo",
-          slug: @repository.slug,
-          status: @repository.status
-        }
-      },
-      headers: { "HTTP_REFERER" => user_repository_url(@user, @repository) }
+          params: {
+            repository: {
+              name: "Renamed Repo",
+              slug: @repository.slug,
+              status: @repository.status
+            }
+          },
+          headers: { "HTTP_REFERER" => user_repository_url(@user, @repository) }
 
     assert_redirected_to user_repository_url(@user, @repository)
     assert_equal "Renamed Repo", @repository.reload.name

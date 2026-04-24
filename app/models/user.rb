@@ -273,7 +273,7 @@ class User < ApplicationRecord
 
 
 
-  protected
+protected
 
     # Remove confirmation required
     def confirmation_required?
@@ -284,7 +284,7 @@ class User < ApplicationRecord
       end
     end
 
-  private
+private
 
     def from_omniauth?
       provider && uid

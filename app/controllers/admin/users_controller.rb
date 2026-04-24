@@ -1,6 +1,8 @@
 class Admin::UsersController < Admin::BaseController
 
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :user_policies, :user_organizations, :organization_members, :organization_teams]
+  before_action :set_user, 
+                only: [:show, :edit, :update, :destroy, :user_policies, :user_organizations, :organization_members, 
+                       :organization_teams]
 
   def index
     @all_users = User.all.order(created_at: :desc)
@@ -138,7 +140,7 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = params[:id] ? User.find_by(slug: params[:id].to_s.downcase) : nil
@@ -149,7 +151,8 @@ class Admin::UsersController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+      params.require(:user).permit(:username, :login, :slug, :first_name, :last_name, :email, :password, 
+                                   :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
 
     end
 end

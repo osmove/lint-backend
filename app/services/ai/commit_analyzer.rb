@@ -26,7 +26,7 @@ module Ai
       parse_analysis(response)
     end
 
-    private
+  private
 
     def parse_analysis(response)
       result = JSON.parse(response)

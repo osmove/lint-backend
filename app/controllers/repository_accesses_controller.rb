@@ -76,7 +76,8 @@ class RepositoryAccessesController < ProtectedController
   # GET /repository_accesses/1/edit
   def edit
 
-    @form_action = user_repository_repository_access_path(@repository_access.user, @repository_access.repository, @repository_access)
+    @form_action = user_repository_repository_access_path(@repository_access.user, @repository_access.repository, 
+                                                          @repository_access)
   end
 
   # POST /repository_accesses
@@ -104,8 +105,14 @@ class RepositoryAccessesController < ProtectedController
 
     respond_to do |format|
       if @repository_access.save
-        format.html { redirect_to user_repository_repository_access_path(@repository.user, @repository, @repository_access), notice: 'Repository access was successfully created.' }
-        format.json { render :show, status: :created, location: user_repository_repository_access_path(@repository.user, @repository, @repository_access) }
+        format.html do
+ redirect_to user_repository_repository_access_path(@repository.user, @repository, @repository_access), 
+             notice: 'Repository access was successfully created.'
+        end
+        format.json do
+ render :show, status: :created, 
+               location: user_repository_repository_access_path(@repository.user, @repository, @repository_access)
+        end
       else
         format.html { render :new }
         format.json { render json: @repository_access.errors, status: :unprocessable_entity }
@@ -134,8 +141,14 @@ class RepositoryAccessesController < ProtectedController
 
     respond_to do |format|
       if @repository_access.update(repository_access_params)
-        format.html { redirect_to user_repository_repository_access_path(@repository.user, @repository, @repository_access), notice: 'Repository access was successfully updated.' }
-        format.json { render :show, status: :ok, location: user_repository_repository_access_path(@repository.user, @repository, @repository_access) }
+        format.html do
+ redirect_to user_repository_repository_access_path(@repository.user, @repository, @repository_access), 
+             notice: 'Repository access was successfully updated.'
+        end
+        format.json do
+ render :show, status: :ok, 
+               location: user_repository_repository_access_path(@repository.user, @repository, @repository_access)
+        end
       else
         format.html { render :edit }
         format.json { render json: @repository_access.errors, status: :unprocessable_entity }
@@ -148,12 +161,15 @@ class RepositoryAccessesController < ProtectedController
   def destroy
     @repository_access.destroy
     respond_to do |format|
-      format.html { redirect_to user_repository_repository_accesses_path(@repository.user, @repository), notice: 'Repository access was successfully revoked.' }
+      format.html do
+ redirect_to user_repository_repository_accesses_path(@repository.user, @repository), 
+             notice: 'Repository access was successfully revoked.'
+      end
       format.json { head :no_content }
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_repository_access
 
@@ -177,6 +193,7 @@ class RepositoryAccessesController < ProtectedController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def repository_access_params
-      params.require(:repository_access).permit(:role, :status, :user_id, :repository_id, :enable_admin_email_notifications, :enable_email_notifications, :enable_admin_push_notifications, :enable_push_notifications)
+      params.require(:repository_access).permit(:role, :status, :user_id, :repository_id, 
+                                                :enable_admin_email_notifications, :enable_email_notifications, :enable_admin_push_notifications, :enable_push_notifications)
     end
 end

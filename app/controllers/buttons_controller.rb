@@ -63,7 +63,7 @@ class ButtonsController < ProtectedController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_button
       @button = Button.find(params[:id])

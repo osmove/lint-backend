@@ -88,8 +88,13 @@ class IssuesController < ApplicationController
 
     respond_to do |format|
       if @issue.save
-        format.html { redirect_to user_repository_issue_path(@repository.user, @repository, @issue), notice: 'Issue was successfully created.' }
-        format.json { render :show, status: :created, location: user_repository_issue_path(@repository.user, @repository, @issue) }
+        format.html do
+ redirect_to user_repository_issue_path(@repository.user, @repository, @issue), 
+             notice: 'Issue was successfully created.'
+        end
+        format.json do
+ render :show, status: :created, location: user_repository_issue_path(@repository.user, @repository, @issue)
+        end
       else
         format.html { render :new }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
@@ -102,8 +107,13 @@ class IssuesController < ApplicationController
   def update
     respond_to do |format|
       if @issue.update(issue_params)
-        format.html { redirect_to user_repository_issue_path(@repository.user, @repository, @issue), notice: 'Issue was successfully updated.' }
-        format.json { render :show, status: :ok, location: user_repository_issue_path(@repository.user, @repository, @issue) }
+        format.html do
+ redirect_to user_repository_issue_path(@repository.user, @repository, @issue), 
+             notice: 'Issue was successfully updated.'
+        end
+        format.json do
+ render :show, status: :ok, location: user_repository_issue_path(@repository.user, @repository, @issue)
+        end
       else
         format.html { render :edit }
         format.json { render json: @issue.errors, status: :unprocessable_entity }
@@ -116,12 +126,14 @@ class IssuesController < ApplicationController
   def destroy
     @issue.destroy
     respond_to do |format|
-      format.html { redirect_to user_repository_issues_path(@repository.user, @repository), notice: 'Issue was successfully destroyed.' }
+      format.html do
+ redirect_to user_repository_issues_path(@repository.user, @repository), notice: 'Issue was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_issue
 
@@ -145,6 +157,7 @@ class IssuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def issue_params
-      params.require(:issue).permit(:title, :slug, :origin, :body, :status, :repository_id, :user_id, :language_id, :framework_id)
+      params.require(:issue).permit(:title, :slug, :origin, :body, :status, :repository_id, :user_id, :language_id, 
+                                    :framework_id)
     end
 end

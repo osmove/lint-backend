@@ -17,7 +17,9 @@ class PolicyRuleOptionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create policy_rule_option" do
     assert_difference('PolicyRuleOption.count') do
-      post policy_rule_options_url, params: { policy_rule_option: { policy_rule_id: @policy_rule_option.policy_rule_id, rule_option_id: @policy_rule_option.rule_option_id, value: @policy_rule_option.value } }
+      post policy_rule_options_url, 
+           params: { policy_rule_option: { policy_rule_id: @policy_rule_option.policy_rule_id, 
+                                           rule_option_id: @policy_rule_option.rule_option_id, value: @policy_rule_option.value } }
     end
 
     assert_redirected_to policy_rule_option_url(PolicyRuleOption.last)
@@ -34,7 +36,9 @@ class PolicyRuleOptionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update policy_rule_option" do
-    patch policy_rule_option_url(@policy_rule_option), params: { policy_rule_option: { policy_rule_id: @policy_rule_option.policy_rule_id, rule_option_id: @policy_rule_option.rule_option_id, value: @policy_rule_option.value } }
+    patch policy_rule_option_url(@policy_rule_option), 
+          params: { policy_rule_option: { policy_rule_id: @policy_rule_option.policy_rule_id, 
+                                          rule_option_id: @policy_rule_option.rule_option_id, value: @policy_rule_option.value } }
     assert_redirected_to policy_rule_option_url(@policy_rule_option)
   end
 

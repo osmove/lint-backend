@@ -12,7 +12,7 @@ class Admin::BaseController < ApplicationController
   def dashboard
   end
 
-  protected
+protected
 
   # redirect if user not logged in or does not have a valid role
   def restrict_user_by_role
@@ -25,7 +25,7 @@ class Admin::BaseController < ApplicationController
     end
   end
 
-  private
+private
     def layout_by_resource
       if devise_controller?
         "application"

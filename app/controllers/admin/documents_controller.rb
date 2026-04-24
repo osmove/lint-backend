@@ -104,9 +104,11 @@ class Admin::DocumentsController < Admin::BaseController
     elsif @document.extension.present? && ['md', 'markdown'].include?(@document.extension.downcase)
       @document.type = 'markdown'
       require 'redcarpet'
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, fenced_code_blocks: true)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true, 
+                                                                  fenced_code_blocks: true)
       @document.content = markdown.render(@document.raw_content)
-    elsif @document.extension.present? && ['txt', 'html', 'xhtml', 'htm', 'rb', 'erb', 'php', 'php5', 'js', 'jsx','yml', 'xml'].include?(@document.extension.downcase)
+    elsif @document.extension.present? && ['txt', 'html', 'xhtml', 'htm', 'rb', 'erb', 'php', 'php5', 'js', 'jsx',
+                                           'yml', 'xml'].include?(@document.extension.downcase)
       @document.type = 'document'
       @document.content = @document.raw_content
     else
@@ -315,7 +317,9 @@ class Admin::DocumentsController < Admin::BaseController
 
     respond_to do |format|
       if @document.save
-        format.html { redirect_to admin_repository_documents_path(@repository, @document), notice: 'Document was successfully created.' }
+        format.html do
+ redirect_to admin_repository_documents_path(@repository, @document), notice: 'Document was successfully created.'
+        end
         format.json { render :show, status: :created, location: admin_repository_documents_path(@repository, @document)}
       else
         format.html { render :new }
@@ -341,7 +345,9 @@ class Admin::DocumentsController < Admin::BaseController
     end
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to admin_repository_documents_path(@repository, @document), notice: 'Document was successfully updated.' }
+        format.html do
+ redirect_to admin_repository_documents_path(@repository, @document), notice: 'Document was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: admin_repository_documents_path(@repository, @document) }
       else
         format.html { render :edit }
@@ -360,7 +366,7 @@ class Admin::DocumentsController < Admin::BaseController
     end
   end
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_document
       @document = Document.find_by(slug: params[:id].to_s.downcase)

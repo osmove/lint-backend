@@ -33,7 +33,7 @@ module Ai
       end
     end
 
-    private
+  private
 
     def build_prompt(rule_name, file_path, line, message, source_code)
       prompt = "Rule: #{rule_name}\nFile: #{file_path}:#{line}\nMessage: #{message}"

@@ -105,7 +105,7 @@ class UsersController < ApplicationController
   end
 
 
-  private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : params[:id] ? User.find_by(slug: params[:id].to_s.downcase) : nil rescue nil
@@ -117,7 +117,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email, :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
+      params.require(:user).permit(:organization_name, :username, :login, :slug, :first_name, :last_name, :email, 
+                                   :password, :password_confirmation, :birthday, :phone_country_code, :phone_number, :gender, :address, :address_2, :city, :zip_code, :state, :country, :is_organization, :has_newsletter, :terms_acceptance_date, :locale, :language, :time_zone, :accepted_terms_and_conditions, :role)
     end
 
 end

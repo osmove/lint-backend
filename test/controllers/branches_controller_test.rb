@@ -17,7 +17,9 @@ class BranchesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create branch" do
     assert_difference('Branch.count') do
-      post branches_url, params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, slug: @branch.slug } }
+      post branches_url, 
+           params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, 
+                               slug: @branch.slug } }
     end
 
     assert_redirected_to branch_url(Branch.last)
@@ -34,7 +36,9 @@ class BranchesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update branch" do
-    patch branch_url(@branch), params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, slug: @branch.slug } }
+    patch branch_url(@branch), 
+          params: { branch: { default: @branch.default, name: @branch.name, repository_id: @branch.repository_id, 
+                              slug: @branch.slug } }
     assert_redirected_to branch_url(@branch)
   end
 

@@ -12,17 +12,22 @@ class HooksController < ApplicationController
         @repository = @repositories.first
 
         # Send security alert push notification
-        @nb_messages = @repository.user.send_push_notification("#{@repository.uuid}", "New push received for repository '#{@repository.uuid}' on branch master.")
+        @nb_messages = @repository.user.send_push_notification("#{@repository.uuid}", 
+                                                               "New push received for repository '#{@repository.uuid}' on branch master.")
 
         return respond_to do |format|
           format.html { "Repository: #{@repository.uuid}. #{@nb_messages} sent." }
-          format.json { render json: {message: "Repository: #{@repository.uuid}. #{@nb_messages} message(s) sent."}, status: :ok }
+          format.json do
+ render json: {message: "Repository: #{@repository.uuid}. #{@nb_messages} message(s) sent."}, status: :ok
+          end
         end
 
       else
         return respond_to do |format|
           format.html { "Repository not found. #{@nb_messages} sent." }
-          format.json { render json: {message: "Repository not found. #{@nb_messages} message(s) sent."}, status: :unprocessable_entity }
+          format.json do
+ render json: {message: "Repository not found. #{@nb_messages} message(s) sent."}, status: :unprocessable_entity
+          end
         end
       end
 
@@ -31,7 +36,9 @@ class HooksController < ApplicationController
 
       return respond_to do |format|
         format.html { "No repository. #{@nb_messages} sent." }
-        format.json { render json: {message: "No repository. #{@nb_messages} message(s) sent."}, status: :unprocessable_entity }
+        format.json do
+ render json: {message: "No repository. #{@nb_messages} message(s) sent."}, status: :unprocessable_entity
+        end
       end
 
     end

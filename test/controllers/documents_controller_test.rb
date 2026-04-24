@@ -17,7 +17,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
 
     original_start = Net::SSH.method(:start)
     Net::SSH.singleton_class.send(:define_method, :start) do |*_args, &block|
-      block.call(fake_ssh)
+      block.(fake_ssh)
     end
 
     begin
