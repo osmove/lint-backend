@@ -1,6 +1,5 @@
 class EncryptionsController < ProtectedController
 
-  impressionist
 
   before_action :set_encryption, only: [:show, :edit, :update, :destroy]
 

@@ -6,7 +6,6 @@ class Contributor < ApplicationRecord
   has_many :policy_checks
   has_many :rules_checks
 
-  is_impressionable
 
   def name_or_username
     @name_or_username = self.name

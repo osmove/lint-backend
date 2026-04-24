@@ -1,6 +1,5 @@
 class DevicesController < ApplicationController
 
-  impressionist
 
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 

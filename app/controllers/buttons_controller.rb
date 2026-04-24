@@ -1,7 +1,6 @@
 class ButtonsController < ProtectedController
   before_action :set_button, only: [:show, :edit, :update, :destroy]
 
-  impressionist
     
   # GET /buttons
   # GET /buttons.json

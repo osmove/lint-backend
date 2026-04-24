@@ -1,6 +1,5 @@
 class PullsController < ProtectedController
 
-  impressionist
 
   before_action :set_pull, only: [:show, :edit, :update, :destroy]
 

@@ -7,7 +7,6 @@ class Commit < ApplicationRecord
   has_many :commit_attempts
 
 
-  is_impressionable
 
 
   after_create :assign_previous_commit_attempts

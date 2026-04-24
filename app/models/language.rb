@@ -1,6 +1,5 @@
 class Language < ApplicationRecord
 
-  is_impressionable
 
   def to_s
     self.name

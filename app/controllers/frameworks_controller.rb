@@ -1,6 +1,5 @@
 class FrameworksController < ProtectedController
 
-  impressionist
 
   before_action :set_framework, only: [:show, :edit, :update, :destroy]
 

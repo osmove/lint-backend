@@ -1,6 +1,5 @@
 class SyncsController < ProtectedController
 
-  impressionist
 
   before_action :set_sync, only: [:show, :edit, :update, :destroy]
 

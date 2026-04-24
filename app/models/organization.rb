@@ -4,7 +4,6 @@ class Organization < ApplicationRecord
   has_many :users, through: :memberships
   validates :name, presence: true
 
-  is_impressionable
 
 
   def to_s

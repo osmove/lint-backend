@@ -57,7 +57,6 @@ gem 'sentry-ruby', '~> 6.5'
 gem 'sentry-rails', '~> 6.5'
 
 # Analytics & Tracking
-gem 'impressionist'
 gem 'kaminari', '~> 1.2'
 gem 'chartkick', '~> 5.1'
 gem 'groupdate', '~> 6.4'

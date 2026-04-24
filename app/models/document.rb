@@ -20,5 +20,4 @@ class Document < ApplicationRecord
 
   self.inheritance_column = :_type_disabled
 
-  is_impressionable
 end

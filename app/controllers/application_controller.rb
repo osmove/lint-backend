@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   # layout "dashboard" if user_signed_in?
   # layout :determine_layout
 
-  # impressionist unless: :json_request?
 
   before_action :set_repository
 

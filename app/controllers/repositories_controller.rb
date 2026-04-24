@@ -7,7 +7,6 @@ class RepositoriesController < ProtectedController
 
   # layout "bare", only: :qr_code
 
-  impressionist except: [:show]
 
   # layout 'dashboard'
   # GET /repositories
@@ -200,7 +199,6 @@ class RepositoriesController < ProtectedController
     #   end
     #
     #
-    #   impressionist(@repository, @repository.uuid)
     #
     #
     #

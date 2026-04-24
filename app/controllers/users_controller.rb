@@ -5,8 +5,6 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show, :push_token]
 
-  # impressionist unless: :json_request?
-  impressionist except: [:show]
 
 
   # layout 'dashboard'
@@ -30,7 +28,6 @@ class UsersController < ApplicationController
     @user = params[:user_id] ? User.find_by(slug: params[:user_id].to_s.downcase) : current_user
     @repositories = Repository.all.where(user: @user).public.order(name: :asc)
 
-    impressionist(@user, @user.slug)
   end
 
   def update

@@ -1,6 +1,5 @@
 class ServersController < ProtectedController
 
-  impressionist
 
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 

@@ -1,5 +1,4 @@
 class Framework < ApplicationRecord
-  is_impressionable
 
   def to_s
     self.name

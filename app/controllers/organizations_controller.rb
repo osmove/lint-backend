@@ -1,14 +1,11 @@
 class OrganizationsController < ProtectedController
 
-  impressionist
   # class UsersController < ProtectedController
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   before_action :authenticate_user!, except: [:index, :show, :push_token]
 
-  # impressionist unless: :json_request?
-  impressionist except: [:show]
 
 
   # layout 'dashboard'
@@ -31,7 +28,6 @@ class OrganizationsController < ProtectedController
   def show
     @repositories = Repository.all.where(user: @user).public.order(name: :asc)
 
-    impressionist(@user, @user.slug)
   end
 
   def update

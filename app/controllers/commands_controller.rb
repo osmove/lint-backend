@@ -1,7 +1,6 @@
 class CommandsController < ProtectedController
   before_action :set_command, only: [:show, :edit, :update, :destroy]
 
-  impressionist
     
   # GET /commands
   # GET /commands.json

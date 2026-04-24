@@ -6,6 +6,5 @@ class Push < ApplicationRecord
   has_many :policy_checks
   has_many :rules_checks
   
-  is_impressionable
 
 end

@@ -1,6 +1,5 @@
 class DeploysController < ProtectedController
 
-  impressionist
 
   before_action :set_deploy, only: [:show, :edit, :update, :destroy]
 

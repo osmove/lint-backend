@@ -1,5 +1,4 @@
 class Admin::CommitsController < Admin::BaseController
-  impressionist
   before_action :set_commit, only: [:show, :edit, :update, :destroy]
   before_action :default_format_html, only: :show
 

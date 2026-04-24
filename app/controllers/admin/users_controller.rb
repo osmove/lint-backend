@@ -40,7 +40,6 @@ class Admin::UsersController < Admin::BaseController
       end
 
     end
-    impressionist(@user, @user.slug)
   end
 
   def organizations_index

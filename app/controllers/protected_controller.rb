@@ -1,7 +1,6 @@
 class ProtectedController < ApplicationController
 
 
-    impressionist
 
   # API Authentication - comes before Devise's one
   before_action :authenticate_user_from_token!, if: :json_request?

@@ -1,7 +1,6 @@
 class BuildpacksController < ProtectedController
   before_action :set_buildpack, only: [:show, :edit, :update, :destroy]
 
-  impressionist
     
   # GET /buildpacks
   # GET /buildpacks.json

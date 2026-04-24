@@ -5,7 +5,6 @@ class PagesController < ApplicationController
   require "json"
   require "set"
 
-  impressionist
 
 
   layout "dashboard", only: :dashboard

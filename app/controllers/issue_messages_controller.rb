@@ -1,6 +1,5 @@
 class IssueMessagesController < ProtectedController
 
-  impressionist
 
   before_action :set_issue_message, only: [:show, :edit, :update, :destroy]
 

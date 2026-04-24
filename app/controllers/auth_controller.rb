@@ -1,6 +1,5 @@
 class AuthController < ProtectedController
   
-  impressionist
 
   def is_signed_in?
     if user_signed_in?

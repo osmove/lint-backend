@@ -1,6 +1,5 @@
 class ContributorsController < ProtectedController
 
-  impressionist
     
   before_action :set_contributor, only: [:show, :edit, :update, :destroy]
 

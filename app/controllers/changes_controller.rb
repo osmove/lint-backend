@@ -1,7 +1,6 @@
 class ChangesController < ProtectedController
   before_action :set_change, only: [:show, :edit, :update, :destroy]
 
-  impressionist
 
   # GET /changes
   # GET /changes.json

@@ -1,6 +1,5 @@
 class LanguagesController < ProtectedController
 
-  impressionist
 
   before_action :set_language, only: [:show, :edit, :update, :destroy]
 

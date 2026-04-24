@@ -7,7 +7,6 @@ class Device < ApplicationRecord
   alias_attribute :has_lint_desktop, :has_gatrix_desktop
   alias_attribute :has_lint_connect, :has_gatrix_connect
 
-  is_impressionable
   self.inheritance_column = :_type_disabled
 
 end

@@ -1,7 +1,6 @@
 # class RepositoryAccessesController < ApplicationController
 class RepositoryAccessesController < ProtectedController
 
-  impressionist
 
   # before_action :set_repository_access, only: [:show, :edit, :update, :destroy]
   before_action :set_repository_access, only: [:show, :edit, :destroy]

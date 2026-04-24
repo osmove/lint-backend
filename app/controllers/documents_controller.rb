@@ -1,7 +1,6 @@
 # class DocumentsController < ProtectedController
 class DocumentsController < ApplicationController
 
-  impressionist
 
 
   before_action :default_format_html, only: :show

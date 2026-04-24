@@ -1,6 +1,5 @@
 class ChargesController < ProtectedController
 
-  impressionist
 
   def new
   end

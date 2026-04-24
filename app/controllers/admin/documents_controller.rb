@@ -4,7 +4,6 @@ class Admin::DocumentsController < Admin::BaseController
 
   before_action :set_document, only: [:show, :edit, :update, :destroy]
 
-  impressionist
 
 
   before_action :default_format_html, only: :show

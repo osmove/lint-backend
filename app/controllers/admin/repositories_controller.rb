@@ -7,7 +7,6 @@ class Admin::RepositoriesController < Admin::BaseController
 
   # layout "bare", only: :qr_code
 
-  impressionist except: [:show]
 
   # layout 'dashboard'
   # GET /repositories
@@ -114,7 +113,6 @@ class Admin::RepositoriesController < Admin::BaseController
   #   end
   #
   #
-  #   impressionist(@repository, @repository.uuid)
   #
   #
   #

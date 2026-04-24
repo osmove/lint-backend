@@ -1,6 +1,5 @@
 class PushesController < ProtectedController
 
-  impressionist
 
   before_action :set_push, only: [:show, :edit, :update, :destroy]
 

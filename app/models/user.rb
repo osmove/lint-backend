@@ -64,8 +64,6 @@ class User < ApplicationRecord
   self.inheritance_column = :_type_disabled
 
 
-  # is_impressionable
-  is_impressionable :counter_cache => true, :column_name => :counter_cache
 
   def to_s
     self.username

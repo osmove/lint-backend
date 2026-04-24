@@ -1,6 +1,5 @@
 class DependanciesController < ProtectedController
 
-  impressionist
 
   before_action :set_dependancy, only: [:show, :edit, :update, :destroy]
 

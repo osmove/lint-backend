@@ -2,7 +2,6 @@
 class IssuesController < ApplicationController
 
 
-  impressionist
 
   before_action :set_issue, only: [:show, :edit, :update, :destroy]
 

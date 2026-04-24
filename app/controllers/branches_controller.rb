@@ -1,7 +1,6 @@
 class BranchesController < ProtectedController
   before_action :set_branch, only: [:show, :edit, :update, :destroy]
 
-  impressionist
     
   # GET /branches
   # GET /branches.json
