@@ -40,3 +40,8 @@ Style/FrozenStringLiteralComment:
 # for cosmetic snake_case is not worth it.
 Naming/VariableName:
   Enabled: false
+
+# address_2, phone_line_1 etc. are idiomatic in form / address fields.
+# The cop's SnakeCase-no-digits style conflicts with Rails conventions.
+Naming/VariableNumber:
+  Enabled: false

@@ -130,13 +130,13 @@ module Users
 
           if organizations.any?
             organizations.each do |org|
-              if User.where(type: 'organization', username: org['login'], is_organization: true).present?
-                @organization = User.where(type: 'organization', username: org['login'], is_organization: true).first
-              else
-                # @organization = Organization.new(name: org["login"], user: @user)
-                @organization = User.new(login: org['login'], type: 'organization', username: org['login'],
+              @organization = if User.where(type: 'organization', username: org['login'], is_organization: true).present?
+                                User.where(type: 'organization', username: org['login'], is_organization: true).first
+                              else
+                                # @organization = Organization.new(name: org["login"], user: @user)
+                                User.new(login: org['login'], type: 'organization', username: org['login'],
                                          avatar_url: org['avatar_url'], is_organization: true, email: "#{org['login']}@lint.to")
-              end
+                              end
 
               # fetch organization repositories
 
