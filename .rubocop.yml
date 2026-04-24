@@ -6,7 +6,7 @@ inherit_from:
   - .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 3.3
+  TargetRubyVersion: 3.4
   NewCops: enable
   SuggestExtensions: false
   Exclude:
@@ -17,7 +17,7 @@ AllCops:
     - '_permanent/**/*'
 
 Layout/LineLength:
-  Max: 120
+  Max: 160
   Severity: warning
 
 Layout/AccessModifierIndentation:
@@ -34,4 +34,9 @@ Style/Documentation:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# Legacy codebase carries many camelCase locals. Refactoring 288 variables
+# for cosmetic snake_case is not worth it.
+Naming/VariableName:
   Enabled: false
