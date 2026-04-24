@@ -49,8 +49,8 @@ module Users
                           end
                         end
 
-            if repo['private'] == true
-              @repository = @user.repositories.new(name: repo['name'], slug: repo['name'], user_id: repo['owner']['login'].downcase, status: 'Private', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
+            @repository = if repo['private'] == true
+                            @user.repositories.new(name: repo['name'], slug: repo['name'], user_id: repo['owner']['login'].downcase, status: 'Private', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
                                                    web_url: repo['html_url'],
                                                    ssh_url: repo['ssh_url'],
                                                    github_updated_at: repo['updated_at'],
@@ -62,8 +62,8 @@ module Users
                                                    has_downloads: repo['has_downloads'],
                                                    has_wiki: repo['has_wiki'],
                                                    is_ignored: false)
-            else
-              @repository = @user.repositories.new(name: repo['name'], slug: repo['name'], user_id: repo['owner']['login'].downcase, status: 'Public', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
+                          else
+                            @user.repositories.new(name: repo['name'], slug: repo['name'], user_id: repo['owner']['login'].downcase, status: 'Public', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
                                                    web_url: repo['html_url'],
                                                    ssh_url: repo['ssh_url'],
                                                    github_updated_at: repo['updated_at'],
@@ -75,7 +75,7 @@ module Users
                                                    has_downloads: repo['has_downloads'],
                                                    has_wiki: repo['has_wiki'],
                                                    is_ignored: false)
-            end
+                          end
 
             if !@repository.save!
               Rails.logger.debug(@repository.errors.full_messages)
@@ -164,8 +164,8 @@ module Users
                                 end
                               end
 
-                  if repo['private'] == true
-                    @repository = Repository.new(name: repo['name'], slug: repo['name'], user_id: @organization, status: 'Private', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
+                  @repository = if repo['private'] == true
+                                  Repository.new(name: repo['name'], slug: repo['name'], user_id: @organization, status: 'Private', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
                                                  web_url: repo['html_url'],
                                                  ssh_url: repo['ssh_url'],
                                                  github_updated_at: repo['updated_at'],
@@ -177,8 +177,8 @@ module Users
                                                  has_downloads: repo['has_downloads'],
                                                  has_wiki: repo['has_wiki'],
                                                  is_ignored: false)
-                  else
-                    @repository = Repository.new(name: repo['name'], slug: repo['name'], user_id: @organization, status: 'Public', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
+                                else
+                                  Repository.new(name: repo['name'], slug: repo['name'], user_id: @organization, status: 'Public', web_address: repo['html_url'], git_address: repo['git_url'], platform: @platform, deploy_to: 'none', git_url: repo['git_url'],
                                                  web_url: repo['html_url'],
                                                  ssh_url: repo['ssh_url'],
                                                  github_updated_at: repo['updated_at'],
@@ -190,7 +190,7 @@ module Users
                                                  has_downloads: repo['has_downloads'],
                                                  has_wiki: repo['has_wiki'],
                                                  is_ignored: false)
-                  end
+                                end
 
                   @organization.repositories.push(@repository)
                   # @github_repositories.push(@repository)

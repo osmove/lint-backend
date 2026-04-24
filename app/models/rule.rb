@@ -18,8 +18,8 @@ class Rule < ApplicationRecord
 
   accepts_nested_attributes_for :rule_option_options
 
-  has_many :children, class_name: 'Rule', foreign_key: 'parent_id', dependent: :nullify
-  belongs_to :parent, class_name: 'Rule', optional: true
+  has_many :children, class_name: 'Rule', foreign_key: 'parent_id', inverse_of: :parent, dependent: :nullify
+  belongs_to :parent, class_name: 'Rule', inverse_of: :children, optional: true
 
   self.inheritance_column = :_type_disabled
 

@@ -30,7 +30,7 @@ class User < ApplicationRecord
   # has_many :memberships
   # has_many :memberships
 
-  has_many :memberships_as_organization, foreign_key: :organization_id, class_name: 'Membership', dependent: :destroy
+  has_many :memberships_as_organization, foreign_key: :organization_id, class_name: 'Membership', inverse_of: :organization, dependent: :destroy
   # has_many :memberships_as_user, foreign_key: :user_id, class_name: 'Membership'
   has_many :memberships, class_name: 'Membership', dependent: :destroy
 
@@ -217,10 +217,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    existing_user = where(username: auth.info.nickname).first
-    if existing_user
-      existing_user
-    else
+    where(username: auth.info.nickname).first ||
       where(provider: auth.provider, uid: auth.uid).first_or_create! do |user|
         user.email = auth.info.email || "#{auth.uid}@github.com"
         user.password = Devise.friendly_token[0, 20]
@@ -233,7 +230,6 @@ class User < ApplicationRecord
         # uncomment the line below to skip the confirmation emails.
         # user.skip_confirmation!
       end
-    end
   end
 
 protected
@@ -268,14 +264,19 @@ private
   # end
 
   # To be able to request new password with username instead of email
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if (login = conditions.delete(:login))
-      where(conditions).where(['username = :value OR lower(email) = lower(:value)', { value: login }]).first
-    elsif conditions[:username].nil?
-      where(conditions).first
-    else
-      where(username: conditions[:username]).first
+  # Devise calls this method as a class method, so it must stay public;
+  # private would make it a no-op since Ruby's `private` modifier does
+  # not affect singleton methods in this context.
+  class << self
+    def find_first_by_auth_conditions(warden_conditions)
+      conditions = warden_conditions.dup
+      if (login = conditions.delete(:login))
+        where(conditions).where(['username = :value OR lower(email) = lower(:value)', { value: login }]).first
+      elsif conditions[:username].nil?
+        where(conditions).first
+      else
+        where(username: conditions[:username]).first
+      end
     end
   end
 end

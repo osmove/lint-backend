@@ -89,8 +89,7 @@ Rails.application.routes.draw do
 
     resources :teams do
       resources :memberships, path: '/members'
-      resource :membership, path: '/members/:_id', only: %i[show destroy edit] do
-      end
+      resource :membership, path: '/members/:_id', only: %i[show destroy edit]
     end
 
     resources :repositories
@@ -201,8 +200,7 @@ Rails.application.routes.draw do
 
     resources :teams do
       resources :memberships, path: '/members'
-      resource :membership, path: '/members/:_id', only: %i[show destroy edit] do
-      end
+      resource :membership, path: '/members/:_id', only: %i[show destroy edit]
     end
 
     # resource :repository, path: "/:id", only: [:show, :destroy, :delete]
