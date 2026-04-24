@@ -6,7 +6,7 @@
 
 - [ ] `npm run verify` passes (or the blocker is documented below)
 - [ ] `script/ensure_runtime.rb` still bootstraps a clean env
-- [ ] `README.md`, `CONTRIBUTING.md`, `CLAUDE.md` updated where relevant
+- [ ] `README.md`, `CONTRIBUTING.md`, `AGENTS.md` updated where relevant
 - [ ] New Brakeman warnings addressed or added to `config/brakeman.ignore` with justification
 - [ ] New Rubocop offenses fixed or captured in `.rubocop_todo.yml`
 - [ ] Tests added or updated for controller, model, or fixture changes
