@@ -1,6 +1,6 @@
 {
   "scan_info": {
-    "app_path": "/Users/jimmy/Dev/lint/lint-backend",
+    "app_path": "/Users/jimmy/Dev/lint/lint-cloud",
     "rails_version": "5.1.6",
     "security_warnings": 22,
     "start_time": "2019-01-10 15:57:05 +0200",
@@ -637,8 +637,8 @@
   "ignored_warnings": [],
   "errors": [
     {
-      "error": "/Users/jimmy/Dev/lint/lint-backend/app/views/admin/languages/edit.html.erb:6 :: parse error on value \":\" (tCOLON)",
-      "location": "Could not parse /Users/jimmy/Dev/lint/lint-backend/app/views/admin/languages/edit.html.erb"
+      "error": "/Users/jimmy/Dev/lint/lint-cloud/app/views/admin/languages/edit.html.erb:6 :: parse error on value \":\" (tCOLON)",
+      "location": "Could not parse /Users/jimmy/Dev/lint/lint-cloud/app/views/admin/languages/edit.html.erb"
     }
   ],
   "obsolete": []

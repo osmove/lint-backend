@@ -59,7 +59,7 @@ If your local Ruby installation does not already have the Bundler version pinned
 
 ## Repository Notes
 
-- `origin` should point to `osmove/lint-backend`
+- `origin` should point to `osmove/lint-cloud`
 - the published CLI package does not live in this repository
 - `package.json` depends on the sibling CLI repo through `file:../lint-cli`
 - the Heroku remote still uses the legacy app name and has not been renamed

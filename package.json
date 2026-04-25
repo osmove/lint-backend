@@ -1,5 +1,5 @@
 {
-  "name": "lint-backend",
+  "name": "lint-cloud",
   "private": true,
   "version": "1.0.0",
   "description": "Rails backend for lint.to and the Lint platform APIs.",
@@ -29,11 +29,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/osmove/lint-backend.git"
+    "url": "https://github.com/osmove/lint-cloud.git"
   },
-  "homepage": "https://github.com/osmove/lint-backend#readme",
+  "homepage": "https://github.com/osmove/lint-cloud#readme",
   "bugs": {
-    "url": "https://github.com/osmove/lint-backend/issues"
+    "url": "https://github.com/osmove/lint-cloud/issues"
   },
   "author": "Jimmy Douieb",
   "license": "UNLICENSED",

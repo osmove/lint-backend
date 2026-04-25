@@ -8,7 +8,7 @@ This repository powers the web app and API behind Lint: accounts, repositories, 
 
 | Component | Role | Location |
 |-----------|------|----------|
-| `lint-backend` | Rails backend and web app | [osmove/lint-backend](https://github.com/osmove/lint-backend) |
+| `lint-cloud` | Rails backend and web app | [osmove/lint-cloud](https://github.com/osmove/lint-cloud) |
 | `lint` | Repo-local CLI and quality gate | [osmove/lint](https://github.com/osmove/lint) |
 
 ## Stack
@@ -43,8 +43,8 @@ Prerequisites:
 Clone and boot locally:
 
 ```bash
-git clone https://github.com/osmove/lint-backend.git
-cd lint-backend
+git clone https://github.com/osmove/lint-cloud.git
+cd lint-cloud
 npm install
 npm run runtime:check
 npm run bundler:ensure
