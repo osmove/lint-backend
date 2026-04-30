@@ -1,83 +1,70 @@
+<% content_for :title do %>Sign in — Lint<% end %>
 
-<style media="screen">
+<section class="relative isolate py-16 md:py-24 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
 
-  html, body {
-    height: 100%;
-  }
-
-  body {
-    /* display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center; */
-    align-items: center;
-  }
-
-  .form-signin {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-    padding-top: 50px;
-    /* background-color: #f5f5f5; */
-  }
-  .form-signin .checkbox {
-    font-weight: 400;
-  }
-  .form-signin .form-control {
-    position: relative;
-    box-sizing: border-box;
-    height: auto;
-    padding: 10px;
-    font-size: 16px;
-  }
-  .form-signin .form-control:focus {
-    z-index: 2;
-  }
-  .form-signin input[type="text"], .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-</style>
-
-
-<div class="form-signin text-center">
-
-  <a href="<%= root_path %>">
-    <img class="mb-3" src="/images/logo/lint-logo.svg" style="max-width: 100px; max-height: 100px;" alt="Lint Logo">
-  </a>
-
-  <h3 class="mb-4"><%= "Log In" %></h3>
-
-  <!-- <p>
-    <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
-      <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Sign in with Github</span>
-    </a>
-  </p>
-
-  <p class="mb-3">or</p> -->
-
-  <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= f.text_field :login, autofocus: false, autocomplete: "email", autocorrect: "off", autocapitalize: "none", hide_label: true, placeholder: "Username or email", wrapper: { class: 'mb-0' }  %>
-    <%= f.password_field :password, autocomplete: "off", autocorrect: "off", autocapitalize: "none", hide_label: true, placeholder: "Password" %>
-
-    <% if devise_mapping.rememberable? -%>
-      <div class="field mb-3">
-        <%= f.check_box :remember_me, label: "Remember me", inline: true, class:"ml-2", checked: true %>
-      </div>
-    <% end -%>
-
-
-    <div class="actions mb-3">
-      <%= f.submit "Sign in", class:'btn btn-lg btn-primary btn-block' %>
+  <div class="max-w-md mx-auto px-4">
+    <div class="text-center mb-8">
+      <span class="inline-flex w-14 h-14 rounded-2xl bg-[#0b1120] ring-1 ring-white/10 items-center justify-center mb-4">
+        <svg viewBox="0 0 100 100" class="w-9 h-9" aria-hidden="true">
+          <g fill="none" stroke="#22d3ee" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="36,32 22,50 36,68"/>
+            <line x1="56" y1="32" x2="44" y2="68"/>
+            <polyline points="64,32 78,50 64,68"/>
+          </g>
+        </svg>
+      </span>
+      <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white">Welcome back.</h1>
+      <p class="mt-2 text-slate-400">Sign in to your Lint account.</p>
     </div>
 
-    <%= render "devise/shared/links" %>
-  <% end %>
+    <%# GitHub OAuth — primary path %>
+    <% if defined?(user_github_omniauth_authorize_path) %>
+      <%= button_to user_github_omniauth_authorize_path, method: :post, data: { turbo: false }, form: { class: "w-full" }, class: "w-full inline-flex items-center justify-center gap-2 rounded-lg bg-white text-slate-950 hover:bg-white/90 px-5 py-3 font-semibold transition-colors" do %>
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        Sign in with GitHub
+      <% end %>
 
-</div>
+      <div class="my-6 flex items-center gap-3">
+        <div class="flex-1 h-px bg-white/10"></div>
+        <span class="text-xs uppercase tracking-wider text-slate-500">or with email</span>
+        <div class="flex-1 h-px bg-white/10"></div>
+      </div>
+    <% end %>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+      <% input_classes = "w-full rounded-lg bg-white/[0.04] border border-white/10 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/30 focus:outline-none px-4 py-3 text-white placeholder:text-slate-500 transition-colors" %>
+
+      <div>
+        <label for="user_login" class="block text-xs uppercase tracking-wide text-slate-400 mb-2">Email or username</label>
+        <%= f.text_field :login, id: :user_login, autocomplete: "email", autocorrect: "off", autocapitalize: "none", placeholder: "you@company.com", class: input_classes %>
+      </div>
+
+      <div>
+        <label for="user_password" class="block text-xs uppercase tracking-wide text-slate-400 mb-2">Password</label>
+        <%= f.password_field :password, id: :user_password, autocomplete: "current-password", placeholder: "•••••••••", class: input_classes %>
+      </div>
+
+      <div class="flex items-center justify-between text-sm">
+        <label class="inline-flex items-center gap-2 text-slate-300 cursor-pointer">
+          <%= f.check_box :remember_me, checked: true, class: "rounded border-white/20 bg-white/[0.04] text-brand-500 focus:ring-brand-500/30" %>
+          Remember me
+        </label>
+        <% if devise_mapping.recoverable? %>
+          <%= link_to "Forgot password?", new_password_path(resource_name), class: "text-brand-300 hover:text-brand-200 underline" %>
+        <% end %>
+      </div>
+
+      <%= f.submit "Sign in", class: "w-full inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 font-semibold shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 cursor-pointer transition-all" %>
+    <% end %>
+
+    <% if devise_mapping.registerable? %>
+      <p class="mt-6 text-center text-sm text-slate-400">
+        New to Lint?
+        <%= link_to "Create an account", new_registration_path(resource_name), class: "text-brand-300 hover:text-brand-200 underline" %>
+      </p>
+    <% end %>
+  </div>
+</section>
