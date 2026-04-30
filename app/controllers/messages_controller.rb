@@ -1,4 +1,8 @@
 class MessagesController < ApplicationController
+  # The contact form lives in the marketing surface — render under
+  # the modern Tailwind layout, not the legacy application one.
+  layout 'lint_marketing', only: %i[new create thank_you]
+
   # GET /contact
   # GET /messages/new
   def index

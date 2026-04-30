@@ -1,36 +1,53 @@
-<div class="container my-5">
+<% content_for :title do %>Send a message — Lint<% end %>
 
-  <h2 class="text-center">Contact us</h2>
-  <p class="text-center mb-4">Send us a message and a representative will answer you shortly.</p>
-  <div class="mx-auto" style="max-width: 600px;">
-    <%= bootstrap_form_with(model: @message, local: true) do |form| %>
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-2xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      Contact form
+    </div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.05]">Send us a message.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 leading-relaxed">
+      A human reads every message. We typically reply within one business day.
+    </p>
+
+    <%= form_with(model: @message, local: true, html: { class: "mt-10 space-y-5" }) do |form| %>
       <% if @message.errors.any? %>
-        <div id="error_explanation" class="text-danger">
-          <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
-          <ul>
-          <% @message.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
+        <div class="rounded-xl bg-rose-500/10 border border-rose-500/30 p-4 text-sm text-rose-200">
+          <strong class="font-semibold"><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</strong>
+          <ul class="mt-2 list-disc pl-5">
+            <% @message.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
           </ul>
         </div>
       <% end %>
-      <div class="row">
-        <div class="col">
-          <%= form.text_field :name, id: :message_name, placeholder: "Your name" %>
+
+      <% input_classes = "w-full rounded-lg bg-white/[0.04] border border-white/10 focus:border-brand-400 focus:ring-2 focus:ring-brand-500/30 focus:outline-none px-4 py-3 text-white placeholder:text-slate-500 transition-colors" %>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="message_name" class="block text-xs uppercase tracking-wide text-slate-400 mb-2">Name</label>
+          <%= form.text_field :name, id: :message_name, placeholder: "Jane Doe", class: input_classes %>
         </div>
-        <div class="col">
-          <%= form.email_field :email, id: :message_email, placeholder: "Your email address" %>
+        <div>
+          <label for="message_email" class="block text-xs uppercase tracking-wide text-slate-400 mb-2">Email</label>
+          <%= form.email_field :email, id: :message_email, placeholder: "you@company.com", class: input_classes %>
         </div>
       </div>
 
-      <div class="field">
-        <%= form.text_area :text_body, id: :message_message, rows: 6, placeholder: "Your message" %>
+      <div>
+        <label for="message_message" class="block text-xs uppercase tracking-wide text-slate-400 mb-2">Message</label>
+        <%= form.text_area :text_body, id: :message_message, rows: 6, placeholder: "How can we help?", class: input_classes %>
       </div>
 
-      <div class="actions">
-        <%= form.submit %>
+      <div class="flex items-center justify-between">
+        <p class="text-xs text-slate-500">Or email us directly at <a href="mailto:contact@osmove.com" class="text-brand-300 hover:text-brand-200 underline">contact@osmove.com</a>.</p>
+        <%= form.submit "Send message", class: "inline-flex items-center gap-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 font-semibold shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30 cursor-pointer transition-all" %>
       </div>
     <% end %>
   </div>
-
-</div>
+</section>

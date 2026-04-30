@@ -1,7 +1,28 @@
-<div class="container py-5 text-center">
-  <!-- <img src="/images/contact/picto_vert_sans_fond.png" alt="Contact" style="width: 150px;"> -->
-  <span class="fa fa-check-circle" style="font-size: 70px;"></span>
-  <h4 class="mt-4 text-center">Message sent successfully.</h4>
-  <p class="mt-4 text-center">One of our representatives will get in touch with you shortly.</p>
-  <p><%= link_to raw('&larr; Back to the home page'), root_path %></p>
-</div>
+<% content_for :title do %>Message sent — Lint<% end %>
+
+<section class="relative isolate py-16 md:py-24 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-2xl mx-auto px-4 text-center">
+    <div class="mx-auto w-16 h-16 rounded-2xl bg-brand-500/10 border border-brand-500/30 flex items-center justify-center mb-6">
+      <svg class="w-9 h-9 text-brand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.05]">Message sent.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 leading-relaxed">
+      Thanks for reaching out. We'll reply within one business day at the email you provided.
+    </p>
+
+    <div class="mt-10 flex items-center justify-center gap-3 flex-wrap">
+      <%= link_to root_path, class: "inline-flex items-center gap-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white px-5 py-3 font-semibold transition-colors" do %>
+        ← Back to home
+      <% end %>
+      <%= link_to "/features", class: "inline-flex items-center gap-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 font-semibold transition-colors" do %>
+        See what Lint does →
+      <% end %>
+    </div>
+  </div>
+</section>
