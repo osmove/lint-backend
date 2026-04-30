@@ -14,6 +14,12 @@ class ApplicationController < ActionController::Base
 
   before_action :set_repository
 
+  # Render Devise (sign-in, sign-up, forgot-password, etc.) under
+  # the modernized Tailwind marketing layout, not the legacy
+  # application layout. Other controllers can still set their own
+  # layout — this only fires when the request comes from Devise.
+  layout :devise_aware_layout
+
 protected
 
   def configure_permitted_parameters
@@ -50,6 +56,10 @@ private
 
   def determine_layout
     current_user ? 'dashboard' : 'application'
+  end
+
+  def devise_aware_layout
+    devise_controller? ? 'lint_marketing' : 'application'
   end
 
   def set_smart_ip
