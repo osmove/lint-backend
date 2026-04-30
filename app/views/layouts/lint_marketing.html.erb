@@ -53,9 +53,10 @@
             <% nav_link  = 'text-slate-300 hover:text-white px-3 py-2 rounded-lg hover:bg-white/5 transition-colors' %>
             <% nav_active = 'text-white px-3 py-2 rounded-lg bg-white/[0.06] ring-1 ring-white/10' %>
             <a href="/features"  class="<%= current_page?('/features')  ? nav_active : nav_link %>">Features</a>
+            <a href="/apps"      class="<%= current_page?('/apps')      ? nav_active : nav_link %>">Apps</a>
             <a href="/pricing"   class="<%= current_page?('/pricing')   ? nav_active : nav_link %>">Pricing</a>
             <a href="/security"  class="<%= current_page?('/security')  ? nav_active : nav_link %>">Security</a>
-            <a href="/downloads" class="<%= current_page?('/downloads') ? nav_active : nav_link %>">Download</a>
+            <a href="/about"     class="<%= current_page?('/about')     ? nav_active : nav_link %>">About</a>
             <a href="https://github.com/osmove/lint" target="_blank" rel="noopener" class="<%= nav_link %>">GitHub ↗</a>
             <a href="<%= user_signed_in? ? dashboard_path : new_user_session_path %>"
                class="ml-2 inline-flex items-center gap-1.5 rounded-lg px-4 py-2 transition-all font-medium text-sm bg-brand-500 hover:bg-brand-600 text-white shadow-lg shadow-brand-500/20 hover:shadow-brand-500/30">
@@ -73,9 +74,12 @@
           <div class="flex flex-col gap-1">
             <% mobile_link = 'text-slate-300 hover:text-white transition-colors px-3 py-2.5 rounded-lg hover:bg-white/5' %>
             <a href="/features"  class="<%= mobile_link %>">Features</a>
+            <a href="/apps"      class="<%= mobile_link %>">Apps</a>
             <a href="/pricing"   class="<%= mobile_link %>">Pricing</a>
             <a href="/security"  class="<%= mobile_link %>">Security</a>
             <a href="/downloads" class="<%= mobile_link %>">Download</a>
+            <a href="/about"     class="<%= mobile_link %>">About</a>
+            <a href="/faq"       class="<%= mobile_link %>">FAQ</a>
             <a href="https://github.com/osmove/lint" target="_blank" rel="noopener" class="<%= mobile_link %>">GitHub ↗</a>
             <a href="<%= user_signed_in? ? dashboard_path : new_user_session_path %>"
                class="mt-2 inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 transition-colors font-medium bg-brand-500 hover:bg-brand-600 text-white">
@@ -157,9 +161,12 @@
             <h4 class="text-white font-semibold mb-3">Product</h4>
             <ul class="space-y-2 text-sm">
               <li><a href="/features" class="hover:text-white">Features</a></li>
+              <li><a href="/apps" class="hover:text-white">Apps</a></li>
               <li><a href="/pricing" class="hover:text-white">Pricing</a></li>
               <li><a href="/downloads" class="hover:text-white">Download</a></li>
               <li><a href="/security" class="hover:text-white">Security</a></li>
+              <li><a href="/about" class="hover:text-white">About</a></li>
+              <li><a href="/faq" class="hover:text-white">FAQ</a></li>
               <li><a href="https://www.npmjs.com/package/lint" target="_blank" rel="noopener" class="hover:text-white">npm package ↗</a></li>
             </ul>
           </div>

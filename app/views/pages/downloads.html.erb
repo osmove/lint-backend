@@ -1,86 +1,107 @@
-<section class="bg-dark text-center">
+<% content_for :title do %>Download — Lint<% end %>
+<% content_for :meta_description do %>Get Lint on macOS, Linux, Windows, iOS, and Android. CLI via npm in one command.<% end %>
 
-  <div class="pricing-header px-3 pt-4 pt-md-5 mx-auto text-center">
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
 
-    <img src="/images/lint-desktop-icon.png" alt="Lint Desktop Icon" width="128" height="128" class="mb-2">
-    <h1 class="display-4 text-white">Lint Desktop</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      Download
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Get Lint.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+      Three ways to run Lint. Pick the one that matches your workflow — they all share the same engine.
+    </p>
 
-
-    <div class="pb-4">
-
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktopSetup.exe" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-windows"></i>
-        Download for Windows
-      </a>
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktop.dmg" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-apple"></i>
-        Download for Mac
-      </a>
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktop.AppImage" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-linux"></i>
-        Download for Linux
-      </a>
-
+    <%# CLI — primary, recommended %>
+    <div class="mt-12 rounded-2xl bg-gradient-to-br from-brand-500/15 to-brand-500/0 border border-brand-500/30 p-8">
+      <div class="flex items-start gap-5">
+        <div class="w-14 h-14 flex-shrink-0 rounded-xl bg-[#0b1120] ring-1 ring-white/10 flex items-center justify-center">
+          <svg viewBox="0 0 100 100" class="w-9 h-9" aria-hidden="true">
+            <g fill="none" stroke="#22d3ee" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="36,32 22,50 36,68"/>
+              <line x1="56" y1="32" x2="44" y2="68"/>
+              <polyline points="64,32 78,50 64,68"/>
+            </g>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2 mb-2">
+            <h2 class="text-2xl font-bold text-white tracking-tight">Lint CLI</h2>
+            <span class="px-2 py-0.5 rounded-full bg-brand-500/20 border border-brand-500/40 text-brand-300 text-xs font-semibold uppercase tracking-wider">Recommended</span>
+          </div>
+          <p class="text-slate-300 leading-relaxed mb-4">One command. macOS, Linux, Windows. Run anywhere npm runs.</p>
+          <div class="rounded-xl bg-black/40 border border-white/10 p-4 text-sm font-mono text-slate-300 mb-3">
+            <span class="text-brand-400">$</span> npm install -g lint
+          </div>
+          <div class="flex flex-wrap gap-2 text-sm">
+            <a href="https://www.npmjs.com/package/lint" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">npmjs.com/package/lint ↗</a>
+            <span class="text-slate-500">·</span>
+            <a href="https://github.com/osmove/lint" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">github.com/osmove/lint ↗</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-  <!-- <img class="img-fluid" src="/images/desktop.png" alt="Lint Desktop Screnshot" /> -->
-
-</section>
-
-
-
-
-<section class="bg-dark text-center" style="background-color: #111 !important;">
-
-  <div class="pricing-header px-3 py-4 pt-md-5 mx-auto text-center">
-
-    <img src="/images/lint-mobile-icon.png" alt="Lint Mobile Icon" width="128" height="128" class="my-4">
-    <h1 class="display-4 text-white">Lint Connect</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
-
-
-    <div class="mb-3">
-
-      <a href="https://play.google.com/store/apps/details?id=io.lint.apps.lint" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;" target="_blank">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-apple"></i>
-        Download for iOS
-      </a>
-      <a href="https://play.google.com/store/apps/details?id=io.lint.apps.lint" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;" target="_blank">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-android"></i>
-        Download for Android
-      </a>
-
+    <%# Desktop %>
+    <div class="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+      <div class="flex items-start gap-5">
+        <div class="w-14 h-14 flex-shrink-0 rounded-xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-brand-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-white tracking-tight mb-2">Lint Desktop</h2>
+          <p class="text-slate-300 leading-relaxed mb-4">Native app. Configure rules, browse violations, run on save.</p>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://git.lint.to/lint/desktop/LintDesktop.dmg" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 13.84c-.027-2.69 2.198-3.99 2.297-4.054-1.252-1.831-3.197-2.082-3.886-2.111-1.654-.166-3.226.973-4.066.973-.84 0-2.131-.948-3.502-.922-1.802.027-3.464 1.046-4.39 2.658-1.872 3.244-.479 8.045 1.343 10.683.892 1.292 1.957 2.741 3.354 2.689 1.347-.054 1.856-.872 3.488-.872 1.632 0 2.092.872 3.514.846 1.45-.024 2.367-1.314 3.252-2.612 1.027-1.498 1.448-2.953 1.474-3.027-.032-.014-2.825-1.083-2.852-4.302l-.026-.949zM14.738 5.985c.74-.897 1.241-2.144 1.105-3.391-1.07.044-2.366.715-3.131 1.61-.685.795-1.286 2.067-1.124 3.286 1.196.092 2.413-.608 3.15-1.505z"/></svg>
+              macOS
+            </a>
+            <a href="https://git.lint.to/lint/desktop/LintDesktopSetup.exe" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-13.051-1.351"/></svg>
+              Windows
+            </a>
+            <a href="https://git.lint.to/lint/desktop/LintDesktop.AppImage" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12.504.75c-2.05.029-3.846 1.144-4.846 2.872-.997 1.722-1.318 3.832-.668 5.94.65 2.108 2.012 3.91 3.514 5.082.752.586 1.464 1.111 2 1.5.535.39.999.71 1.276 1.04.554.66.831 1.3.831 1.92 0 .618-.277 1.26-.831 1.918-.277.331-.74.65-1.276 1.04-.536.39-1.248.914-2 1.5-1.502 1.172-2.864 2.974-3.514 5.082-.65 2.108-.329 4.218.668 5.94 1 1.728 2.796 2.843 4.846 2.872 2.05-.029 3.846-1.144 4.846-2.872.997-1.722 1.318-3.832.668-5.94-.65-2.108-2.012-3.91-3.514-5.082-.752-.586-1.464-1.111-2-1.5-.535-.39-.999-.71-1.276-1.04-.554-.66-.831-1.3-.831-1.92 0-.618.277-1.26.831-1.918.277-.331.74-.65 1.276-1.04.536-.39 1.248-.914 2-1.5 1.502-1.172 2.864-2.974 3.514-5.082.65-2.108.329-4.218-.668-5.94C16.35 1.894 14.554.779 12.504.75z"/></svg>
+              Linux
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
-  <!-- <img class="img-fluid" src="/images/screenshot.jpg" alt="Lint Mobile Screnshot" /> -->
-
-</section>
-
-
-
-
-
-
-<section class="bg-dark text-center">
-
-  <div class="pricing-header px-3 py-4 pt-md-5 mx-auto text-center">
-
-    <img src="/images/lint-icon-cli.png" alt="Lint Mobile Icon" width="128" height="128" class="my-4">
-    <h1 class="display-4 text-white">Lint CLI</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
-
-    <div class="mt-4 mb-5">
-      <h4><kbd>npm install -g lint</kbd></h4>
+    <%# Mobile %>
+    <div class="mt-6 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+      <div class="flex items-start gap-5">
+        <div class="w-14 h-14 flex-shrink-0 rounded-xl bg-white/5 ring-1 ring-white/10 flex items-center justify-center text-brand-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="flex-1">
+          <h2 class="text-2xl font-bold text-white tracking-tight mb-2">Lint Connect (mobile)</h2>
+          <p class="text-slate-300 leading-relaxed mb-4">Browse violations and approve overrides on the go.</p>
+          <div class="flex flex-wrap gap-2">
+            <a href="https://apps.apple.com/app/lint-connect/id123456789" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 13.84c-.027-2.69 2.198-3.99 2.297-4.054-1.252-1.831-3.197-2.082-3.886-2.111-1.654-.166-3.226.973-4.066.973-.84 0-2.131-.948-3.502-.922-1.802.027-3.464 1.046-4.39 2.658-1.872 3.244-.479 8.045 1.343 10.683.892 1.292 1.957 2.741 3.354 2.689 1.347-.054 1.856-.872 3.488-.872 1.632 0 2.092.872 3.514.846 1.45-.024 2.367-1.314 3.252-2.612 1.027-1.498 1.448-2.953 1.474-3.027-.032-.014-2.825-1.083-2.852-4.302l-.026-.949zM14.738 5.985c.74-.897 1.241-2.144 1.105-3.391-1.07.044-2.366.715-3.131 1.61-.685.795-1.286 2.067-1.124 3.286 1.196.092 2.413-.608 3.15-1.505z"/></svg>
+              App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=io.lint.apps.lint" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/10 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.31-3.609l2.404 1.392a1 1 0 010 1.732l-2.405 1.394-2.522-2.521 2.523-2.523zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-  <!-- <img class="img-fluid" src="/images/screenshot.jpg" alt="Lint Mobile Screnshot" /> -->
 
+    <%# Source %>
+    <div class="mt-12 rounded-2xl bg-slate-900/40 border border-white/5 p-6 text-center">
+      <p class="text-slate-400 text-sm">
+        Source code on
+        <a href="https://github.com/osmove/lint" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">github.com/osmove/lint</a>.
+        MIT-licensed. Self-host the server with one Docker command.
+      </p>
+    </div>
+  </div>
 </section>

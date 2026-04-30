@@ -1,7 +1,53 @@
-<section class="py-5">
-  <div class="container">
-    <h1>About</h1>
-    <p>About us.</p>
-  </div>
+<% content_for :title do %>About — Lint<% end %>
+<% content_for :meta_description do %>Lint is built and operated by Osmove SASU, a Paris studio that designs, codes, and ships software products.<% end %>
 
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      About
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Built by people who ship.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+      Lint is built and operated by <a href="https://www.osmove.com" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">Osmove SASU</a>, a Paris studio that designs, codes, and ships software products. We use Lint internally on every Osmove repo — it's not a side project.
+    </p>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 md:p-7">
+        <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Why we built Lint</div>
+        <p class="text-slate-300 leading-relaxed text-sm">
+          Around 2024 the share of code our team wrote with AI assistance crossed 60%. Existing linters caught syntax issues but missed the new failure modes — silent error handling, dead branches, copy-paste of stale patterns. We built Lint to close that gap, then realized other teams needed the same thing.
+        </p>
+      </div>
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6 md:p-7">
+        <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">How we ship</div>
+        <p class="text-slate-300 leading-relaxed text-sm">
+          Local-first. Open source where it should be (CLI under MIT, server under MIT). Paid only for the cloud collaboration features that actually need infrastructure. No surveillance pricing, no AI-priced-per-token traps.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12 rounded-2xl bg-gradient-to-br from-brand-500/15 to-brand-500/0 border border-brand-500/30 p-8 md:p-10">
+      <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Our portfolio</div>
+      <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight mb-3">Lint is one of three Osmove products.</h2>
+      <p class="text-slate-300 leading-relaxed mb-6 max-w-3xl">
+        <a href="https://www.twoody.com" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">Twoody</a> — voice-first AI assistant for the home.
+        <a href="https://backlog.so" target="_blank" rel="noopener" class="text-brand-300 hover:text-brand-200 underline">Backlog</a> — task orchestrator for AI coding agents.
+        Same engineering bar, same brand family.
+      </p>
+      <a href="https://www.osmove.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-lg bg-white/10 hover:bg-white/15 text-white px-4 py-2.5 text-sm font-semibold transition-colors">
+        Visit Osmove ↗
+      </a>
+    </div>
+
+    <div class="mt-12">
+      <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight mb-4">Founder</h2>
+      <p class="text-slate-300 leading-relaxed max-w-3xl">
+        <strong class="text-white">Jimmy Douieb</strong> — engineer, founder of Osmove SASU. Background in voice AI, real-time systems, hardware/software integration. Based in Paris, France.
+      </p>
+    </div>
+  </div>
 </section>

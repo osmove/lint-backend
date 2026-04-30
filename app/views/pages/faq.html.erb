@@ -1,4 +1,49 @@
-<div class="py-5 text-center bg-light bg-lint">
-  <h1>FAQ</h1>
-  <!-- <h1 class="display-4"><strong>FAQ</strong></h1> -->
-</div>
+<% content_for :title do %>FAQ — Lint<% end %>
+<% content_for :meta_description do %>Frequently asked questions about Lint: licensing, self-hosting, languages supported, cloud vs local, billing.<% end %>
+
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      FAQ
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Frequently asked questions.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+      Don't see your question? Email <a href="mailto:contact@osmove.com" class="text-brand-300 hover:text-brand-200 underline">contact@osmove.com</a> — we read every message.
+    </p>
+
+    <div class="mt-12 space-y-4">
+      <% [
+        { q: "Is Lint free?",
+          a: "Yes. The CLI is MIT-licensed and free forever. The self-hostable server is MIT and free. You only pay if you opt in to Lint Cloud (shared policies, audit log, CI gating webhooks)." },
+        { q: "Which languages are supported?",
+          a: "Ruby, Python, JavaScript, TypeScript, Go, Rust, Java. More on the way — vote on what's next from your dashboard." },
+        { q: "Do you see my source code?",
+          a: "No. Analysis runs on your machine. The cloud receives policy configuration, rule violation counts, and run timestamps — never the files themselves." },
+        { q: "Can I self-host?",
+          a: "Yes. The server is open source. Run it on your own infra and your team gets the same shared-policy experience as Lint Cloud, on your hardware." },
+        { q: "How does Lint compare to ESLint / RuboCop / Ruff?",
+          a: "Lint wraps and extends those — when you run Lint on a JS project, ESLint runs underneath. Lint adds AI-pattern detection on top, plus a unified config and team-policy layer that single-language linters don't have." },
+        { q: "What about pre-commit / Husky / lefthook?",
+          a: "Lint registers as a pre-commit hook automatically when you run `lint init`. Compatible with Husky and lefthook if you already use them — Lint becomes one of their hook entries." },
+        { q: "Cancel anytime?",
+          a: "Yes. Cancel from your account settings, no questions asked. Your local CLI keeps working — only Cloud features stop." },
+        { q: "Where's my data hosted?",
+          a: "Heroku EU (Europe-West), with the option to upgrade to dedicated infra in any region for Enterprise customers." },
+        { q: "Do you have a SOC 2 / ISO report?",
+          a: "Not yet. We follow SOC 2-aligned practices internally; formal certification is on the roadmap. Email security@osmove.com for our current security overview." },
+      ].each do |item| %>
+        <details class="group rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brand-500/30 transition-colors">
+          <summary class="flex items-center justify-between cursor-pointer list-none p-5 text-white font-semibold">
+            <span><%= item[:q] %></span>
+            <svg class="w-5 h-5 text-brand-300 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-5 pb-5 text-slate-300 text-sm leading-relaxed"><%= item[:a] %></div>
+        </details>
+      <% end %>
+    </div>
+  </div>
+</section>

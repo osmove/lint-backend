@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   # "lint_marketing" layout aligned with the rest of the Osmove
   # portfolio (Twoody, Backlog, Osmove). Pages still on the old
   # layout fall back to "prelaunch" while we port them.
-  MODERNIZED_PAGES = %i[home features pricing security terms privacy contact].freeze
+  MODERNIZED_PAGES = %i[home features pricing security terms privacy contact about apps faq downloads].freeze
   layout :resolve_layout, except: %i[dashboard select_repositories]
 
   # before_action :authenticate_user!, except: :home
