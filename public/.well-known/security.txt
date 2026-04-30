@@ -1,0 +1,9 @@
+# RFC 9116 — security.txt for lint.to
+# Where to report a vulnerability you find on lint.to or in any of
+# our products. We aim to respond within 48 business hours.
+
+Contact: mailto:security@osmove.com
+Expires: 2027-04-30T00:00:00Z
+Preferred-Languages: en, fr
+Canonical: https://lint.to/.well-known/security.txt
+Policy: https://lint.to/security

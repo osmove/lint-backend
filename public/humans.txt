@@ -1,0 +1,17 @@
+/* TEAM */
+   Founder & engineer: Jimmy Douieb
+   Site: https://lint.to
+   Operator: Osmove SASU (https://www.osmove.com)
+   Location: Paris, France
+
+/* SISTER PRODUCTS */
+   Twoody — voice-first AI assistant — https://www.twoody.com
+   Backlog — task orchestrator for AI coding agents — https://backlog.so
+   Osmove — parent studio — https://www.osmove.com
+
+/* SITE */
+   Last update: 2026/04/30
+   Standards: HTML5, CSS3
+   Components: Ruby on Rails 8, Tailwind CSS 4, Inter, Ruby 3.4.9
+   Software: Claude Code
+   Hosting: Heroku

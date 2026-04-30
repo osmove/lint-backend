@@ -6,6 +6,9 @@ Rails.application.routes.draw do
           via: :all
   end
 
+  # Dynamic sitemap (matches the marketing pages list)
+  get '/sitemap.xml', to: 'sitemaps#show', defaults: { format: 'xml' }
+
   # API v1 (JSON, token auth)
   namespace :api do
     namespace :v1 do
