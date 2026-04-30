@@ -23,6 +23,12 @@ gem 'turbo-rails'
 gem 'bootstrap', '~> 5.3'
 gem 'font-awesome-sass', '~> 6.5'
 
+# Tailwind for the modernized marketing pages (home, features,
+# pricing, security, contact, terms, privacy). Dashboard / app
+# screens stay on Bootstrap — both stylesheets coexist, scoped
+# per layout.
+gem 'tailwindcss-rails', '~> 4.3'
+
 # Authentication
 gem 'devise', '~> 5.0'
 gem 'omniauth-github', '~> 2.0'

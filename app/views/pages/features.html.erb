@@ -1,176 +1,42 @@
+<% content_for :title do %>Features — Lint<% end %>
+<% content_for :meta_description do %>Static analysis, policy as code, fast feedback, cloud collaboration. Everything Lint does to keep AI-generated code production-ready.<% end %>
 
-<section class="bg-lint text-center pb-2" style="margin-bottom: -100px !important;">
-  <div class="container">
-    <div class="row">
-      <div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 mx-auto">Apps</h1>
-        <p class="lead mx-auto mb-0" style="max-width: 600px;">Lint is an ecosystem of web, desktop and mobile apps to help you write and deploy code more securely and efficiently.</p>
-      </div>
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      Features
     </div>
-    <div class="app-boxes">
-      <div class="row">
-        <div class="col-6 col-lg-3">
-          <a href="#cloud">
-            <div class="card app-box bg-light text-dark pt-3 px-2 mb-3">
-              <div style="height: 80px;">
-                <img src="/logo/lint-logo-cloud-128.png" alt="Lint Desktop Icon" width="70" height="70" class="mb-2">
-              </div>
-              <h5 class="mb-0">Lint Web</h5>
-              <p><small>For everybody, everywhere.</small></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-lg-3">
-          <a href="#desktop">
-            <div class="card app-box bg-light text-dark pt-3 px-2 mb-3">
-              <div style="height: 80px;">
-                <img src="/images/lint-desktop-icon.png" alt="Lint Desktop Icon" width="70" height="70" class="mb-2">
-              </div>
-              <h5 class="mb-0">Lint Desktop</h5>
-              <p><small>For Windows, Mac & Linux.</small></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-lg-3">
-          <a href="#connect">
-            <div class="card app-box bg-light text-dark pt-3 px-2 mb-3">
-              <div style="height: 80px;">
-                <img src="/images/lint-mobile-icon.png" alt="Lint Mobile Icon" width="70" height="70">
-              </div>
-              <h5 class="mb-0">Lint Connect</h5>
-              <p><small>For iOS & Android.</small></p>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-lg-3">
-          <a href="#cli">
-            <div class="card app-box bg-light text-dark pt-3 px-2 mb-3">
-              <div style="height: 80px;">
-                <img src="/images/lint-icon-cli.png" alt="Lint Mobile Icon" width="70" height="70">
-              </div>
-              <h5 class="mb-0">Lint CLI</h5>
-              <p><small>Install with NPM.</small></p>
-            </div>
-          </a>
-        </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Everything you need to gate code.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+      Lint is purpose-built for the era where most code is written with AI help. The features below are what we found we needed at Osmove to keep the bar high without slowing the team down.
+    </p>
 
-      </div>
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      <% [
+        { title: "Static analysis", body: "Type-flow, dead-code, unused-import, suspicious patterns. Detection tuned for what AI assistants frequently produce." },
+        { title: "Policy as code", body: "Your rules live next to your code, in YAML. Version-controlled, review-able, diff-able." },
+        { title: "Pre-commit hook", body: "Catch issues at the keystroke level. No more 'fixed lint' commits five minutes after the original." },
+        { title: "CI integration", body: "GitHub Actions, GitLab CI, Bitbucket, Jenkins. One YAML snippet and you're gated at the PR level." },
+        { title: "Cloud rules sync", body: "Push your policy to Lint Cloud and every dev machine + CI pulls the canonical version. No drift." },
+        { title: "Multi-language", body: "Ruby, Python, JavaScript, TypeScript, Go, Rust, Java. One config style across stacks." },
+        { title: "Fix suggestions", body: "Most checks come with auto-fix. Apply locally, review the diff, ship. Or let CI auto-apply on merge." },
+        { title: "Audit log", body: "Cloud-only: every policy change, every block decision, every override is recorded with author + reason." },
+      ].each do |f| %>
+        <div class="p-6 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-brand-500/30 hover:bg-white/[0.05] transition-colors">
+          <h3 class="text-lg font-semibold text-white mb-2"><%= f[:title] %></h3>
+          <p class="text-sm text-slate-300 leading-relaxed"><%= f[:body] %></p>
+        </div>
+      <% end %>
     </div>
 
+    <div class="mt-12">
+      <a href="/pricing" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 hover:bg-brand-600 text-white px-5 py-3 font-semibold transition-colors">See pricing
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+    </div>
   </div>
-</section>
-
-
-
-
-<section class="bg-dark text-center" id="desktop">
-
-  <div class="pricing-header px-3 pt-4 pt-md-5 mx-auto text-center" style="padding-top: 120px !important;">
-
-    <img src="/images/lint-desktop-icon.png" alt="Lint Desktop Icon" width="128" height="128" class="mb-2">
-    <h1 class="display-4 text-white">Lint Desktop</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
-
-    <!-- <i class="fa fa-download mr-1"></i> -->
-
-    <div class="pb-3">
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktopSetup.exe" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-windows"></i>
-        Download for Windows
-      </a>
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktop.dmg" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-apple"></i>
-        Download for Mac
-      </a>
-      <!-- <a href="#" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;"> -->
-      <a href="https://git.lint.to/lint/desktop/LintDesktop.AppImage" class="btn btn-lg btn-primary my-2 mx-2" style="min-width: 260px;">
-        <!-- <i class="fa fa-download mr-1"></i> -->
-        <i class="fa fa-linux"></i>
-        Download for Linux
-      </a>
-    </div>
-
-    <!-- <div class="py-4">
-      <div class="row">
-        <div class="col text-center">
-          <h5 class="" style="line-height: 0.8em;">Download for Mac</h5>
-          <p class="text-muted" style="line-height: 0.8em;">30Mb download - .dmg installer</p>
-          <a href="https://git.lint.to/lint/desktop/LintDesktopSetup.exe" class="btn btn-lg btn-primary btn-block" style="min-width: 260px;">
-            <i class="fa fa-windows"></i>
-            Download for Windows
-          </a>
-        </div>
-        <div class="col text-center">
-          <h5 class="" style="line-height: 0.8em;">Download for Mac</h5>
-          <p class="text-muted" style="line-height: 0.8em;">30Mb download - .dmg installer</p>
-          <a href="https://git.lint.to/lint/desktop/LintDesktop.dmg" class="btn btn-lg btn-primary btn-block" style="min-width: 260px;">
-            <i class="fa fa-apple"></i>
-            Download for Mac
-          </a>
-        </div>
-        <div class="col text-center">
-          <h5 class="" style="line-height: 0.8em;">Download for Mac</h5>
-          <p class="text-muted" style="line-height: 0.8em;">30Mb download - .dmg installer</p>
-          <a href="https://git.lint.to/lint/desktop/LintDesktop.AppImage" class="btn btn-lg btn-primary btn-block" style="min-width: 260px;">
-            <i class="fa fa-linux"></i>
-            Download for Linux
-          </a>
-        </div>
-      </div>
-    </div> -->
-
-  <img class="img-fluid" src="/images/desktop.png" alt="Lint Desktop Screnshot" />
-
-</section>
-
-
-
-
-<section class="bg-dark text-center" style="background-color: #111 !important;" id="connect">
-
-  <div class="pricing-header px-3 py-4 pt-md-5 mx-auto text-center">
-
-    <img src="/images/lint-mobile-icon.png" alt="Lint Mobile Icon" width="128" height="128" class="my-4">
-    <h1 class="display-4 text-white">Lint Connect</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
-
-
-    <div class="mb-3">
-
-        <a href="https://play.google.com/store/apps/details?id=io.lint.apps.lint" class="btn btn-lg btn-primary my-2 mr-md-2" style="min-width: 260px;" target="_blank">
-          <!-- <i class="fa fa-download mr-1"></i> -->
-          <i class="fa fa-apple"></i>
-          Download for iOS
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=io.lint.apps.lint" class="btn btn-lg btn-primary my-2 mr-md-2" style="min-width: 260px;" target="_blank">
-          <!-- <i class="fa fa-download mr-1"></i> -->
-          <i class="fa fa-android"></i>
-          Download for Android
-        </a>
-
-    </div>
-
-  <!-- <img class="img-fluid" src="/images/screenshot.jpg" alt="Lint Mobile Screnshot" /> -->
-
-</section>
-
-
-
-<section class="bg-dark text-center" id="cli">
-
-  <div class="pricing-header px-3 py-4 pt-md-5 mx-auto text-center">
-
-    <img src="/images/lint-icon-cli.png" alt="Lint Mobile Icon" width="128" height="128" class="my-4">
-    <h1 class="display-4 text-white">Lint CLI</h1>
-    <p class="lead mx-auto text-white" style="max-width: 600px; opacity: 0.6;">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
-
-    <div class="mt-4 mb-5">
-      <h4><kbd>npm install -g lint</kbd></h4>
-    </div>
-  <!-- <img class="img-fluid" src="/images/screenshot.jpg" alt="Lint Mobile Screnshot" /> -->
-
 </section>

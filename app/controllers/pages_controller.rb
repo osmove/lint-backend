@@ -5,9 +5,13 @@ class PagesController < ApplicationController
   require 'json'
 
   layout 'dashboard', only: :dashboard
-  # layout "marketing", except: [:dashboard, :select_repositories]
-  # layout "prelaunch", only: [:prelaunch, :available_soon]
-  layout 'prelaunch', except: %i[dashboard select_repositories]
+  # 2026-04-30 brand refresh: marketing pages migrated from the
+  # legacy Bootstrap "prelaunch" layout to a Tailwind-based
+  # "lint_marketing" layout aligned with the rest of the Osmove
+  # portfolio (Twoody, Backlog, Osmove). Pages still on the old
+  # layout fall back to "prelaunch" while we port them.
+  MODERNIZED_PAGES = %i[home features pricing security terms privacy contact].freeze
+  layout :resolve_layout, except: %i[dashboard select_repositories]
 
   # before_action :authenticate_user!, except: :home
   before_action :authenticate_user!, only: %i[dashboard select_repositories]
@@ -284,4 +288,10 @@ private
     User
   end
   helper_method :resource_class
+
+  private
+
+  def resolve_layout
+    MODERNIZED_PAGES.include?(action_name.to_sym) ? 'lint_marketing' : 'prelaunch'
+  end
 end

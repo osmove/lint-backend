@@ -30,6 +30,10 @@
 
 
     <%= csrf_meta_tags %>
+    <%# Note: Tailwind is intentionally NOT loaded here — it would
+        conflict with Bootstrap utilities used by the dashboard /
+        app pages that inherit this layout. Marketing pages use the
+        dedicated lint_marketing layout which loads Tailwind alone. %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 

@@ -1,37 +1,41 @@
-<div class="container my-5">
+<% content_for :title do %>Contact — Lint<% end %>
+<% content_for :meta_description do %>Get in touch with the Lint team. Sales, support, security, partnerships.<% end %>
 
-  <h2 class="text-center">Contact us</h2>
-  <p class="text-center mb-4">Send us a message and a representative will answer you shortly.</p>
-  <div class="mx-auto" style="max-width: 600px;">
-    <%= bootstrap_form_with(model: @message, local: true) do |form| %>
-      <% if @message.errors.any? %>
-        <div id="error_explanation" class="text-danger">
-          <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
-          <ul>
-          <% @message.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-          </ul>
-        </div>
-      <% end %>
-      <div class="row">
-        <div class="col">
-          <%= form.text_field :name, id: :message_name %>
-        </div>
-        <div class="col">
-          <%= form.email_field :email, id: :message_email %>
-        </div>
-      </div>
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
 
-      <div class="field">
-        <!-- <%= form.label :message %> -->
-        <%= form.text_area :message, id: :message_message, rows: 6 %>
-      </div>
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+      Contact
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Talk to a human.</h1>
+    <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+      Lint is built and operated by the team at Osmove SASU. Whether you need help, want to evaluate Cloud or Enterprise, or report a security issue — we read every email.
+    </p>
 
-      <div class="actions">
-        <%= form.submit %>
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Sales & general</div>
+        <a href="mailto:contact@osmove.com" class="text-white font-semibold hover:text-brand-300 transition-colors">contact@osmove.com</a>
+        <p class="mt-2 text-sm text-slate-400">Pricing, evaluations, partnerships, press.</p>
       </div>
-    <% end %>
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Support</div>
+        <a href="mailto:support@lint.to" class="text-white font-semibold hover:text-brand-300 transition-colors">support@lint.to</a>
+        <p class="mt-2 text-sm text-slate-400">Help with installation, configuration, billing.</p>
+      </div>
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Security</div>
+        <a href="mailto:security@osmove.com" class="text-white font-semibold hover:text-brand-300 transition-colors">security@osmove.com</a>
+        <p class="mt-2 text-sm text-slate-400">Vulnerability reports. PGP available on request.</p>
+      </div>
+    </div>
+
+    <div class="mt-12 rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+      <div class="text-xs uppercase tracking-wide text-brand-300 mb-2">Postal address</div>
+      <p class="text-slate-300">Osmove SASU<br>146 ave Léon Blum<br>92160 Antony, France</p>
+    </div>
   </div>
-
-</div>
+</section>

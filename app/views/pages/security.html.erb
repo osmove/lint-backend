@@ -1,28 +1,57 @@
-<section class="py-4">
-  <div class="container">
-    <p><%= link_to raw('&larr; Back'), root_path %></p>
-    <h1>Security</h1>
-    <h4>Source code security</h4>
-    <p>Communication with your source code is always encrypted over the wire using SSH and/or HTTPS.</p>
-    <h4>Environment variables (secrets)</h4>
-    <p>Protect secrets and other sensitive data in Lint using environment variables.</p>
-    <h4>Secure contexts</h4>
-    <p>Secure contexts allow encrypted storage and sharing of environment variables across multiple projects while limiting access to certain user groups.</p>
-    <h4>Audit logging</h4>
-    <p>Use audit logs to monitor anomalies, assist in forensics, and demonstrate compliance.</p>
-    <h4>Runtime isolation</h4>
-    <p>Lint runs all builds in isolated sandboxes that are destroyed after each use.</p>
-    <h4>Console output and artifacts</h4>
-    <p>Encryption is employed over the wire using SSH and/or HTTPS for both console output and artifacts. Both are only available to those with read access to your repository.</p>
-    <!-- <li class="product-security-feature">
-      <div class="bold">
-        Two-factor authentication
-      </div>
-      <div>
-        Lint inherits 2FA authentication established in your third-party VCS provider.
-      </div>
-    </li> -->
+<% content_for :title do %>Security — Lint<% end %>
+<% content_for :meta_description do %>How Lint protects your code: local-first, encrypted in transit and at rest, audit logs, GDPR compliance.<% end %>
 
+<section class="relative isolate py-16 md:py-20 overflow-hidden">
+  <div aria-hidden="true"
+       class="pointer-events-none absolute -top-32 -right-32 -z-10 h-[560px] w-[560px] rounded-full"
+       style="background: radial-gradient(circle, rgba(34,211,238,0.18) 0%, rgba(34,211,238,0) 70%);"></div>
+
+  <div class="max-w-6xl mx-auto px-4 space-y-10">
+    <header>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/30 text-brand-300 text-xs font-semibold uppercase tracking-wider mb-4">
+        Security
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05]">Security & Compliance.</h1>
+      <p class="mt-5 text-base md:text-lg text-slate-300 max-w-3xl leading-relaxed">
+        Security by design, encryption end to end, principle of least privilege, full traceability.
+      </p>
+    </header>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300">Protection</div>
+        <ul class="mt-2 text-slate-300 text-sm list-disc pl-5 space-y-1">
+          <li>System hardening, patching</li>
+          <li>Encryption in transit & at rest</li>
+          <li>Secret management (KMS)</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300">Access</div>
+        <ul class="mt-2 text-slate-300 text-sm list-disc pl-5 space-y-1">
+          <li>IAM & RBAC</li>
+          <li>SSO (OAuth, SAML)</li>
+          <li>Least-privilege principle</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+        <div class="text-xs uppercase tracking-wide text-brand-300">Resilience</div>
+        <ul class="mt-2 text-slate-300 text-sm list-disc pl-5 space-y-1">
+          <li>Backups & restoration drills</li>
+          <li>Audit logging & traceability</li>
+          <li>Pen-tests & internal reviews</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rounded-2xl bg-gradient-to-br from-brand-500/30 to-brand-700/30 border border-brand-500/30 p-8">
+      <h2 class="text-white text-xl font-bold tracking-tight">Local-first by default</h2>
+      <p class="mt-2 text-slate-200 leading-relaxed">Your code never leaves your machine unless you explicitly opt into Lint Cloud. The CLI runs offline, the server is open-source and self-hostable, and the cloud is opt-in.</p>
+    </div>
+
+    <div class="rounded-2xl bg-white/5 ring-1 ring-white/10 p-8">
+      <h2 class="text-white text-xl font-bold tracking-tight">Report a vulnerability</h2>
+      <p class="mt-2 text-slate-300 leading-relaxed">Found a security issue? Email <a href="mailto:security@osmove.com" class="text-brand-300 hover:text-brand-200 underline">security@osmove.com</a>. We respond within 48 business hours. PGP available on request.</p>
+    </div>
   </div>
-
 </section>
