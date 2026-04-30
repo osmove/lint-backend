@@ -75,7 +75,9 @@ Rails.application.routes.draw do
   # devise_for :pages, class_name: 'User', only: [], controllers: { registrations: "pages/home", confirmations: 'confirmations' }
 
   resources :teams
-  get '/contact', to: 'messages#new'
+  # /contact → modern pages#contact (Tailwind, email-driven). The
+  # legacy form lives at /messages/new for anyone deep-linked to it.
+  get '/contact', to: 'pages#contact'
   get '/messages/thank-you', to: 'messages#thank_you'
   resources :messages
 
@@ -253,7 +255,9 @@ Rails.application.routes.draw do
     resources :policies, path: '/policies'
   end
 
-  root to: 'pages#prelaunch'
-  # root to: "pages#home"
-  # root to: "pages#available_soon"
+  # 2026-04-30 brand refresh: marketing root now points at the
+  # rewritten Tailwind home page (pages#home) instead of the legacy
+  # Bootstrap pages#prelaunch. The old prelaunch view is kept under
+  # /prelaunch in case anything still links to it.
+  root to: 'pages#home'
 end
