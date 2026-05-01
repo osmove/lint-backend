@@ -275,7 +275,7 @@ Devise.setup do |config|
                       authorize_url: '/oauth/authorize',
                       token_url: '/oauth/token'
                     },
-                    user_info_url: ENV.fetch('OSMOVE_OAUTH_USERINFO_URL', '/api/v1/hub/me')
+                    user_info_url: ENV.fetch('OSMOVE_OAUTH_USERINFO_URL', '/api/v1/identity/me')
   end
 
   # (no scope)	Grants read-only access to public information (includes public user profile info, public repository info, and gists)

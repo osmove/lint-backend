@@ -11,7 +11,7 @@ module OmniAuth
         authorize_url: '/oauth/authorize',
         token_url: '/oauth/token'
       }
-      option :user_info_url, '/api/v1/hub/me'
+      option :user_info_url, '/api/v1/identity/me'
 
       uid { user_info['sub'].to_s }
 

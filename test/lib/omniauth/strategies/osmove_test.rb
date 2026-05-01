@@ -2,7 +2,7 @@ require 'test_helper'
 require Rails.root.join('lib/omniauth/strategies/osmove').to_s
 
 class OmniauthOsmoveStrategyTest < ActiveSupport::TestCase
-  test 'maps hub userinfo into omniauth uid and info' do
+  test 'maps Osmove Identity userinfo into omniauth uid and info' do
     strategy = OmniAuth::Strategies::Osmove.new(nil, 'client-id', 'secret')
     parsed_response = {
       'user' => {
