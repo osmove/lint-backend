@@ -66,12 +66,6 @@
                 <p class="mb-3 mb-0 text-muted">
                   No credit card required.
                 </p>
-                <!-- <p>
-                  <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
-                    <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Login with Github</span>
-                  </a>
-                </p>
-                <p class="mb-3">or</p> -->
                 <%= lint_form_for(resource, as: resource_name, url:  registration_path(resource_name)) do |f| %>
                   <div class="field">
                     <%= f.text_field :username, autofocus: true, autocomplete: "username", autocorrect: "off", autocapitalize: "none", hide_label: true, class: "custom-form", placeholder: "Username", wrapper: { class: '' } %>
@@ -411,11 +405,6 @@
       </p>
 
       <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-lg btn-primary btn-block mb-3" %>
-      <!-- <p>
-        <a href="<%= user_github_omniauth_authorize_path %>" class="btn btn-lg btn-primary btn-block mb-3">
-          <i class="fa fa-github mr-2" style="font-size: 32px; vertical-align: middle;"></i> <span style="vertical-align: middle;">Login with Github</span>
-        </a>
-      </p> -->
     <% else %>
       <h3 class="card-title mb-0 mx-auto" style="max-width: 280px;">Available soon.</h3>
     <% end %>

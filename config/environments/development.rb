@@ -60,9 +60,11 @@ Rails.application.configure do
 end
 
 Devise.setup do |config|
-  config.omniauth :github,
-                  ENV.fetch('GITHUB_CLIENT_ID', ''),
-                  ENV.fetch('GITHUB_CLIENT_SECRET', ''),
-                  scope: 'read:user, public_repo, read:org',
-                  redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'http://localhost:3000/users/auth/github/callback')
+  if ENV['GITHUB_CLIENT_ID'].present? && ENV['GITHUB_CLIENT_SECRET'].present?
+    config.omniauth :github,
+                    ENV.fetch('GITHUB_CLIENT_ID'),
+                    ENV.fetch('GITHUB_CLIENT_SECRET'),
+                    scope: 'read:user, public_repo, read:org',
+                    redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'http://localhost:3000/users/auth/github/callback')
+  end
 end

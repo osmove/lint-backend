@@ -88,9 +88,11 @@ end
 Devise.setup do |config|
   # Scopes available:
   # https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/
-  config.omniauth :github,
-                  ENV.fetch('GITHUB_CLIENT_ID', ''),
-                  ENV.fetch('GITHUB_CLIENT_SECRET', ''),
-                  scope: 'read:user, public_repo, read:org',
-                  redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'https://lint.to/users/auth/github/callback')
+  if ENV['GITHUB_CLIENT_ID'].present? && ENV['GITHUB_CLIENT_SECRET'].present?
+    config.omniauth :github,
+                    ENV.fetch('GITHUB_CLIENT_ID'),
+                    ENV.fetch('GITHUB_CLIENT_SECRET'),
+                    scope: 'read:user, public_repo, read:org',
+                    redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'https://lint.to/users/auth/github/callback')
+  end
 end

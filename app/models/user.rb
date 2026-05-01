@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   CONFIGURED_OMNIAUTH_PROVIDERS = [
-    :github,
+    (:github if ENV['GITHUB_CLIENT_ID'].present? && ENV['GITHUB_CLIENT_SECRET'].present?),
     (:osmove if ENV['OSMOVE_OAUTH_CLIENT_ID'].present?)
   ].compact.freeze
 
