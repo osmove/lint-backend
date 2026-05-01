@@ -1,7 +1,7 @@
 /* TEAM */
    Founder & engineer: Jimmy Douieb
    Site: https://lint.to
-   Operator: Osmove SASU (https://www.osmove.com)
+   Operator: Osmove (https://www.osmove.com)
    Location: Paris, France
 
 /* SISTER PRODUCTS */
