@@ -18,7 +18,7 @@ module Api
         end
 
         assert_response :success
-        assert_equal 'Use a safer pattern.', JSON.parse(response.body).dig('reviews', 0, 'ai_suggestion')
+        assert_equal 'Use a safer pattern.', response.parsed_body.dig('reviews', 0, 'ai_suggestion')
       end
 
       test 'accepts Osmove JWTs with required scope' do
@@ -34,7 +34,7 @@ module Api
         end
 
         assert_response :success
-        assert_equal 'Use a safer pattern.', JSON.parse(response.body).dig('reviews', 0, 'ai_suggestion')
+        assert_equal 'Use a safer pattern.', response.parsed_body.dig('reviews', 0, 'ai_suggestion')
       end
 
       test 'maps Osmove JWTs by service user id' do
@@ -63,10 +63,10 @@ module Api
         end
 
         assert_response :forbidden
-        assert_equal 'lint.reviews:create', JSON.parse(response.body)['required_scope']
+        assert_equal 'lint.reviews:create', response.parsed_body['required_scope']
       end
 
-      private
+    private
 
       def review_params
         {
@@ -75,9 +75,9 @@ module Api
               rule_name: 'Security/Open',
               file_path: 'app/models/user.rb',
               line: 12,
-              message: 'avoid unsafe open',
-            },
-          ],
+              message: 'avoid unsafe open'
+            }
+          ]
         }
       end
 
@@ -98,9 +98,9 @@ module Api
 
       def with_osmove_env
         previous = {
-          'OSMOVE_JWT_PUBLIC_KEY' => ENV['OSMOVE_JWT_PUBLIC_KEY'],
-          'OSMOVE_ISSUER' => ENV['OSMOVE_ISSUER'],
-          'OSMOVE_AUDIENCE' => ENV['OSMOVE_AUDIENCE'],
+          'OSMOVE_JWT_PUBLIC_KEY' => ENV.fetch('OSMOVE_JWT_PUBLIC_KEY', nil),
+          'OSMOVE_ISSUER' => ENV.fetch('OSMOVE_ISSUER', nil),
+          'OSMOVE_AUDIENCE' => ENV.fetch('OSMOVE_AUDIENCE', nil)
         }
         ENV['OSMOVE_JWT_PUBLIC_KEY'] = @osmove_key.public_key.to_pem
         ENV['OSMOVE_ISSUER'] = 'https://accounts.test.osmove'
@@ -112,7 +112,7 @@ module Api
         OsmoveJwtVerifier.clear_cache!
       end
 
-      def osmove_token(sub: 'usr_lint', scope:, service_user_ids: {})
+      def osmove_token(scope:, sub: 'usr_lint', service_user_ids: {})
         JWT.encode(
           {
             iss: ENV.fetch('OSMOVE_ISSUER'),
@@ -121,11 +121,11 @@ module Api
             iat: Time.current.to_i,
             exp: 1.hour.from_now.to_i,
             scope: scope,
-            service_user_ids: service_user_ids,
+            service_user_ids: service_user_ids
           },
           @osmove_key,
           'RS256',
-          kid: 'test-osmove',
+          kid: 'test-osmove'
         )
       end
     end

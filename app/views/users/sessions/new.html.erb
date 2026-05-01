@@ -22,7 +22,7 @@
 
     <% if defined?(user_osmove_omniauth_authorize_path) %>
       <%= button_to user_osmove_omniauth_authorize_path, method: :post, data: { turbo: false }, form: { class: "w-full" }, class: "w-full inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-300 text-slate-950 hover:bg-cyan-200 px-5 py-3 font-semibold transition-colors mb-3" do %>
-        <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-950 text-[10px] font-bold text-cyan-300">O</span>
+        <%= image_tag "osmove-mark.svg", alt: "", aria: { hidden: true }, class: "h-5 w-5" %>
         Sign in with Osmove
       <% end %>
     <% end %>

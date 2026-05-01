@@ -270,7 +270,7 @@ Devise.setup do |config|
 
     config.omniauth :osmove,
                     ENV['OSMOVE_OAUTH_CLIENT_ID'],
-                    ENV['OSMOVE_OAUTH_CLIENT_SECRET'],
+                    ENV.fetch('OSMOVE_OAUTH_CLIENT_SECRET', nil),
                     scope: 'openid profile email',
                     pkce: true,
                     client_options: {
