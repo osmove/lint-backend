@@ -1,8 +1,13 @@
 class User < ApplicationRecord
+  CONFIGURED_OMNIAUTH_PROVIDERS = [
+    :github,
+    (:osmove if ENV['OSMOVE_OAUTH_CLIENT_ID'].present?)
+  ].compact.freeze
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :validatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: %i[github],
+         :recoverable, :rememberable, :trackable, :omniauthable, omniauth_providers: CONFIGURED_OMNIAUTH_PROVIDERS,
                                                                  authentication_keys: [:login]
 
   attr_accessor :current_password
@@ -230,6 +235,38 @@ class User < ApplicationRecord
         # uncomment the line below to skip the confirmation emails.
         # user.skip_confirmation!
       end
+  end
+
+  def self.from_osmove_omniauth(auth)
+    uid = auth.uid.to_s
+    email = auth.info.email.to_s.downcase.presence
+
+    user = where(provider: 'osmove', uid: uid).first
+    user ||= email.present? ? where('lower(email) = ?', email).first : nil
+    user ||= new
+
+    user.provider = 'osmove'
+    user.uid = uid
+    user.email = email || user.email || "osmove-#{uid}@oauth.local"
+    user.username = osmove_username_for(auth, excluding: user) if user.username.blank?
+    user.password = Devise.friendly_token[0, 20] if user.encrypted_password.blank?
+    user.skip_confirmation! if user.respond_to?(:skip_confirmation!) && user.new_record?
+    user.save!
+    user
+  end
+
+  def self.osmove_username_for(auth, excluding:)
+    base = auth.info.name.presence || auth.info.email.to_s.split('@').first.presence || "osmove-#{auth.uid}"
+    base = base.to_s.parameterize.presence || "osmove-#{auth.uid}"
+    candidate = base
+    index = 2
+
+    while where(username: candidate).where.not(id: excluding.id).exists?
+      candidate = "#{base}-#{index}"
+      index += 1
+    end
+
+    candidate
   end
 
 protected

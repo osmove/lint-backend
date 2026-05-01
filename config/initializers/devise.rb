@@ -265,6 +265,22 @@ Devise.setup do |config|
   # Lint Prod
   # config.omniauth :github, '7f40223c352e362beec2', '6e9a2ff4426b57682477be948a3f40b0437842cb', scope: 'user, repo, read:org, admin:repo_hook, repo_deployment', :redirect_uri => 'https://lint.to/users/auth/github'
 
+  if ENV['OSMOVE_OAUTH_CLIENT_ID'].present?
+    require Rails.root.join('lib/omniauth/strategies/osmove').to_s
+
+    config.omniauth :osmove,
+                    ENV['OSMOVE_OAUTH_CLIENT_ID'],
+                    ENV['OSMOVE_OAUTH_CLIENT_SECRET'],
+                    scope: 'openid profile email',
+                    pkce: true,
+                    client_options: {
+                      site: ENV.fetch('OSMOVE_OAUTH_SITE', 'https://accounts.osmove.com'),
+                      authorize_url: '/oauth/authorize',
+                      token_url: '/oauth/token'
+                    },
+                    user_info_url: ENV.fetch('OSMOVE_OAUTH_USERINFO_URL', '/api/v1/hub/me')
+  end
+
   # (no scope)	Grants read-only access to public information (includes public user profile info, public repository info, and gists)
   # repo	Grants read/write access to code, commit statuses, invitations, collaborators, adding team memberships, and deployment statuses for public and private repositories and organizations.
   #  repo:status	Grants read/write access to public and private repository commit statuses. This scope is only necessary to grant other users or services access to private repository commit statuses without granting access to the code.
