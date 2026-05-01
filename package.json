@@ -38,6 +38,6 @@
   "author": "Jimmy Douieb",
   "license": "UNLICENSED",
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   }
 }

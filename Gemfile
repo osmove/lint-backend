@@ -10,6 +10,7 @@ gem 'rails', '~> 8.1'
 
 # Asset Pipeline
 gem 'dartsass-rails', '~> 0.5'
+gem 'image_processing', '~> 1.14'
 gem 'jbuilder', '~> 2.12'
 gem 'sprockets-rails'
 gem 'terser'
