@@ -92,5 +92,5 @@ Devise.setup do |config|
                   ENV.fetch('GITHUB_CLIENT_ID', ''),
                   ENV.fetch('GITHUB_CLIENT_SECRET', ''),
                   scope: 'read:user, public_repo, read:org',
-                  redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'https://lint.to/users/auth/github')
+                  redirect_uri: ENV.fetch('GITHUB_OAUTH_REDIRECT_URI', 'https://lint.to/users/auth/github/callback')
 end
