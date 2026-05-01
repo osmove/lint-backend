@@ -20,13 +20,12 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 
 # UI
-gem 'bootstrap', '~> 5.3'
 gem 'font-awesome-sass', '~> 6.5'
 
-# Tailwind for the modernized marketing pages (home, features,
-# pricing, security, contact, terms, privacy). Dashboard / app
-# screens stay on Bootstrap — both stylesheets coexist, scoped
-# per layout.
+# Tailwind is the app-wide CSS framework. Legacy Rails views still emit
+# older utility/component class names while they are being rewritten;
+# app/assets/tailwind/legacy-ui.css maps those selectors onto local
+# Tailwind-era styles without shipping another CSS framework.
 gem 'tailwindcss-rails', '~> 4.3'
 
 # Authentication
@@ -35,7 +34,6 @@ gem 'omniauth-github', '~> 2.0'
 gem 'omniauth-rails_csrf_protection'
 
 # Forms & URLs
-gem 'bootstrap_form', '~> 5.4'
 gem 'friendly_id', '~> 5.5'
 
 # Infrastructure

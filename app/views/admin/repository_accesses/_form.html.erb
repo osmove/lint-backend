@@ -1,6 +1,6 @@
 <%# form_with(model: repository_access, local: true) do |form| %>
-<% # bootstrap_form_for(@repository_access, url: user_repository_repository_accesses_path(@user, @repository)) do |form| %>
-<%= bootstrap_form_for(@repository_access, url: @form_action) do |form| %>
+<% # lint_form_for(@repository_access, url: user_repository_repository_accesses_path(@user, @repository)) do |form| %>
+<%= lint_form_for(@repository_access, url: @form_action) do |form| %>
 
   <% if repository_access.errors.any? %>
     <div id="error_explanation">

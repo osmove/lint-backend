@@ -1,6 +1,6 @@
 <div class="card mb-3">
   <div class="card-body">
-    <%= bootstrap_form_with(model: platform, local: true) do |form| %>
+    <%= lint_form_with(model: platform, local: true) do |form| %>
       <% if platform.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(platform.errors.count, "error") %> prohibited this platform from being saved:</h2>

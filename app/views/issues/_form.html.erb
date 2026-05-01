@@ -1,6 +1,6 @@
-<% # bootstrap_form_with(model: issue, local: true) do |form| %>
-<% # bootstrap_form_for(@issue, url: user_repository_issues_path(@user, @repository)) do |form| %>
-<%= bootstrap_form_for(@issue, url: @form_action) do |form| %>
+<% # lint_form_with(model: issue, local: true) do |form| %>
+<% # lint_form_for(@issue, url: user_repository_issues_path(@user, @repository)) do |form| %>
+<%= lint_form_for(@issue, url: @form_action) do |form| %>
 
   <% if issue.errors.any? %>
     <div id="error_explanation">

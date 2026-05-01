@@ -14,7 +14,7 @@
               <img src="/images/platformicons/svg/generic.svg" width="30" height="30" class="d-inline-block align-top mr-1" alt="Lint Logo" style="border-radius: 5px; margin-top: -2px; margin-bottom: -3px;">
             <% end %>
 
-            <%= raw @repository.pretty_uuid_html %>
+            <%= pretty_repository_uuid(@repository) %>
           </a>
         <% else %>
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

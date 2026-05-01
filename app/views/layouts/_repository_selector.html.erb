@@ -13,7 +13,7 @@
          -->
 
         <span class="">
-        <%= @repository.pretty_uuid_html.html_safe %>
+        <%= pretty_repository_uuid(@repository) %>
         </span>
       </a>
     <% else %>
@@ -49,7 +49,7 @@
             <img src="/images/platformicons/svg/generic.svg" alt="<%= repository.platform %>" style="width: 24px; height: 24px; border-radius: 4px; margin-right: 5px;" />
           <% end %>
 
-          <%= repository.pretty_uuid_html.html_safe %>
+          <%= pretty_repository_uuid(repository) %>
 
           <% if repository.status == 'Private' %>
             <i class="fa fa-eye-slash text-muted ml-1"></i>

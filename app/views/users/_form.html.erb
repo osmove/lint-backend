@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@user, url: @form_url, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |form| %>
+<%= lint_form_for(@user, url: @form_url, layout: :horizontal, label_col: "col-sm-4", control_col: "col-sm-8") do |form| %>
   <% if @user.errors.any? %>
     <div id="error_explanation" class="text-danger">
       <h4><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h4>

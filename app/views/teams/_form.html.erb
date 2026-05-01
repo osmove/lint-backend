@@ -1,5 +1,5 @@
 <%#= form_with(model: team, local: true) do |form| %>
-<%= bootstrap_form_for(@team, url: @form_url) do |form| %>
+<%= lint_form_for(@team, url: @form_url) do |form| %>
 
   <% if @team.errors.any? %>
     <div id="error_explanation">

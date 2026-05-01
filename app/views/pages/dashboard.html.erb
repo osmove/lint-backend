@@ -321,7 +321,7 @@
 
               <div class="mb-3" id="new_organization_form_container" style="display: none;">
                 <p>Create an organization</p>
-                <%= bootstrap_form_for(resource, as: resource_name, url: organizations_path) do |f| %>
+                <%= lint_form_for(resource, as: resource_name, url: organizations_path) do |f| %>
                   <div class="field">
                     <%= f.text_field :organization_name, autofocus: true, autocomplete: "off", autocorrect: "off", autocapitalize: true, hide_label: true, class: "custom-form", placeholder: "Organization name", wrapper: { class: '' } %>
                   </div>

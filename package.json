@@ -1,5 +1,5 @@
 {
-  "name": "lint-cloud",
+  "name": "lint-backend",
   "private": true,
   "version": "1.0.0",
   "description": "Rails backend for lint.to and the Lint platform APIs.",
@@ -13,27 +13,27 @@
     "lint": "file:../lint-cli"
   },
   "scripts": {
-    "runtime:check": "ruby script/ensure_runtime.rb",
-    "bundler:ensure": "npm run runtime:check && ruby script/ensure_bundler.rb",
-    "setup": "npm run runtime:check && bin/setup",
-    "server": "npm run runtime:check && bin/rails server",
-    "db:setup": "npm run runtime:check && bin/rails db:create db:migrate db:seed",
-    "db:prepare": "npm run runtime:check && bin/rails db:prepare",
-    "console": "npm run runtime:check && bin/rails console",
-    "test": "npm run runtime:check && bin/rails test",
-    "lint": "npm run runtime:check && bin/bundle exec rubocop --fail-level error",
-    "lint:strict": "npm run runtime:check && bin/bundle exec rubocop",
-    "security": "npm run runtime:check && bin/bundle exec brakeman -i config/brakeman.ignore --ensure-ignore-notes --ensure-no-obsolete-ignore-entries",
-    "security:strict": "npm run runtime:check && bin/bundle exec brakeman -i config/brakeman.empty.ignore",
+    "runtime:check": "script/runtime_exec ruby script/ensure_runtime.rb",
+    "bundler:ensure": "npm run runtime:check && script/runtime_exec ruby script/ensure_bundler.rb",
+    "setup": "npm run runtime:check && script/runtime_exec bin/setup",
+    "server": "npm run runtime:check && script/runtime_exec bin/rails server",
+    "db:setup": "npm run runtime:check && script/runtime_exec bin/rails db:create db:migrate db:seed",
+    "db:prepare": "npm run runtime:check && script/runtime_exec bin/rails db:prepare",
+    "console": "npm run runtime:check && script/runtime_exec bin/rails console",
+    "test": "npm run runtime:check && script/runtime_exec bin/rails test",
+    "lint": "npm run runtime:check && script/runtime_exec bin/bundle exec rubocop --fail-level error",
+    "lint:strict": "npm run runtime:check && script/runtime_exec bin/bundle exec rubocop",
+    "security": "npm run runtime:check && script/runtime_exec bin/bundle exec brakeman -i config/brakeman.ignore --ensure-ignore-notes --ensure-no-obsolete-ignore-entries",
+    "security:strict": "npm run runtime:check && script/runtime_exec bin/bundle exec brakeman -i config/brakeman.empty.ignore",
     "verify": "npm run bundler:ensure && npm run lint && npm test && npm run security"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/osmove/lint-cloud.git"
+    "url": "https://github.com/osmove/lint-backend.git"
   },
-  "homepage": "https://github.com/osmove/lint-cloud#readme",
+  "homepage": "https://github.com/osmove/lint-backend#readme",
   "bugs": {
-    "url": "https://github.com/osmove/lint-cloud/issues"
+    "url": "https://github.com/osmove/lint-backend/issues"
   },
   "author": "Jimmy Douieb",
   "license": "UNLICENSED",

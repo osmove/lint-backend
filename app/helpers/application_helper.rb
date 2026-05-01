@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include LintFormHelper
+
   # Some legacy admin forms still render Cocoon-style helper calls even though
   # the dedicated gem is no longer part of the backend bundle. These fallbacks
   # keep the server-rendered forms stable and preserve the expected markup.
@@ -36,5 +38,12 @@ module ApplicationHelper
         )
       ].compact
     )
+  end
+
+  def pretty_repository_uuid(repository)
+    return '-' if repository.blank? || repository.uuid.blank?
+
+    owner, name = repository.uuid.to_s.split('/', 2)
+    safe_join([owner, ' / ', tag.strong(name)])
   end
 end

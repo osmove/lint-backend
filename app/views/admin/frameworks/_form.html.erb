@@ -1,6 +1,6 @@
 <div class="card mb-3">
   <div class="card-body">
-    <%= bootstrap_form_for(@framework, url: @form_url) do |form| %>
+    <%= lint_form_for(@framework, url: @form_url) do |form| %>
       <% if framework.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(framework.errors.count, "error") %> prohibited this framework from being saved:</h2>

@@ -1,0 +1,36 @@
+#!/bin/sh
+set -eu
+
+app_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+ruby_version_file="$app_root/.ruby-version"
+
+if [ ! -f "$ruby_version_file" ]; then
+  echo ".ruby-version not found at $ruby_version_file" >&2
+  exit 1
+fi
+
+required_version="$(tr -d '[:space:]' < "$ruby_version_file")"
+
+if [ -z "$required_version" ]; then
+  echo "No Ruby version found in $ruby_version_file" >&2
+  exit 1
+fi
+
+if command -v mise >/dev/null 2>&1; then
+  exec mise exec "ruby@$required_version" -- "$@"
+fi
+
+active_version="$(ruby -e 'print RUBY_VERSION' 2>/dev/null || true)"
+if [ "$active_version" = "$required_version" ]; then
+  exec "$@"
+fi
+
+cat >&2 <<MSG
+Expected Ruby $required_version, but the current shell is using Ruby ${active_version:-unknown}.
+
+Install mise or activate the repository Ruby before continuing:
+  mise exec ruby@$required_version -- <command>
+  mise use -g ruby@$required_version
+MSG
+
+exit 1

@@ -289,8 +289,6 @@ private
   end
   helper_method :resource_class
 
-  private
-
   def resolve_layout
     MODERNIZED_PAGES.include?(action_name.to_sym) ? 'lint_marketing' : 'prelaunch'
   end

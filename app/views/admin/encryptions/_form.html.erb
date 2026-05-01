@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@encryption, url: @form_url) do |form| %>
+<%= lint_form_for(@encryption, url: @form_url) do |form| %>
   <% if @encryption.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@encryption.errors.count, "error") %> prohibited this encryption from being saved:</h2>

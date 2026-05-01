@@ -1,5 +1,5 @@
 
-<%= bootstrap_form_for(@commit, url: @form_url, as: :lint_commit) do |form| %>
+<%= lint_form_for(@commit, url: @form_url, as: :lint_commit) do |form| %>
 
   <% if @commit.errors.any? %>
     <div id="error_explanation">

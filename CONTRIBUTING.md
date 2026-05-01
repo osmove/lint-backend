@@ -6,11 +6,11 @@ This repository is the Rails backend for Lint. The CLI lives in the sibling repo
 
 Recommended local prerequisites:
 
-- Ruby `3.3.6`
+- Ruby `3.4.9`
 - Node.js `22`
 - PostgreSQL `16`
 
-Bootstrap a local environment:
+Set up a local environment:
 
 ```bash
 cp .env.example .env
@@ -59,7 +59,7 @@ If your local Ruby installation does not already have the Bundler version pinned
 
 ## Repository Notes
 
-- `origin` should point to `osmove/lint-cloud`
+- `origin` should point to `osmove/lint-backend`
 - the published CLI package does not live in this repository
 - `package.json` depends on the sibling CLI repo through `file:../lint-cli`
 - the Heroku remote still uses the legacy app name and has not been renamed

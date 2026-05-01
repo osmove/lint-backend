@@ -12,9 +12,7 @@
  *
  */
 
-@import "bootstrap";
 @import "font-awesome";
-@import "rails_bootstrap_forms";
 
 html {
   background-color: #fff;
@@ -298,7 +296,7 @@ footer a:hover {
 
 // ############ Media queries ############
 
-@include media-breakpoint-only(xs) {
+@media (max-width: 575.98px) {
   .btn-block-xs-only {
     display: block;
     width: 100%;
@@ -323,7 +321,7 @@ footer a:hover {
   // }
 }
 
-@include media-breakpoint-only(sm) {
+@media (min-width: 576px) and (max-width: 767.98px) {
   // h1{ font-size: 26px !important; }
   // h2{ font-size: 24px !important; }
   // h3{ font-size: 22px !important; font-weight: bold; }
@@ -355,7 +353,7 @@ footer a:hover {
   // }
 }
 
-@include media-breakpoint-only(md) {
+@media (min-width: 768px) and (max-width: 991.98px) {
   .btn-block-md-only {
     display: block;
     width: 100%;
@@ -366,13 +364,13 @@ footer a:hover {
     font-size: 56px !important;
   }
 }
-@include media-breakpoint-only(lg) {
+@media (min-width: 992px) and (max-width: 1199.98px) {
   .h1-responsive {
     font-size: 60px !important;
   }
 }
 
-@include media-breakpoint-up(md) {
+@media (min-width: 768px) {
   .navbar.navbar-dashboard input {
     width: 360px !important;
   }
@@ -381,7 +379,7 @@ footer a:hover {
   }
 }
 
-@include media-breakpoint-up(lg) {
+@media (min-width: 992px) {
   .navbar.navbar-dashboard input {
     width: 500px !important;
   }

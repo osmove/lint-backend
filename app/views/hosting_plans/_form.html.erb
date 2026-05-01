@@ -1,4 +1,4 @@
-<%= bootstrap_form_with(model: hosting_plan, local: true) do |form| %>
+<%= lint_form_with(model: hosting_plan, local: true) do |form| %>
   <% if hosting_plan.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(hosting_plan.errors.count, "error") %> prohibited this hosting_plan from being saved:</h2>

@@ -25,7 +25,7 @@
             <div class="card-body">
               <h5>Assign new policy</h5>
               <p>Change policy for repository: "<strong><%= @repository.uuid %></strong>".</p>
-              <%= bootstrap_form_for(@repository, url: @form_url) do |form| %>
+              <%= lint_form_for(@repository, url: @form_url) do |form| %>
                 <%# form.select :policy_id, current_user.policies.all.collect {|c| [ c.name, c.id ] }, {prompt: 'No policy', include_blank: true, hide_label: true}, onchange: "this.form.submit();" %>
                 <%= form.check_box :has_autofix, {label: "Enable Autofix - Automatically repair fixable offenses", class: "my-2" } %>
                 <%= form.select :policy_id, Policy.all.collect {|c| [ c.name, c.id ] }, {include_blank: 'No Policy', hide_label: true} %>
@@ -97,7 +97,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <p>No policies, please select:</p>
-                <%= bootstrap_form_for(@repository, url: @form_url) do |form| %>
+                <%= lint_form_for(@repository, url: @form_url) do |form| %>
                   <%= form.select :policy_id, current_user.policies.all.collect {|c| [ c.name, c.id ] }, {prompt: 'No policy', hide_label: true} %>
                   <div class="actions">
                     <%= form.submit %>

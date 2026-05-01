@@ -1,5 +1,5 @@
 
-<%= bootstrap_form_for(@rule, url: @form_url) do |form| %>
+<%= lint_form_for(@rule, url: @form_url) do |form| %>
   <% if rule.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(rule.errors.count, "error") %> prohibited this rule from being saved:</h2>

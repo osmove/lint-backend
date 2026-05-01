@@ -1,5 +1,5 @@
 //
-// // heavily modified BS4 version of https://github.com/openam/bootstrap-responsive-tabs
+// // legacy responsive tabs helper, derived from an older responsive-tabs pattern
 // var fakewaffle = ( function ( $, fakewaffle ) {
 // 	'use strict';
 //

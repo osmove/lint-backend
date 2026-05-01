@@ -260,7 +260,7 @@ Rails.application.routes.draw do
 
   # 2026-04-30 brand refresh: marketing root now points at the
   # rewritten Tailwind home page (pages#home) instead of the legacy
-  # Bootstrap pages#prelaunch. The old prelaunch view is kept under
+  # pages#prelaunch. The old prelaunch view is kept under
   # /prelaunch in case anything still links to it.
   root to: 'pages#home'
 end
