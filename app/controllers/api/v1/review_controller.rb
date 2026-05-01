@@ -4,6 +4,8 @@ module Api
       # POST /api/v1/review
       # Get AI-powered code review for violations
       def create
+        return unless require_scope!('lint.reviews:create')
+
         violations = params[:violations]
 
         return render json: { error: 'violations array is required' }, status: :unprocessable_content unless violations.is_a?(Array) && violations.any?

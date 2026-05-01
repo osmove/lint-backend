@@ -4,6 +4,8 @@ module Api
       # POST /api/v1/repositories/:repository_uuid/recommend
       # Get AI-powered rule recommendations for a repository
       def create
+        return unless require_scope!('lint.repositories:read')
+
         repository = current_user.repositories.find_by(uuid: params[:repository_uuid])
 
         return render json: { error: 'Repository not found' }, status: :not_found unless repository

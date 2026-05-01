@@ -4,6 +4,8 @@ module Api
       # POST /api/v1/policies/generate
       # Generate a policy from natural language description
       def generate
+        return unless require_scope!('lint.policies:write')
+
         description = params[:description]
 
         return render json: { error: 'description is required' }, status: :unprocessable_content if description.blank?

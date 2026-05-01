@@ -4,6 +4,8 @@ module Api
       # POST /api/v1/lint
       # Submit lint results and get AI-powered feedback
       def create
+        return unless require_scope!('lint.results:write')
+
         repository = current_user.repositories.find_by(uuid: params[:repository_uuid])
 
         return render json: { error: 'Repository not found' }, status: :not_found unless repository
