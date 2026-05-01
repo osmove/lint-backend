@@ -26,6 +26,7 @@ class User < ApplicationRecord
   # validates :password_confirmation, presence: :true
 
   has_many :repositories, dependent: :destroy
+  has_many :projects, dependent: :destroy
   # has_many :repositories
   has_many :messages, dependent: :destroy
 

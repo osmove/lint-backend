@@ -7,6 +7,7 @@ class Repository < ApplicationRecord
   include ActionView::Helpers::DateHelper
 
   belongs_to :user
+  belongs_to :project, optional: true
 
   belongs_to :policy, optional: true
   belongs_to :platform, optional: true
@@ -124,15 +125,6 @@ class Repository < ApplicationRecord
       @pretty_uuid = "#{splitted_uuid.first} / #{splitted_uuid.last}"
     else
       @pretty_uuid = '-'
-    end
-  end
-
-  def pretty_uuid_html
-    if uuid.present?
-      splitted_uuid = uuid.split('/')
-      @pretty_uuid_html = "#{splitted_uuid.first} / <strong>#{splitted_uuid.last}</strong>"
-    else
-      @pretty_uuid_html = '-'
     end
   end
 
