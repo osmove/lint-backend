@@ -14,6 +14,7 @@ The companion CLI tool is published as the npm package [`lint`](https://www.npmj
 - **Server**: Puma 6 (port 3000)
 - **Frontend**: Bootstrap 5 + Hotwire (Turbo + Stimulus) + Sprockets
 - **Authentication**: Devise 4.9 with GitHub OAuth (omniauth-github 2.0)
+- **Osmove Identity**: see `docs/osmove-identity.md` before touching first-party SSO.
 - **Payments**: Stripe 12
 - **Email**: Postmark
 - **Monitoring**: Sentry (sentry-ruby + sentry-rails)
