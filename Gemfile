@@ -35,7 +35,7 @@ gem 'omniauth-github', '~> 2.0'
 gem 'omniauth-rails_csrf_protection'
 
 # Forms & URLs
-gem 'friendly_id', '~> 5.5'
+gem 'friendly_id', '~> 5.7'
 
 # Infrastructure
 gem 'browser', '~> 6.0'
