@@ -35,11 +35,11 @@ gem 'omniauth-github', '~> 2.0'
 gem 'omniauth-rails_csrf_protection'
 
 # Forms & URLs
-gem 'friendly_id', '~> 5.5'
+gem 'friendly_id', '~> 5.7'
 
 # Infrastructure
 gem 'browser', '~> 6.0'
-gem 'faraday', '~> 2.9'
+gem 'faraday', '~> 2.14'
 gem 'git'
 gem 'net-ssh', '~> 7.2'
 gem 'postmark-rails', '~> 0.22'
@@ -70,7 +70,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'letter_opener'
   gem 'minitest', '~> 6.0'
-  gem 'selenium-webdriver', '~> 4.16'
+  gem 'selenium-webdriver', '~> 4.44'
 end
 
 group :development do
